@@ -1,141 +1,68 @@
 import bcrypt from "bcrypt";
 import middlewares from "../middlewares/index.js";
 import config from "../../config/config.js";
+import * as User from "../models/user.js";
 
 // TODO: Set headers
 const ROUTE = "/users";
 const DEV_ROUTE = "/users/dev";
 
 export default (router) => {
-  // TODO - WARNING: Remove this route. Only used for development.
-  router.get(DEV_ROUTE, middlewares.database, async (request, response) => {
-    let conn;
-
-    try {
-      conn = await request.database.getConnection();
-      const users = await conn.query(`
-        SELECT
-            users.user_id,
-            roles.name AS "role",
-            users.email
-        FROM users
-        LEFT JOIN roles ON users.role_id = roles.role_id
-      `);
-
-      response.json(users).status(200).end();
-    } catch (err) {
-      throw err;
-    } finally {
-      if (conn) await conn.end();
-    }
-  });
-
-  // Find user by email
+  /***********************************************************
+   * GET
+   ***********************************************************/
+  // Find by email
   router.get(ROUTE, middlewares.database, async (request, response) => {
     const { email } = request.query;
+    let result;
 
-    if (!checkEmail(email)) {
+    // Find user
+    try {
+      result = await User.findByEmail(request.database, email);
+    } catch (err) {
+      response.status(500).end();
+    }
+
+    // Check for error
+    if (result.hasOwnProperty("error")) {
       return response
-        .status(400)
-        .send("Missing or invalid email parameter in query.")
+        .status(result.code || 500)
+        .send(result.error.message || null)
         .end();
     }
 
-    let conn;
-
-    try {
-      conn = await request.database.getConnection();
-      const user = await conn.query(`
-        SELECT
-          users.user_id,
-          roles.name AS "role",
-          users.email
-        FROM users
-        LEFT JOIN roles ON users.role_id = roles.role_id
-        WHERE users.email = ?
-      `, [email]);
-
-      response.json(user).status(200).end()
-    } catch (err) {
-      response.status(500).end();
-      throw err;
-    } finally {
-      if (conn) conn.end().catch(console.error);
-    }
+    // No error, return results
+    response.status(result.code)
+      .json(result.data)
+      .end();
   });
 
+  /***********************************************************
+   * ADD
+   ***********************************************************/
   // Add user
   router.post(ROUTE, middlewares.database, async (request, response) => {
     const { email, password, passwordConfirm } = request.body;
+    let result;
 
-    // Check if every field are filled.
-    if (!checkEmail(email) || !checkPassword(password) || !checkPassword(passwordConfirm)) {
-      return response
-        .status(400)
-        .send(`Missing or invalid parameter(s) in body. Require "email", "password" and "passwordConfirm".`)
-        .end();
-    }
-
-    // Check if the two passwords are identical
-    if (!checkPasswordsPair(password, passwordConfirm)) {
-      return response
-        .status(400)
-        .send(`The passwords doesn't match.`)
-        .end();
-    }
-
-    // Check if the email is available
-    if (!await checkEmailAvailability(email, request.database)) {
-      return response
-        .status(400)
-        .send(`The email is already taken.`)
-        .end();
-    }
-
-    let conn;
-
-    const hashedPwd = await bcrypt.hash(password, config.app.security.saltRound);
-
+    // Add user
     try {
-      conn = await request.database.getConnection();
-      await conn.query(`
-        INSERT INTO users(email, password)
-        VALUES (?, ?)
-      `, [email, hashedPwd]);
-
-      response.status(202).end()
+      result = await User.register(request.database, email, password, passwordConfirm);
     } catch (err) {
       response.status(500).end();
-      throw err;
-    } finally {
-      if (conn) conn.end().catch(console.error);
     }
+
+    // Check for error
+    if (result.hasOwnProperty("error")) {
+      return response
+        .status(result.code || 500)
+        .send(result.error.message || null)
+        .end();
+    }
+
+    // No error, return results
+    response.status(result.code)
+      .json(result.data)
+      .end();
   });
 };
-
-function checkEmail(email, db = null) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-async function checkEmailAvailability(email, db) {
-  let conn;
-
-  try {
-    conn = await db.getConnection();
-    const user = await db.query("SELECT email FROM users WHERE email = ?", [email]);
-
-    return user.length === 0;
-  }
-  catch (err) { throw err; }
-  finally { if (conn) conn.end().catch(console.error); }
-
-  return false;
-}
-
-function checkPassword(password) {
-  return password !== undefined && `${password}`.length > 0;
-}
-
-function checkPasswordsPair(password1, password2) {
-  return password1 === password2;
-}
