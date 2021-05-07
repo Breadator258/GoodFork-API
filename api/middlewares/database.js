@@ -11,7 +11,12 @@ const pool = mariadb.createPool({
 });
 
 const database = async (request, response, next) => {
-  request.database = pool;
+  request.database = new Promise((resolve, reject) => {
+    pool.getConnection()
+      .then(conn => resolve(conn))
+      .catch(err => reject(err));
+  });
+
   next();
 }
 

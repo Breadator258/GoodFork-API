@@ -1,68 +1,55 @@
-import bcrypt from "bcrypt";
+import { Router } from "express";
 import middlewares from "../middlewares/index.js";
-import config from "../../config/config.js";
-import * as User from "../models/user.js";
+import User from "../models/User.js";
+import ModelError from "../../global/ModelError.js";
 
 // TODO: Set headers
-const ROUTE = "/users";
-const DEV_ROUTE = "/users/dev";
+const route = Router();
 
 export default (router) => {
-  /***********************************************************
-   * GET
-   ***********************************************************/
-  // Find by email
-  router.get(ROUTE, middlewares.database, async (request, response) => {
-    const { email } = request.query;
-    let result;
+  router.use("/users", route);
 
-    // Find user
-    try {
-      result = await User.findByEmail(request.database, email);
-    } catch (err) {
-      response.status(500).end();
+  /* ---- CREATE ---------------------------------- */
+  route.post(
+    "/",
+    middlewares.checkParams("email", "password1", "password2"),
+    middlewares.database,
+    async (request, response) => {
+      const {email, password1, password2} = request.body;
+      const db = await request.database;
+
+      User.add(db, email, password1, password2)
+        .then(result => {
+          if (result instanceof ModelError) {
+            response.status(result.code()).json(result.json()).end();
+          } else {
+            response.status(202).json({code: 202, message: "User created."}).end();
+          }
+        })
+        .catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
+        .finally(() => db ? db.release() : null);
     }
+  );
 
-    // Check for error
-    if (result.hasOwnProperty("error")) {
-      return response
-        .status(result.code || 500)
-        .send(result.error.message || null)
-        .end();
+  /* ---- READ ------------------------------------ */
+  route.get(
+    "/:email",
+    middlewares.checkParams("email"),
+    middlewares.database,
+    async (request, response) => {
+      const { email } = request.params;
+      const db = await request.database;
+
+      User.getByEmail(db, email)
+        .then(result => {
+          if (result instanceof ModelError) {
+            response.status(result.code()).json(result.json()).end();
+          } else {
+            response.status(200).json(result ? (result.length > 0 ? result[0] : result) : null).end();
+          }
+        })
+        .catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
+        .finally(() => db ? db.release() : null);
     }
-
-    // No error, return results
-    response.status(result.code)
-      .json(result.data)
-      .end();
-  });
-
-  /***********************************************************
-   * ADD
-   ***********************************************************/
-  // Add user
-  router.post(ROUTE, middlewares.database, async (request, response) => {
-    const { email, password, passwordConfirm } = request.body;
-    let result;
-
-    // Add user
-    try {
-      result = await User.register(request.database, email, password, passwordConfirm);
-    } catch (err) {
-      response.status(500).end();
-    }
-
-    // Check for error
-    if (result.hasOwnProperty("error")) {
-      return response
-        .status(result.code || 500)
-        .send(result.error.message || null)
-        .end();
-    }
-
-    // No error, return results
-    response.status(result.code)
-      .json(result.data)
-      .end();
-  });
+  );
 };

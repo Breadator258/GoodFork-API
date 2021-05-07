@@ -1,5 +1,4 @@
+import checkParams from "./checkParams.js";
 import database from "./database.js";
 
-export default {
-  database
-}
+export default { checkParams, database }

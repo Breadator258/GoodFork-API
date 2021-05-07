@@ -1,12 +1,9 @@
 const config = {
   app: {
-    port: 8164,
+    port: 8080,
     security: {
       saltRound: 10
     }
-  },
-  api: {
-    prefix: "/"
   },
   db: {
     host: "3.134.79.46",
@@ -15,6 +12,9 @@ const config = {
     user: "goodfork",
     password: "Is This A S4lad?!",
     connectionLimit: 5
+  },
+  api: {
+    prefix: "/api"
   }
 }
 
