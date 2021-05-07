@@ -2,9 +2,9 @@ import { Router } from "express";
 import users from "./routes/users.js";
 
 export default () => {
-  const router = Router();
+	const router = Router();
 
-  users(router);
+	users(router);
 
-  return router;
-}
+	return router;
+};
