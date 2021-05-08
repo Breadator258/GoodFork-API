@@ -6,42 +6,13 @@ import ModelError from "../../global/ModelError.js";
  * Checkers
  *****************************************************/
 
-// TODO: Remove?
-const isValidUsername = username => {
-	return username !== undefined && `${username}`.length > 0 && `${username}`.length <= 32;
-};
-
-// TODO: Make this
-// TODO: Remove?
-const isUsernameAvailable = async username => {
-	//return !!await Users.findOne({ username: username }).exec();
-	return true;
-};
-
 const isValidEmail = email => {
 	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
 
-// TODO: Make this
-/*
-export async function checkEmailAvailability(email, db) {
-  let conn;
-
-  try {
-    conn = await db.getConnection();
-    const user = await db.query("SELECT email FROM users WHERE email = ?", [email]);
-
-    return user.length === 0;
-  }
-  catch (err) { throw err; }
-  finally { if (conn) conn.end().catch(console.error); }
-
-  return false;
-}
- */
-const isEmailAvailable = async email => {
-	//return !!await Users.findOne({ email: email }).exec();
-	return true;
+const isEmailAvailable = async (db, email) => {
+	const user = await db.query("SELECT email FROM users WHERE email = ?", [email]);
+	return user.length === 0;
 };
 
 const isValidPassword = password => {
@@ -71,7 +42,7 @@ const doesPasswordMatchHash = async (password, hash) => {
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
-const add = async (db, email, password1, password2) => {
+const add = async (db, firstName, lastName, email, password1, password2) => {
 	// Check if something is invalid
 	if (!isValidEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
@@ -90,7 +61,7 @@ const add = async (db, email, password1, password2) => {
 	}
 
 	// Check if something is not available
-	if (await isEmailAvailable(email)) {
+	if (!await isEmailAvailable(db, email)) {
 		return new ModelError(400, "This email address is already taken.", ["email"]);
 	}
 
@@ -99,13 +70,27 @@ const add = async (db, email, password1, password2) => {
 
 	// Add the user
 	return db.query(`
-    INSERT INTO users(email, password)
-    VALUES (?, ?)
-    `, [email, hashedPwd]
+    INSERT INTO users(firstName, lastName, email, password)
+    VALUES (?, ?, ?, ?)
+    `, [firstName, lastName ? lastName : null, email, hashedPwd]
 	);
 };
 
 /* ---- READ ------------------------------------ */
+const getStaff = db => {
+	return db.query(`
+		SELECT
+      users.user_id,
+      roles.name AS "role",
+      users.firstName,
+      users.lastName,
+      users.email
+    FROM users
+    LEFT JOIN roles ON users.role_id = roles.role_id
+    WHERE roles.name <> "customer"
+	`);
+};
+
 const getByEmail = (db, email) => {
 	if (!isValidEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
@@ -115,6 +100,8 @@ const getByEmail = (db, email) => {
     SELECT
       users.user_id,
       roles.name AS "role",
+      users.firstName,
+      users.lastName,
       users.email
     FROM users
     LEFT JOIN roles ON users.role_id = roles.role_id
@@ -122,9 +109,18 @@ const getByEmail = (db, email) => {
   `, [email]);
 };
 
+/* ---- DELETE ---------------------------------- */
+const deleteStaff = (db, userId) => {
+	return db.query(`
+		DELETE users.* FROM users
+    LEFT JOIN roles ON users.role_id = roles.role_id
+    WHERE roles.name <> "customer" AND users.user_id = ?
+	`, [userId]);
+};
+
 /*****************************************************
  * Export
  *****************************************************/
 
-const User = { add, getByEmail };
+const User = { add, getStaff, getByEmail, deleteStaff };
 export default User;
