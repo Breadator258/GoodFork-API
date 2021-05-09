@@ -23,7 +23,10 @@
     "cors": "^2.8.5",
     "eslint-plugin-security-node": "^1.0.14",
     "express": "^4.17.1",
-    "mariadb": "^2.5.3"
+    "generate-password": "^1.6.0",
+    "googleapis": "^73.0.0",
+    "mariadb": "^2.5.3",
+    "nodemailer": "^6.6.0"
   },
   "devDependencies": {
     "eslint": "^7.25.0"
