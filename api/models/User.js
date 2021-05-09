@@ -1,5 +1,7 @@
 import bcrypt from "bcrypt";
+import generatePwd from "generate-password";
 import config from "../../config/config.js";
+import Mail from "../../global/Mail.js";
 import ModelError from "../../global/ModelError.js";
 
 /*****************************************************
@@ -35,6 +37,11 @@ const hashPassword = async password => {
 
 const doesPasswordMatchHash = async (password, hash) => {
 	return await bcrypt.compare(password, hash);
+};
+
+const isRoleValid = async (db, role) => {
+	const roleFound = await db.query("SELECT role_id FROM roles WHERE role_id = ?", [role]);
+	return roleFound.length > 0;
 };
 
 /*****************************************************
@@ -76,6 +83,41 @@ const add = async (db, firstName, lastName, email, password1, password2) => {
 	);
 };
 
+const addStaff = async (db, firstName, lastName, email, role) => {
+	// Check if something is invalid
+	if (!isValidEmail(email)) {
+		return new ModelError(400, "You must provide a valid email address.", ["email"]);
+	}
+
+	// Check if something is not available
+	if (!await isEmailAvailable(db, email)) {
+		return new ModelError(400, "This email address is already taken.", ["email"]);
+	}
+
+	if (!await isRoleValid(db, role)) {
+		return new ModelError(400, "The selected role doesn't exist.", ["role"]);
+	}
+
+	// Create password
+	const password = generatePwd.generate({ length: 8, numbers: true, symbols: true, excludeSimilarCharacters: true, strict: true });
+	const hashedPwd = await hashPassword(password);
+
+	// Add the staff
+	await db.query(`
+    INSERT INTO users(role_id, firstName, lastName, email, password)
+    VALUES (?, ?, ?, ?, ?)
+    `, [role, firstName, lastName ? lastName : null, email, hashedPwd]
+	);
+
+	// Return the password
+	try {
+		await Mail.sendPassword(email, password);
+		return { code: 202, message: "Staff added." };
+	} catch (err) {
+		return new ModelError(500, "Could not send password to the new staff member's email address.");
+	}
+};
+
 /* ---- READ ------------------------------------ */
 const getStaff = db => {
 	return db.query(`
@@ -109,6 +151,22 @@ const getByEmail = (db, email) => {
   `, [email]);
 };
 
+/* ---- UPDATE ---------------------------------- */
+// TODO: Make possible to update role
+const update = (db, userId, firstName, lastName, email) => {
+	// Get fields to update
+	let updatingFields = [];
+
+	if (firstName) updatingFields.push(`firstName = "${firstName}"`);
+	if (lastName) updatingFields.push(`lastName = "${lastName}"`);
+	if (email) updatingFields.push(`email = "${email}"`);
+
+	updatingFields = updatingFields.join(", ");
+
+	// Update the user
+	return db.query(`UPDATE users SET ${updatingFields} WHERE user_id = ?`, [userId]);
+};
+
 /* ---- DELETE ---------------------------------- */
 const deleteStaff = (db, userId) => {
 	return db.query(`
@@ -122,5 +180,5 @@ const deleteStaff = (db, userId) => {
  * Export
  *****************************************************/
 
-const User = { add, getStaff, getByEmail, deleteStaff };
+const User = { add, addStaff, getStaff, getByEmail, update, deleteStaff };
 export default User;
