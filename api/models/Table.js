@@ -27,7 +27,7 @@ const getAll = async db => {
 const update = async (db, table_id, capacity, is_blocked) => {
 	const updatingFields = getFieldsToUpdate({ capacity, is_blocked });
 
-	return db.query(`UPDATE tables SET ${updatingFields} WHERE table = ?`, [table_id]);
+	return db.query(`UPDATE tables SET ${updatingFields} WHERE table_id = ?`, [table_id]);
 };
 
 /* ---- DELETE ---------------------------------- */
