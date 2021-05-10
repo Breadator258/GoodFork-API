@@ -50,7 +50,7 @@ const isRoleValid = async (db, role) => {
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
-const add = async (db, firstName, lastName, email, password1, password2) => {
+const add = async (db, first_name, last_name, email, password1, password2) => {
 	// Check if something is invalid
 	if (!isValidEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
@@ -78,13 +78,13 @@ const add = async (db, firstName, lastName, email, password1, password2) => {
 
 	// Add the user
 	return db.query(`
-    INSERT INTO users(firstName, lastName, email, password)
+    INSERT INTO users(first_name, last_name, email, password)
     VALUES (?, ?, ?, ?)
-    `, [firstName, lastName ? lastName : null, email, hashedPwd]
+    `, [first_name, last_name ? last_name : null, email, hashedPwd]
 	);
 };
 
-const addStaff = async (db, firstName, lastName, email, role) => {
+const addStaff = async (db, first_name, last_name, email, role) => {
 	// Check if something is invalid
 	if (!isValidEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
@@ -105,9 +105,9 @@ const addStaff = async (db, firstName, lastName, email, role) => {
 
 	// Add the staff
 	await db.query(`
-    INSERT INTO users(role_id, firstName, lastName, email, password)
+    INSERT INTO users(role_id, first_name, last_name, email, password)
     VALUES (?, ?, ?, ?, ?)
-    `, [role, firstName, lastName ? lastName : null, email, hashedPwd]
+    `, [role, first_name, last_name ? last_name : null, email, hashedPwd]
 	);
 
 	// Return the password
@@ -125,8 +125,8 @@ const getStaff = db => {
 		SELECT
       users.user_id,
       roles.name AS "role",
-      users.firstName,
-      users.lastName,
+      users.first_name,
+      users.last_name,
       users.email
     FROM users
     LEFT JOIN roles ON users.role_id = roles.role_id
@@ -143,8 +143,8 @@ const getByEmail = (db, email) => {
     SELECT
       users.user_id,
       roles.name AS "role",
-      users.firstName,
-      users.lastName,
+      users.first_name,
+      users.last_name,
       users.email
     FROM users
     LEFT JOIN roles ON users.role_id = roles.role_id
@@ -154,20 +154,20 @@ const getByEmail = (db, email) => {
 
 /* ---- UPDATE ---------------------------------- */
 // TODO: Make possible to update role
-const update = (db, userId, firstName, lastName, email) => {
-	const updatingFields = getFieldsToUpdate({ firstName, lastName, email });
+const update = (db, user_id, first_name, last_name, email) => {
+	const updatingFields = getFieldsToUpdate({ first_name, last_name, email });
 
 	// Update the user
-	return db.query(`UPDATE users SET ${updatingFields} WHERE user_id = ?`, [userId]);
+	return db.query(`UPDATE users SET ${updatingFields} WHERE user_id = ?`, [user_id]);
 };
 
 /* ---- DELETE ---------------------------------- */
-const deleteStaff = (db, userId) => {
+const deleteStaff = (db, user_id) => {
 	return db.query(`
 		DELETE users.* FROM users
     LEFT JOIN roles ON users.role_id = roles.role_id
     WHERE roles.name <> "customer" AND users.user_id = ?
-	`, [userId]);
+	`, [user_id]);
 };
 
 /*****************************************************
