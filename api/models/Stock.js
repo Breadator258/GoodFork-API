@@ -1,6 +1,4 @@
-import bcrypt from "bcrypt";
-import config from "../../config/config.js";
-import ModelError from "../../global/ModelError.js";
+import { getFieldsToUpdate } from "../../global/Functions.js";
 
 /*****************************************************
  * Checkers
@@ -11,62 +9,58 @@ import ModelError from "../../global/ModelError.js";
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
-const addOrEdit = async (db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
-	// Verify if stock already exist
-	const checkStock = await stockExist(db, name);
-	if(checkStock.length !== 0){
-		// Add to found stock
-		return db.query(`
-		UPDATE stocks SET units = ?, unit_price = ?, isOrderable = ?, isCookable = ?, use_by_date_min = ?, use_by_date_max = ? WHERE name = ?
-		`, [units, unit_price, is_orderable, is_cookable, use_by_date_min ? use_by_date_min : null, use_by_date_max ? use_by_date_max : null, name]
-		);
-	}else{
-		// Add the stock
-		return db.query(`
-		INSERT INTO stocks(stock_id, name, units, unit_price, isOrderable, isCookable, use_by_date_min, use_by_date_max)
-		VALUES (default, ?, ?, ?, ?, ?, ?, ?)
+const add = async (db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+	return db.query(`
+		INSERT INTO stocks(name, units, unit_price, isOrderable, isCookable, use_by_date_min, use_by_date_max)
+		VALUES (?, ?, ?, ?, ?, ?, ?)
 		`, [name, units, unit_price, is_orderable, is_cookable, use_by_date_min ? use_by_date_min : null, use_by_date_max ? use_by_date_max : null]
-		);
+	);
+};
+
+const addOrEdit = async (db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+	const checkStock = await stockExist(db, name);
+
+	if (checkStock.length !== 0) {
+		const stockId = await getIdOf(db, name);
+		return update(db, stockId, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max);
+	} else {
+		return add(db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max);
 	}
 };
 
 /* ---- READ ---------------------------------- */
-const stockExist = async (db, name) => {
-	// Find the stock
-	return db.query(`
-    SELECT name FROM stocks WHERE LOWER(name) = ?
-    `, [name.toLowerCase()]
-	);
+const get = async (db, name) => {
+	return db.query("SELECT * FROM stocks WHERE name = ?", [name]);
 };
 
-const get = async (db, name) => {
-	// Get the stock
-	return db.query(`
-    SELECT * FROM stocks WHERE name = ?
-    `, [name]
-	);
+const getIdOf = async (db, name) => {
+	return db.query("SELECT stock_id FROM stocks WHERE name = ?", [name]);
+};
+
+// TODO: Rename table names
+const getAll = async db => {
+	return db.query("SELECT stock_id, name, units, unit_price, isOrderable, isCookable, use_by_date_min, use_by_date_max FROM stocks");
+};
+
+const stockExist = async (db, name) => {
+	return db.query("SELECT name FROM stocks WHERE LOWER(name) = ?", [name.toLowerCase()]);
 };
 
 /* ---- UPDATE ---------------------------------- */
-const updateStock = async (db, newName, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
-	// Update the stock
-	return db.query(`
-    UPDATE stocks SET name = ?, units = ?, unit_price = ?, isOrderable = ?, isCookable = ?, use_by_date_min = ?, use_by_date_max = ? WHERE name = ?
-    `, [newName, units, unit_price, is_orderable, is_cookable, use_by_date_min ? use_by_date_min : null, use_by_date_max ? use_by_date_max : null, name]
-	);
+const update = async (db, stockId, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+	const updatingFields = getFieldsToUpdate({ name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max });
+
+	return db.query(`UPDATE stocks SET ${updatingFields} WHERE stock_id = ?`, [stockId]);
 };
 
 /* ---- DELETE ---------------------------------- */
-const deleteStock = async (db, name) => {
-	// Delete the stock
-	return db.query(`
-    DELETE FROM stocks WHERE name = ?
-    `, [name]
-	);
+const del = async (db, stockId) => {
+	return db.query("DELETE FROM stocks WHERE stock_id = ?", [stockId]);
 };
+
 /*****************************************************
  * Export
  *****************************************************/
 
-const Stock = { addOrEdit, stockExist, updateStock, deleteStock, get };
+const Stock = { addOrEdit, get, getAll, update, delete: del };
 export default Stock;

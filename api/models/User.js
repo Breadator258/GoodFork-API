@@ -3,6 +3,7 @@ import generatePwd from "generate-password";
 import config from "../../config/config.js";
 import Mail from "../../global/Mail.js";
 import ModelError from "../../global/ModelError.js";
+import { getFieldsToUpdate } from "../../global/Functions.js";
 
 /*****************************************************
  * Checkers
@@ -154,14 +155,7 @@ const getByEmail = (db, email) => {
 /* ---- UPDATE ---------------------------------- */
 // TODO: Make possible to update role
 const update = (db, userId, firstName, lastName, email) => {
-	// Get fields to update
-	let updatingFields = [];
-
-	if (firstName) updatingFields.push(`firstName = "${firstName}"`);
-	if (lastName) updatingFields.push(`lastName = "${lastName}"`);
-	if (email) updatingFields.push(`email = "${email}"`);
-
-	updatingFields = updatingFields.join(", ");
+	const updatingFields = getFieldsToUpdate({ firstName, lastName, email });
 
 	// Update the user
 	return db.query(`UPDATE users SET ${updatingFields} WHERE user_id = ?`, [userId]);
