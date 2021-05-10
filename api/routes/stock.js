@@ -97,13 +97,13 @@ export default (router) => {
 	/* ---- DELETE ------------------------------------ */
 	route.delete(
 		"/",
-		middlewares.checkParams("name"),
+		middlewares.checkParams("stockId"),
 		middlewares.database,
 		async (request, response) => {
-			const {name} = request.body;
+			const { stockId } = request.body;
 			const db = await request.database;
 
-			Stock.delete(db, name)
+			Stock.delete(db, stockId)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
