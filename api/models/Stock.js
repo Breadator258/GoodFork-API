@@ -37,6 +37,7 @@ const getIdOf = async (db, name) => {
 	return db.query("SELECT stock_id FROM stocks WHERE name = ?", [name]);
 };
 
+
 // TODO: Rename table names
 const getAll = async db => {
 	return db.query("SELECT stock_id, name, units, unit_price, isOrderable, isCookable, use_by_date_min, use_by_date_max FROM stocks");
