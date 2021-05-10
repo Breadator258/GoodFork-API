@@ -12,13 +12,13 @@ export default (router) => {
 	/* ---- CREATE ---------------------------------- */
 	route.post(
 		"/",
-		middlewares.checkParams("name", "units", "unit_price", "is_orderable", "is_cookable"),
+		middlewares.checkParams("name", "units", "unitPrice", "isOrderable", "isCookable"),
 		middlewares.database,
 		async (request, response) => {
-			const {name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max} = request.body;
+			const {name, units, unitPrice, isOrderable, isCookable, useByDateMin, useByDateMax} = request.body;
 			const db = await request.database;
 
-			Stock.addOrEdit(db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
+			Stock.addOrEdit(db, name, units, unitPrice, isOrderable, isCookable, useByDateMin, useByDateMax)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -75,13 +75,13 @@ export default (router) => {
 	/* ---- UPDATE ------------------------------------ */
 	route.put(
 		"/",
-		middlewares.checkParams("stockId", "name", "units", "unit_price", "is_orderable", "is_cookable"),
+		middlewares.checkParams("stockId", "name", "units", "unitPrice", "isOrderable", "isCookable"),
 		middlewares.database,
 		async (request, response) => {
-			const {stockId, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max} = request.body;
+			const {stockId, name, units, unitPrice, isOrderable, isCookable, useByDateMin, useByDateMax} = request.body;
 			const db = await request.database;
 
-			Stock.update(db, stockId, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
+			Stock.update(db, stockId, name, units, unitPrice, isOrderable, isCookable, useByDateMin, useByDateMax)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -97,13 +97,13 @@ export default (router) => {
 	/* ---- DELETE ------------------------------------ */
 	route.delete(
 		"/",
-		middlewares.checkParams("name"),
+		middlewares.checkParams("stockId"),
 		middlewares.database,
 		async (request, response) => {
-			const {name} = request.body;
+			const { stockId } = request.body;
 			const db = await request.database;
 
-			Stock.delete(db, name)
+			Stock.delete(db, stockId)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
