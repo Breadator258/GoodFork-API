@@ -12,13 +12,13 @@ export default (router) => {
 	/* ---- CREATE ---------------------------------- */
 	route.post(
 		"/staff",
-		middlewares.checkParams("firstName", "email", "role"),
+		middlewares.checkParams("first_name", "email", "role"),
 		middlewares.database,
 		async (request, response) => {
-			const { firstName, lastName, email, role } = request.body;
+			const { first_name, last_name, email, role } = request.body;
 			const db = await request.database;
 
-			User.addStaff(db, firstName, lastName, email, role)
+			User.addStaff(db, first_name, last_name, email, role)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -33,13 +33,13 @@ export default (router) => {
 
 	route.post(
 		"/",
-		middlewares.checkParams("firstName", "email", "password1", "password2"),
+		middlewares.checkParams("first_name", "email", "password1", "password2"),
 		middlewares.database,
 		async (request, response) => {
-			const { firstName, lastName, email, password1, password2 } = request.body;
+			const { first_name, last_name, email, password1, password2 } = request.body;
 			const db = await request.database;
 
-			User.add(db, firstName, lastName, email, password1, password2)
+			User.add(db, first_name, last_name, email, password1, password2)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -96,13 +96,13 @@ export default (router) => {
 	/* ---- UPDATE ---------------------------------- */
 	route.put(
 		"/",
-		middlewares.checkParams("userId"),
+		middlewares.checkParams("user_id"),
 		middlewares.database,
 		async (request, response) => {
-			const { userId, firstName, lastName, email } = request.body;
+			const { user_id, first_name, last_name, email } = request.body;
 			const db = await request.database;
 
-			User.update(db, userId, firstName, lastName, email)
+			User.update(db, user_id, first_name, last_name, email)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -118,13 +118,13 @@ export default (router) => {
 	/* ---- DELETE ---------------------------------- */
 	route.delete(
 		"/staff",
-		middlewares.checkParams("userId"),
+		middlewares.checkParams("user_id"),
 		middlewares.database,
 		async (request, response) => {
-			const { userId } = request.body;
+			const { user_id } = request.body;
 			const db = await request.database;
 
-			User.deleteStaff(db, userId)
+			User.deleteStaff(db, user_id)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
