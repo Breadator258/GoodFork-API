@@ -11,8 +11,8 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
 /* ---- CREATE ---------------------------------- */
 const add = async (db, name, units, unit_price, isOrderable, isCookable, use_by_date_min, use_by_date_max) => {
 	return db.query(`
-		INSERT INTO stocks(name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
-		VALUES (?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO stocks(name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
 		`, [name, units, unit_price, isOrderable, isCookable, use_by_date_min ? use_by_date_min : null, use_by_date_max ? use_by_date_max : null]
 	);
 };
