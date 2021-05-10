@@ -13,7 +13,7 @@ const add = async (db, name, units, unit_price, is_orderable, is_cookable, use_b
 	return db.query(`
 		INSERT INTO stocks(name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
 		VALUES (?, ?, ?, ?, ?, ?, ?)
-		`, [name, units, unit_price, is_orderable, is_cookable, use_by_date_min ? use_by_date_max : null, use_by_date_max ? use_by_date_min : null]
+		`, [name, units, unit_price, is_orderable, is_cookable, use_by_date_min ? use_by_date_min : null, use_by_date_max ? use_by_date_max : null]
 	);
 };
 
