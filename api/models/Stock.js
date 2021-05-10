@@ -4,15 +4,15 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
  * Checkers
  *****************************************************/
 
-/TODO: Vérification date de peremtion min max
-/TODO: vérification qté et unit_price négatifs
+//TODO: Vérification date de peremtion min max
+//TODO: vérification qté et unit_price négatifs
 
 /*****************************************************
  * CRUD Methods
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
-const add = async (db, name, units, unit_price, isOrderable, isCookable, use_by_date_min, use_by_date_max) => {
+const add = async (db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
 	return db.query(`
 		INSERT INTO stocks(name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
 		VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -20,14 +20,14 @@ const add = async (db, name, units, unit_price, isOrderable, isCookable, use_by_
 	);
 };
 
-const addOrEdit = async (db, name, units, unit_price, isOrderable, isCookable, use_by_date_min, use_by_date_max) => {
+const addOrEdit = async (db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
 	const checkStock = await stockExist(db, name);
 
 	if (checkStock.length !== 0) {
 		const stock_id = await getIdOf(db, name);
 		return update(db, stock_id, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max);
 	} else {
-		return add(db, name, units, unit_price, isOrderable, isCookable, use_by_date_min, use_by_date_max);
+		return add(db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max);
 	}
 };
 

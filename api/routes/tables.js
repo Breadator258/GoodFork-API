@@ -1,13 +1,13 @@
 import { Router } from "express";
 import middlewares from "../middlewares/index.js";
-import Table from "../models/Stock.js";
+import Table from "../models/Table.js";
 import ModelError from "../../global/ModelError.js";
 
 // TODO: Set headers
 const route = Router();
 
 export default (router) => {
-	router.use("/table", route);
+	router.use("/tables", route);
 
 	/* ---- CREATE ---------------------------------- */
 	route.post(
@@ -60,7 +60,7 @@ export default (router) => {
 			const {table_id, capacity, is_blocked} = request.body;
 			const db = await request.database;
 
-			Stock.update(db, table_id, capacity, is_blocked)
+			Table.update(db, table_id, capacity, is_blocked)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -82,7 +82,7 @@ export default (router) => {
 			const { table_id } = request.body;
 			const db = await request.database;
 
-			Stock.delete(db, table_id)
+			Table.delete(db, table_id)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
