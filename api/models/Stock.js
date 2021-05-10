@@ -4,8 +4,8 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
  * Checkers
  *****************************************************/
 
-/TODO: Vérification date de peremtion min max
-/TODO: vérification qté et unit_price négatifs
+// TODO: Vérification date de peremtion min max
+// TODO: vérification qté et unit_price négatifs
 
 /*****************************************************
  * CRUD Methods
