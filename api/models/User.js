@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import generatePwd from "generate-password";
 import config from "../../config/config.js";
 import Mail from "../../global/Mail.js";
