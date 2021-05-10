@@ -9,22 +9,22 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
-const add = async (db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+const add = async (db, name, units, unitPrice, isOrderable, isCookable, useByDateMin, useByDateMax) => {
 	return db.query(`
-		INSERT INTO stocks(name, units, unit_price, isOrderable, isCookable, use_by_date_min, use_by_date_max)
+		INSERT INTO stocks(name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
 		VALUES (?, ?, ?, ?, ?, ?, ?)
-		`, [name, units, unit_price, is_orderable, is_cookable, use_by_date_min ? use_by_date_min : null, use_by_date_max ? use_by_date_max : null]
+		`, [name, units, unitPrice, isOrderable, isCookable, useByDateMin ? useByDateMax : null, useByDateMax ? useByDateMin : null]
 	);
 };
 
-const addOrEdit = async (db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+const addOrEdit = async (db, name, units, unitPrice, isOrderable, isCookable, useByDateMin, useByDateMax) => {
 	const checkStock = await stockExist(db, name);
 
 	if (checkStock.length !== 0) {
 		const stockId = await getIdOf(db, name);
-		return update(db, stockId, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max);
+		return update(db, stockId, name, units, unitPrice, isOrderable, isCookable, useByDateMin, useByDateMax);
 	} else {
-		return add(db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max);
+		return add(db, name, units, unitPrice, isOrderable, isCookable, useByDateMin, useByDateMax);
 	}
 };
 
@@ -40,7 +40,7 @@ const getIdOf = async (db, name) => {
 
 // TODO: Rename table names
 const getAll = async db => {
-	return db.query("SELECT stock_id, name, units, unit_price, isOrderable, isCookable, use_by_date_min, use_by_date_max FROM stocks");
+	return db.query("SELECT stock_id, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max FROM stocks");
 };
 
 const stockExist = async (db, name) => {
@@ -48,8 +48,8 @@ const stockExist = async (db, name) => {
 };
 
 /* ---- UPDATE ---------------------------------- */
-const update = async (db, stockId, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
-	const updatingFields = getFieldsToUpdate({ name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max });
+const update = async (db, stockId, name, units, unitPrice, isOrderable, isCookable, useByDateMin, useByDateMax) => {
+	const updatingFields = getFieldsToUpdate({ name, units, unitPrice, isOrderable, isCookable, useByDateMin, useByDateMax });
 
 	return db.query(`UPDATE stocks SET ${updatingFields} WHERE stock_id = ?`, [stockId]);
 };
