@@ -68,7 +68,7 @@ export default (router) => {
 				if (user instanceof ModelError) {
 					response.status(user.code()).json(user.json()).end();
 				} else {
-					const token = await Token.getNew(user.user_id);
+					const token = await Token.getNew(db, user.user_id);
 
 					response.status(200).json({ user: user, token: token }).end();
 				}
