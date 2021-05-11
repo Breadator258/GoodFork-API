@@ -15,10 +15,10 @@ export default (router) => {
 		middlewares.checkParams("capacity"),
 		middlewares.database,
 		async (request, response) => {
-			const { name, capacity, is_blocked } = request.body;
+			const { name, capacity, is_available } = request.body;
 			const db = await request.database;
 
-			Table.add(db, name, capacity, is_blocked)
+			Table.add(db, name, capacity, is_available)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -57,10 +57,10 @@ export default (router) => {
 		middlewares.checkParams("table_id"),
 		middlewares.database,
 		async (request, response) => {
-			const { table_id, name, capacity, is_blocked } = request.body;
+			const { table_id, name, capacity, is_available } = request.body;
 			const db = await request.database;
 
-			Table.update(db, table_id, name, capacity, is_blocked)
+			Table.update(db, table_id, name, capacity, is_available)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
