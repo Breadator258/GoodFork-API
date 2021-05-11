@@ -129,8 +129,10 @@ const login = async (db, email, password) => {
 		return new ModelError(400, "The password must be at least 8 characters long.", ["password"]);
 	}
 
-	const user = await getPwdByEmail(db, email);
-	const canConnect = user ? await doesPasswordMatchHash(password, user[0].password) : false;
+	let user = await getPwdByEmail(db, email);
+	user = user ? (user.length > 0 ? user[0] : user) : null;
+
+	const canConnect = user ? await doesPasswordMatchHash(password, user.password) : false;
 
 	if (!canConnect) {
 		return new ModelError(400, "No users were found with this email and password combination.", ["email", "password"]);
