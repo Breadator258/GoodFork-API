@@ -1,6 +1,7 @@
 import { Router } from "express";
 import middlewares from "../middlewares/index.js";
 import User from "../models/User.js";
+import Token from "../models/Token.js";
 import ModelError from "../../global/ModelError.js";
 
 // TODO: Set headers
@@ -53,6 +54,30 @@ export default (router) => {
 	);
 
 	/* ---- READ ------------------------------------ */
+	route.post(
+		"/login",
+		middlewares.checkParams("email", "password"),
+		middlewares.database,
+		async (request, response) => {
+			const { email, password } = request.body;
+
+			try {
+				const user = await User.login(email, password);
+
+				if (user instanceof ModelError) {
+					response.status(user.code()).json(user.json()).end();
+				} else {
+					const token = await Token.getNew(user.user_id);
+
+					response.status(200).json({ user: user, token: token }).end();
+				}
+
+			} catch (err) {
+				response.status(500).json(new ModelError(500, err.message).json()).end();
+			}
+		}
+	);
+	
 	route.get(
 		"/staff",
 		middlewares.database,

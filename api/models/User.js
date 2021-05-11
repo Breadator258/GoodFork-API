@@ -120,6 +120,26 @@ const addStaff = async (db, first_name, last_name, email, role) => {
 };
 
 /* ---- READ ------------------------------------ */
+const login = async (db, email, password) => {
+	if (!isValidEmail(email)) {
+		return new ModelError(400, "You must provide a valid email address.", ["email"]);
+	}
+
+	if (!isValidPassword(password)) {
+		return new ModelError(400, "The password must be at least 8 characters long.", ["password"]);
+	}
+
+	const user = await getPwdByEmail(email);
+	const canConnect = user ? await doesPasswordMatchHash(password, user.password) : false;
+
+	if (!canConnect) {
+		return new ModelError(400, "No users were found with this email and password combination.", ["email", "password"]);
+	} else {
+		delete user.password;
+		return user;
+	}
+};
+
 const getStaff = db => {
 	return db.query(`
 		SELECT
@@ -134,6 +154,22 @@ const getStaff = db => {
 	`);
 };
 
+const getPwdByEmail = (db, email) => {
+	return db.query(`
+    SELECT
+      users.user_id,
+      roles.name AS "role",
+      users.first_name,
+      users.last_name,
+      users.email,
+      users.password
+    FROM users
+    LEFT JOIN roles ON users.role_id = roles.role_id
+    WHERE users.email = ?
+  `, [email]);
+};
+
+// TODO: Keep it?
 const getByEmail = (db, email) => {
 	if (!isValidEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
@@ -174,5 +210,5 @@ const deleteStaff = (db, user_id) => {
  * Export
  *****************************************************/
 
-const User = { add, addStaff, getStaff, getByEmail, update, deleteStaff };
+const User = { add, addStaff, login, getStaff, getByEmail, update, deleteStaff };
 export default User;
