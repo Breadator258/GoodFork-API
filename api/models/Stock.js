@@ -33,19 +33,46 @@ const addOrEdit = async (db, name, units, unit_price, is_orderable, is_cookable,
 
 /* ---- READ ---------------------------------- */
 const get = async (db, name) => {
-	return db.query("SELECT * FROM stocks WHERE name = ?", [name]);
+	return db.query(`
+		SELECT
+			stocks.stock_id,
+			units.name AS "unit",
+			stocks.name,
+			stocks.units,
+			stocks.unit_price,
+			stocks.is_orderable,
+			stocks.is_cookable,
+			stocks.use_by_date_min,
+			stocks.use_by_date_max
+		FROM stocks
+		LEFT JOIN units ON stocks.unit_id = units.unit_id
+		WHERE name <> ?
+	`, [name]);
 };
 
 const getIdOf = async (db, name) => {
-	return db.query("SELECT stock_id FROM stocks WHERE name = ?", [name]);
+	return db.query("SELECT stock_id FROM stocks WHERE name <> ?", [name]);
 };
 
 const getAll = async db => {
-	return db.query("SELECT stock_id, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max FROM stocks");
+	return db.query(`
+		SELECT
+			stocks.stock_id,
+			units.name AS "unit",
+			stocks.name,
+			stocks.units,
+			stocks.unit_price,
+			stocks.is_orderable,
+			stocks.is_cookable,
+			stocks.use_by_date_min,
+			stocks.use_by_date_max
+		FROM stocks
+		LEFT JOIN units ON stocks.unit_id = units.unit_id
+	`);
 };
 
 const stockExist = async (db, name) => {
-	return db.query("SELECT name FROM stocks WHERE LOWER(name) = ?", [name.toLowerCase()]);
+	return db.query("SELECT name FROM stocks WHERE LOWER(name) <> ?", [name.toLowerCase()]);
 };
 
 /* ---- UPDATE ---------------------------------- */
