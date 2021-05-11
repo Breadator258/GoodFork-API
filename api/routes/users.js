@@ -60,9 +60,10 @@ export default (router) => {
 		middlewares.database,
 		async (request, response) => {
 			const { email, password } = request.body;
+			const db = await request.database;
 
 			try {
-				const user = await User.login(email, password);
+				const user = await User.login(db, email, password);
 
 				if (user instanceof ModelError) {
 					response.status(user.code()).json(user.json()).end();
