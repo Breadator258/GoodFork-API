@@ -9,23 +9,22 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
-const add = async (db, name, capacity, is_blocked) => {
+const add = async (db, name, capacity, is_available) => {
 	return db.query(`
-		INSERT INTO tables(name, capacity, is_blocked)
+		INSERT INTO tables(name, capacity, is_available)
 		VALUES (?, ?, ?)
-		`, [name, capacity, is_blocked]
+		`, [name, capacity, is_available]
 	);
 };
 
 /* ---- READ ---------------------------------- */
-
 const getAll = async db => {
-	return db.query("SELECT table_id, name, capacity, is_blocked FROM tables");
+	return db.query("SELECT table_id, name, capacity, is_available FROM tables ORDER BY table_id");
 };
 
 /* ---- UPDATE ---------------------------------- */
-const update = async (db, table_id, name, capacity, is_blocked) => {
-	const updatingFields = getFieldsToUpdate({ name, capacity, is_blocked });
+const update = async (db, table_id, name, capacity, is_available) => {
+	const updatingFields = getFieldsToUpdate({ name, capacity, is_available });
 
 	return db.query(`UPDATE tables SET ${updatingFields} WHERE table_id = ?`, [table_id]);
 };

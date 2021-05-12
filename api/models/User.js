@@ -130,7 +130,7 @@ const login = async (db, email, password) => {
 	}
 
 	let user = await getPwdByEmail(db, email);
-	user = user ? (user.length > 0 ? user[0] : user) : null;
+	if (user instanceof ModelError) return user;
 
 	const canConnect = user ? await doesPasswordMatchHash(password, user.password) : false;
 
@@ -153,11 +153,12 @@ const getStaff = db => {
     FROM users
     LEFT JOIN roles ON users.role_id = roles.role_id
     WHERE roles.name <> "customer"
+    ORDER BY users.user_id
 	`);
 };
 
-const getPwdByEmail = (db, email) => {
-	return db.query(`
+const getPwdByEmail = async (db, email) => {
+	const user = await db.query(`
     SELECT
       users.user_id,
       roles.name AS "role",
@@ -169,15 +170,17 @@ const getPwdByEmail = (db, email) => {
     LEFT JOIN roles ON users.role_id = roles.role_id
     WHERE users.email = ?
   `, [email]);
+
+	return user ? (user.length > 0 ? user[0] : user) : new ModelError(404, "No user found with this email address.");
 };
 
 // TODO: Keep it?
-const getByEmail = (db, email) => {
+const getByEmail = async (db, email) => {
 	if (!isValidEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
 	}
 
-	return db.query(`
+	const user =  db.query(`
     SELECT
       users.user_id,
       roles.name AS "role",
@@ -188,12 +191,13 @@ const getByEmail = (db, email) => {
     LEFT JOIN roles ON users.role_id = roles.role_id
     WHERE users.email = ?
   `, [email]);
+
+	return user ? (user.length > 0 ? user[0] : user) : new ModelError(404, "No user found with this email address.");
 };
 
 /* ---- UPDATE ---------------------------------- */
-// TODO: Make possible to update role
-const update = (db, user_id, first_name, last_name, email) => {
-	const updatingFields = getFieldsToUpdate({ first_name, last_name, email });
+const update = (db, user_id, role_id, first_name, last_name, email) => {
+	const updatingFields = getFieldsToUpdate({ role_id, first_name, last_name, email });
 
 	// Update the user
 	return db.query(`UPDATE users SET ${updatingFields} WHERE user_id = ?`, [user_id]);

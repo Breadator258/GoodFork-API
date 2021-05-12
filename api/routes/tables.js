@@ -3,7 +3,6 @@ import middlewares from "../middlewares/index.js";
 import Table from "../models/Table.js";
 import ModelError from "../../global/ModelError.js";
 
-// TODO: Set headers
 const route = Router();
 
 export default (router) => {
@@ -15,15 +14,17 @@ export default (router) => {
 		middlewares.checkParams("capacity"),
 		middlewares.database,
 		async (request, response) => {
-			const { name, capacity, is_blocked } = request.body;
+			const { name, capacity, is_available } = request.body;
 			const db = await request.database;
 
-			Table.add(db, name, capacity, is_blocked)
+			response.set("Content-Type", "application/json");
+
+			Table.add(db, name, capacity, is_available)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({code: 202, message: "Table created."}).end();
+						response.status(202).json({ code: 202, message: "Table created." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -37,6 +38,8 @@ export default (router) => {
 		middlewares.database,
 		async (request, response) => {
 			const db = await request.database;
+
+			response.set("Content-Type", "application/json");
 
 			Table.getAll(db)
 				.then(result => {
@@ -57,15 +60,17 @@ export default (router) => {
 		middlewares.checkParams("table_id"),
 		middlewares.database,
 		async (request, response) => {
-			const { table_id, name, capacity, is_blocked } = request.body;
+			const { table_id, name, capacity, is_available } = request.body;
 			const db = await request.database;
 
-			Table.update(db, table_id, name, capacity, is_blocked)
+			response.set("Content-Type", "application/json");
+
+			Table.update(db, table_id, name, capacity, is_available)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({code: 202, message: "Table updated."}).end();
+						response.status(202).json({ code: 202, message: "Table updated." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -82,12 +87,14 @@ export default (router) => {
 			const { table_id } = request.body;
 			const db = await request.database;
 
+			response.set("Content-Type", "application/json");
+
 			Table.delete(db, table_id)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({code: 202, message: "Table deleted."}).end();
+						response.status(202).json({ code: 202, message: "Table deleted."} ).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
