@@ -15,7 +15,7 @@ export default (router) => {
 		middlewares.checkParams("name", "units", "unit_price", "is_orderable", "is_cookable"),
 		middlewares.database,
 		async (request, response) => {
-			const {name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max} = request.body;
+			const { name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max } = request.body;
 			const db = await request.database;
 
 			Stock.addOrEdit(db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
@@ -78,7 +78,10 @@ export default (router) => {
 		middlewares.checkParams("stock_id"),
 		middlewares.database,
 		async (request, response) => {
-			const {stock_id, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max} = request.body;
+			const {
+				stock_id, name, units, unit_price, is_orderable,
+				is_cookable, use_by_date_min, use_by_date_max
+			} = request.body;
 			const db = await request.database;
 
 			Stock.update(db, stock_id, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)

@@ -13,13 +13,15 @@ export default (router) => {
 	/* ---- CREATE ---------------------------------- */
 	route.post(
 		"/staff",
-		middlewares.checkParams("first_name", "email", "role"),
+		middlewares.checkParams("role_id", "first_name", "email"),
+		middlewares.toLowercase("email"),
 		middlewares.database,
 		async (request, response) => {
-			const { first_name, last_name, email, role } = request.body;
+			const { role_id, first_name, last_name } = request.body;
+			const { email } = request.lowerCasedParams;
 			const db = await request.database;
 
-			User.addStaff(db, first_name, last_name, email, role)
+			User.addStaff(db, first_name, last_name, email, role_id)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -35,9 +37,11 @@ export default (router) => {
 	route.post(
 		"/",
 		middlewares.checkParams("first_name", "email", "password1", "password2"),
+		middlewares.toLowercase("email"),
 		middlewares.database,
 		async (request, response) => {
-			const { first_name, last_name, email, password1, password2 } = request.body;
+			const { first_name, last_name, password1, password2 } = request.body;
+			const { email } = request.lowerCasedParams;
 			const db = await request.database;
 
 			User.add(db, first_name, last_name, email, password1, password2)
@@ -57,9 +61,11 @@ export default (router) => {
 	route.post(
 		"/login",
 		middlewares.checkParams("email", "password"),
+		middlewares.toLowercase("email"),
 		middlewares.database,
 		async (request, response) => {
-			const { email, password } = request.body;
+			const { password } = request.body;
+			const { email } = request.lowerCasedParams;
 			const db = await request.database;
 
 			try {
@@ -80,7 +86,7 @@ export default (router) => {
 	);
 	
 	route.get(
-		"/staff",
+		"/staff/all",
 		middlewares.database,
 		async (request, response) => {
 			const db = await request.database;
@@ -101,9 +107,10 @@ export default (router) => {
 	route.get(
 		"/:email",
 		middlewares.checkParams("email"),
+		middlewares.toLowercase("email"),
 		middlewares.database,
 		async (request, response) => {
-			const { email } = request.params;
+			const { email } = request.lowerCasedParams;
 			const db = await request.database;
 
 			User.getByEmail(db, email)
@@ -123,12 +130,14 @@ export default (router) => {
 	route.put(
 		"/",
 		middlewares.checkParams("user_id"),
+		middlewares.toLowercase("email"),
 		middlewares.database,
 		async (request, response) => {
-			const { user_id, first_name, last_name, email } = request.body;
+			const { user_id, role_id, first_name, last_name } = request.body;
+			const { email } = request.lowerCasedParams;
 			const db = await request.database;
 
-			User.update(db, user_id, first_name, last_name, email)
+			User.update(db, user_id, role_id, first_name, last_name, email)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
