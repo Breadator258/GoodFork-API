@@ -3,7 +3,6 @@ import middlewares from "../middlewares/index.js";
 import Role from "../models/Role.js";
 import ModelError from "../../global/ModelError.js";
 
-// TODO: Set headers
 const route = Router();
 
 export default (router) => {
@@ -15,6 +14,8 @@ export default (router) => {
 		middlewares.database,
 		async (request, response) => {
 			const db = await request.database;
+
+			response.set("Content-Type", "application/json");
 
 			Role.getAll(db)
 				.then(result => {

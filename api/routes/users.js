@@ -21,6 +21,8 @@ export default (router) => {
 			const { email } = request.lowerCasedParams;
 			const db = await request.database;
 
+			response.set("Content-Type", "application/json");
+
 			User.addStaff(db, first_name, last_name, email, role_id)
 				.then(result => {
 					if (result instanceof ModelError) {
@@ -44,12 +46,14 @@ export default (router) => {
 			const { email } = request.lowerCasedParams;
 			const db = await request.database;
 
+			response.set("Content-Type", "application/json");
+
 			User.add(db, first_name, last_name, email, password1, password2)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({code: 202, message: "User created."}).end();
+						response.status(202).json({ code: 202, message: "User created." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -68,6 +72,8 @@ export default (router) => {
 			const { email } = request.lowerCasedParams;
 			const db = await request.database;
 
+			response.set("Content-Type", "application/json");
+
 			try {
 				const user = await User.login(db, email, password);
 
@@ -76,7 +82,7 @@ export default (router) => {
 				} else {
 					const token = await Token.getNew(db, user.user_id);
 
-					response.status(200).json({ user: user, token: token }).end();
+					response.status(200).json({ code: 200, user: user, token: token }).end();
 				}
 
 			} catch (err) {
@@ -91,12 +97,14 @@ export default (router) => {
 		async (request, response) => {
 			const db = await request.database;
 
+			response.set("Content-Type", "application/json");
+
 			User.getStaff(db)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(200).json(result).end();
+						response.status(200).json({ code: 200, staff: result }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -113,12 +121,14 @@ export default (router) => {
 			const { email } = request.lowerCasedParams;
 			const db = await request.database;
 
+			response.set("Content-Type", "application/json");
+
 			User.getByEmail(db, email)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(200).json(result ? (result.length > 0 ? result[0] : result) : null).end();
+						response.status(200).json({ code: 200, user: result }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -137,12 +147,14 @@ export default (router) => {
 			const { email } = request.lowerCasedParams;
 			const db = await request.database;
 
+			response.set("Content-Type", "application/json");
+
 			User.update(db, user_id, role_id, first_name, last_name, email)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({code: 202, message: "User updated."}).end();
+						response.status(202).json({ code: 202, message: "User updated." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -158,6 +170,8 @@ export default (router) => {
 		async (request, response) => {
 			const { user_id } = request.body;
 			const db = await request.database;
+
+			response.set("Content-Type", "application/json");
 
 			User.deleteStaff(db, user_id)
 				.then(result => {

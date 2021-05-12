@@ -130,7 +130,7 @@ const login = async (db, email, password) => {
 	}
 
 	let user = await getPwdByEmail(db, email);
-	user = user ? (user.length > 0 ? user[0] : user) : null;
+	if (user instanceof ModelError) return user;
 
 	const canConnect = user ? await doesPasswordMatchHash(password, user.password) : false;
 
@@ -157,8 +157,8 @@ const getStaff = db => {
 	`);
 };
 
-const getPwdByEmail = (db, email) => {
-	return db.query(`
+const getPwdByEmail = async (db, email) => {
+	const user = await db.query(`
     SELECT
       users.user_id,
       roles.name AS "role",
@@ -170,15 +170,17 @@ const getPwdByEmail = (db, email) => {
     LEFT JOIN roles ON users.role_id = roles.role_id
     WHERE users.email = ?
   `, [email]);
+
+	return user ? (user.length > 0 ? user[0] : user) : new ModelError(404, "No user found with this email address.");
 };
 
 // TODO: Keep it?
-const getByEmail = (db, email) => {
+const getByEmail = async (db, email) => {
 	if (!isValidEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
 	}
 
-	return db.query(`
+	const user =  db.query(`
     SELECT
       users.user_id,
       roles.name AS "role",
@@ -189,6 +191,8 @@ const getByEmail = (db, email) => {
     LEFT JOIN roles ON users.role_id = roles.role_id
     WHERE users.email = ?
   `, [email]);
+
+	return user ? (user.length > 0 ? user[0] : user) : new ModelError(404, "No user found with this email address.");
 };
 
 /* ---- UPDATE ---------------------------------- */

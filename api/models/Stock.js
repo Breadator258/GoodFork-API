@@ -33,7 +33,7 @@ const addOrEdit = async (db, name, units, unit_price, is_orderable, is_cookable,
 
 /* ---- READ ---------------------------------- */
 const get = async (db, name) => {
-	return db.query(`
+	const stock = await db.query(`
 		SELECT
 			stocks.stock_id,
 			units.name AS "unit",
@@ -48,6 +48,8 @@ const get = async (db, name) => {
 		LEFT JOIN units ON stocks.unit_id = units.unit_id
 		WHERE name <> ?
 	`, [name]);
+
+	return stock ? (stock.length > 0 ? stock[0] : stock) : null;
 };
 
 const getIdOf = async (db, name) => {

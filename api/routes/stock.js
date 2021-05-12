@@ -3,7 +3,6 @@ import middlewares from "../middlewares/index.js";
 import Stock from "../models/Stock.js";
 import ModelError from "../../global/ModelError.js";
 
-// TODO: Set headers
 const route = Router();
 
 export default (router) => {
@@ -18,12 +17,14 @@ export default (router) => {
 			const { name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max } = request.body;
 			const db = await request.database;
 
+			response.set("Content-Type", "application/json");
+
 			Stock.addOrEdit(db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({code: 202, message: "Stock created."}).end();
+						response.status(202).json({ code: 202, message: "Stock created." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -37,6 +38,8 @@ export default (router) => {
 		middlewares.database,
 		async (request, response) => {
 			const db = await request.database;
+
+			response.set("Content-Type", "application/json");
 
 			Stock.getAll(db)
 				.then(result => {
@@ -59,12 +62,14 @@ export default (router) => {
 			const { name } = request.params;
 			const db = await request.database;
 
+			response.set("Content-Type", "application/json");
+
 			Stock.get(db, name)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(200).json(result ? (result.length > 0 ? result[0] : result) : null).end();
+						response.status(200).json({ code: 200, stock: result }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -84,12 +89,14 @@ export default (router) => {
 			} = request.body;
 			const db = await request.database;
 
+			response.set("Content-Type", "application/json");
+
 			Stock.update(db, stock_id, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({code: 202, message: "Stock updated."}).end();
+						response.status(202).json({ code: 202, message: "Stock updated." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -106,12 +113,14 @@ export default (router) => {
 			const { stock_id } = request.body;
 			const db = await request.database;
 
+			response.set("Content-Type", "application/json");
+
 			Stock.delete(db, stock_id)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({code: 202, message: "Stock deleted."}).end();
+						response.status(202).json({ code: 202, message: "Stock deleted." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
