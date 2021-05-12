@@ -153,6 +153,7 @@ const getStaff = db => {
     FROM users
     LEFT JOIN roles ON users.role_id = roles.role_id
     WHERE roles.name <> "customer"
+    ORDER BY users.user_id
 	`);
 };
 
@@ -191,9 +192,8 @@ const getByEmail = (db, email) => {
 };
 
 /* ---- UPDATE ---------------------------------- */
-// TODO: Make possible to update role
-const update = (db, user_id, first_name, last_name, email) => {
-	const updatingFields = getFieldsToUpdate({ first_name, last_name, email });
+const update = (db, user_id, role_id, first_name, last_name, email) => {
+	const updatingFields = getFieldsToUpdate({ role_id, first_name, last_name, email });
 
 	// Update the user
 	return db.query(`UPDATE users SET ${updatingFields} WHERE user_id = ?`, [user_id]);

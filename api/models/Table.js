@@ -18,9 +18,8 @@ const add = async (db, name, capacity, is_available) => {
 };
 
 /* ---- READ ---------------------------------- */
-
 const getAll = async db => {
-	return db.query("SELECT table_id, name, capacity, is_available FROM tables");
+	return db.query("SELECT table_id, name, capacity, is_available FROM tables ORDER BY table_id");
 };
 
 /* ---- UPDATE ---------------------------------- */

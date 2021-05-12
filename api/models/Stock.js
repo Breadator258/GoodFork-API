@@ -68,6 +68,7 @@ const getAll = async db => {
 			stocks.use_by_date_max
 		FROM stocks
 		LEFT JOIN units ON stocks.unit_id = units.unit_id
+		ORDER BY stocks.stock_id
 	`);
 };
 
