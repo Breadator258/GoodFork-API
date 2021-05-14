@@ -3,6 +3,7 @@ import users from "./routes/users.js";
 import roles from "./routes/roles.js";
 import stock from "./routes/stock.js";
 import units from "./routes/units.js";
+import menus from "./routes/menus.js";
 import tables from "./routes/tables.js";
 
 export default () => {
@@ -12,6 +13,7 @@ export default () => {
 	roles(router);
 	stock(router);
 	units(router);
+	menus(router);
 	tables(router);
 
 	return router;

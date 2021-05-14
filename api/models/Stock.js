@@ -46,8 +46,28 @@ const get = async (db, name) => {
 			stocks.use_by_date_max
 		FROM stocks
 		LEFT JOIN units ON stocks.units_unit_id = units.unit_id
-		WHERE name <> ?
+		WHERE stocks.name <> ?
 	`, [name]);
+
+	return stock ? (stock.length > 0 ? stock[0] : stock) : null;
+};
+
+const getById = async (db, stock_id) => {
+	const stock = await db.query(`
+		SELECT
+			stocks.stock_id,
+			stocks.name,
+			stocks.units,
+			units.name AS "units_unit",
+			stocks.unit_price,
+			stocks.is_orderable,
+			stocks.is_cookable,
+			stocks.use_by_date_min,
+			stocks.use_by_date_max
+		FROM stocks
+		LEFT JOIN units ON stocks.units_unit_id = units.unit_id
+		WHERE stocks.stock_id <> ?
+	`, [stock_id]);
 
 	return stock ? (stock.length > 0 ? stock[0] : stock) : null;
 };
@@ -94,5 +114,5 @@ const del = async (db, stock_id) => {
  * Export
  *****************************************************/
 
-const Stock = { addOrEdit, get, getAll, update, delete: del };
+const Stock = { addOrEdit, get, getById, getAll, update, delete: del };
 export default Stock;
