@@ -66,7 +66,7 @@ const getById = async (db, stock_id) => {
 			stocks.use_by_date_max
 		FROM stocks
 		LEFT JOIN units ON stocks.units_unit_id = units.unit_id
-		WHERE stocks.stock_id <> ?
+		WHERE stocks.stock_id = ?
 	`, [stock_id]);
 
 	return stock ? (stock.length > 0 ? stock[0] : stock) : null;
