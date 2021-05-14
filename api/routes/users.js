@@ -4,7 +4,6 @@ import User from "../models/User.js";
 import Token from "../models/Token.js";
 import ModelError from "../../global/ModelError.js";
 
-// TODO: Set headers
 const route = Router();
 
 export default (router) => {
