@@ -33,7 +33,6 @@ const getById = async (db, menu_id) => {
 		FROM menus
 		LEFT JOIN menu_ingredients mi ON menus.menu_id = mi.menu_id
 		WHERE menus.menu_id = ?
-		LIMIT 1
 	`, [menu_id]);
 
 	if (menu.length === 0) {
@@ -47,7 +46,7 @@ const getById = async (db, menu_id) => {
 const buildFullMenus = async (db, menus) => {
 	const fullMenus = new Map();
 
-	await Promise.all(menus.map(async menu => {
+	for (const menu of menus) {
 		const fullMenu = fullMenus.has(menu.menu_id)
 			? fullMenus.get(menu.menu_id)
 			: {
@@ -67,7 +66,7 @@ const buildFullMenus = async (db, menus) => {
 		});
 
 		fullMenus.set(menu.menu_id, fullMenu);
-	}));
+	}
 
 	return Array.from(fullMenus).map(([_, menu]) => menu);
 };
