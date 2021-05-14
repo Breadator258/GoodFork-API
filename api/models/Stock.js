@@ -6,7 +6,9 @@ import ModelError from "../../global/ModelError.js";
  *****************************************************/
 
 const areUseByDatesValid = (use_by_date_min, use_by_date_max) => {
-	return use_by_date_min <= use_by_date_max;
+	const converted_use_by_date_min = convertDate(use_by_date_min);
+	const converted_use_by_date_max = convertDate(use_by_date_max);
+	return converted_use_by_date_min <= converted_use_by_date_max;
 };
 
 const areUnitsValid = units => {
@@ -16,6 +18,16 @@ const areUnitsValid = units => {
 const isUnitPriceValid = unit_price => {
 	return unit_price >= 0;
 };
+
+const convertDate = d => {
+	return (
+		d.constructor === Date ? d :
+		d.constructor === Array ? new Date(d[0],d[1],d[2]) :
+		d.constructor === Number ? new Date(d) :
+		d.constructor === String ? new Date(d) :
+		typeof d === "object" ? new Date(d.year,d.month,d.date) : NaN
+	);
+}
 
 /*****************************************************
  * CRUD Methods
