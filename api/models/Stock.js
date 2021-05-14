@@ -1,11 +1,21 @@
 import { getFieldsToUpdate } from "../../global/Functions.js";
+import ModelError from "../../global/ModelError.js";
 
 /*****************************************************
  * Checkers
  *****************************************************/
 
-// TODO: Vérification date de peremtion min max
-// TODO: vérification qté et unit_price négatifs
+const areUseByDatesValid = (use_by_date_min, use_by_date_max) => {
+	return use_by_date_min <= use_by_date_max;
+};
+
+const areUnitsValid = units => {
+	return units >= 0;
+};
+
+const isUnitPriceValid = unit_price => {
+	return unit_price >= 0;
+};
 
 /*****************************************************
  * CRUD Methods
@@ -13,14 +23,40 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
 
 /* ---- CREATE ---------------------------------- */
 const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+
+	if (use_by_date_min !== undefined && use_by_date_max !== undefined && !areUseByDatesValid(use_by_date_min, use_by_date_max)) {
+		return new ModelError(400, "You must provide valid 'use by' dates.", ["use_by_date_min", "use_by_date_max"]);
+	}
+
+	if (!areUnitsValid(units)) {
+		return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
+	}
+
+	if (!isUnitPriceValid(unit_price)) {
+		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
+	}
+
 	return db.query(`
-		INSERT INTO stocks(name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-		`, [name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min ? use_by_date_min : null, use_by_date_max ? use_by_date_max : null]
+	INSERT INTO stocks(name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+	`, [name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min ? use_by_date_min : null, use_by_date_max ? use_by_date_max : null]
 	);
 };
 
 const addOrEdit = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+
+	if (use_by_date_min !== undefined && use_by_date_max !== undefined && !areUseByDatesValid(use_by_date_min, use_by_date_max)) {
+		return new ModelError(400, "You must provide valid 'use by' dates.", ["use_by_date_min", "use_by_date_max"]);
+	}
+
+	if (!areUnitsValid(units)) {
+		return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
+	}
+
+	if (!isUnitPriceValid(unit_price)) {
+		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
+	}
+
 	const checkStock = await stockExist(db, name);
 
 	if (checkStock.length !== 0) {
