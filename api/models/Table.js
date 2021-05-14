@@ -1,8 +1,13 @@
 import { getFieldsToUpdate } from "../../global/Functions.js";
+import ModelError from "../../global/ModelError.js";
 
 /*****************************************************
  * Checkers
  *****************************************************/
+
+const isCapacityValid = capacity => {
+	return capacity >= 0;
+};
 
 /*****************************************************
  * CRUD Methods
@@ -10,6 +15,11 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
 
 /* ---- CREATE ---------------------------------- */
 const add = async (db, name, capacity, is_available) => {
+
+	if (!isCapacityValid(capacity)) {
+		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
+	}
+
 	return db.query(`
 		INSERT INTO tables(name, capacity, is_available)
 		VALUES (?, ?, ?)
