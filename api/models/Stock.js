@@ -35,7 +35,6 @@ const isUnitPriceValid = unit_price => {
 
 /* ---- CREATE ---------------------------------- */
 const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
-
 	if (!areUseByDatesValid(use_by_date_min, use_by_date_max)) {
 		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
 	}
@@ -49,8 +48,8 @@ const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_
 	}
 
 	return db.query(`
-	INSERT INTO stocks(name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
-	VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+		INSERT INTO stocks(name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 	`, [name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min ? use_by_date_min : null, use_by_date_max ? use_by_date_max : null]
 	);
 };
@@ -67,7 +66,7 @@ const addOrEdit = async (db, name, units, units_unit_id, unit_price, is_orderabl
 };
 
 /* ---- READ ---------------------------------- */
-const get = async (db, name) => {
+const getByName = async (db, name) => {
 	const stock = await db.query(`
 		SELECT
 			stocks.stock_id,
@@ -82,10 +81,10 @@ const get = async (db, name) => {
 			stocks.use_by_date_max
 		FROM stocks
 		LEFT JOIN units ON stocks.units_unit_id = units.unit_id
-		WHERE stocks.name <> ?
+		WHERE stocks.name = ?
 	`, [name]);
 
-	return stock ? (stock.length > 0 ? stock[0] : stock) : null;
+	return stock[0] ? stock[0] : null;
 };
 
 const getById = async (db, stock_id) => {
@@ -106,11 +105,11 @@ const getById = async (db, stock_id) => {
 		WHERE stocks.stock_id = ?
 	`, [stock_id]);
 
-	return stock ? (stock.length > 0 ? stock[0] : stock) : null;
+	return stock[0] ? stock[0] : null;
 };
 
 const getIdOf = async (db, name) => {
-	return db.query("SELECT stock_id FROM stocks WHERE name <> ?", [name]);
+	return db.query("SELECT stock_id FROM stocks WHERE name = ?", [name]);
 };
 
 const getAll = async db => {
@@ -133,7 +132,7 @@ const getAll = async db => {
 };
 
 const stockExist = async (db, name) => {
-	return db.query("SELECT name FROM stocks WHERE LOWER(name) <> ?", [name.toLowerCase()]);
+	return db.query("SELECT name FROM stocks WHERE name = ?", [name]);
 };
 
 /* ---- UPDATE ---------------------------------- */
@@ -164,5 +163,5 @@ const del = async (db, stock_id) => {
  * Export
  *****************************************************/
 
-const Stock = { addOrEdit, get, getById, getAll, update, delete: del };
+const Stock = { add, addOrEdit, getByName, getById, getAll, update, delete: del };
 export default Stock;
