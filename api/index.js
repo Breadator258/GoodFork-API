@@ -5,6 +5,7 @@ import stock from "./routes/stock.js";
 import units from "./routes/units.js";
 import menus from "./routes/menus.js";
 import tables from "./routes/tables.js";
+import bookings from "./routes/bookings.js";
 
 export default () => {
 	const router = Router();
@@ -15,6 +16,7 @@ export default () => {
 	units(router);
 	menus(router);
 	tables(router);
+	bookings(router);
 
 	return router;
 };

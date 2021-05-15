@@ -31,6 +31,10 @@ const getAll = async db => {
 	return db.query("SELECT table_id, name, capacity, is_available FROM tables ORDER BY table_id");
 };
 
+const get = async (db, table_id) => {
+	return db.query("SELECT table_id, name, capacity, is_available FROM tables WHERE table_id = ?", [table_id]);
+};
+
 /* ---- UPDATE ---------------------------------- */
 const update = async (db, table_id, name, capacity, is_available) => {
 	if (!isCapacityValid(capacity)) {
@@ -51,5 +55,5 @@ const del = async (db, table_id) => {
  * Export
  *****************************************************/
 
-const Table = { add, getAll, update, delete: del };
+const Table = { add, getAll, get, update, delete: del };
 export default Table;

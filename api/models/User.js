@@ -195,6 +195,23 @@ const getByEmail = async (db, email) => {
 	return user ? (user.length > 0 ? user[0] : user) : new ModelError(404, "No user found with this email address.");
 };
 
+const getById = async (db, user_id) => {
+
+	const user = db.query(`
+    SELECT
+      users.user_id,
+      roles.name AS "role",
+      users.first_name,
+      users.last_name,
+      users.email
+    FROM users
+    LEFT JOIN roles ON users.role_id = roles.role_id
+    WHERE users.user_id = ?
+  `, [user_id]);
+
+	return user ? (user.length > 0 ? user[0] : user) : new ModelError(404, "No user found with this user id.");
+};
+
 /* ---- UPDATE ---------------------------------- */
 const update = (db, user_id, role_id, first_name, last_name, email) => {
 	const updatingFields = getFieldsToUpdate({ role_id, first_name, last_name, email });
@@ -216,5 +233,5 @@ const deleteStaff = (db, user_id) => {
  * Export
  *****************************************************/
 
-const User = { add, addStaff, login, getStaff, getByEmail, update, deleteStaff };
+const User = { add, addStaff, login, getStaff, getByEmail, getById, update, deleteStaff };
 export default User;
