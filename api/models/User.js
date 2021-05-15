@@ -199,7 +199,6 @@ const getByEmail = async (db, email) => {
 const update = (db, user_id, role_id, first_name, last_name, email) => {
 	const updatingFields = getFieldsToUpdate({ role_id, first_name, last_name, email });
 
-	// Update the user
 	return db.query(`UPDATE users SET ${updatingFields} WHERE user_id = ?`, [user_id]);
 };
 
