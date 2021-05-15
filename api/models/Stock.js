@@ -1,4 +1,4 @@
-import { getFieldsToUpdate } from "../../global/Functions.js";
+import { getFieldsToUpdate, convertDate } from "../../global/Functions.js";
 import ModelError from "../../global/ModelError.js";
 
 /*****************************************************
@@ -19,18 +19,6 @@ const areUseByDatesValid = (use_by_date_min, use_by_date_max) => {
 
 const isDateValid = d => {
 	return !isNaN(convertDate(d));
-};
-
-const convertDate = d => {
-	return (
-		d === null ? d :
-			d.constructor === Date ? d :
-				d.constructor === Array ? new Date(d[0],d[1],d[2]) :
-					d.constructor === Number ? new Date(d) :
-						d.constructor === String ? new Date(d) :
-							typeof d === "object" ? new Date(d.year,d.month,d.date) :
-								NaN
-	);
 };
 
 const areUnitsValid = units => {

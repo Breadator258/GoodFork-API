@@ -1,3 +1,7 @@
+/*****************************************************
+ * Update
+ *****************************************************/
+
 export function getFieldsToUpdate(fields) {
 	let updatingFields = [];
 
@@ -16,4 +20,21 @@ function convertValue(value) {
 	}
 
 	return value;
+}
+
+/*****************************************************
+ * Date
+ *****************************************************/
+
+export function convertDate(d) {
+	return (
+		d === null ? d :
+			d === undefined ? d :
+				d.constructor === Date ? d :
+					d.constructor === Array ? new Date(d[0],d[1],d[2]) :
+						d.constructor === Number ? new Date(d) :
+							d.constructor === String ? new Date(d) :
+								typeof d === "object" ? new Date(d.year,d.month,d.date) :
+									NaN
+	);
 }
