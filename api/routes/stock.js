@@ -64,7 +64,7 @@ export default (router) => {
 
 			response.set("Content-Type", "application/json");
 
-			Stock.get(db, name)
+			Stock.getByName(db, name)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
