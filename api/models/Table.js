@@ -15,7 +15,6 @@ const isCapacityValid = capacity => {
 
 /* ---- CREATE ---------------------------------- */
 const add = async (db, name, capacity, is_available) => {
-
 	if (!isCapacityValid(capacity)) {
 		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
 	}
@@ -34,6 +33,10 @@ const getAll = async db => {
 
 /* ---- UPDATE ---------------------------------- */
 const update = async (db, table_id, name, capacity, is_available) => {
+	if (!isCapacityValid(capacity)) {
+		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
+	}
+
 	const updatingFields = getFieldsToUpdate({ name, capacity, is_available });
 
 	return db.query(`UPDATE tables SET ${updatingFields} WHERE table_id = ?`, [table_id]);

@@ -6,9 +6,31 @@ import ModelError from "../../global/ModelError.js";
  *****************************************************/
 
 const areUseByDatesValid = (use_by_date_min, use_by_date_max) => {
-	const converted_use_by_date_min = convertDate(use_by_date_min);
-	const converted_use_by_date_max = convertDate(use_by_date_max);
-	return converted_use_by_date_min <= converted_use_by_date_max;
+	const convertedDateMin = convertDate(use_by_date_min);
+	const convertedDateMax = convertDate(use_by_date_max);
+
+	let areDatesValid = isDateValid(convertedDateMin) && isDateValid(convertedDateMax);
+
+	if (!areDatesValid) return false;
+	else if (convertedDateMin != undefined && convertedDateMax != undefined) {
+		return convertedDateMin <= convertedDateMax;
+	} else return true;
+};
+
+const isDateValid = d => {
+	return !isNaN(convertDate(d));
+};
+
+const convertDate = d => {
+	return (
+		d === null ? d :
+			d.constructor === Date ? d :
+				d.constructor === Array ? new Date(d[0],d[1],d[2]) :
+					d.constructor === Number ? new Date(d) :
+						d.constructor === String ? new Date(d) :
+							typeof d === "object" ? new Date(d.year,d.month,d.date) :
+								NaN
+	);
 };
 
 const areUnitsValid = units => {
@@ -19,16 +41,6 @@ const isUnitPriceValid = unit_price => {
 	return unit_price >= 0;
 };
 
-const convertDate = d => {
-	return (
-		d.constructor === Date ? d :
-		d.constructor === Array ? new Date(d[0],d[1],d[2]) :
-		d.constructor === Number ? new Date(d) :
-		d.constructor === String ? new Date(d) :
-		typeof d === "object" ? new Date(d.year,d.month,d.date) : NaN
-	);
-}
-
 /*****************************************************
  * CRUD Methods
  *****************************************************/
@@ -36,8 +48,8 @@ const convertDate = d => {
 /* ---- CREATE ---------------------------------- */
 const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
 
-	if (use_by_date_min !== undefined && use_by_date_max !== undefined && !areUseByDatesValid(use_by_date_min, use_by_date_max)) {
-		return new ModelError(400, "You must provide valid 'use by' dates.", ["use_by_date_min", "use_by_date_max"]);
+	if (!areUseByDatesValid(use_by_date_min, use_by_date_max)) {
+		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
 	}
 
 	if (!areUnitsValid(units)) {
@@ -56,19 +68,6 @@ const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_
 };
 
 const addOrEdit = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
-
-	if (use_by_date_min !== undefined && use_by_date_max !== undefined && !areUseByDatesValid(use_by_date_min, use_by_date_max)) {
-		return new ModelError(400, "You must provide valid 'use by' dates.", ["use_by_date_min", "use_by_date_max"]);
-	}
-
-	if (!areUnitsValid(units)) {
-		return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
-	}
-
-	if (!isUnitPriceValid(unit_price)) {
-		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
-	}
-
 	const checkStock = await stockExist(db, name);
 
 	if (checkStock.length !== 0) {
@@ -86,6 +85,7 @@ const get = async (db, name) => {
 			stocks.stock_id,
 			stocks.name,
 			stocks.units,
+			units.unit_id AS "units_unit_id",
 			units.name AS "units_unit",
 			stocks.unit_price,
 			stocks.is_orderable,
@@ -106,6 +106,7 @@ const getById = async (db, stock_id) => {
 			stocks.stock_id,
 			stocks.name,
 			stocks.units,
+			units.unit_id AS "units_unit_id",
 			units.name AS "units_unit",
 			stocks.unit_price,
 			stocks.is_orderable,
@@ -130,6 +131,7 @@ const getAll = async db => {
 			stocks.stock_id,
 			stocks.name,
 			stocks.units,
+			units.unit_id AS "units_unit_id",
 			units.name AS "units_unit",
 			stocks.unit_price,
 			stocks.is_orderable,
@@ -148,6 +150,18 @@ const stockExist = async (db, name) => {
 
 /* ---- UPDATE ---------------------------------- */
 const update = async (db, stock_id, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+	if (!areUseByDatesValid(use_by_date_min, use_by_date_max)) {
+		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
+	}
+
+	if (!areUnitsValid(units)) {
+		return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
+	}
+
+	if (!isUnitPriceValid(unit_price)) {
+		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
+	}
+
 	const updatingFields = getFieldsToUpdate({ name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max });
 
 	return db.query(`UPDATE stocks SET ${updatingFields} WHERE stock_id = ?`, [stock_id]);
