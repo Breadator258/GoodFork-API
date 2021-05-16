@@ -72,7 +72,7 @@ const getById = async (db, menu_id) => {
 		WHERE menus.menu_id = ?
 	`, [menu_id]);
 
-	if (menu.length === 0) {
+	if (!menu[0]) {
 		return new ModelError(404, "No menu found with this id.");
 	}
 
