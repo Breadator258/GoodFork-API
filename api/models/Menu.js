@@ -40,7 +40,9 @@ const getAll = async db => {
 		SELECT
 			menus.menu_id,
 			menus.name,
+			mt.name AS "type",
 			menus.description,
+			menus.image_path,
 			mi.ingredient_id,
 			mi.stock_id,
 			mi.units,
@@ -49,6 +51,7 @@ const getAll = async db => {
 		FROM menus
 		LEFT JOIN menu_ingredients mi ON menus.menu_id = mi.menu_id
 		LEFT JOIN units ON mi.units_unit_id = units.unit_id
+		LEFT JOIN menu_types mt ON menus.type_id = mt.type_id
 		ORDER BY menus.menu_id
 	`);
 
@@ -60,7 +63,9 @@ const getById = async (db, menu_id) => {
 		SELECT
 			menus.menu_id,
 			menus.name,
+			mt.name AS "type",
 			menus.description,
+			menus.image_path,
 			mi.ingredient_id,
 			mi.stock_id,
 			mi.units,
@@ -69,6 +74,7 @@ const getById = async (db, menu_id) => {
 		FROM menus
 		LEFT JOIN menu_ingredients mi ON menus.menu_id = mi.menu_id
 		LEFT JOIN units ON mi.units_unit_id = units.unit_id
+		LEFT JOIN menu_types mt ON menus.type_id = mt.type_id
 		WHERE menus.menu_id = ?
 	`, [menu_id]);
 
@@ -89,6 +95,8 @@ const buildFullMenus = async (db, menus) => {
 			: {
 				menu_id: menu.menu_id,
 				name: menu.name,
+				type: menu.type,
+				image_path: menu.image_path,
 				description: menu.description,
 				ingredients: []
 			};
