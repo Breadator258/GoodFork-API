@@ -1,30 +1,30 @@
 import { Router } from "express";
 import middlewares from "../middlewares/index.js";
-import Table from "../models/Table.js";
+import Menu from "../models/Menu.js";
 import ModelError from "../../global/ModelError.js";
 
 const route = Router();
 
 export default (router) => {
-	router.use("/tables", route);
+	router.use("/menus", route);
 
 	/* ---- CREATE ---------------------------------- */
 	route.post(
-		"/",
-		middlewares.checkParams("capacity"),
+		"/ingredients",
+		middlewares.checkParams("menu_id", "name", "units", "units_unit_id"),
 		middlewares.database,
 		async (request, response) => {
-			const { name, capacity, is_available } = request.body;
+			const { menu_id, name, units, units_unit_id } = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Table.add(db, name, capacity, is_available)
+			Menu.addIngredient(db, menu_id, name, units, units_unit_id)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Table created." }).end();
+						response.status(202).json({ code: 202, message: "Ingredient added to the menu." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -41,12 +41,12 @@ export default (router) => {
 
 			response.set("Content-Type", "application/json");
 
-			Table.getAll(db)
+			Menu.getAll(db)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(200).json({ code: 200, tables: result }).end();
+						response.status(200).json({ code: 200, menus: result }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -55,20 +55,20 @@ export default (router) => {
 	);
 
 	route.get(
-		"/:table_id",
+		"/:menu_id",
 		middlewares.database,
 		async (request, response) => {
-			const { table_id } = request.params;
+			const { menu_id } = request.params;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Table.get(db, table_id)
+			Menu.getById(db, menu_id)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(200).json({ code: 200, table: result }).end();
+						response.status(200).json({ code: 200, menu: result }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -79,20 +79,43 @@ export default (router) => {
 	/* ---- UPDATE ------------------------------------ */
 	route.put(
 		"/",
-		middlewares.checkParams("table_id"),
+		middlewares.checkParams("menu_id"),
 		middlewares.database,
 		async (request, response) => {
-			const { table_id, name, capacity, is_available } = request.body;
+			const { menu_id, type_id, name, description, image_path } = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Table.update(db, table_id, name, capacity, is_available)
+			Menu.update(db, menu_id, type_id, name, description, image_path)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Table updated." }).end();
+						response.status(202).json({ code: 202, message: "Menu updated." }).end();
+					}
+				})
+				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
+				.finally(() => db ? db.release() : null);
+		}
+	);
+
+	route.put(
+		"/ingredients",
+		middlewares.checkParams("ingredient_id"),
+		middlewares.database,
+		async (request, response) => {
+			const { ingredient_id, name, units, units_unit_id } = request.body;
+			const db = await request.database;
+
+			response.set("Content-Type", "application/json");
+
+			Menu.updateIngredient(db, ingredient_id, name, units, units_unit_id)
+				.then(result => {
+					if (result instanceof ModelError) {
+						response.status(result.code()).json(result.json()).end();
+					} else {
+						response.status(202).json({ code: 202, message: "Ingredient updated." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -103,20 +126,43 @@ export default (router) => {
 	/* ---- DELETE ------------------------------------ */
 	route.delete(
 		"/",
-		middlewares.checkParams("table_id"),
+		middlewares.checkParams("menu_id"),
 		middlewares.database,
 		async (request, response) => {
-			const { table_id } = request.body;
+			const { menu_id } = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Table.delete(db, table_id)
+			Menu.delete(db, menu_id)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Table deleted."} ).end();
+						response.status(202).json({ code: 202, message: "Menu deleted." }).end();
+					}
+				})
+				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
+				.finally(() => db ? db.release() : null);
+		}
+	);
+
+	route.delete(
+		"/ingredients",
+		middlewares.checkParams("ingredient_id"),
+		middlewares.database,
+		async (request, response) => {
+			const { ingredient_id } = request.body;
+			const db = await request.database;
+
+			response.set("Content-Type", "application/json");
+
+			Menu.deleteIngredient(db, ingredient_id)
+				.then(result => {
+					if (result instanceof ModelError) {
+						response.status(result.code()).json(result.json()).end();
+					} else {
+						response.status(202).json({ code: 202, message: "Ingredient removed from the menu." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())

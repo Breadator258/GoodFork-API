@@ -1,30 +1,32 @@
 import { Router } from "express";
 import middlewares from "../middlewares/index.js";
+import Booking from "../models/Booking.js";
 import Table from "../models/Table.js";
+import User from "../models/User.js";
 import ModelError from "../../global/ModelError.js";
 
 const route = Router();
 
 export default (router) => {
-	router.use("/tables", route);
+	router.use("/bookings", route);
 
 	/* ---- CREATE ---------------------------------- */
 	route.post(
 		"/",
-		middlewares.checkParams("capacity"),
+		middlewares.checkParams("user_id", "table_id", "time", "clients_nb"),
 		middlewares.database,
 		async (request, response) => {
-			const { name, capacity, is_available } = request.body;
+			const { user_id, table_id, time, clients_nb } = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Table.add(db, name, capacity, is_available)
+			Booking.add(db, user_id, table_id, time, clients_nb)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Table created." }).end();
+						response.status(202).json({ code: 202, message: "Booking created." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -41,12 +43,12 @@ export default (router) => {
 
 			response.set("Content-Type", "application/json");
 
-			Table.getAll(db)
+			Booking.getAll(db)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(200).json({ code: 200, tables: result }).end();
+						response.status(200).json({ code: 200, bookings: result }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -55,20 +57,21 @@ export default (router) => {
 	);
 
 	route.get(
-		"/:table_id",
+		"/:booking_id",
+		middlewares.checkParams("booking_id"),
 		middlewares.database,
 		async (request, response) => {
-			const { table_id } = request.params;
+			const { booking_id } = request.params;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Table.get(db, table_id)
+			Booking.getById(db, booking_id)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(200).json({ code: 200, table: result }).end();
+						response.status(200).json({ code: 200, booking: result }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -76,23 +79,22 @@ export default (router) => {
 		}
 	);
 
-	/* ---- UPDATE ------------------------------------ */
-	route.put(
-		"/",
-		middlewares.checkParams("table_id"),
+	route.get(
+		"/user_id/:user_id",
+		middlewares.checkParams("user_id"),
 		middlewares.database,
 		async (request, response) => {
-			const { table_id, name, capacity, is_available } = request.body;
+			const { user_id } = request.params;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Table.update(db, table_id, name, capacity, is_available)
+			Booking.getByUserId(db, user_id)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Table updated." }).end();
+						response.status(200).json({ code: 200, booking: result }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -103,20 +105,20 @@ export default (router) => {
 	/* ---- DELETE ------------------------------------ */
 	route.delete(
 		"/",
-		middlewares.checkParams("table_id"),
+		middlewares.checkParams("booking_id"),
 		middlewares.database,
 		async (request, response) => {
-			const { table_id } = request.body;
+			const { booking_id } = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Table.delete(db, table_id)
+			Booking.delete(db, booking_id)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Table deleted."} ).end();
+						response.status(202).json({ code: 202, message: "Booking deleted." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())

@@ -14,12 +14,12 @@ export default (router) => {
 		middlewares.checkParams("name", "units", "unit_price", "is_orderable", "is_cookable"),
 		middlewares.database,
 		async (request, response) => {
-			const { name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max } = request.body;
+			const { name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max } = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Stock.addOrEdit(db, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
+			Stock.addOrEdit(db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -64,7 +64,7 @@ export default (router) => {
 
 			response.set("Content-Type", "application/json");
 
-			Stock.get(db, name)
+			Stock.getByName(db, name)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -84,14 +84,14 @@ export default (router) => {
 		middlewares.database,
 		async (request, response) => {
 			const {
-				stock_id, name, units, unit_price, is_orderable,
+				stock_id, name, units, units_unit_id, unit_price, is_orderable,
 				is_cookable, use_by_date_min, use_by_date_max
 			} = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Stock.update(db, stock_id, name, units, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
+			Stock.update(db, stock_id, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
