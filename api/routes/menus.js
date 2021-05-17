@@ -78,6 +78,29 @@ export default (router) => {
 
 	/* ---- UPDATE ------------------------------------ */
 	route.put(
+		"/",
+		middlewares.checkParams("menu_id"),
+		middlewares.database,
+		async (request, response) => {
+			const { menu_id, type_id, name, description, image_path } = request.body;
+			const db = await request.database;
+
+			response.set("Content-Type", "application/json");
+
+			Menu.update(db, menu_id, type_id, name, description, image_path)
+				.then(result => {
+					if (result instanceof ModelError) {
+						response.status(result.code()).json(result.json()).end();
+					} else {
+						response.status(202).json({ code: 202, message: "Menu updated." }).end();
+					}
+				})
+				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
+				.finally(() => db ? db.release() : null);
+		}
+	);
+
+	route.put(
 		"/ingredients",
 		middlewares.checkParams("ingredient_id"),
 		middlewares.database,
@@ -101,6 +124,29 @@ export default (router) => {
 	);
 
 	/* ---- DELETE ------------------------------------ */
+	route.delete(
+		"/",
+		middlewares.checkParams("menu_id"),
+		middlewares.database,
+		async (request, response) => {
+			const { menu_id } = request.body;
+			const db = await request.database;
+
+			response.set("Content-Type", "application/json");
+
+			Menu.delete(db, menu_id)
+				.then(result => {
+					if (result instanceof ModelError) {
+						response.status(result.code()).json(result.json()).end();
+					} else {
+						response.status(202).json({ code: 202, message: "Menu deleted." }).end();
+					}
+				})
+				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
+				.finally(() => db ? db.release() : null);
+		}
+	);
+
 	route.delete(
 		"/ingredients",
 		middlewares.checkParams("ingredient_id"),

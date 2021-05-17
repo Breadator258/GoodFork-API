@@ -6,6 +6,15 @@ import ModelError from "../../global/ModelError.js";
  * Checkers
  *****************************************************/
 
+const isMenuNameValid = name => {
+	return name !== undefined && `${name}`.length > 0 && `${name}`.length <= 255;
+};
+
+const isMenuDescriptionValid = description => {
+	if (!description) return true;
+	else return `${description}`.length > 0 && `${description}`.length <= 255;
+};
+
 const areUnitsValid = units => {
 	return units >= 0;
 };
@@ -40,6 +49,7 @@ const getAll = async db => {
 		SELECT
 			menus.menu_id,
 			menus.name,
+			mt.type_id,
 			mt.name AS "type",
 			menus.description,
 			menus.image_path,
@@ -63,6 +73,7 @@ const getById = async (db, menu_id) => {
 		SELECT
 			menus.menu_id,
 			menus.name,
+			mt.type_id,
 			mt.name AS "type",
 			menus.description,
 			menus.image_path,
@@ -96,21 +107,24 @@ const buildFullMenus = async (db, menus) => {
 				menu_id: menu.menu_id,
 				name: menu.name,
 				type: menu.type,
+				type_id: menu.type_id,
 				image_path: menu.image_path,
 				description: menu.description,
 				ingredients: []
 			};
 
-		const stock = await Stock.getById(db, menu.stock_id);
+		if (menu.stock_id) {
+			const stock = await Stock.getById(db, menu.stock_id);
 
-		fullMenu.ingredients.push({
-			ingredient_id: menu.ingredient_id,
-			stock_id: stock.stock_id,
-			name: stock.name,
-			units: menu.units,
-			units_unit: menu.units_unit,
-			units_unit_id: menu.units_unit_id
-		});
+			fullMenu.ingredients.push({
+				ingredient_id: menu.ingredient_id,
+				stock_id: stock.stock_id,
+				name: stock.name,
+				units: menu.units,
+				units_unit: menu.units_unit,
+				units_unit_id: menu.units_unit_id
+			});
+		}
 
 		fullMenus.set(menu.menu_id, fullMenu);
 	}
@@ -119,6 +133,20 @@ const buildFullMenus = async (db, menus) => {
 };
 
 /* ---- UPDATE ---------------------------------- */
+const update = async (db, menu_id, type_id, name, description, image_path) => {
+	if (!isMenuNameValid(name)) {
+		return new ModelError(400, "You must provide a valid menu name (max. 255 characters).", ["name"]);
+	}
+
+	if (!isMenuDescriptionValid(description)) {
+		return new ModelError(400, "You must provide a valid menu description (max. 255 characters).", ["name"]);
+	}
+
+	const updatingFields = getFieldsToUpdate({ type_id, name, description, image_path });
+
+	return db.query(`UPDATE menus SET ${updatingFields} WHERE menu_id = ?`, [menu_id]);
+};
+
 const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) => {
 	if (!areUnitsValid(units)) {
 		return new ModelError(400, "You must provide a valid quantity.", ["units"]);
@@ -138,6 +166,10 @@ const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) =
 };
 
 /* ---- DELETE ---------------------------------- */
+const del = async (db, menu_id) => {
+	return db.query("DELETE FROM menus WHERE menu_id = ?", [menu_id]);
+};
+
 const delIngredient = async (db, ingredient_id) => {
 	return db.query("DELETE FROM menu_ingredients WHERE ingredient_id = ?", [ingredient_id]);
 };
@@ -146,5 +178,5 @@ const delIngredient = async (db, ingredient_id) => {
  * Export
  *****************************************************/
 
-const Menu = { addIngredient, getById, getAll, updateIngredient, deleteIngredient: delIngredient };
+const Menu = { addIngredient, getById, getAll, update, updateIngredient, delete: del, deleteIngredient: delIngredient };
 export default Menu;
