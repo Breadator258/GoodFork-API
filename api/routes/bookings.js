@@ -1,8 +1,6 @@
 import { Router } from "express";
 import middlewares from "../middlewares/index.js";
 import Booking from "../models/Booking.js";
-import Table from "../models/Table.js";
-import User from "../models/User.js";
 import ModelError from "../../global/ModelError.js";
 
 const route = Router();
