@@ -7,6 +7,7 @@ import menus from "./routes/menus.js";
 import menuTypes from "./routes/menuTypes.js";
 import tables from "./routes/tables.js";
 import bookings from "./routes/bookings.js";
+import orders from "./routes/orders.js";
 
 export default () => {
 	const router = Router();
@@ -19,6 +20,7 @@ export default () => {
 	menuTypes(router);
 	tables(router);
 	bookings(router);
+	orders(router);
 
 	return router;
 };

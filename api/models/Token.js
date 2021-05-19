@@ -1,7 +1,7 @@
 import { promisify } from "util";
 import crypto from "crypto";
 import base64url from "base64url";
-import ModelError from "../../global/ModelError";
+import ModelError from "../../global/ModelError.js";
 
 const randomBytesAsync = promisify(crypto.randomBytes);
 
