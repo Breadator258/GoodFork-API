@@ -11,7 +11,8 @@ export function getFieldsToUpdate(fields) {
 		}
 	});
 
-	return updatingFields.join(", ");
+	const queryStr = updatingFields.join(", ");
+	return queryStr.length > 0 ? queryStr : null;
 }
 
 function convertValue(value) {
