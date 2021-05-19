@@ -18,8 +18,12 @@ async function startServer() {
 	// noinspection JSCheckFunctionSignatures
 	app.use(cors());
 
+	// Serve static files
+	app.use("/images", express.static("./uploads"));
+
 	// Transform raw into JSON
 	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({ extended: true }));
 
 	// Add API routes
 	app.use(config.api.prefix, routes());

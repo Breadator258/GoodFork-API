@@ -133,18 +133,15 @@ const buildFullMenus = async (db, menus) => {
 };
 
 /* ---- UPDATE ---------------------------------- */
-const update = async (db, menu_id, type_id, name, description, image_path) => {
-	if (!isMenuNameValid(name)) {
-		return new ModelError(400, "You must provide a valid menu name (max. 255 characters).", ["name"]);
-	}
-
-	if (!isMenuDescriptionValid(description)) {
-		return new ModelError(400, "You must provide a valid menu description (max. 255 characters).", ["name"]);
-	}
-
-	const updatingFields = getFieldsToUpdate({ type_id, name, description, image_path });
+const update = async (db, menu_id, type_id, name, description) => {
+	const updatingFields = getFieldsToUpdate({ type_id, name, description });
+	if (!updatingFields) return;
 
 	return db.query(`UPDATE menus SET ${updatingFields} WHERE menu_id = ?`, [menu_id]);
+};
+
+const setIllustration = async (db, menu_id, image_path) => {
+	return db.query("UPDATE menus SET image_path = ? WHERE menu_id = ?", [image_path, menu_id]);
 };
 
 const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) => {
@@ -178,5 +175,15 @@ const delIngredient = async (db, ingredient_id) => {
  * Export
  *****************************************************/
 
-const Menu = { addIngredient, getById, getAll, update, updateIngredient, delete: del, deleteIngredient: delIngredient };
+const Menu = {
+	addIngredient,
+	getById,
+	getAll,
+	update,
+	setIllustration,
+	updateIngredient,
+	delete: del,
+	deleteIngredient:
+	delIngredient
+};
 export default Menu;
