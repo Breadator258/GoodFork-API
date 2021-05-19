@@ -43,20 +43,26 @@ export default (router) => {
 		async (request, response) => {
 			const { first_name, last_name, password1, password2 } = request.body;
 			const { email } = request.lowerCasedParams;
-			const db = await request.database;
+			let db;
 
 			response.set("Content-Type", "application/json");
 
-			User.add(db, first_name, last_name, email, password1, password2)
-				.then(result => {
-					if (result instanceof ModelError) {
-						response.status(result.code()).json(result.json()).end();
-					} else {
-						response.status(202).json({ code: 202, message: "User created." }).end();
-					}
-				})
-				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
-				.finally(() => db ? db.release() : null);
+			try {
+				db = await request.database;
+				const user = await User.add(db, first_name, last_name, email, password1, password2);
+
+				if (user instanceof ModelError) {
+					response.status(user.code()).json(user.json()).end();
+				} else {
+					const token = await Token.getNew(db, user.user_id);
+
+					response.status(200).json({ code: 200, user: user, token: token }).end();
+				}
+			} catch (err) {
+				response.status(500).json(new ModelError(500, err.message).json()).end();
+			} finally {
+				if (db) db.release();
+			}
 		}
 	);
 
@@ -69,11 +75,12 @@ export default (router) => {
 		async (request, response) => {
 			const { password } = request.body;
 			const { email } = request.lowerCasedParams;
-			const db = await request.database;
+			let db;
 
 			response.set("Content-Type", "application/json");
 
 			try {
+				db = await request.database;
 				const user = await User.login(db, email, password);
 
 				if (user instanceof ModelError) {
@@ -83,9 +90,10 @@ export default (router) => {
 
 					response.status(200).json({ code: 200, user: user, token: token }).end();
 				}
-
 			} catch (err) {
 				response.status(500).json(new ModelError(500, err.message).json()).end();
+			} finally {
+				if (db) db.release();
 			}
 		}
 	);

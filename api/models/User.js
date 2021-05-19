@@ -94,11 +94,13 @@ const add = async (db, first_name, last_name, email, password1, password2) => {
 	const hashedPwd = await hashPassword(password1);
 
 	// Add the user
-	return db.query(`
+	const user = await db.query(`
     INSERT INTO users(first_name, last_name, email, password)
     VALUES (?, ?, ?, ?)
     `, [first_name, last_name ? last_name : null, email, hashedPwd]
 	);
+
+	return getById(user.insertId);
 };
 
 const addStaff = async (db, first_name, last_name, email, role) => {
