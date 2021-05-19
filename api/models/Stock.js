@@ -29,12 +29,20 @@ const isUnitPriceValid = unit_price => {
 	return unit_price >= 0;
 };
 
+const isStockNameValid = name => {
+	return name !== undefined && `${name}`.length > 0 && `${name}`.length <= 255;
+};
+
 /*****************************************************
  * CRUD Methods
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
 const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+	if (!isStockNameValid(name)) {
+		return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
+	}
+
 	if (!areUseByDatesValid(use_by_date_min, use_by_date_max)) {
 		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
 	}
@@ -137,19 +145,24 @@ const stockExist = async (db, name) => {
 
 /* ---- UPDATE ---------------------------------- */
 const update = async (db, stock_id, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+	if (name && !isStockNameValid(name)) {
+		return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
+	}
+
 	if (!areUseByDatesValid(use_by_date_min, use_by_date_max)) {
 		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
 	}
 
-	if (!areUnitsValid(units)) {
+	if (units && !areUnitsValid(units)) {
 		return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
 	}
 
-	if (!isUnitPriceValid(unit_price)) {
+	if (unit_price && !isUnitPriceValid(unit_price)) {
 		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
 	}
 
 	const updatingFields = getFieldsToUpdate({ name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max });
+	if (!updatingFields) return new ModelError(200, "Nothing to update");
 
 	return db.query(`UPDATE stocks SET ${updatingFields} WHERE stock_id = ?`, [stock_id]);
 };

@@ -3,3 +3,7 @@ node_modules/
 
 # Jetbrains
 .idea/
+
+# Upload folder
+# Disabled this rule to prevent problem on local environment during dev
+#uploads/**/*

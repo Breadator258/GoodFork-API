@@ -5,6 +5,11 @@ import ModelError from "../../global/ModelError.js";
  * Checkers
  *****************************************************/
 
+const isTableNameValid = name => {
+	if (!name) return true;
+	else return `${name}`.length > 0 && `${name}`.length <= 255;
+};
+
 const isCapacityValid = capacity => {
 	return capacity >= 0;
 };
@@ -15,6 +20,10 @@ const isCapacityValid = capacity => {
 
 /* ---- CREATE ---------------------------------- */
 const add = async (db, name, capacity, is_available) => {
+	if (!isTableNameValid(name)) {
+		return new ModelError(400, "You must provide a valid table name (max. 255 characters).", ["name"]);
+	}
+
 	if (!isCapacityValid(capacity)) {
 		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
 	}
@@ -38,11 +47,16 @@ const getById = async (db, table_id) => {
 
 /* ---- UPDATE ---------------------------------- */
 const update = async (db, table_id, name, capacity, is_available) => {
-	if (!isCapacityValid(capacity)) {
+	if (!isTableNameValid(name)) {
+		return new ModelError(400, "You must provide a valid table name (max. 255 characters).", ["name"]);
+	}
+
+	if (capacity && !isCapacityValid(capacity)) {
 		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
 	}
 
 	const updatingFields = getFieldsToUpdate({ name, capacity, is_available });
+	if (!updatingFields) return new ModelError(200, "Nothing to update");
 
 	return db.query(`UPDATE tables SET ${updatingFields} WHERE table_id = ?`, [table_id]);
 };

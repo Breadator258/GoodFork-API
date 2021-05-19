@@ -133,22 +133,27 @@ const buildFullMenus = async (db, menus) => {
 };
 
 /* ---- UPDATE ---------------------------------- */
-const update = async (db, menu_id, type_id, name, description, image_path) => {
-	if (!isMenuNameValid(name)) {
+const update = async (db, menu_id, type_id, name, description) => {
+	if (name && !isMenuNameValid(name)) {
 		return new ModelError(400, "You must provide a valid menu name (max. 255 characters).", ["name"]);
 	}
 
-	if (!isMenuDescriptionValid(description)) {
-		return new ModelError(400, "You must provide a valid menu description (max. 255 characters).", ["name"]);
+	if (!isMenuDescriptionValid(name)) {
+		return new ModelError(400, "You must provide a valid menu description (max. 255 characters).", ["description"]);
 	}
 
-	const updatingFields = getFieldsToUpdate({ type_id, name, description, image_path });
+	const updatingFields = getFieldsToUpdate({ type_id, name, description });
+	if (!updatingFields) return;
 
 	return db.query(`UPDATE menus SET ${updatingFields} WHERE menu_id = ?`, [menu_id]);
 };
 
+const setIllustration = async (db, menu_id, image_path) => {
+	return db.query("UPDATE menus SET image_path = ? WHERE menu_id = ?", [image_path, menu_id]);
+};
+
 const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) => {
-	if (!areUnitsValid(units)) {
+	if (units && !areUnitsValid(units)) {
 		return new ModelError(400, "You must provide a valid quantity.", ["units"]);
 	}
 
@@ -161,6 +166,7 @@ const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) =
 	}
 
 	const updatingFields = getFieldsToUpdate({ stock_id: stockId, units, units_unit_id });
+	if (!updatingFields) return new ModelError(200, "Nothing to update");
 
 	return db.query(`UPDATE menu_ingredients SET ${updatingFields} WHERE ingredient_id = ?`, [ingredient_id]);
 };
@@ -178,5 +184,15 @@ const delIngredient = async (db, ingredient_id) => {
  * Export
  *****************************************************/
 
-const Menu = { addIngredient, getById, getAll, update, updateIngredient, delete: del, deleteIngredient: delIngredient };
+const Menu = {
+	addIngredient,
+	getById,
+	getAll,
+	update,
+	setIllustration,
+	updateIngredient,
+	delete: del,
+	deleteIngredient:
+	delIngredient
+};
 export default Menu;

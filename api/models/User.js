@@ -9,6 +9,15 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
  * Checkers
  *****************************************************/
 
+const isFirstnameValid = first_name => {
+	return first_name !== undefined && `${first_name}`.length > 0 && `${first_name}`.length <= 255;
+};
+
+const isLastnameValid = last_name => {
+	if (!last_name) return true;
+	else return `${last_name}`.length > 0 && `${last_name}`.length <= 255;
+};
+
 const isValidEmail = email => {
 	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
@@ -73,6 +82,14 @@ const add = async (db, first_name, last_name, email, password1, password2) => {
 		return new ModelError(400, "This email address is already taken.", ["email"]);
 	}
 
+	if (!isFirstnameValid(first_name)) {
+		return new ModelError(400, "You must provide a valid first name.", ["first_name"]);
+	}
+
+	if (!isLastnameValid(last_name)) {
+		return new ModelError(400, "You must provide a valid last name.", ["last_name"]);
+	}
+
 	// Hash password
 	const hashedPwd = await hashPassword(password1);
 
@@ -86,6 +103,14 @@ const add = async (db, first_name, last_name, email, password1, password2) => {
 
 const addStaff = async (db, first_name, last_name, email, role) => {
 	// Check if something is invalid
+	if (!isFirstnameValid(first_name)) {
+		return new ModelError(400, "You must provide a valid first name (max. 255 characters).", ["first_name"]);
+	}
+
+	if (!isLastnameValid(last_name)) {
+		return new ModelError(400, "You must provide a valid last name (max. 255 characters).", ["last_name"]);
+	}
+
 	if (!isValidEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
 	}
@@ -214,7 +239,16 @@ const getById = async (db, user_id) => {
 
 /* ---- UPDATE ---------------------------------- */
 const update = (db, user_id, role_id, first_name, last_name, email) => {
+	if (first_name && !isFirstnameValid(first_name)) {
+		return new ModelError(400, "You must provide a valid first name.", ["first_name"]);
+	}
+
+	if (!isLastnameValid(last_name)) {
+		return new ModelError(400, "You must provide a valid last name.", ["last_name"]);
+	}
+
 	const updatingFields = getFieldsToUpdate({ role_id, first_name, last_name, email });
+	if (!updatingFields) return new ModelError(200, "Nothing to update");
 
 	return db.query(`UPDATE users SET ${updatingFields} WHERE user_id = ?`, [user_id]);
 };
