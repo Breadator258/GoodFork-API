@@ -63,7 +63,7 @@ export default (router) => {
 
 			response.set("Content-Type", "application/json");
 
-			Table.get(db, table_id)
+			Table.getById(db, table_id)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();

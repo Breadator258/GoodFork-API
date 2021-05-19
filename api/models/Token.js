@@ -19,7 +19,6 @@ const isTokenValid = token => {
 
 /* ---- CREATE ---------------------------------- */
 const add = (db, user_id, token) => {
-
 	if (!isTokenValid(token)) {
 		return new ModelError(400, "Token is invalid (undefined or wrong length).", ["token"]);
 	}

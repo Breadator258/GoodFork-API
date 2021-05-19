@@ -238,7 +238,7 @@ const getById = async (db, user_id) => {
 };
 
 /* ---- UPDATE ---------------------------------- */
-const update = (db, user_id, role_id, first_name, last_name, email) => {
+const update = async (db, user_id, role_id, first_name, last_name, email) => {
 	if (first_name && !isFirstnameValid(first_name)) {
 		return new ModelError(400, "You must provide a valid first name.", ["first_name"]);
 	}
