@@ -29,12 +29,20 @@ const isUnitPriceValid = unit_price => {
 	return unit_price >= 0;
 };
 
+const isStockNameValid = name => {
+	return name !== undefined && `${name}`.length > 0 && `${name}`.length <= 255;
+};
+
 /*****************************************************
  * CRUD Methods
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
 const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+	if (!isStockNameValid(name)) {
+		return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
+	}
+
 	if (!areUseByDatesValid(use_by_date_min, use_by_date_max)) {
 		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
 	}
@@ -137,6 +145,10 @@ const stockExist = async (db, name) => {
 
 /* ---- UPDATE ---------------------------------- */
 const update = async (db, stock_id, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+	if (!isStockNameValid(name)) {
+		return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
+	}
+
 	if (!areUseByDatesValid(use_by_date_min, use_by_date_max)) {
 		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
 	}

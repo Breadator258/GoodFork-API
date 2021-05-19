@@ -45,6 +45,14 @@ const isRoleValid = async (db, role) => {
 	return roleFound.length > 0;
 };
 
+const isFirstnameValid = first_name => {
+	return first_name !== undefined && `${first_name}`.length > 0 && `${first_name}`.length <= 255;
+};
+
+const isLastnameValid = last_name => {
+	return last_name !== undefined && `${last_name}`.length > 0 && `${last_name}`.length <= 255;
+};
+
 /*****************************************************
  * CRUD Methods
  *****************************************************/
@@ -73,6 +81,14 @@ const add = async (db, first_name, last_name, email, password1, password2) => {
 		return new ModelError(400, "This email address is already taken.", ["email"]);
 	}
 
+	if (!isFirstnameValid(first_name)) {
+		return new ModelError(400, "You must provide a valid first name.", ["first_name"]);
+	}
+
+	if (!isLastnameValid(last_name)) {
+		return new ModelError(400, "You must provide a valid last name.", ["last_name"]);
+	}
+
 	// Hash password
 	const hashedPwd = await hashPassword(password1);
 
@@ -97,6 +113,14 @@ const addStaff = async (db, first_name, last_name, email, role) => {
 
 	if (!await isRoleValid(db, role)) {
 		return new ModelError(400, "The selected role doesn't exist.", ["role"]);
+	}
+
+	if (!isFirstnameValid(first_name)) {
+		return new ModelError(400, "You must provide a valid first name.", ["first_name"]);
+	}
+
+	if (!isLastnameValid(last_name)) {
+		return new ModelError(400, "You must provide a valid last name.", ["last_name"]);
 	}
 
 	// Create password
@@ -215,6 +239,14 @@ const getById = async (db, user_id) => {
 /* ---- UPDATE ---------------------------------- */
 const update = (db, user_id, role_id, first_name, last_name, email) => {
 	const updatingFields = getFieldsToUpdate({ role_id, first_name, last_name, email });
+
+	if (!isFirstnameValid(first_name)) {
+		return new ModelError(400, "You must provide a valid first name.", ["first_name"]);
+	}
+
+	if (!isLastnameValid(last_name)) {
+		return new ModelError(400, "You must provide a valid last name.", ["last_name"]);
+	}
 
 	return db.query(`UPDATE users SET ${updatingFields} WHERE user_id = ?`, [user_id]);
 };

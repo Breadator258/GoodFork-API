@@ -9,12 +9,21 @@ const isCapacityValid = capacity => {
 	return capacity >= 0;
 };
 
+const isTableNameValid = name => {
+	if (!name) return true;
+	else return `${name}`.length > 0 && `${name}`.length <= 255;
+};
+
 /*****************************************************
  * CRUD Methods
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
 const add = async (db, name, capacity, is_available) => {
+	if (!isTableNameValid(name)) {
+		return new ModelError(400, "You must provide a valid table name (max. 255 characters).", ["name"]);
+	}
+
 	if (!isCapacityValid(capacity)) {
 		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
 	}
@@ -38,6 +47,10 @@ const getById = async (db, table_id) => {
 
 /* ---- UPDATE ---------------------------------- */
 const update = async (db, table_id, name, capacity, is_available) => {
+	if (!isTableNameValid(name)) {
+		return new ModelError(400, "You must provide a valid table name (max. 255 characters).", ["name"]);
+	}
+
 	if (!isCapacityValid(capacity)) {
 		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
 	}
