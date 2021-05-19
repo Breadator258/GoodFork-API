@@ -1,4 +1,4 @@
-import { getFieldsToUpdate} from "../../global/Functions.js";
+import { getFieldsToUpdate } from "../../global/Functions.js";
 import Booking from "./Booking.js";
 import User from "./User.js";
 import ModelError from "../../global/ModelError.js";
@@ -36,11 +36,11 @@ const getById = async (db, order_id) => {
 			order_id,
 			booking_id,
 			user_id,
-            additional_infos,
-		    time,
-		    total_price,
-		    is_take_away,
-		    is_finished
+      additional_infos,
+			time,
+			total_price,
+			is_take_away,
+			is_finished
 		FROM orders
 		WHERE order_id = ?
 	`, [order_id]);
@@ -56,14 +56,14 @@ const getById = async (db, order_id) => {
 const getByUserId = async (db, user_id) => {
 	const orders = await db.query(`
 		SELECT
-            order_id,
-            booking_id,
-            user_id,
-            additional_infos,
-            time,
-            total_price,
-            is_take_away,
-            is_finished
+  	order_id,
+  	booking_id,
+    user_id,
+    additional_infos,
+    time,
+    total_price,
+    is_take_away,
+    is_finished
 		FROM orders
 		WHERE user_id = ?
 	`, [user_id]);
@@ -74,14 +74,14 @@ const getByUserId = async (db, user_id) => {
 const getAll = async db => {
 	const orders = await db.query(`
 		SELECT
-            order_id,
-            booking_id,
-            user_id,
-            additional_infos,
-            time,
-            total_price,
-            is_take_away,
-            is_finished
+		order_id,
+    booking_id,
+    user_id,
+    additional_infos,
+    time,
+   	total_price,
+    is_take_away,
+    is_finished
 		FROM orders
 		ORDER BY order_id
 	`);

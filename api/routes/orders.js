@@ -106,9 +106,7 @@ export default (router) => {
 		middlewares.checkParams("order_id"),
 		middlewares.database,
 		async (request, response) => {
-			const {
-				order_id, additional_infos, total_price, is_finished
-			} = request.body;
+			const { order_id, additional_infos, total_price, is_finished } = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
