@@ -1,37 +1,6 @@
-import { getFieldsToUpdate, convertDate } from "../../global/Functions.js";
+import { getFieldsToUpdate } from "../../global/Functions.js";
 import ModelError from "../../global/ModelError.js";
-
-/*****************************************************
- * Checkers
- *****************************************************/
-
-const areUseByDatesValid = (use_by_date_min, use_by_date_max) => {
-	const convertedDateMin = convertDate(use_by_date_min);
-	const convertedDateMax = convertDate(use_by_date_max);
-
-	let areDatesValid = isDateValid(convertedDateMin) && isDateValid(convertedDateMax);
-
-	if (!areDatesValid) return false;
-	else if (convertedDateMin != undefined && convertedDateMax != undefined) {
-		return convertedDateMin <= convertedDateMax;
-	} else return true;
-};
-
-const isDateValid = d => {
-	return !isNaN(convertDate(d));
-};
-
-const areUnitsValid = units => {
-	return units >= 0;
-};
-
-const isUnitPriceValid = unit_price => {
-	return unit_price >= 0;
-};
-
-const isStockNameValid = name => {
-	return name !== undefined && `${name}`.length > 0 && `${name}`.length <= 255;
-};
+import Checkers from "../../global/Checkers.js";
 
 /*****************************************************
  * CRUD Methods
@@ -39,19 +8,19 @@ const isStockNameValid = name => {
 
 /* ---- CREATE ---------------------------------- */
 const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
-	if (!isStockNameValid(name)) {
+	if (!Checkers.strInRange(name, null, 255)) {
 		return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
 	}
 
-	if (!areUseByDatesValid(use_by_date_min, use_by_date_max)) {
+	if (!Checkers.isDateLowerThan(use_by_date_min, use_by_date_max, true, true)) {
 		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
 	}
 
-	if (!areUnitsValid(units)) {
+	if (!Checkers.isGreaterThan(units, 0, true)) {
 		return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
 	}
 
-	if (!isUnitPriceValid(unit_price)) {
+	if (!Checkers.isGreaterThan(unit_price, 0, true)) {
 		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
 	}
 
@@ -145,19 +114,19 @@ const stockExist = async (db, name) => {
 
 /* ---- UPDATE ---------------------------------- */
 const update = async (db, stock_id, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
-	if (name && !isStockNameValid(name)) {
+	if (!Checkers.strInRange(name, null, 255, true, true)) {
 		return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
 	}
 
-	if (!areUseByDatesValid(use_by_date_min, use_by_date_max)) {
+	if (!Checkers.isDateLowerThan(use_by_date_min, use_by_date_max, true, true)) {
 		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
 	}
 
-	if (units && !areUnitsValid(units)) {
+	if (units && !Checkers.isGreaterThan(units, 0, true)) {
 		return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
 	}
 
-	if (unit_price && !isUnitPriceValid(unit_price)) {
+	if (unit_price && !Checkers.isGreaterThan(unit_price, 0, true)) {
 		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
 	}
 

@@ -3,42 +3,21 @@ import generatePwd from "generate-password";
 import config from "../../config/config.js";
 import Mail from "../../global/Mail.js";
 import ModelError from "../../global/ModelError.js";
+import Checkers from "../../global/Checkers.js";
 import { getFieldsToUpdate } from "../../global/Functions.js";
 
 /*****************************************************
- * Checkers
+ * Functions
  *****************************************************/
 
-const isFirstnameValid = first_name => {
-	return first_name !== undefined && `${first_name}`.length > 0 && `${first_name}`.length <= 255;
-};
-
-const isLastnameValid = last_name => {
-	if (!last_name) return true;
-	else return `${last_name}`.length > 0 && `${last_name}`.length <= 255;
-};
-
-const isValidEmail = email => {
-	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const isRoleValid = async (db, role) => {
+	const roleFound = await db.query("SELECT role_id FROM roles WHERE role_id = ?", [role]);
+	return roleFound.length > 0;
 };
 
 const isEmailAvailable = async (db, email) => {
 	const user = await db.query("SELECT email FROM users WHERE email = ?", [email]);
 	return user.length === 0;
-};
-
-const isValidPassword = password => {
-	return password !== undefined && `${password}`.length >= 8;
-};
-
-const isPasswordSafe = password => {
-	// At least 8 characters, one upper case letter, one lower case letter, one digit & one special character
-	const strongPwd = new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})");
-	return strongPwd.test(password);
-};
-
-const doesPasswordsMatch = (password1, password2) => {
-	return password1 === password2;
 };
 
 const hashPassword = async password => {
@@ -49,11 +28,6 @@ const doesPasswordMatchHash = async (password, hash) => {
 	return await bcrypt.compare(password, hash);
 };
 
-const isRoleValid = async (db, role) => {
-	const roleFound = await db.query("SELECT role_id FROM roles WHERE role_id = ?", [role]);
-	return roleFound.length > 0;
-};
-
 /*****************************************************
  * CRUD Methods
  *****************************************************/
@@ -61,33 +35,33 @@ const isRoleValid = async (db, role) => {
 /* ---- CREATE ---------------------------------- */
 const add = async (db, first_name, last_name, email, password1, password2) => {
 	// Check if something is invalid
-	if (!isValidEmail(email)) {
+	if (!Checkers.strInRange(first_name, null, 255)) {
+		return new ModelError(400, "You must provide a valid first name (max. 255 characters).", ["first_name"]);
+	}
+
+	if (!Checkers.strInRange(last_name, null, 255, true, true)) {
+		return new ModelError(400, "You must provide a valid last name (max. 255 characters).", ["last_name"]);
+	}
+
+	if (!Checkers.isEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
 	}
 
-	if (!isValidPassword(password1) || !isValidPassword(password2)) {
+	if (!Checkers.strInRange([password1, password2], 8, null)) {
 		return new ModelError(400, "The password must be at least 8 characters long.", ["password"]);
 	}
 
-	if (!isPasswordSafe(password1) || !isPasswordSafe(password2)) {
+	if (!Checkers.isPasswordSafe([password1, password2])) {
 		return new ModelError(400, "The password must be at least 8 characters long, including an upper case letter, a lower case letter, a number and a special character.", ["password"]);
 	}
 
-	if (!doesPasswordsMatch(password1, password2)) {
+	if (password1 !== password2) {
 		return new ModelError(400, "The passwords don't match.", ["password"]);
 	}
 
 	// Check if something is not available
 	if (!await isEmailAvailable(db, email)) {
 		return new ModelError(400, "This email address is already taken.", ["email"]);
-	}
-
-	if (!isFirstnameValid(first_name)) {
-		return new ModelError(400, "You must provide a valid first name.", ["first_name"]);
-	}
-
-	if (!isLastnameValid(last_name)) {
-		return new ModelError(400, "You must provide a valid last name.", ["last_name"]);
 	}
 
 	// Hash password
@@ -105,15 +79,15 @@ const add = async (db, first_name, last_name, email, password1, password2) => {
 
 const addStaff = async (db, first_name, last_name, email, role) => {
 	// Check if something is invalid
-	if (!isFirstnameValid(first_name)) {
+	if (!Checkers.strInRange(first_name, null, 255)) {
 		return new ModelError(400, "You must provide a valid first name (max. 255 characters).", ["first_name"]);
 	}
 
-	if (!isLastnameValid(last_name)) {
+	if (!Checkers.strInRange(last_name, null, 255, true, true)) {
 		return new ModelError(400, "You must provide a valid last name (max. 255 characters).", ["last_name"]);
 	}
 
-	if (!isValidEmail(email)) {
+	if (!Checkers.isEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
 	}
 
@@ -148,11 +122,11 @@ const addStaff = async (db, first_name, last_name, email, role) => {
 
 /* ---- READ ------------------------------------ */
 const login = async (db, email, password) => {
-	if (!isValidEmail(email)) {
+	if (!Checkers.isEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
 	}
 
-	if (!isValidPassword(password)) {
+	if (!Checkers.strInRange(password, 8, null)) {
 		return new ModelError(400, "The password must be at least 8 characters long.", ["password"]);
 	}
 
@@ -203,7 +177,7 @@ const getPwdByEmail = async (db, email) => {
 
 // TODO: Keep it?
 const getByEmail = async (db, email) => {
-	if (!isValidEmail(email)) {
+	if (!Checkers.isEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
 	}
 
@@ -241,12 +215,12 @@ const getById = async (db, user_id) => {
 
 /* ---- UPDATE ---------------------------------- */
 const update = async (db, user_id, role_id, first_name, last_name, email) => {
-	if (first_name && !isFirstnameValid(first_name)) {
-		return new ModelError(400, "You must provide a valid first name.", ["first_name"]);
+	if (!Checkers.strInRange(first_name, null, 255, true, true)) {
+		return new ModelError(400, "You must provide a valid first name (max. 255 characters).", ["first_name"]);
 	}
 
-	if (!isLastnameValid(last_name)) {
-		return new ModelError(400, "You must provide a valid last name.", ["last_name"]);
+	if (!Checkers.strInRange(last_name, null, 255, true, true)) {
+		return new ModelError(400, "You must provide a valid last name (max. 255 characters).", ["last_name"]);
 	}
 
 	const updatingFields = getFieldsToUpdate({ role_id, first_name, last_name, email });
