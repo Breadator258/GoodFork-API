@@ -2,15 +2,7 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
 import Booking from "./Booking.js";
 import User from "./User.js";
 import ModelError from "../../global/ModelError.js";
-
-/*****************************************************
- * Checkers
- *****************************************************/
-
-const isAdditionalInfosValid = additional_infos => {
-	if (!additional_infos) return true;
-	else return `${additional_infos}`.length > 0 && `${additional_infos}`.length <= 1000;
-};
+import Checkers from "../../global/Checkers.js";
 
 /*****************************************************
  * CRUD Methods
@@ -18,7 +10,7 @@ const isAdditionalInfosValid = additional_infos => {
 
 /* ---- CREATE ---------------------------------- */
 const add = async (db, booking_id, user_id, additional_infos, total_price, is_take_away, is_finished) => {
-	if (!isAdditionalInfosValid(additional_infos)) {
+	if (!Checkers.strInRange(additional_infos, null, 1000, true, true)) {
 		return new ModelError(400, "You must provide a valid additional infos text.", ["additional_infos"]);
 	}
 
@@ -126,7 +118,7 @@ const buildOrders = async (db, orders) => {
 
 /* ---- UPDATE ---------------------------------- */
 const update = async (db, order_id, additional_infos, total_price, is_finished) => {
-	if (!isAdditionalInfosValid(additional_infos)) {
+	if (!Checkers.strInRange(additional_infos, null, 1000, true, true)) {
 		return new ModelError(400, "You must provide a valid additional infos text.", ["additional_infos"]);
 	}
 

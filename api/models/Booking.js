@@ -1,20 +1,7 @@
-import { convertDate } from "../../global/Functions.js";
 import Table from "./Table.js";
 import User from "./User.js";
 import ModelError from "../../global/ModelError.js";
-
-/*****************************************************
- * Checkers
- *****************************************************/
-
-const isClientsNbValid = clients_nb => {
-	return clients_nb >= 1;
-};
-
-const isDateValid = d => {
-	const convertedDate = convertDate(d);
-	return !isNaN(convertedDate) && convertedDate !== null && convertedDate !== undefined;
-};
+import Checkers from "../../global/Checkers.js";
 
 /*****************************************************
  * CRUD Methods
@@ -22,12 +9,12 @@ const isDateValid = d => {
 
 /* ---- CREATE ---------------------------------- */
 const add = async (db, user_id, table_id, time, clients_nb) => {
-	if (!isClientsNbValid(clients_nb)) {
-		return new ModelError(400, "You must provide a valid number of clients.", ["clients_nb"]);
+	if (!Checkers.isDate(time)) {
+		return new ModelError(400, "You must provide a valid booking date.", ["time"]);
 	}
 
-	if (!isDateValid(time)) {
-		return new ModelError(400, "You must provide a valid booking date.", ["time"]);
+	if (!Checkers.isGreaterThan(clients_nb, 1, true)) {
+		return new ModelError(400, "You must provide a valid number of clients.", ["clients_nb"]);
 	}
 
 	const checkBooking = await bookingExist(db, table_id);

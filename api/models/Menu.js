@@ -1,30 +1,14 @@
 import { getFieldsToUpdate } from "../../global/Functions.js";
 import Stock from "./Stock.js";
 import ModelError from "../../global/ModelError.js";
-
-/*****************************************************
- * Checkers
- *****************************************************/
-
-const isMenuNameValid = name => {
-	return name !== undefined && `${name}`.length > 0 && `${name}`.length <= 255;
-};
-
-const isMenuDescriptionValid = description => {
-	if (!description) return true;
-	else return `${description}`.length > 0 && `${description}`.length <= 255;
-};
-
-const areUnitsValid = units => {
-	return units >= 0;
-};
+import Checkers from "../../global/Checkers.js";
 
 /*****************************************************
  * CRUD Methods
  *****************************************************/
 /* ---- CREATE ---------------------------------- */
 const addIngredient = async (db, menu_id, name, units, units_unit_id) => {
-	if (!areUnitsValid(units)) {
+	if (!Checkers.isGreaterThan(units, 0, true)) {
 		return new ModelError(400, "You must provide a valid quantity.", ["units"]);
 	}
 
@@ -52,6 +36,7 @@ const getAll = async db => {
 			mt.type_id,
 			mt.name AS "type",
 			menus.description,
+			menus.price,
 			menus.image_path,
 			mi.ingredient_id,
 			mi.stock_id,
@@ -76,6 +61,7 @@ const getById = async (db, menu_id) => {
 			mt.type_id,
 			mt.name AS "type",
 			menus.description,
+			menus.price,
 			menus.image_path,
 			mi.ingredient_id,
 			mi.stock_id,
@@ -108,8 +94,9 @@ const buildFullMenus = async (db, menus) => {
 				name: menu.name,
 				type: menu.type,
 				type_id: menu.type_id,
-				image_path: menu.image_path,
 				description: menu.description,
+				price: menu.price,
+				image_path: menu.image_path,
 				ingredients: []
 			};
 
@@ -133,16 +120,20 @@ const buildFullMenus = async (db, menus) => {
 };
 
 /* ---- UPDATE ---------------------------------- */
-const update = async (db, menu_id, type_id, name, description) => {
-	if (name && !isMenuNameValid(name)) {
+const update = async (db, menu_id, type_id, name, description, price) => {
+	if (!Checkers.strInRange(name, null, 255, true, true)) {
 		return new ModelError(400, "You must provide a valid menu name (max. 255 characters).", ["name"]);
 	}
 
-	if (!isMenuDescriptionValid(name)) {
+	if (!Checkers.strInRange(description, null, 255, true, true)) {
 		return new ModelError(400, "You must provide a valid menu description (max. 255 characters).", ["description"]);
 	}
 
-	const updatingFields = getFieldsToUpdate({ type_id, name, description });
+	if (price && !Checkers.isGreaterThan(price, 0, true)) {
+		return new ModelError(400, "You must provide a valid menu price.", ["price"]);
+	}
+
+	const updatingFields = getFieldsToUpdate({ type_id, name, description, price });
 	if (!updatingFields) return;
 
 	return db.query(`UPDATE menus SET ${updatingFields} WHERE menu_id = ?`, [menu_id]);
@@ -153,7 +144,7 @@ const setIllustration = async (db, menu_id, image_path) => {
 };
 
 const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) => {
-	if (units && !areUnitsValid(units)) {
+	if (units && !Checkers.isGreaterThan(units, 0, true)) {
 		return new ModelError(400, "You must provide a valid quantity.", ["units"]);
 	}
 
