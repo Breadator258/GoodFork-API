@@ -154,12 +154,12 @@ export default (router) => {
 		"/",
 		middlewares.database,
 		async (request, response) => {
-			const { menu_id, type_id, name, description } = request.body;
+			const { menu_id, type_id, name, description, price } = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Menu.update(db, menu_id, type_id, name, description)
+			Menu.update(db, menu_id, type_id, name, description, price)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
