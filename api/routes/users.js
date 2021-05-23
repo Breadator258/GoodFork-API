@@ -73,7 +73,7 @@ export default (router) => {
 		middlewares.toLowercase("email"),
 		middlewares.database,
 		async (request, response) => {
-			const { password } = request.body;
+			const { password, roleLevel } = request.body;
 			const { email } = request.lowerCasedParams;
 			let db;
 
@@ -81,7 +81,7 @@ export default (router) => {
 
 			try {
 				db = await request.database;
-				const user = await User.login(db, email, password);
+				const user = await User.login(db, email, password, roleLevel);
 
 				if (user instanceof ModelError) {
 					response.status(user.code()).json(user.json()).end();
@@ -89,6 +89,33 @@ export default (router) => {
 					const token = await Token.getNew(db, user.user_id);
 
 					response.status(200).json({ code: 200, user: user, token: token }).end();
+				}
+			} catch (err) {
+				response.status(500).json(new ModelError(500, err.message).json()).end();
+			} finally {
+				if (db) db.release();
+			}
+		}
+	);
+
+	route.post(
+		"/login/token",
+		middlewares.checkParams("token"),
+		middlewares.database,
+		async (request, response) => {
+			const { token, roleLevel } = request.body;
+			let db;
+
+			response.set("Content-Type", "application/json");
+
+			try {
+				db = await request.database;
+				const user = await User.loginWithToken(db, token, roleLevel);
+
+				if (user instanceof ModelError) {
+					response.status(user.code()).json(user.json()).end();
+				} else {
+					response.status(200).json({ code: 200, user: user }).end();
 				}
 			} catch (err) {
 				response.status(500).json(new ModelError(500, err.message).json()).end();
