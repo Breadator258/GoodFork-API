@@ -13,7 +13,7 @@ const randomBytesAsync = promisify(crypto.randomBytes);
 /* ---- CREATE ---------------------------------- */
 const add = (db, user_id, token) => {
 	if (!Checkers.strInRange(token, null, 255)) {
-		return new ModelError(400, "Token is invalid (undefined or wrong length).", ["token"]);
+		return new ModelError(400, "Token is invalid (undefined or wrong length).");
 	}
 
 	return db.query(`
@@ -23,6 +23,7 @@ const add = (db, user_id, token) => {
 	);
 };
 
+/* ---- READ ------------------------------------ */
 // TODO: Add token expiration date
 const getNew = async (db, user_id) => {
 	const buf = await randomBytesAsync(48);
@@ -32,9 +33,14 @@ const getNew = async (db, user_id) => {
 	return randomToken;
 };
 
+const getUserId = async (db, token) => {
+	const user_id = await db.query("SELECT user_id FROM tokens WHERE token = ? LIMIT 1", [token]);
+	return user_id[0] ? user_id[0].user_id : new ModelError(400, "No user found associated with this token");
+};
+
 /*****************************************************
  * Export
  *****************************************************/
 
-const Token = { getNew };
+const Token = { getNew, getUserId };
 export default Token;

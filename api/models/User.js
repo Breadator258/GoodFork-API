@@ -2,6 +2,8 @@ import bcrypt from "bcryptjs";
 import generatePwd from "generate-password";
 import config from "../../config/config.js";
 import Mail from "../../global/Mail.js";
+import Role from "./Role.js";
+import Token from "./Token.js";
 import ModelError from "../../global/ModelError.js";
 import Checkers from "../../global/Checkers.js";
 import { getFieldsToUpdate } from "../../global/Functions.js";
@@ -121,7 +123,7 @@ const addStaff = async (db, first_name, last_name, email, role) => {
 };
 
 /* ---- READ ------------------------------------ */
-const login = async (db, email, password) => {
+const login = async (db, email, password, roleLevel) => {
 	if (!Checkers.isEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
 	}
@@ -133,6 +135,16 @@ const login = async (db, email, password) => {
 	let user = await getPwdByEmail(db, email);
 	if (user instanceof ModelError) return user;
 
+	// Check the role
+	if (roleLevel) {
+		const role = await Role.getByName(db, roleLevel);
+		if (role instanceof ModelError) return role;
+
+		if (user.role !== roleLevel) {
+			return new ModelError(401, "You haven't the required privileges to log in here.");
+		}
+	}
+
 	const canConnect = user ? await doesPasswordMatchHash(password, user.password) : false;
 
 	if (!canConnect) {
@@ -143,10 +155,36 @@ const login = async (db, email, password) => {
 	}
 };
 
+const loginWithToken = async (db, token, roleLevel) => {
+	if (!Checkers.strInRange(token, null, 255)) {
+		return new ModelError(400, "You must provide a valid token", ["token"]);
+	}
+
+	// Get user
+	const user_id = await Token.getUserId(db, token);
+	if (user_id instanceof ModelError) return user_id;
+
+	const user = await getById(db, user_id);
+	if (user instanceof ModelError) return user;
+
+	// Check the role
+	if (roleLevel) {
+		const role = await Role.getByName(db, roleLevel);
+		if (role instanceof ModelError) return role;
+
+		if (user.role !== roleLevel) {
+			return new ModelError(401, "You haven't the required privileges to log in here.");
+		}
+	}
+
+	return user;
+};
+
 const getStaff = db => {
 	return db.query(`
 		SELECT
       users.user_id,
+      roles.role_id,
       roles.name AS "role",
       users.first_name,
       users.last_name,
@@ -162,6 +200,7 @@ const getPwdByEmail = async (db, email) => {
 	const user = await db.query(`
     SELECT
       users.user_id,
+      roles.role_id,
       roles.name AS "role",
       users.first_name,
       users.last_name,
@@ -184,6 +223,7 @@ const getByEmail = async (db, email) => {
 	const user =  db.query(`
     SELECT
       users.user_id,
+      roles.role_id,
       roles.name AS "role",
       users.first_name,
       users.last_name,
@@ -200,6 +240,7 @@ const getById = async (db, user_id) => {
 	const user = await db.query(`
     SELECT
       users.user_id,
+      roles.role_id,
       roles.name AS "role",
       users.first_name,
       users.last_name,
@@ -242,5 +283,5 @@ const deleteStaff = (db, user_id) => {
  * Export
  *****************************************************/
 
-const User = { add, addStaff, login, getStaff, getByEmail, getById, update, deleteStaff };
+const User = { add, addStaff, login, loginWithToken, getStaff, getByEmail, getById, update, deleteStaff };
 export default User;
