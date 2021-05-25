@@ -34,7 +34,12 @@ const getById = async (db, table_id) => {
 };
 
 const getByTableCapacity = async (db, capacity) => {
-	const table = await db.query("SELECT table_id, name, capacity, is_available FROM tables WHERE capacity = ? AND is_available = 1", [capacity]);
+	const table = await db.query(`
+	SELECT table_id, name, capacity, is_available 
+	FROM tables 
+	WHERE capacity >= ? AND is_available = 1
+	ORDER BY capacity
+	LIMIT 1`, [capacity]);
 	return table[0] ? table[0] : new ModelError(404, "No table found with this capacity.");
 };
 

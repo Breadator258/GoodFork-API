@@ -8,7 +8,7 @@ import Checkers from "../../global/Checkers.js";
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
-const add = async (db, user_id, capacity, time, clients_nb) => {
+const add = async (db, user_id, time, clients_nb) => {
 	const bookingTime = new Date(time);
 
 	if (!Checkers.isDate(bookingTime)) {
@@ -20,7 +20,7 @@ const add = async (db, user_id, capacity, time, clients_nb) => {
 	}
 
 	//const checkBooking = await bookingExist(db, table_id);
-	const getAvailableTable = await Table.getByTableCapacity(db, capacity);
+	const getAvailableTable = await Table.getByTableCapacity(db, clients_nb);
 
 	if (getAvailableTable instanceof ModelError) {
 		return new ModelError(400, "No available table found.", ["time"]);
