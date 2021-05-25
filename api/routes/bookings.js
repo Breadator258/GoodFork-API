@@ -11,15 +11,15 @@ export default (router) => {
 	/* ---- CREATE ---------------------------------- */
 	route.post(
 		"/",
-		middlewares.checkParams("user_id", "table_id", "time", "clients_nb"),
+		middlewares.checkParams("user_id", "capacity", "time", "clients_nb"),
 		middlewares.database,
 		async (request, response) => {
-			const { user_id, table_id, time, clients_nb } = request.body;
+			const { user_id, capacity, time, clients_nb } = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Booking.add(db, user_id, table_id, time, clients_nb)
+			Booking.add(db, user_id, capacity, time, clients_nb)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();

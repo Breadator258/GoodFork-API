@@ -33,6 +33,11 @@ const getById = async (db, table_id) => {
 	return table[0] ? table[0] : new ModelError(404, "No table found with this id.");
 };
 
+const getByTableCapacity = async (db, capacity) => {
+	const table = await db.query("SELECT table_id, name, capacity, is_available FROM tables WHERE capacity = ? AND is_available = 1", [capacity]);
+	return table[0] ? table[0] : new ModelError(404, "No table found with this capacity.");
+};
+
 /* ---- UPDATE ---------------------------------- */
 const update = async (db, table_id, name, capacity, is_available) => {
 	if (!Checkers.strInRange(name, null, 255, true, true)) {
@@ -58,5 +63,5 @@ const del = async (db, table_id) => {
  * Export
  *****************************************************/
 
-const Table = { add, getById, getAll, update, delete: del };
+const Table = { add, getById, getByTableCapacity, getAll, update, delete: del };
 export default Table;

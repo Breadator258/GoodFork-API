@@ -8,8 +8,10 @@ import Checkers from "../../global/Checkers.js";
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
-const add = async (db, user_id, table_id, time, clients_nb) => {
-	if (!Checkers.isDate(time)) {
+const add = async (db, user_id, capacity, time, clients_nb) => {
+	const bookingTime = new Date(time);
+
+	if (!Checkers.isDate(bookingTime)) {
 		return new ModelError(400, "You must provide a valid booking date.", ["time"]);
 	}
 
@@ -17,15 +19,17 @@ const add = async (db, user_id, table_id, time, clients_nb) => {
 		return new ModelError(400, "You must provide a valid number of clients.", ["clients_nb"]);
 	}
 
-	const checkBooking = await bookingExist(db, table_id);
+	//const checkBooking = await bookingExist(db, table_id);
+	const getAvailableTable = await Table.getByTableCapacity(db, capacity);
 
-	if (checkBooking.length !== 0) {
-		return new ModelError(400, "This table is already booked. Please pick another table.", ["time"]);
+	if (getAvailableTable instanceof ModelError) {
+		return new ModelError(400, "No available table found.", ["time"]);
 	} else {
+		await Table.update(db, getAvailableTable.table_id, null, null ,false );
 		return db.query(`
 		INSERT INTO bookings(user_id, table_id, time, clients_nb)
 		VALUES (?, ?, ?, ?)
-		`, [user_id, table_id, time, clients_nb]
+		`, [user_id, getAvailableTable.table_id, time, clients_nb]
 		);
 	}
 };
@@ -80,9 +84,9 @@ const getAll = async db => {
 	return buildBookings(db, bookings);
 };
 
-const bookingExist = async (db, table_id) => {
+/*const bookingExist = async (db, table_id) => {
 	return db.query("SELECT booking_id FROM bookings WHERE table_id = ?", [table_id]);
-};
+};*/
 
 const buildBookings = async (db, bookings) => {
 	const fullBookings = [];
@@ -115,6 +119,8 @@ const buildBookings = async (db, bookings) => {
 
 /* ---- DELETE ---------------------------------- */
 const del = async (db, booking_id) => {
+	const getBooking = await getById(db, booking_id);
+	await Table.update(db, getBooking[0].table.table_id, null, null ,true );
 	return db.query("DELETE FROM bookings WHERE booking_id = ?", [booking_id]);
 };
 
