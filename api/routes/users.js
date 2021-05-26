@@ -115,7 +115,7 @@ export default (router) => {
 				if (user instanceof ModelError) {
 					response.status(user.code()).json(user.json()).end();
 				} else {
-					response.status(200).json({ code: 200, user: user }).end();
+					response.status(200).json({ code: 200, user: user, token: token }).end();
 				}
 			} catch (err) {
 				response.status(500).json(new ModelError(500, err.message).json()).end();
