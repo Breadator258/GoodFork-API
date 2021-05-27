@@ -1,13 +1,23 @@
 import express from "express";
+import http from "http";
+import https from "https";
+import fs from "fs";
 import bodyParser from "body-parser";
 import cors from "cors";
 import config from "./config/config.js";
 import routes from "./api/index.js";
 
-// TODO: Add HTTPS
 async function startServer() {
+	// Set up HTTPS certificates
+	const key  = fs.readFileSync("./certs/cert.key", "utf8");
+	const cert  = fs.readFileSync("./certs/cert.pem", "utf8");
+	const opts = { key: key, cert: cert, passphrase: config.app.https.passphrase };
+
 	const app = express();
+	const server = http.createServer(app);
+	const secureServer = https.createServer(opts, app);
 	const port = config.app.port || 3000;
+	const securePort = config.app.https.port || 3443;
 
 	// Route for checking server status
 	app.get("/status", (request, response) => {
@@ -35,12 +45,19 @@ async function startServer() {
 	});
 
 	// Start listening
-	app.listen(port, () => {
-		console.log(getStartedMessage("http", port));
-	}).on("error", err => {
-		console.error(err);
-		process.exit(1);
-	});
+	server
+		.listen(port, () => console.log(getStartedMessage("http", port)))
+		.on("error", err => {
+			console.error(err);
+			process.exit(1);
+		});
+
+	secureServer
+		.listen(securePort, () => console.log(getStartedMessage("https", securePort)))
+		.on("error", err => {
+			console.error(err);
+			process.exit(1);
+		});
 }
 
 function getStartedMessage(protocol, port) {
