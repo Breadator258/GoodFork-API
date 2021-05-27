@@ -1,6 +1,10 @@
 const config = {
 	app: {
 		port: 8080,
+		https: {
+			port: 8443,
+			passphrase: "Is This A S4lad?!"
+		},
 		security: {
 			saltRound: 10
 		}
