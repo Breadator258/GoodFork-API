@@ -28,7 +28,12 @@ const addIngredient = async (db, menu_id, name, units, units_unit_id) => {
 };
 
 /* ---- READ ------------------------------------ */
-const getAll = async db => {
+const validOrderBy = ["menu_id", "name", "type_id", "price"];
+const getAll = async (db, orderBy) => {
+	const order = orderBy
+		? validOrderBy.includes(orderBy.toLowerCase()) ?  `menus.${orderBy}` : "menus.menu_id"
+		: "menus.menu_id";
+
 	const menus = await db.query(`
 		SELECT
 			menus.menu_id,
@@ -47,7 +52,7 @@ const getAll = async db => {
 		LEFT JOIN menu_ingredients mi ON menus.menu_id = mi.menu_id
 		LEFT JOIN units ON mi.units_unit_id = units.unit_id
 		LEFT JOIN menu_types mt ON menus.type_id = mt.type_id
-		ORDER BY menus.menu_id
+		ORDER BY ${order}
 	`);
 
 	return buildFullMenus(db, menus);

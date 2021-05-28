@@ -110,11 +110,12 @@ export default (router) => {
 		"/all",
 		middlewares.database,
 		async (request, response) => {
+			const { orderBy } = request.query;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Menu.getAll(db)
+			Menu.getAll(db, orderBy)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
