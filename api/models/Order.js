@@ -1,5 +1,6 @@
 import { getFieldsToUpdate } from "../../global/Functions.js";
 import Booking from "./Booking.js";
+import OrderMenus from "./OrderMenus.js";
 import User from "./User.js";
 import ModelError from "../../global/ModelError.js";
 import Checkers from "../../global/Checkers.js";
@@ -9,16 +10,30 @@ import Checkers from "../../global/Checkers.js";
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
-const add = async (db, booking_id, user_id, additional_infos, total_price, is_take_away, is_finished) => {
+const add = async (db, booking_id, user_id, additional_infos, menus, is_take_away) => {
 	if (!Checkers.strInRange(additional_infos, null, 1000, true, true)) {
 		return new ModelError(400, "You must provide a valid additional infos text.", ["additional_infos"]);
 	}
 
-	// noinspection SqlInsertValues
-	return db.query(`
-	INSERT INTO orders(booking_id, user_id, additional_infos, total_price, is_take_away, is_finished)
-	VALUES (?, ?, ?, ?, ? ,?)`, [booking_id, user_id, additional_infos ? additional_infos : null, total_price, is_take_away, is_finished]
+	// Check the user
+	const user = await User.getById(db, user_id);
+
+	if (!user) {
+		return new ModelError(400, "The given user id is not a user");
+	}
+
+	// Get the price
+	let price = 0;
+	menus.map(menu => price += menu.price);
+
+	// Add the order
+	const order = await db.query(`
+		INSERT INTO orders(booking_id, user_id, additional_infos, total_price, is_take_away, is_finished)
+		VALUES (?, ?, ?, ?, ? ,?)`, [booking_id ? booking_id : null, user_id, additional_infos ? additional_infos : null, price, is_take_away, false]
 	);
+	const orderId = order.insertId;
+
+	return OrderMenus.addMultiple(db, orderId, menus);
 };
 
 /* ---- READ ---------------------------------- */
