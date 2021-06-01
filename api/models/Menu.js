@@ -1,5 +1,6 @@
 import { getFieldsToUpdate } from "../../global/Functions.js";
 import Stock from "./Stock.js";
+import MenuTypes from "./MenuTypes.js";
 import ModelError from "../../global/ModelError.js";
 import Checkers from "../../global/Checkers.js";
 
@@ -7,6 +8,35 @@ import Checkers from "../../global/Checkers.js";
  * CRUD Methods
  *****************************************************/
 /* ---- CREATE ---------------------------------- */
+const add = async (db, type, name, description, price) => {
+	if (!Checkers.strInRange(name, null, 255, true, true)) {
+		return new ModelError(400, "You must provide a valid name.", ["name"]);
+	}
+
+	if (!Checkers.strInRange(description, null, 255, true, true)) {
+		return new ModelError(400, "You must provide a valid description.", ["description"]);
+	}
+
+	if (Checkers.isDefined(price)) {
+		if (! Checkers.isGreaterThan(price, 0, true)) {
+			return new ModelError(400, "You must provide a valid price.", ["price"]);
+		}
+	}
+
+	const t = await MenuTypes.getByName(db, type);
+	if (t instanceof ModelError) { return t; }
+
+	const type_id = t ? t.type_id : null;
+
+	const menu = await db.query(`
+		INSERT INTO menus(type_id, name, description, price)
+		VALUES (?, ?, ?, ?)
+	`, [type_id, name ?? "Nouveau plat", description ?? null, price ?? 0]
+	);
+
+	return { menu_id: menu.insertId };
+};
+
 const addIngredient = async (db, menu_id, name, units, units_unit_id) => {
 	if (!Checkers.isGreaterThan(units, 0, true)) {
 		return new ModelError(400, "You must provide a valid quantity.", ["units"]);
@@ -181,6 +211,7 @@ const delIngredient = async (db, ingredient_id) => {
  *****************************************************/
 
 const Menu = {
+	add,
 	addIngredient,
 	getById,
 	getAll,
