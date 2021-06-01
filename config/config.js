@@ -23,7 +23,7 @@ const config = {
 	oauth2: {
 		clientId: "571942492534-gc8fi36bqt6ojl2uf91ghiirsqcode0k.apps.googleusercontent.com",
 		clientSecret: "qqlpt7wyQa5ZvEmrXbBZrsnA",
-		refreshToken: "1//04RBClegTzCD2CgYIARAAGAQSNwF-L9Ir-1JkM8drndq64qpPX8r56aUaxQuKcfaH83j5OVePWrVBcwNJNzCoM_Gd2bUlAFuW7-g"
+		refreshToken: "1//04itZYBkmsazcCgYIARAAGAQSNwF-L9IrRYxU-rm1-8Dd_CLrVzMrrqzZ-84UgNBdxkOoWDaHXNrUQJLsDtwvjT89uJ3y6vcWIzU"
 	},
 	email: {
 		service: "gmail",
