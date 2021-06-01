@@ -28,20 +28,20 @@ export default (router) => {
 	/* ---- CREATE ---------------------------------- */
 	route.post(
 		"/",
-		middlewares.checkParams("type_id", "name"),
+		middlewares.checkParams("type"),
 		middlewares.database,
 		async (request, response) => {
-			const { type_id, name, description } = request.body;
+			const { type, name, description, price } = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Menu.add(db, type_id, name, description)
+			Menu.add(db, type, name, description, price)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Ingredient added to the menu." }).end();
+						response.status(202).json({ code: 202, message: "Menu added.", menu_id: result.menu_id }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
