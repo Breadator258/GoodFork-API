@@ -59,7 +59,8 @@ const getByUserId = async (db, user_id) => {
 			user_id,
 			table_id,
 			time,
-			clients_nb
+			clients_nb,
+		    is_client_on_place
 		FROM bookings
 		WHERE user_id = ?
 	`, [user_id]);
@@ -69,6 +70,24 @@ const getByUserId = async (db, user_id) => {
 		: new ModelError(404, "No booking found with this user id.");
 };
 
+const getActiveByUserId = async (db, user_id) => {
+	const booking = await db.query(`
+		SELECT
+			booking_id,
+			user_id,
+			table_id,
+			time,
+			clients_nb,
+		    is_client_on_place
+		FROM bookings
+		WHERE user_id = ? AND is_client_on_place = 1
+	`, [user_id]);
+
+	return booking[0]
+		? buildBookings(db, [booking[0]])
+		: new ModelError(404, "No active booking found with this user id.");
+};
+
 const getAll = async db => {
 	const bookings = await db.query(`
 		SELECT
@@ -76,7 +95,8 @@ const getAll = async db => {
 			user_id,
 			table_id,
 			time,
-			clients_nb
+			clients_nb,
+            is_client_on_place
 		FROM bookings
 		ORDER BY booking_id
 	`);
@@ -128,5 +148,5 @@ const del = async (db, booking_id) => {
  * Export
  *****************************************************/
 
-const Booking = { add, getById, getByUserId, getAll, delete: del };
+const Booking = { add, getById, getByUserId, getActiveByUserId, getAll, delete: del };
 export default Booking;
