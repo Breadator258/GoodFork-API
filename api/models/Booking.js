@@ -42,7 +42,9 @@ const getById = async (db, booking_id) => {
 			user_id,
 			table_id,
 			time,
-			clients_nb
+			clients_nb,
+            is_client_on_place,
+            can_client_pay
 		FROM bookings
 		WHERE booking_id = ?
 	`, [booking_id]);
@@ -60,7 +62,8 @@ const getByUserId = async (db, user_id) => {
 			table_id,
 			time,
 			clients_nb,
-		    is_client_on_place
+		    is_client_on_place,
+            can_client_pay
 		FROM bookings
 		WHERE user_id = ?
 	`, [user_id]);
@@ -78,7 +81,8 @@ const getActiveByUserId = async (db, user_id) => {
 			table_id,
 			time,
 			clients_nb,
-		    is_client_on_place
+		    is_client_on_place,
+		    can_client_pay
 		FROM bookings
 		WHERE user_id = ? AND is_client_on_place = 1
 	`, [user_id]);
@@ -96,7 +100,8 @@ const getAll = async db => {
 			table_id,
 			time,
 			clients_nb,
-            is_client_on_place
+            is_client_on_place,
+            can_client_pay
 		FROM bookings
 		ORDER BY booking_id
 	`);
@@ -130,7 +135,9 @@ const buildBookings = async (db, bookings) => {
 				capacity: table.capacity
 			},
 			time: booking.time,
-			clients_nb: booking.clients_nb
+			clients_nb: booking.clients_nb,
+			is_client_on_place: booking.is_client_on_place,
+			can_client_pay: booking.can_client_pay
 		});
 	}
 
