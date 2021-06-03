@@ -1,4 +1,4 @@
-import { getFieldsToUpdate } from "../../global/Functions.js";
+import {getFieldsToUpdate} from "../../global/Functions.js";
 import Booking from "./Booking.js";
 import OrderMenus from "./OrderMenus.js";
 import User from "./User.js";
@@ -96,6 +96,15 @@ const getAll = async db => {
 	return buildOrders(db, orders);
 };
 
+const getAllOrdersByUserId = async (db, user_id) => {
+	return await db.query(`
+        SELECT orders_menus.menu_id, menus.name, menus.price, menus.type_id, orders.is_finished FROM orders_menus
+        INNER JOIN orders ON orders.order_id = orders_menus.order_id
+        INNER JOIN menus ON orders_menus.menu_id = menus.menu_id
+        WHERE orders.user_id = ?
+	`, [user_id]);
+};
+
 const buildOrders = async (db, orders) => {
 	const fullOrders = [];
 
@@ -152,5 +161,5 @@ const del = async (db, order_id) => {
  * Export
  *****************************************************/
 
-const Order = { add, getById, getByUserId, getAll, update, delete: del };
+const Order = { add, getById, getByUserId, getAll, getAllOrdersByUserId, update, delete: del };
 export default Order;
