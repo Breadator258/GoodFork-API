@@ -88,6 +88,29 @@ const getAll = async (db, orderBy) => {
 	return buildFullMenus(db, menus);
 };
 
+const getAllOrdersMenusByUserId = async (db, orderBy, user_id) => {
+	const order = orderBy
+		? validOrderBy.includes(orderBy.toLowerCase()) ?  `menus.${orderBy}` : "menus.menu_id"
+		: "menus.menu_id";
+
+	const menus = await db.query(`
+		SELECT
+			menus.menu_id,
+			menus.name,
+			mt.type_id,
+			mt.name AS "type",
+			menus.price
+		FROM menus
+		LEFT JOIN menu_ingredients mi ON menus.menu_id = mi.menu_id
+		LEFT JOIN units ON mi.units_unit_id = units.unit_id
+		LEFT JOIN menu_types mt ON menus.type_id = mt.type_id
+		INNER JOIN orders ON orders.user_id = ${user_id}
+		ORDER BY ${order}
+	`);
+
+	return buildFullOrderMenus(db, menus);
+};
+
 const getById = async (db, menu_id) => {
 	const menu = await db.query(`
 		SELECT
@@ -149,6 +172,25 @@ const buildFullMenus = async (db, menus) => {
 		}
 
 		fullMenus.set(menu.menu_id, fullMenu);
+	}
+
+	return Array.from(fullMenus).map(([_, menu]) => menu);
+};
+
+const buildFullOrderMenus = async (db, menus) => {
+	const fullMenus = new Map();
+
+	for (const menu of menus) {
+		const fullMenu = {
+			menu_id: menu.menu_id,
+			name: menu.name,
+			type: menu.type,
+			type_id: menu.type_id,
+			price: menu.price,
+			ingredients: []
+		};
+
+		fullMenus.set(menu, fullMenu);
 	}
 
 	return Array.from(fullMenus).map(([_, menu]) => menu);
@@ -220,6 +262,7 @@ const Menu = {
 	updateIngredient,
 	delete: del,
 	deleteIngredient:
-	delIngredient
+	delIngredient,
+	getAllOrdersMenusByUserId
 };
 export default Menu;
