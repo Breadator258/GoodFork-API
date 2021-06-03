@@ -99,7 +99,8 @@ const getAllOrdersMenusByUserId = async (db, orderBy, user_id) => {
 			menus.name,
 			mt.type_id,
 			mt.name AS "type",
-			menus.price
+			menus.price,
+			orders.is_finished
 		FROM menus
 		LEFT JOIN menu_ingredients mi ON menus.menu_id = mi.menu_id
 		LEFT JOIN units ON mi.units_unit_id = units.unit_id
@@ -187,7 +188,8 @@ const buildFullOrderMenus = async (db, menus) => {
 			type: menu.type,
 			type_id: menu.type_id,
 			price: menu.price,
-			ingredients: []
+			ingredients: [],
+			is_finished: menu.is_finished
 		};
 
 		fullMenus.set(menu, fullMenu);
