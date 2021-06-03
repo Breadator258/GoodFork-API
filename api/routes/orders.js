@@ -101,7 +101,7 @@ export default (router) => {
 	);
 
 	route.get(
-		"/unfinished/user_id/:user_id",
+		"/menus/user_id/:user_id",
 		middlewares.checkParams("user_id"),
 		middlewares.database,
 		async (request, response) => {
