@@ -102,7 +102,6 @@ const getAllOrdersMenusByUserId = async (db, orderBy, user_id) => {
 			menus.price,
 			orders.is_finished
 		FROM menus
-		INNER JOIN orders ON orders.order_id = orders_menus.order_id
 		LEFT JOIN menu_ingredients mi ON menus.menu_id = mi.menu_id
 		LEFT JOIN units ON mi.units_unit_id = units.unit_id
 		LEFT JOIN menu_types mt ON menus.type_id = mt.type_id
