@@ -98,7 +98,7 @@ const getAll = async db => {
 
 const getAllOrdersByUserId = async (db, user_id) => {
 	return await db.query(`
-        SELECT orders_menus.menu_id, menus.name, menus.price, menus.type_id, menu_types.name, orders.is_finished
+        SELECT orders_menus.menu_id, menus.name, menus.price, menus.type_id, menu_types.name AS menu_type, orders.is_finished
         FROM orders_menus
         INNER JOIN orders ON orders.order_id = orders_menus.order_id
         INNER JOIN menus ON orders_menus.menu_id = menus.menu_id
