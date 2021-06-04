@@ -162,7 +162,7 @@ const getActiveByUserId = async (db, user_id) => {
 	`, [user_id]);
 
 	return booking[0]
-		? buildBookings(db, booking[0])
+		? buildBookings(db, booking)
 		: new ModelError(404, "No active booking found with this user id.");
 };
 
