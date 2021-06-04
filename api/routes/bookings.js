@@ -92,7 +92,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(200).json({ code: 200, booking: result }).end();
+						response.status(200).json({ code: 200, bookings: result }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())

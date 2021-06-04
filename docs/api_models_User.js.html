@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>api/models/User.js - The Good Fork - API</title>
+		<meta name="description" content="Online documentation of the good fork api" />
+		<meta name="keywords" content="the, good, fork, api, doc, documentation" />
+		<meta name="keyword" content="the, good, fork, api, doc, documentation" />
+		<script src="scripts/prettify/prettify.js"></script>
+		<script src="scripts/prettify/lang-css.js"></script>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link type="text/css" rel="stylesheet" href="styles/prettify.css">
+		<link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+		<script src="scripts/nav.js" defer></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+		<label for="nav-trigger" class="navicon-button x">
+			<div class="navicon"></div>
+		</label>
+		<label for="nav-trigger" class="overlay"></label>
+		<nav >
+			<input type="text" id="nav-search" placeholder="Search" />
+			<h2>
+				<a href="index.html">Home</a>
+			</h2>
+			<h2>
+				<a href="https://github.com/Breadator258/3PROJ-WEB_API" target="_blank" class="menu-item" id="github_link" >GitHub</a>
+			</h2>
+			<h2>
+				<a href="./api_routes.html" target="_blank" class="menu-item" id="api_routes_link" >API Routes</a>
+			</h2>
+			<h3>Classes</h3>
+			<ul>
+				<li>
+					<a href="ModelError.html">ModelError</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="ModelError.html#.code">code</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="ModelError.html#.message">message</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="ModelError.html#.fields">fields</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="ModelError.html#.json">json</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<h3>Modules</h3>
+			<ul>
+				<li>
+					<a href="module-middlewares.html">middlewares</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-middlewares.html#~checkParams">checkParams</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-middlewares.html#~database">database</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-middlewares.html#~toLowercase">toLowercase</a>
+						</li>
+					</ul>
+				</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li>
+					<a href="module-models_Booking.html">models/Booking</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Booking.html#~add">add</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Booking.html#~getById">getById</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Booking.html#~getByUserId">getByUserId</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Booking.html#~getActiveByUserId">getActiveByUserId</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Booking.html#~getAll">getAll</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Booking.html#~buildBookings">buildBookings</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Booking.html#~delete">delete</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-models_Menu.html">models/Menu</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Menu.html#~add">add</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Menu.html#~addIngredient">addIngredient</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Menu.html#~getAll">getAll</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Menu.html#~getById">getById</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Menu.html#~buildMenus">buildMenus</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Menu.html#~update">update</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Menu.html#~setIllustration">setIllustration</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Menu.html#~updateIngredient">updateIngredient</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Menu.html#~delete">delete</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Menu.html#~deleteIngredient">deleteIngredient</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-models_MenuTypes.html">models/MenuTypes</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_MenuTypes.html#~getByName">getByName</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_MenuTypes.html#~getAll">getAll</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-models_Order.html">models/Order</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Order.html#~add">add</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Order.html#~getById">getById</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Order.html#~getByUserId">getByUserId</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Order.html#~getAll">getAll</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Order.html#~buildOrders">buildOrders</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Order.html#~update">update</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Order.html#~delete">delete</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-models_OrderMenus.html">models/OrderMenus</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_OrderMenus.html#~addMultiple">addMultiple</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_OrderMenus.html#~getAllByUserId">getAllByUserId</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_OrderMenus.html#~buildOrderMenus">buildOrderMenus</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-models_Role.html">models/Role</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Role.html#~getByName">getByName</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Role.html#~getAll">getAll</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-models_Stock.html">models/Stock</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Stock.html#~add">add</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Stock.html#~addOrEdit">addOrEdit</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Stock.html#~getByName">getByName</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Stock.html#~getById">getById</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Stock.html#~getIdOf">getIdOf</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Stock.html#~getAll">getAll</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Stock.html#~update">update</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Stock.html#~delete">delete</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-models_Table.html">models/Table</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Table.html#~add">add</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Table.html#~getById">getById</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Table.html#~getByTableCapacity">getByTableCapacity</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Table.html#~getAll">getAll</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Table.html#~update">update</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Table.html#~delete">delete</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-models_Token.html">models/Token</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Token.html#~add">add</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Token.html#~getNew">getNew</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Token.html#~getUserId">getUserId</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-models_Unit.html">models/Unit</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_Unit.html#~getAll">getAll</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-models_User.html">models/User</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_User.html#~add">add</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_User.html#~addStaff">addStaff</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_User.html#~login">login</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_User.html#~loginWithToken">loginWithToken</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_User.html#~getStaff">getStaff</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_User.html#~getByEmail">getByEmail</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_User.html#~getById">getById</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_User.html#~update">update</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-models_User.html#~deleteStaff">deleteStaff</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-Checkers.html">Checkers</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Checkers.html#~isDefined">isDefined</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Checkers.html#~strInRange">strInRange</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Checkers.html#~isGreaterThan">isGreaterThan</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Checkers.html#~isDateLowerThan">isDateLowerThan</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Checkers.html#~isEmail">isEmail</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Checkers.html#~isPasswordSafe">isPasswordSafe</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Checkers.html#~isString">isString</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Checkers.html#~isNumber">isNumber</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Checkers.html#~isArray">isArray</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Checkers.html#~isDate">isDate</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-Converters.html">Converters</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Converters.html#~toNumber">toNumber</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Converters.html#~toDate">toDate</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-Functions.html">Functions</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Functions.html#~getFieldsToUpdate">getFieldsToUpdate</a>
+						</li>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Functions.html#~convertValue">convertValue</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="module-Mail.html">Mail</a>
+					<ul class='methods'>
+						<li data-type='method' style='display: none;'>
+							<a href="module-Mail.html#~sendPassword">sendPassword</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<h3>Namespaces</h3>
+			<ul>
+				<li>
+					<a href="config.html">config</a>
+				</li>
+			</ul>
+			<h3>Global</h3>
+			<ul>
+				<li>
+					<a href="global.html#startServer">startServer</a>
+				</li>
+				<li>
+					<a href="global.html#getStartedMessage">getStartedMessage</a>
+				</li>
+			</ul>
+		</nav>
+		<div id="main">
+			<h1 class="page-title">api/models/User.js</h1>
+			<section>
+				<article>
+											<pre class="prettyprint source linenums">
+												<code>/** @module models/User */
+		import bcrypt from "bcryptjs";
+		import generatePwd from "generate-password";
+		import config from "../../config/config.js";
+		import Mail from "../../global/Mail.js";
+		import Role from "./Role.js";
+		import Token from "./Token.js";
+		import ModelError from "../../global/ModelError.js";
+		import Checkers from "../../global/Checkers.js";
+		import { getFieldsToUpdate } from "../../global/Functions.js";
+
+		/**
+		 * A User
+		 * @typedef {Object} User
+		 * @property {Number} user_id - ID of the user
+		 * @property {Number} role_id - ID of its role {@see module:models/Role}
+		 * @property {string} first_name - User first name
+		 * @property {string} [last_name] - User last name
+		 * @property {string} email - User email address
+		 * @property {string} [password] - User password protected by hash
+		 */
+
+		/*****************************************************
+		 * Functions
+		 *****************************************************/
+
+		/**
+		 * @ignore
+		 * @function isRoleValid
+		 * @async
+		 * @description Check if a role is valid
+		 *
+		 * @param {Promise&lt;void>} db - Database connection
+		 * @param {string} role - Role name
+		 * @returns {Promise&lt;Boolean>}
+		 *
+		 * @example
+		 * 	isRoleValid(db, "owner") // return true
+		 *isRoleValid(db, "plouf") // return false
+		 */
+		const isRoleValid = async (db, role) => {
+			const roleFound = await db.query("SELECT role_id FROM roles WHERE role_id = ?", [role]);
+			return roleFound.length > 0;
+		};
+
+		/**
+		 * @ignore
+		 * @function isEmailAvailable
+		 * @async
+		 * @description Check if an email address is available
+		 *
+		 * @param {Promise&lt;void>} db - Database connection
+		 * @param {string} email - Email to search for
+		 * @returns {Promise&lt;Boolean>}
+		 *
+		 * @example
+		 * 	isEmailAvailable(db, "johnny.sin@nrop.com")
+		 */
+		const isEmailAvailable = async (db, email) => {
+			const user = await db.query("SELECT email FROM users WHERE email = ?", [email]);
+			return user.length === 0;
+		};
+
+		/**
+		 * @ignore
+		 * @function hashPassword
+		 * @async
+		 * @description Hash a password
+		 *
+		 * @param {string} password - Password to hash
+		 * @returns {Promise&lt;string>} The hashed password
+		 *
+		 * @example
+		 * 	hashPassword("Th1sIsMyP4$$word")
+		 */
+		const hashPassword = async password => {
+			return await bcrypt.hash(password, config.app.security.saltRound);
+		};
+
+		/**
+		 * @ignore
+		 * @function doesPasswordMatchHash
+		 * @async
+		 * @description Check if a password match its hashed version
+		 *
+		 * @param {string} password - Password to test
+		 * @param {string} hash - Hashed version of the password
+		 * @returns {Promise&lt;Boolean>}
+		 *
+		 * @example
+		 * 	isEmailAvailable(db, "johnny.sin@nrop.com")
+		 */
+		const doesPasswordMatchHash = async (password, hash) => {
+			return await bcrypt.compare(password, hash);
+		};
+
+		/*****************************************************
+		 * CRUD Methods
+		 *****************************************************/
+
+		/* ---- CREATE ---------------------------------- */
+		/**
+		 * @function add
+		 * @async
+		 * @description Add a user
+		 *
+		 * @param {Promise&lt;void>} db - Database connection
+		 * @param {string} first_name - User first name
+		 * @param {string} [last_name] - User last name
+		 * @param {string} email - User email address
+		 * @param {string} password1 - Password
+		 * @param {string} password2 - Password confirmation
+		 * @returns {Promise&lt;User|ModelError>} The newly added user or a ModelError
+		 *
+		 * @example
+		 * 	User.add(db, "Daft", "Punk", "daft.punk@elect.ro", "0neMor3T1me!", "0neMor3T1me!")
+		 */
+		const add = async (db, first_name, last_name, email, password1, password2) => {
+			// Check if something is invalid
+			if (!Checkers.strInRange(first_name, null, 255)) {
+				return new ModelError(400, "You must provide a valid first name (max. 255 characters).", ["first_name"]);
+			}
+
+			if (!Checkers.strInRange(last_name, null, 255, true, true)) {
+				return new ModelError(400, "You must provide a valid last name (max. 255 characters).", ["last_name"]);
+			}
+
+			if (!Checkers.isEmail(email)) {
+				return new ModelError(400, "You must provide a valid email address.", ["email"]);
+			}
+
+			if (!Checkers.strInRange([password1, password2], 8, null)) {
+				return new ModelError(400, "The password must be at least 8 characters long.", ["password"]);
+			}
+
+			if (!Checkers.isPasswordSafe([password1, password2])) {
+				return new ModelError(400, "The password must be at least 8 characters long, including an upper case letter, a lower case letter, a number and a special character.", ["password"]);
+			}
+
+			if (password1 !== password2) {
+				return new ModelError(400, "The passwords don't match.", ["password"]);
+			}
+
+			// Check if something is not available
+			if (!await isEmailAvailable(db, email)) {
+				return new ModelError(400, "This email address is already taken.", ["email"]);
+			}
+
+			// Hash password
+			const hashedPwd = await hashPassword(password1);
+
+			// Add the user
+			const user = await db.query(`
+				INSERT INTO users(first_name, last_name, email, password)
+				VALUES (?, ?, ?, ?)
+				`, [first_name, last_name ? last_name : null, email, hashedPwd]
+			);
+
+			return getById(user.insertId);
+		};
+
+		/**
+		 * @function addStaff
+		 * @async
+		 * @description Add a staff member. His password is sent to the given email address.
+		 *
+		 * @param {Promise&lt;void>} db - Database connection
+		 * @param {string} first_name - User first name
+		 * @param {string} [last_name] - User last name
+		 * @param {string} email - User email address
+		 * @param {string} role - His role name
+		 * @returns {Promise&lt;{code: Number, message: string}|ModelError>} A confirmation message or a ModelError
+		 *
+		 * @example
+		 * 	User.addStaff(db, "Daft", "Punk", "daft.punk@elect.ro", "cook")
+		 */
+		const addStaff = async (db, first_name, last_name, email, role) => {
+			// Check if something is invalid
+			if (!Checkers.strInRange(first_name, null, 255)) {
+				return new ModelError(400, "You must provide a valid first name (max. 255 characters).", ["first_name"]);
+			}
+
+			if (!Checkers.strInRange(last_name, null, 255, true, true)) {
+				return new ModelError(400, "You must provide a valid last name (max. 255 characters).", ["last_name"]);
+			}
+
+			if (!Checkers.isEmail(email)) {
+				return new ModelError(400, "You must provide a valid email address.", ["email"]);
+			}
+
+			// Check if something is not available
+			if (!await isEmailAvailable(db, email)) {
+				return new ModelError(400, "This email address is already taken.", ["email"]);
+			}
+
+			if (!await isRoleValid(db, role)) {
+				return new ModelError(400, "The selected role doesn't exist.", ["role"]);
+			}
+
+			// Create password
+			const password = generatePwd.generate({ length: 8, numbers: true, symbols: true, excludeSimilarCharacters: true, strict: true });
+			const hashedPwd = await hashPassword(password);
+
+			// Add the staff
+			await db.query(`
+				INSERT INTO users(role_id, first_name, last_name, email, password)
+				VALUES (?, ?, ?, ?, ?)
+				`, [role, first_name, last_name ? last_name : null, email, hashedPwd]
+			);
+
+			// Return the password
+			try {
+				await Mail.sendPassword(email, password);
+				return { code: 202, message: "Staff added." };
+			} catch (err) {
+				return new ModelError(500, "Could not send password to the new staff member's email address.");
+			}
+		};
+
+		/* ---- READ ------------------------------------ */
+		/**
+		 * @function login
+		 * @async
+		 * @description Login a user
+		 *
+		 * @param {Promise&lt;void>} db - Database connection
+		 * @param {string} email - User email address
+		 * @param {string} password - User password
+		 * @param {string} [roleLevel] - The minimum role needed to log in
+		 * @returns {Promise&lt;User|ModelError>} The logged in user or a ModelError
+		 *
+		 * @example
+		 * 	User.login(db, "daft.punk@elect.ro", ""0neMor3T1me!")
+		 *User.login(db, "daft.punk@elect.ro", ""0neMor3T1me!", "cook")
+		 */
+		const login = async (db, email, password, roleLevel) => {
+			if (!Checkers.isEmail(email)) {
+				return new ModelError(400, "You must provide a valid email address.", ["email"]);
+			}
+
+			if (!Checkers.strInRange(password, 8, null)) {
+				return new ModelError(400, "The password must be at least 8 characters long.", ["password"]);
+			}
+
+			let user = await getPwdByEmail(db, email);
+			if (user instanceof ModelError) return user;
+
+			// Check the role
+			if (roleLevel) {
+				const role = await Role.getByName(db, roleLevel);
+				if (role instanceof ModelError) return role;
+
+				if (user.role !== roleLevel) {
+					return new ModelError(401, "You haven't the required privileges to log in here.");
+				}
+			}
+
+			const canConnect = user ? await doesPasswordMatchHash(password, user.password) : false;
+
+			if (!canConnect) {
+				return new ModelError(400, "No users were found with this email and password combination.", ["email", "password"]);
+			} else {
+				delete user.password;
+				return user;
+			}
+		};
+
+		/**
+		 * @function loginWithToken
+		 * @async
+		 * @description Login a user using its token
+		 *
+		 * @param {Promise&lt;void>} db - Database connection
+		 * @param {string} token - User token
+		 * @param {string} [roleLevel] - The minimum role needed to log in
+		 * @returns {Promise&lt;User|ModelError>} The logged in user or a ModelError
+		 *
+		 * @example
+		 * 	User.loginWithToken(db, "UkZaV1BaWDByTjZvUlkwWWhCdUFoajBJUWowdng3VFE1WU9uM3hxZXUvVWRoVlIybTB4R2NHSXUzWnJRVm9pVA")
+		 */
+		const loginWithToken = async (db, token, roleLevel) => {
+			if (!Checkers.strInRange(token, null, 255)) {
+				return new ModelError(400, "You must provide a valid token", ["token"]);
+			}
+
+			// Get user
+			const user_id = await Token.getUserId(db, token);
+			if (user_id instanceof ModelError) return user_id;
+
+			const user = await getById(db, user_id);
+			if (user instanceof ModelError) return user;
+
+			// Check the role
+			if (roleLevel) {
+				const role = await Role.getByName(db, roleLevel);
+				if (role instanceof ModelError) return role;
+
+				if (user.role !== roleLevel) {
+					return new ModelError(401, "You haven't the required privileges to log in here.");
+				}
+			}
+
+			return user;
+		};
+
+		/**
+		 * @function getStaff
+		 * @async
+		 * @description Get all staff members
+		 *
+		 * @param {Promise&lt;void>} db - Database connection
+		 * @returns {Promise&lt;Array&lt;User>|ModelError>} A list of users or a ModelError
+		 *
+		 * @example
+		 * 	User.getStaff(db)
+		 */
+		const getStaff = db => {
+			return db.query(`
+				SELECT
+					users.user_id,
+					roles.role_id,
+					roles.name AS "role",
+					users.first_name,
+					users.last_name,
+					users.email
+				FROM users
+				LEFT JOIN roles ON users.role_id = roles.role_id
+				WHERE roles.name &lt;> "customer"
+				ORDER BY users.user_id
+			`);
+		};
+
+		/**
+		 * @ignore
+		 * @function getPwdByEmail
+		 * @async
+		 * @description Get a user by its email but fetch his password too. Use only for internal processing.
+		 *
+		 * @param {Promise&lt;void>} db - Database connection
+		 * @param {string} email - User email address
+		 * @returns {Promise&lt;User|ModelError>} A user or a ModelError
+		 *
+		 * @example
+		 * 	User.getPwdByEmail(db, "daft.punk@elect.ro")
+		 */
+		const getPwdByEmail = async (db, email) => {
+			const user = await db.query(`
+				SELECT
+					users.user_id,
+					roles.role_id,
+					roles.name AS "role",
+					users.first_name,
+					users.last_name,
+					users.email,
+					users.password
+				FROM users
+				LEFT JOIN roles ON users.role_id = roles.role_id
+				WHERE users.email = ?
+			`, [email]);
+
+			return user[0] ? user[0] : new ModelError(404, "No user found with this email address.");
+		};
+
+		/**
+		 * @function getByEmail
+		 * @async
+		 * @description Get a user by its email
+		 * @todo Keep it?
+		 *
+		 * @param {Promise&lt;void>} db - Database connection
+		 * @param {string} email - User email address
+		 * @returns {Promise&lt;User|ModelError>} A user or a ModelError
+		 *
+		 * @example
+		 * 	User.getByEmail(db, "daft.punk@elect.ro")
+		 */
+		const getByEmail = async (db, email) => {
+			if (!Checkers.isEmail(email)) {
+				return new ModelError(400, "You must provide a valid email address.", ["email"]);
+			}
+
+			const user =  db.query(`
+				SELECT
+					users.user_id,
+					roles.role_id,
+					roles.name AS "role",
+					users.first_name,
+					users.last_name,
+					users.email
+				FROM users
+				LEFT JOIN roles ON users.role_id = roles.role_id
+				WHERE users.email = ?
+			`, [email]);
+
+			return user[0] ? user[0] : new ModelError(404, "No user found with this email address.");
+		};
+
+		/**
+		 * @function getById
+		 * @async
+		 * @description Get a user by its ID
+		 *
+		 * @param {Promise&lt;void>} db - Database connection
+		 * @param {Number|string} user_id - User ID
+		 * @returns {Promise&lt;User|ModelError>} A user or a ModelError
+		 *
+		 * @example
+		 * 	User.getById(db, 45)
+		 */
+		const getById = async (db, user_id) => {
+			const user = await db.query(`
+				SELECT
+					users.user_id,
+					roles.role_id,
+					roles.name AS "role",
+					users.first_name,
+					users.last_name,
+					users.email
+				FROM users
+				LEFT JOIN roles ON users.role_id = roles.role_id
+				WHERE users.user_id = ?
+				LIMIT 1
+			`, [user_id]);
+
+			return user[0] ? user[0] : new ModelError(404, "No user found with this user id.");
+		};
+
+		/* ---- UPDATE ---------------------------------- */
+		/**
+		 * @function update
+		 * @async
+		 * @description Update a user using its ID
+		 *
+		 * @param {Promise&lt;void>} db - Database connection
+		 * @param {Number|string} user_id - User ID
+		 * @param {Number} [role_id] - ID of its role {@see module:models/Role}
+		 * @param {string} [first_name] - User first name
+		 * @param {string} [last_name] - User last name
+		 * @param {string} [email] - User email address
+		 * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
+		 *
+		 * @example
+		 * 	User.update(db, 45, null, null, "Punk!" null)
+		 */
+		const update = async (db, user_id, role_id, first_name, last_name, email) => {
+			if (!Checkers.strInRange(first_name, null, 255, true, true)) {
+				return new ModelError(400, "You must provide a valid first name (max. 255 characters).", ["first_name"]);
+			}
+
+			if (!Checkers.strInRange(last_name, null, 255, true, true)) {
+				return new ModelError(400, "You must provide a valid last name (max. 255 characters).", ["last_name"]);
+			}
+
+			const updatingFields = getFieldsToUpdate({ role_id, first_name, last_name, email });
+			if (!updatingFields) return new ModelError(200, "Nothing to update");
+
+			return db.query(`UPDATE users SET ${updatingFields} WHERE user_id = ?`, [user_id]);
+		};
+
+		/* ---- DELETE ---------------------------------- */
+		/**
+		 * @function deleteStaff
+		 * @async
+		 * @description Delete a staff member using its ID
+		 *
+		 * @param {Promise&lt;void>} db - Database connection
+		 * @param {Number|string} user_id - User ID
+		 * @returns {Promise&lt;void>}
+		 *
+		 * @example
+		 * 	User.deleteStaff(db, 45)
+		 */
+		const deleteStaff = (db, user_id) => {
+			return db.query(`
+				DELETE users.* FROM users
+				LEFT JOIN roles ON users.role_id = roles.role_id
+				WHERE roles.name &lt;> "customer" AND users.user_id = ?
+			`, [user_id]);
+		};
+
+		/*****************************************************
+		 * Export
+		 *****************************************************/
+
+		const User = { add, addStaff, login, loginWithToken, getStaff, getByEmail, getById, update, deleteStaff };
+		export default User;</code>
+											</pre>
+				</article>
+			</section>
+		</div>
+		<br class="clear">
+		<footer>
+			Documentation generated by
+			<a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Jun 04 2021 19:03:01 GMT+0200 (heure d’été d’Europe centrale) using the
+			<a href="https://github.com/clenemt/docdash">docdash</a> theme.
+
+		</footer>
+		<script>prettyPrint();</script>
+		<script src="scripts/polyfill.js"></script>
+		<script src="scripts/linenumber.js"></script>
+		<script src="scripts/search.js" defer></script>
+		<script src="scripts/collapse.js" defer></script>
+	</body>
+</html>

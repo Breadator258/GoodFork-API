@@ -1,3 +1,4 @@
+/** @module middlewares */
 import mariadb from "mariadb";
 import config from "../../config/config.js";
 
@@ -10,6 +11,21 @@ const pool = mariadb.createPool({
 	connectionLimit: config.db.connectionLimit
 });
 
+/**
+ * @function database
+ * @async
+ * @description Get a connection to the database using MariaDB Connector
+ *
+ * @param {Request} request - Express Request
+ * @param {Response} response -  Express Response
+ * @param {function} next - Express next()
+ * @returns {Promise<void>}
+ *
+ * @example
+ * 	route.post("/", middlewares.database, (request, response) => {
+ *		...
+ * 	});
+ */
 const database = async (request, response, next) => {
 	request.database = new Promise((resolve, reject) => {
 		pool.getConnection()

@@ -1,13 +1,77 @@
+/** @module models/Menu */
 import { getFieldsToUpdate } from "../../global/Functions.js";
 import Stock from "./Stock.js";
 import MenuTypes from "./MenuTypes.js";
 import ModelError from "../../global/ModelError.js";
 import Checkers from "../../global/Checkers.js";
 
+/**
+ * A Menu
+ * @typedef {Object} Menu
+ * @property {Number} menu_id - ID of the menu
+ * @property {Number} type_id - ID of the menu type {@see module:models/MenuType}
+ * @property {string} name - Menu name
+ * @property {string} [description] - Menu description
+ * @property {Number} price - Menu price
+ * @property {string} [image_path] - Illustration
+ */
+
+/**
+ * A Full Menu
+ * @typedef {Object} MenuFull
+ * @property {Number} menu_id - ID of the menu
+ * @property {Number} type_id - ID of the menu type {@see module:models/MenuType}
+ * @property {string} type - Type of the menu {@see module:models/MenuType}
+ * @property {string} name - Menu name
+ * @property {string} [description] - Menu description
+ * @property {Number} price - Menu price
+ * @property {string} [image_path] - Illustration
+ * @property {Array<MenuFullIngredient>} ingredients - Ingredients
+ */
+
+/**
+ * A Menu ingredient
+ * @typedef {Object} MenuIngredient
+ * @property {Number} ingredient_id - ID of the ingredient
+ * @property {Number} menu_id - ID of the menu {@see Menu}
+ * @property {Number} stock_id - ID of the stock element corresponding to this ingredient
+ * @property {Number} units - How many/much of this ingredient
+ * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ */
+
+/**
+ * A Menu full ingredient
+ * @typedef {Object} MenuFullIngredient
+ * @property {Number} ingredient_id - ID of the ingredient
+ * @property {Number} stock_id - ID of the stock element corresponding to this ingredient
+ * @property {string} name - Name of the stock element corresponding to this ingredient
+ * @property {Number} units - How many/much of this ingredient
+ * @property {string} units_unit - Unit associated to "units" property {@see Unit}
+ * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @property {string} stock_units_unit - Stock unit associated to "units" property {@see Unit}
+ * @property {Number} stock_units_unit_id - Stock unit ID of the unit associated to "units" property {@see Unit}
+ */
+
 /*****************************************************
  * CRUD Methods
  *****************************************************/
+
 /* ---- CREATE ---------------------------------- */
+/**
+ * @function add
+ * @async
+ * @description Add a menu
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {string} type - Type of the menu {@see module:models/MenuType}
+ * @param {string} name - Menu name
+ * @param {string} [description] - Menu description
+ * @param {Number} price - Menu price
+ * @returns {Promise<{menu_id: Number}|ModelError>} The newly added menu ID or a ModelError
+ *
+ * @example
+ * 	Menu.add(db, "entrée", "Côte de porc sur son lit de ketchup", "Miam, c'est bon", 300)
+ */
 const add = async (db, type, name, description, price) => {
 	if (!Checkers.strInRange(name, null, 255, true, true)) {
 		return new ModelError(400, "You must provide a valid name.", ["name"]);
@@ -37,6 +101,21 @@ const add = async (db, type, name, description, price) => {
 	return { menu_id: menu.insertId };
 };
 
+/**
+ * @function addIngredient
+ * @async
+ * @description Add an ingredient in a menu
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number} menu_id - ID of the menu
+ * @param {string} name - Name of the ingredient
+ * @param {Number} units - How many/much of this ingredient
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @returns {Promise<{ingredient_id: Number}|ModelError>} The newly added ingredient ID or a ModelError
+ *
+ * @example
+ * 	Menu.addIngredient(db, 7, "Beurre", 4, "kg")
+ */
 const addIngredient = async (db, menu_id, name, units, units_unit_id) => {
 	if (!Checkers.isGreaterThan(units, 0, true)) {
 		return new ModelError(400, "You must provide a valid quantity.", ["units"]);
@@ -50,15 +129,31 @@ const addIngredient = async (db, menu_id, name, units, units_unit_id) => {
 		stockId = newItem.insertId;
 	}
 
-	return db.query(`
+	const ingredient = await  db.query(`
 		INSERT INTO menu_ingredients(menu_id, stock_id, units, units_unit_id)
 		VALUES (?, ?, ?, ?)
 	`, [menu_id, stockId, units, units_unit_id]
 	);
+
+	return { ingredient_id: ingredient.insertId };
 };
 
 /* ---- READ ------------------------------------ */
 const validOrderBy = ["menu_id", "name", "type_id", "price"];
+
+/**
+ * @function getAll
+ * @async
+ * @description Get all menus
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {string} [orderBy] - One of ["menu_id", "name", "type_id", "price"]
+ * @returns {Promise<Array<Menu>|ModelError>} A list of menus or a ModelError
+ *
+ * @example
+ * 	Menu.getAll(db)
+ *Menu.getAll(db, "name")
+ */
 const getAll = async (db, orderBy) => {
 	const order = orderBy
 		? validOrderBy.includes(orderBy.toLowerCase()) ?  `menus.${orderBy}` : "menus.menu_id"
@@ -85,33 +180,21 @@ const getAll = async (db, orderBy) => {
 		ORDER BY ${order}
 	`);
 
-	return buildFullMenus(db, menus);
+	return buildMenus(db, menus);
 };
 
-const getAllOrdersMenusByUserId = async (db, orderBy, user_id) => {
-	const order = orderBy
-		? validOrderBy.includes(orderBy.toLowerCase()) ?  `menus.${orderBy}` : "menus.menu_id"
-		: "menus.menu_id";
-
-	const menus = await db.query(`
-		SELECT
-			menus.menu_id,
-			menus.name,
-			mt.type_id,
-			mt.name AS "type",
-			menus.price,
-			orders.is_finished
-		FROM menus
-		LEFT JOIN menu_ingredients mi ON menus.menu_id = mi.menu_id
-		LEFT JOIN units ON mi.units_unit_id = units.unit_id
-		LEFT JOIN menu_types mt ON menus.type_id = mt.type_id
-		INNER JOIN orders ON orders.user_id = ${user_id}
-		ORDER BY ${order}
-	`);
-
-	return buildFullOrderMenus(db, menus);
-};
-
+/**
+ * @function getById
+ * @async
+ * @description Get a menu by its ID
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} menu_id - ID of the menu
+ * @returns {Promise<Menu|ModelError>} A menu or a ModelError
+ *
+ * @example
+ * 	Menu.getById(db, 7)
+ */
 const getById = async (db, menu_id) => {
 	const menu = await db.query(`
 		SELECT
@@ -138,14 +221,27 @@ const getById = async (db, menu_id) => {
 		return new ModelError(404, "No menu found with this id.");
 	}
 
-	const fullMenu = await buildFullMenus(db, menu);
+	const fullMenu = await buildMenus(db, menu);
 	return fullMenu[0];
 };
 
-const buildFullMenus = async (db, menus) => {
+/**
+ * @function buildMenus
+ * @async
+ * @description Replace foreign keys by the corresponding data
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Array<Menu>|Menu} menus - One or multiple menus
+ * @returns {Promise<Array<MenuFull>|MenuFull>} One or multiple full menus
+ *
+ * @example
+ * 	Menus.buildMenus(db, [<Menu>, ...])
+ *Booking.buildMenus(db, <Menu>)
+ */
+const buildMenus = async (db, menus) => {
 	const fullMenus = new Map();
 
-	for (const menu of menus) {
+	const build = async menu => {
 		const fullMenu = fullMenus.has(menu.menu_id)
 			? fullMenus.get(menu.menu_id)
 			: {
@@ -168,37 +264,46 @@ const buildFullMenus = async (db, menus) => {
 				name: stock.name,
 				units: menu.units,
 				units_unit: menu.units_unit,
-				units_unit_id: menu.units_unit_id
+				units_unit_id: menu.units_unit_id,
+				stock_units_unit: stock.units_unit,
+				stock_units_unit_id: stock.units_unit_id,
+				unit_price: stock.unit_price
 			});
 		}
 
 		fullMenus.set(menu.menu_id, fullMenu);
+	};
+
+	if (Checkers.isArray(menus)) {
+		for (const menu of menus) {
+			await build(menu);
+		}
+
+		return Array.from(fullMenus).map(([_, menu]) => menu);
+	} else {
+		await build(menus);
+
+		return fullMenus.values().next().value;
 	}
-
-	return Array.from(fullMenus).map(([_, menu]) => menu);
-};
-
-const buildFullOrderMenus = async (db, menus) => {
-	const fullMenus = new Map();
-
-	for (const menu of menus) {
-		const fullMenu = {
-			menu_id: menu.menu_id,
-			name: menu.name,
-			type: menu.type,
-			type_id: menu.type_id,
-			price: menu.price,
-			ingredients: [],
-			is_finished: menu.is_finished
-		};
-
-		fullMenus.set(menu, fullMenu);
-	}
-
-	return Array.from(fullMenus).map(([_, menu]) => menu);
 };
 
 /* ---- UPDATE ---------------------------------- */
+/**
+ * @function update
+ * @async
+ * @description Update a menu
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} menu_id - ID of the menu
+ * @param {Number|string} [type_id] - ID of the menu type {@see module:models/MenuType}
+ * @param {string} [name] - Menu name
+ * @param {string} [description] - Menu description
+ * @param {Number} [price] - Menu price
+ * @returns {Promise<void|ModelError>} Nothing or a ModelError
+ *
+ * @example
+ * 	Menu.update(db, 7, null, null, 15)
+ */
 const update = async (db, menu_id, type_id, name, description, price) => {
 	if (!Checkers.strInRange(name, null, 255, true, true)) {
 		return new ModelError(400, "You must provide a valid menu name (max. 255 characters).", ["name"]);
@@ -218,10 +323,38 @@ const update = async (db, menu_id, type_id, name, description, price) => {
 	return db.query(`UPDATE menus SET ${updatingFields} WHERE menu_id = ?`, [menu_id]);
 };
 
+/**
+ * @function setIllustration
+ * @async
+ * @description Update a menu illustration
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} menu_id - ID of the menu
+ * @param {string} image_path - Illustration
+ * @returns {Promise<void>}
+ *
+ * @example
+ * 	Menu.setIllustration(db, 7, "http://www.website.com/images/noob.png")
+ */
 const setIllustration = async (db, menu_id, image_path) => {
 	return db.query("UPDATE menus SET image_path = ? WHERE menu_id = ?", [image_path, menu_id]);
 };
 
+/**
+ * @function updateIngredient
+ * @async
+ * @description Update a menu
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} ingredient_id - ID of the ingredient
+ * @param {string} [name] - Name of the stock element corresponding to this ingredient
+ * @param {Number} units - How many/much of this ingredient
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @returns {Promise<void|ModelError>} Nothing or a ModelError
+ *
+ * @example
+ * 	Menu.updateIngredient(db, 15, null, 15, null)
+ */
 const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) => {
 	if (units && !Checkers.isGreaterThan(units, 0, true)) {
 		return new ModelError(400, "You must provide a valid quantity.", ["units"]);
@@ -242,10 +375,34 @@ const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) =
 };
 
 /* ---- DELETE ---------------------------------- */
+/**
+ * @function delete
+ * @async
+ * @description Delete a menu
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} menu_id - ID of the menu
+ * @returns {Promise<void|ModelError>} Nothing or a ModelError
+ *
+ * @example
+ * 	Menu.delete(db, 7)
+ */
 const del = async (db, menu_id) => {
 	return db.query("DELETE FROM menus WHERE menu_id = ?", [menu_id]);
 };
 
+/**
+ * @function deleteIngredient
+ * @async
+ * @description Delete a menu ingredient
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} ingredient_id - ID of the ingredient
+ * @returns {Promise<void|ModelError>} Nothing or a ModelError
+ *
+ * @example
+ * 	Menu.deleteIngredient(db, 15)
+ */
 const delIngredient = async (db, ingredient_id) => {
 	return db.query("DELETE FROM menu_ingredients WHERE ingredient_id = ?", [ingredient_id]);
 };
@@ -263,8 +420,6 @@ const Menu = {
 	setIllustration,
 	updateIngredient,
 	delete: del,
-	deleteIngredient:
-	delIngredient,
-	getAllOrdersMenusByUserId
+	deleteIngredient: delIngredient
 };
 export default Menu;

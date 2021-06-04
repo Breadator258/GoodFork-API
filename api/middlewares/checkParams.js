@@ -1,3 +1,18 @@
+/** @module middlewares */
+import Checkers from "../../global/Checkers.js";
+
+/**
+ * @function checkParams
+ * @description Check if a parameter is present or not is the request
+ *
+ * @param {...string} paramsNames - Names of the required parameters
+ * @returns {function(Request, Response, function): *}
+ *
+ * @example
+ * 	route.post("/", middlewares.checkParams("user_id", "time", "clients_nb"), (request, response) => {
+ *		...
+ *	});
+ */
 export default function checkParams(...paramsNames) {
 	return (request, response, next) => {
 		const params = request.method.toUpperCase() === "GET" ? request.params : request.body;
@@ -9,8 +24,8 @@ export default function checkParams(...paramsNames) {
 			if (Object.prototype.hasOwnProperty.call(params, name)) {
 				const param = params[name];
 
-				if (isNullOrUndefined(param)) addMissingParam(name);
-				if (isEmptyString(param)) addMissingParam(name);
+				if (!Checkers.isDefined(param)) addMissingParam(name);
+				if (!Checkers.strInRange(param, 1, null)) addMissingParam(name);
 			} else {
 				addMissingParam(name);
 			}
@@ -18,20 +33,12 @@ export default function checkParams(...paramsNames) {
 
 		// End the request if something is missing
 		if (missing.length > 0) {
-			return response.json({
+			return response.status(400).json({
 				code: 400,
 				error: `Missing parameter${missing.length > 1 ? "s" : ""}: ${missing.join(", ")}`
-			}).status(400).end();
+			}).end();
 		}
 
 		return next();
 	};
-}
-
-function isNullOrUndefined(value) {
-	return value === undefined || value === null;
-}
-
-function isEmptyString(value) {
-	return Object.prototype.toString.call(value) === "[object String]" ? value.length === 0 : false;
 }

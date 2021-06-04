@@ -1,3 +1,4 @@
+/** @module models/User */
 import bcrypt from "bcryptjs";
 import generatePwd from "generate-password";
 import config from "../../config/config.js";
@@ -8,24 +9,87 @@ import ModelError from "../../global/ModelError.js";
 import Checkers from "../../global/Checkers.js";
 import { getFieldsToUpdate } from "../../global/Functions.js";
 
+/**
+ * A User
+ * @typedef {Object} User
+ * @property {Number} user_id - ID of the user
+ * @property {Number} role_id - ID of its role {@see module:models/Role}
+ * @property {string} first_name - User first name
+ * @property {string} [last_name] - User last name
+ * @property {string} email - User email address
+ * @property {string} [password] - User password protected by hash
+ */
+
 /*****************************************************
  * Functions
  *****************************************************/
 
+/**
+ * @ignore
+ * @function isRoleValid
+ * @async
+ * @description Check if a role is valid
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {string} role - Role name
+ * @returns {Promise<Boolean>}
+ *
+ * @example
+ * 	isRoleValid(db, "owner") // return true
+ *isRoleValid(db, "plouf") // return false
+ */
 const isRoleValid = async (db, role) => {
 	const roleFound = await db.query("SELECT role_id FROM roles WHERE role_id = ?", [role]);
 	return roleFound.length > 0;
 };
 
+/**
+ * @ignore
+ * @function isEmailAvailable
+ * @async
+ * @description Check if an email address is available
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {string} email - Email to search for
+ * @returns {Promise<Boolean>}
+ *
+ * @example
+ * 	isEmailAvailable(db, "johnny.sin@nrop.com")
+ */
 const isEmailAvailable = async (db, email) => {
 	const user = await db.query("SELECT email FROM users WHERE email = ?", [email]);
 	return user.length === 0;
 };
 
+/**
+ * @ignore
+ * @function hashPassword
+ * @async
+ * @description Hash a password
+ *
+ * @param {string} password - Password to hash
+ * @returns {Promise<string>} The hashed password
+ *
+ * @example
+ * 	hashPassword("Th1sIsMyP4$$word")
+ */
 const hashPassword = async password => {
 	return await bcrypt.hash(password, config.app.security.saltRound);
 };
 
+/**
+ * @ignore
+ * @function doesPasswordMatchHash
+ * @async
+ * @description Check if a password match its hashed version
+ *
+ * @param {string} password - Password to test
+ * @param {string} hash - Hashed version of the password
+ * @returns {Promise<Boolean>}
+ *
+ * @example
+ * 	isEmailAvailable(db, "johnny.sin@nrop.com")
+ */
 const doesPasswordMatchHash = async (password, hash) => {
 	return await bcrypt.compare(password, hash);
 };
@@ -35,6 +99,22 @@ const doesPasswordMatchHash = async (password, hash) => {
  *****************************************************/
 
 /* ---- CREATE ---------------------------------- */
+/**
+ * @function add
+ * @async
+ * @description Add a user
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {string} first_name - User first name
+ * @param {string} [last_name] - User last name
+ * @param {string} email - User email address
+ * @param {string} password1 - Password
+ * @param {string} password2 - Password confirmation
+ * @returns {Promise<User|ModelError>} The newly added user or a ModelError
+ *
+ * @example
+ * 	User.add(db, "Daft", "Punk", "daft.punk@elect.ro", "0neMor3T1me!", "0neMor3T1me!")
+ */
 const add = async (db, first_name, last_name, email, password1, password2) => {
 	// Check if something is invalid
 	if (!Checkers.strInRange(first_name, null, 255)) {
@@ -79,6 +159,21 @@ const add = async (db, first_name, last_name, email, password1, password2) => {
 	return getById(user.insertId);
 };
 
+/**
+ * @function addStaff
+ * @async
+ * @description Add a staff member. His password is sent to the given email address.
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {string} first_name - User first name
+ * @param {string} [last_name] - User last name
+ * @param {string} email - User email address
+ * @param {string} role - His role name
+ * @returns {Promise<{code: Number, message: string}|ModelError>} A confirmation message or a ModelError
+ *
+ * @example
+ * 	User.addStaff(db, "Daft", "Punk", "daft.punk@elect.ro", "cook")
+ */
 const addStaff = async (db, first_name, last_name, email, role) => {
 	// Check if something is invalid
 	if (!Checkers.strInRange(first_name, null, 255)) {
@@ -123,6 +218,21 @@ const addStaff = async (db, first_name, last_name, email, role) => {
 };
 
 /* ---- READ ------------------------------------ */
+/**
+ * @function login
+ * @async
+ * @description Login a user
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {string} email - User email address
+ * @param {string} password - User password
+ * @param {string} [roleLevel] - The minimum role needed to log in
+ * @returns {Promise<User|ModelError>} The logged in user or a ModelError
+ *
+ * @example
+ * 	User.login(db, "daft.punk@elect.ro", ""0neMor3T1me!")
+ *User.login(db, "daft.punk@elect.ro", ""0neMor3T1me!", "cook")
+ */
 const login = async (db, email, password, roleLevel) => {
 	if (!Checkers.isEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
@@ -155,6 +265,19 @@ const login = async (db, email, password, roleLevel) => {
 	}
 };
 
+/**
+ * @function loginWithToken
+ * @async
+ * @description Login a user using its token
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {string} token - User token
+ * @param {string} [roleLevel] - The minimum role needed to log in
+ * @returns {Promise<User|ModelError>} The logged in user or a ModelError
+ *
+ * @example
+ * 	User.loginWithToken(db, "UkZaV1BaWDByTjZvUlkwWWhCdUFoajBJUWowdng3VFE1WU9uM3hxZXUvVWRoVlIybTB4R2NHSXUzWnJRVm9pVA")
+ */
 const loginWithToken = async (db, token, roleLevel) => {
 	if (!Checkers.strInRange(token, null, 255)) {
 		return new ModelError(400, "You must provide a valid token", ["token"]);
@@ -180,6 +303,17 @@ const loginWithToken = async (db, token, roleLevel) => {
 	return user;
 };
 
+/**
+ * @function getStaff
+ * @async
+ * @description Get all staff members
+ *
+ * @param {Promise<void>} db - Database connection
+ * @returns {Promise<Array<User>|ModelError>} A list of users or a ModelError
+ *
+ * @example
+ * 	User.getStaff(db)
+ */
 const getStaff = db => {
 	return db.query(`
 		SELECT
@@ -196,6 +330,19 @@ const getStaff = db => {
 	`);
 };
 
+/**
+ * @ignore
+ * @function getPwdByEmail
+ * @async
+ * @description Get a user by its email but fetch his password too. Use only for internal processing.
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {string} email - User email address
+ * @returns {Promise<User|ModelError>} A user or a ModelError
+ *
+ * @example
+ * 	User.getPwdByEmail(db, "daft.punk@elect.ro")
+ */
 const getPwdByEmail = async (db, email) => {
 	const user = await db.query(`
     SELECT
@@ -214,7 +361,19 @@ const getPwdByEmail = async (db, email) => {
 	return user[0] ? user[0] : new ModelError(404, "No user found with this email address.");
 };
 
-// TODO: Keep it?
+/**
+ * @function getByEmail
+ * @async
+ * @description Get a user by its email
+ * @todo Keep it?
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {string} email - User email address
+ * @returns {Promise<User|ModelError>} A user or a ModelError
+ *
+ * @example
+ * 	User.getByEmail(db, "daft.punk@elect.ro")
+ */
 const getByEmail = async (db, email) => {
 	if (!Checkers.isEmail(email)) {
 		return new ModelError(400, "You must provide a valid email address.", ["email"]);
@@ -236,6 +395,18 @@ const getByEmail = async (db, email) => {
 	return user[0] ? user[0] : new ModelError(404, "No user found with this email address.");
 };
 
+/**
+ * @function getById
+ * @async
+ * @description Get a user by its ID
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} user_id - User ID
+ * @returns {Promise<User|ModelError>} A user or a ModelError
+ *
+ * @example
+ * 	User.getById(db, 45)
+ */
 const getById = async (db, user_id) => {
 	const user = await db.query(`
     SELECT
@@ -255,6 +426,22 @@ const getById = async (db, user_id) => {
 };
 
 /* ---- UPDATE ---------------------------------- */
+/**
+ * @function update
+ * @async
+ * @description Update a user using its ID
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} user_id - User ID
+ * @param {Number} [role_id] - ID of its role {@see module:models/Role}
+ * @param {string} [first_name] - User first name
+ * @param {string} [last_name] - User last name
+ * @param {string} [email] - User email address
+ * @returns {Promise<void|ModelError>} Nothing or a ModelError
+ *
+ * @example
+ * 	User.update(db, 45, null, null, "Punk!" null)
+ */
 const update = async (db, user_id, role_id, first_name, last_name, email) => {
 	if (!Checkers.strInRange(first_name, null, 255, true, true)) {
 		return new ModelError(400, "You must provide a valid first name (max. 255 characters).", ["first_name"]);
@@ -271,6 +458,18 @@ const update = async (db, user_id, role_id, first_name, last_name, email) => {
 };
 
 /* ---- DELETE ---------------------------------- */
+/**
+ * @function deleteStaff
+ * @async
+ * @description Delete a staff member using its ID
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} user_id - User ID
+ * @returns {Promise<void>}
+ *
+ * @example
+ * 	User.deleteStaff(db, 45)
+ */
 const deleteStaff = (db, user_id) => {
 	return db.query(`
 		DELETE users.* FROM users
