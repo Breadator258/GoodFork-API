@@ -98,34 +98,29 @@ const getAllByUserId = async (db, user_id) => {
  *Order.buildOrderMenus(db, <OrderMenu>)
  */
 const buildOrderMenus = async (db, menus) => {
-	const fullMenus = new Map();
-
 	const build = async menu => {
-		const fullMenu = fullMenus.has(menu.menu_id)
-			? fullMenus.get(menu.menu_id)
-			: {
-				order_id: menu.order_id,
-				menu_id: menu.menu_id,
-				name: menu.name,
-				type: menu.type,
-				type_id: menu.type_id,
-				price: menu.price,
-				is_finished: menu.is_finished
-			};
 
-		fullMenus.set(menu.menu_id, fullMenu);
+		return {
+			order_id: menu.order_id,
+			menu_id: menu.menu_id,
+			name: menu.name,
+			type: menu.type,
+			type_id: menu.type_id,
+			price: menu.price,
+			is_finished: menu.is_finished
+		};
 	};
 
 	if (Checkers.isArray(menus)) {
+		const fullMenus = [];
+
 		for (const menu of menus) {
-			await build(menu);
+			fullMenus.push(await build(menu));
 		}
 
-		return Array.from(fullMenus).map(([_, menu]) => menu);
+		return fullMenus;
 	} else {
-		await build(menus);
-
-		return fullMenus.values().next().value;
+		return await build(menus);
 	}
 };
 
