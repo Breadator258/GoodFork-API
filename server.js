@@ -7,6 +7,12 @@ import cors from "cors";
 import config from "./config/config.js";
 import routes from "./api/index.js";
 
+/**
+ * @function startServer
+ * @description Set up http and https server on port 8080 and 8433.
+ *
+ * @returns {Promise<void>}
+ */
 async function startServer() {
 	// Set up HTTPS certificates
 	const key  = fs.readFileSync("./certs/cert.key", "utf8");
@@ -60,6 +66,17 @@ async function startServer() {
 		});
 }
 
+/**
+ * @function getStartedMessage
+ * @description Get a formatted message to show in the console when a server is started.
+ *
+ * @param {string} protocol - The protocol used by the server (http, https)
+ * @param {string|int} port - The port number used by the server
+ * @returns {string} The complete message
+ *
+ * @example
+ * 	getStartedMessage("http", 80)
+ */
 function getStartedMessage(protocol, port) {
 	return "############# The Good Fork API ##############\n" +
     `Server started. Listening on port ${port} (${protocol}).\n` +

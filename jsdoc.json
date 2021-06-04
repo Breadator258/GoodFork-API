@@ -1,0 +1,50 @@
+{
+	"tags": {
+		"allowUnknownTags": false
+	},
+	"source": {
+		"include": [ "./api", "./config", "./global" ],
+		"excludePattern": "(node_modules/|docs)"
+	},
+	"plugins": [
+		"plugins/markdown"
+	],
+	"opts": {
+		"template": "node_modules/docdash",
+		"encoding": "utf8",
+		"destination": "docs/",
+		"recurse": true,
+		"verbose": true
+	},
+	"templates": {
+		"cleverLinks": false,
+		"monospaceLinks": false
+	},
+	"docdash": {
+		"meta": {
+			"title": "The Good Fork - API",
+			"description": "Online documentation of the good fork api",
+			"keyword": "the, good, fork, api, doc, documentation"
+		},
+		"sort": false,
+		"search": true,
+		"commonNav": true,
+		"collapse": true,
+		"typedefs": true,
+		"removeQuotes": "none",
+		"menu": {
+			"GitHub": {
+				"href":"https://github.com/Breadator258/3PROJ-WEB_API",
+				"target":"_blank",
+				"class":"menu-item",
+				"id":"github_link"
+			},
+			"API Routes": {
+				"href":"./api_routes.html",
+				"target":"_blank",
+				"class":"menu-item",
+				"id":"api_routes_link"
+			}
+		}
+	}
+}

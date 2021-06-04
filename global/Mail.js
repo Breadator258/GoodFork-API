@@ -1,3 +1,7 @@
+/**
+ * @module Mail
+ * @description This module is used to send mail.
+ */
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
 import config from "../config/config.js";
@@ -30,6 +34,16 @@ transporter.verify()
 	.catch(err => console.error(err));
 
 /* ---- Pre-defined emails ---------------------- */
+/**
+ * @function sendPassword
+ * @description Send a generated password to a new member
+ *
+ * @param {string} targetEmail - The new member email address
+ * @param {string} password - His generated password
+ *
+ * @example
+ * 	Mail.sendPassword("rick.astley@nggyu.co.uk", "pa$$w0rd!")
+ */
 function sendPassword(targetEmail, password) {
 	const mailContent = {
 		from: email.address,
