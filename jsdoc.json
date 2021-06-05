@@ -41,7 +41,6 @@
 			},
 			"API Routes": {
 				"href":"./api_routes.html",
-				"target":"_blank",
 				"class":"menu-item",
 				"id":"api_routes_link"
 			}

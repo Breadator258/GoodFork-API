@@ -204,6 +204,7 @@ section {
   font-style: italic;
   font-weight: lighter;
 }
+.signature-attributes.dark { color: rgb(77, 78, 83); }
 
 nav {
   float: left;
@@ -315,6 +316,13 @@ footer {
 .clear {
   clear: both
 }
+
+.italic {
+  font-style: italic;
+  font-size: 80%;
+}
+
+b { font-weight: bold; font-style: normal; }
 
 .important {
   font-weight: bold;
@@ -455,6 +463,13 @@ footer {
   display:inline-block;
   width:0px;
 }
+
+.table-wrapper {
+  width: 100%;
+  margin: 1em 0;
+  overflow-x: auto;
+}
+.table-wrapper table { margin: 0; }
 
 table {
   border-spacing: 0;

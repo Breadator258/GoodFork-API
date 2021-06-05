@@ -31,7 +31,7 @@
         <a href="https://github.com/Breadator258/3PROJ-WEB_API" target="_blank" class="menu-item" id="github_link" >GitHub</a>
       </h2>
       <h2>
-        <a href="./api_routes.html" target="_blank" class="menu-item" id="api_routes_link" >API Routes</a>
+        <a href="./api_routes.html" class="menu-item" id="api_routes_link" >API Routes</a>
       </h2>
       <h3>Classes</h3>
       <ul>
@@ -89,6 +89,9 @@
             </li>
             <li data-type='method' style='display: none;'>
               <a href="module-models_Booking.html#~getAll">getAll</a>
+            </li>
+            <li data-type='method' style='display: none;'>
+              <a href="module-models_Booking.html#~getAllToday">getAllToday</a>
             </li>
             <li data-type='method' style='display: none;'>
               <a href="module-models_Booking.html#~buildBookings">buildBookings</a>
@@ -394,8 +397,8 @@
             <span class="type-signature">(async, inner) </span>add
             <span class="signature">(db, user_id, time, clients_nb)</span>
             <span class="type-signature"> &rarr; {Promise.&lt;(void|
-                          <a href="ModelError.html">ModelError</a>)>}
-                        </span>
+											<a href="ModelError.html">ModelError</a>)>}
+										</span>
           </h4>
           <dl class="details">
             <dt class="tag-source">Source:</dt>
@@ -413,66 +416,66 @@
           </div>
           <h5>Example</h5>
           <pre class="prettyprint">
-                        <code>Booking.add(db, 1, "2021-06-03 15:10:00", 3)</code>
-                      </pre>
+										<code>Booking.add(db, 1, "2021-06-03 15:10:00", 3)</code>
+									</pre>
           <h5>Parameters:</h5>
           <table class="params">
             <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th class="last">Description</th>
+              </tr>
             </thead>
             <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>user_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-                |
+              <tr>
+                <td class="name">
+                  <code>db</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Promise.&lt;void></span>
+                </td>
+                <td class="description last">
+                  <p>Database connection</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>user_id</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">string</span>
+                  |
 
 
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the user who made the booking</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>time</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="description last">
-                <p>When the booking is scheduled</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>clients_nb</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>How many clients will be present</p>
-              </td>
-            </tr>
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>ID of the user who made the booking</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>time</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+                <td class="description last">
+                  <p>When the booking is scheduled</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>clients_nb</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>How many clients will be present</p>
+                </td>
+              </tr>
             </tbody>
           </table>
           <h5>Returns:</h5>
@@ -484,17 +487,17 @@
               Type
             </dt>
             <dd>
-                          <span class="param-type">Promise.&lt;(void|
-                            <a href="ModelError.html">ModelError</a>)>
-                          </span>
+											<span class="param-type">Promise.&lt;(void|
+												<a href="ModelError.html">ModelError</a>)>
+											</span>
             </dd>
           </dl>
           <h4 class="name" id="~getById">
             <span class="type-signature">(async, inner) </span>getById
             <span class="signature">(db, booking_id)</span>
             <span class="type-signature"> &rarr; {Promise.&lt;(Booking|
-                          <a href="ModelError.html">ModelError</a>)>}
-                        </span>
+											<a href="ModelError.html">ModelError</a>)>}
+										</span>
           </h4>
           <dl class="details">
             <dt class="tag-source">Source:</dt>
@@ -512,44 +515,44 @@
           </div>
           <h5>Example</h5>
           <pre class="prettyprint">
-                        <code>Booking.getById(db, 4)</code>
-                      </pre>
+										<code>Booking.getById(db, 4)</code>
+									</pre>
           <h5>Parameters:</h5>
           <table class="params">
             <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th class="last">Description</th>
+              </tr>
             </thead>
             <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>booking_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-                |
+              <tr>
+                <td class="name">
+                  <code>db</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Promise.&lt;void></span>
+                </td>
+                <td class="description last">
+                  <p>Database connection</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>booking_id</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">string</span>
+                  |
 
 
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the wanted booking</p>
-              </td>
-            </tr>
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>ID of the wanted booking</p>
+                </td>
+              </tr>
             </tbody>
           </table>
           <h5>Returns:</h5>
@@ -561,17 +564,17 @@
               Type
             </dt>
             <dd>
-                          <span class="param-type">Promise.&lt;(Booking|
-                            <a href="ModelError.html">ModelError</a>)>
-                          </span>
+											<span class="param-type">Promise.&lt;(Booking|
+												<a href="ModelError.html">ModelError</a>)>
+											</span>
             </dd>
           </dl>
           <h4 class="name" id="~getByUserId">
             <span class="type-signature">(async, inner) </span>getByUserId
             <span class="signature">(db, user_id)</span>
             <span class="type-signature"> &rarr; {Promise.&lt;(Array.&lt;Booking>|
-                          <a href="ModelError.html">ModelError</a>)>}
-                        </span>
+											<a href="ModelError.html">ModelError</a>)>}
+										</span>
           </h4>
           <dl class="details">
             <dt class="tag-source">Source:</dt>
@@ -589,44 +592,44 @@
           </div>
           <h5>Example</h5>
           <pre class="prettyprint">
-                        <code>Booking.getByUserId(db, 1)</code>
-                      </pre>
+										<code>Booking.getByUserId(db, 1)</code>
+									</pre>
           <h5>Parameters:</h5>
           <table class="params">
             <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th class="last">Description</th>
+              </tr>
             </thead>
             <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>user_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-                |
+              <tr>
+                <td class="name">
+                  <code>db</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Promise.&lt;void></span>
+                </td>
+                <td class="description last">
+                  <p>Database connection</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>user_id</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">string</span>
+                  |
 
 
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the user who made the booking</p>
-              </td>
-            </tr>
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>ID of the user who made the booking</p>
+                </td>
+              </tr>
             </tbody>
           </table>
           <h5>Returns:</h5>
@@ -638,17 +641,17 @@
               Type
             </dt>
             <dd>
-                          <span class="param-type">Promise.&lt;(Array.&lt;Booking>|
-                            <a href="ModelError.html">ModelError</a>)>
-                          </span>
+											<span class="param-type">Promise.&lt;(Array.&lt;Booking>|
+												<a href="ModelError.html">ModelError</a>)>
+											</span>
             </dd>
           </dl>
           <h4 class="name" id="~getActiveByUserId">
             <span class="type-signature">(async, inner) </span>getActiveByUserId
             <span class="signature">(db, user_id)</span>
             <span class="type-signature"> &rarr; {Promise.&lt;(Booking|
-                          <a href="ModelError.html">ModelError</a>)>}
-                        </span>
+											<a href="ModelError.html">ModelError</a>)>}
+										</span>
           </h4>
           <dl class="details">
             <dt class="tag-source">Source:</dt>
@@ -666,44 +669,44 @@
           </div>
           <h5>Example</h5>
           <pre class="prettyprint">
-                        <code>Booking.getActiveByUserId(db, 1)</code>
-                      </pre>
+										<code>Booking.getActiveByUserId(db, 1)</code>
+									</pre>
           <h5>Parameters:</h5>
           <table class="params">
             <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th class="last">Description</th>
+              </tr>
             </thead>
             <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>user_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-                |
+              <tr>
+                <td class="name">
+                  <code>db</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Promise.&lt;void></span>
+                </td>
+                <td class="description last">
+                  <p>Database connection</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>user_id</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">string</span>
+                  |
 
 
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the user who made the booking</p>
-              </td>
-            </tr>
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>ID of the user who made the booking</p>
+                </td>
+              </tr>
             </tbody>
           </table>
           <h5>Returns:</h5>
@@ -715,9 +718,9 @@
               Type
             </dt>
             <dd>
-                          <span class="param-type">Promise.&lt;(Booking|
-                            <a href="ModelError.html">ModelError</a>)>
-                          </span>
+											<span class="param-type">Promise.&lt;(Booking|
+												<a href="ModelError.html">ModelError</a>)>
+											</span>
             </dd>
           </dl>
           <h4 class="name" id="~getAll">
@@ -741,29 +744,87 @@
           </div>
           <h5>Example</h5>
           <pre class="prettyprint">
-                        <code>Booking.getAll(db)</code>
-                      </pre>
+										<code>Booking.getAll(db)</code>
+									</pre>
           <h5>Parameters:</h5>
           <table class="params">
             <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th class="last">Description</th>
+              </tr>
             </thead>
             <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
+              <tr>
+                <td class="name">
+                  <code>db</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Promise.&lt;void></span>
+                </td>
+                <td class="description last">
+                  <p>Database connection</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h5>Returns:</h5>
+          <div class="param-desc">
+            <p>A list of bookings</p>
+          </div>
+          <dl class="param-type">
+            <dt>
+              Type
+            </dt>
+            <dd>
+              <span class="param-type">Promise.&lt;Array.&lt;Booking>></span>
+            </dd>
+          </dl>
+          <h4 class="name" id="~getAllToday">
+            <span class="type-signature">(async, inner) </span>getAllToday
+            <span class="signature">(db)</span>
+            <span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;Booking>>}</span>
+          </h4>
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_models_Booking.js.html">api/models/Booking.js</a>,
+                  <a href="api_models_Booking.js.html#line197">line 197</a>
+                </li>
+              </ul>
+            </dd>
+          </dl>
+          <div class="description usertext">
+            <p>Get all bookings of the day</p>
+          </div>
+          <h5>Example</h5>
+          <pre class="prettyprint">
+										<code>Booking.getAllToday(db)</code>
+									</pre>
+          <h5>Parameters:</h5>
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name">
+                  <code>db</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Promise.&lt;void></span>
+                </td>
+                <td class="description last">
+                  <p>Database connection</p>
+                </td>
+              </tr>
             </tbody>
           </table>
           <h5>Returns:</h5>
@@ -789,7 +850,7 @@
               <ul class="dummy">
                 <li>
                   <a href="api_models_Booking.js.html">api/models/Booking.js</a>,
-                  <a href="api_models_Booking.js.html#line197">line 197</a>
+                  <a href="api_models_Booking.js.html#line227">line 227</a>
                 </li>
               </ul>
             </dd>
@@ -799,45 +860,45 @@
           </div>
           <h5>Example</h5>
           <pre class="prettyprint">
-                        <code>Booking.buildBookings(db, [{booking_id: 4, user_id: 1, table_id: 7, time: "2021-06-03 15:10:00", 3}, ...])
-    Booking.buildBookings(db, {booking_id: 4, user_id: 1, table_id: 7, time: "2021-06-03 15:10:00", 3})</code>
-                      </pre>
+										<code>Booking.buildBookings(db, [{booking_id: 4, user_id: 1, table_id: 7, time: "2021-06-03 15:10:00", 3}, ...])
+Booking.buildBookings(db, {booking_id: 4, user_id: 1, table_id: 7, time: "2021-06-03 15:10:00", 3})</code>
+									</pre>
           <h5>Parameters:</h5>
           <table class="params">
             <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th class="last">Description</th>
+              </tr>
             </thead>
             <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>bookings</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Array.&lt;Booking></span>
-                |
+              <tr>
+                <td class="name">
+                  <code>db</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Promise.&lt;void></span>
+                </td>
+                <td class="description last">
+                  <p>Database connection</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>bookings</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Array.&lt;Booking></span>
+                  |
 
 
-                <span class="param-type">Booking</span>
-              </td>
-              <td class="description last">
-                <p>One or multiple bookings</p>
-              </td>
-            </tr>
+                  <span class="param-type">Booking</span>
+                </td>
+                <td class="description last">
+                  <p>One or multiple bookings</p>
+                </td>
+              </tr>
             </tbody>
           </table>
           <h5>Returns:</h5>
@@ -863,7 +924,7 @@
               <ul class="dummy">
                 <li>
                   <a href="api_models_Booking.js.html">api/models/Booking.js</a>,
-                  <a href="api_models_Booking.js.html#line250">line 250</a>
+                  <a href="api_models_Booking.js.html#line280">line 280</a>
                 </li>
               </ul>
             </dd>
@@ -873,44 +934,44 @@
           </div>
           <h5>Example</h5>
           <pre class="prettyprint">
-                        <code>Booking.delete(db, 4)</code>
-                      </pre>
+										<code>Booking.delete(db, 4)</code>
+									</pre>
           <h5>Parameters:</h5>
           <table class="params">
             <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th class="last">Description</th>
+              </tr>
             </thead>
             <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>booking_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-                |
+              <tr>
+                <td class="name">
+                  <code>db</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Promise.&lt;void></span>
+                </td>
+                <td class="description last">
+                  <p>Database connection</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>booking_id</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">string</span>
+                  |
 
 
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the booking</p>
-              </td>
-            </tr>
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>ID of the booking</p>
+                </td>
+              </tr>
             </tbody>
           </table>
           <h5>Returns:</h5>
@@ -941,87 +1002,87 @@
           <h5 class="subsection-title">Properties:</h5>
           <table class="props">
             <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th class="last">Description</th>
+              </tr>
             </thead>
             <tbody>
-            <tr>
-              <td class="name">
-                <code>booking_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the booking</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>user_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the user who made the booking</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>table_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the table reserved for this booking</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>time</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-                |
+              <tr>
+                <td class="name">
+                  <code>booking_id</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>ID of the booking</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>user_id</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>ID of the user who made the booking</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>table_id</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>ID of the table reserved for this booking</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>time</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">string</span>
+                  |
 
 
-                <span class="param-type">Date</span>
-              </td>
-              <td class="description last">
-                <p>When the booking is scheduled</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>clients_nb</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>How many clients will be present</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>is_client_on_place</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Boolean</span>
-                |
+                  <span class="param-type">Date</span>
+                </td>
+                <td class="description last">
+                  <p>When the booking is scheduled</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>clients_nb</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>How many clients will be present</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>is_client_on_place</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Boolean</span>
+                  |
 
 
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>Is the client on place or not</p>
-              </td>
-            </tr>
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>Is the client on place or not</p>
+                </td>
+              </tr>
             </tbody>
           </table>
           <div class="description usertext">
@@ -1048,102 +1109,102 @@
           <h5 class="subsection-title">Properties:</h5>
           <table class="props">
             <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th class="last">Description</th>
+              </tr>
             </thead>
             <tbody>
-            <tr>
-              <td class="name">
-                <code>booking_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the booking</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>user</code>
-              </td>
-              <td class="type">
-                <span class="param-type">User</span>
-              </td>
-              <td class="description last">
-                <p>User who made the booking</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>table</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Table</span>
-              </td>
-              <td class="description last">
-                <p>The table reserved for this booking</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>time</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-                |
+              <tr>
+                <td class="name">
+                  <code>booking_id</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>ID of the booking</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>user</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">User</span>
+                </td>
+                <td class="description last">
+                  <p>User who made the booking</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>table</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Table</span>
+                </td>
+                <td class="description last">
+                  <p>The table reserved for this booking</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>time</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">string</span>
+                  |
 
 
-                <span class="param-type">Date</span>
-              </td>
-              <td class="description last">
-                <p>When the booking is scheduled</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>clients_nb</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>How many clients will be present</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>is_client_on_place</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Boolean</span>
-                |
+                  <span class="param-type">Date</span>
+                </td>
+                <td class="description last">
+                  <p>When the booking is scheduled</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>clients_nb</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>How many clients will be present</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>is_client_on_place</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Boolean</span>
+                  |
 
 
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>Is the client on place or not</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>can_client_pay</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Boolean</span>
-                |
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>Is the client on place or not</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="name">
+                  <code>can_client_pay</code>
+                </td>
+                <td class="type">
+                  <span class="param-type">Boolean</span>
+                  |
 
 
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>Is the client able to access payment page or not</p>
-              </td>
-            </tr>
+                  <span class="param-type">Number</span>
+                </td>
+                <td class="description last">
+                  <p>Is the client able to access payment page or not</p>
+                </td>
+              </tr>
             </tbody>
           </table>
           <div class="description usertext">
@@ -1161,7 +1222,7 @@
     <br class="clear">
     <footer>
       Documentation generated by
-      <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Jun 04 2021 19:03:01 GMT+0200 (heure d’été d’Europe centrale) using the
+      <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sat Jun 05 2021 18:13:06 GMT+0200 (heure d’été d’Europe centrale) using the
       <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 
     </footer>

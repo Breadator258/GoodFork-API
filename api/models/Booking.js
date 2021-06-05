@@ -209,16 +209,17 @@ const getAll = async db => {
  */
 const getAllToday = async db => {
 	const bookings = await db.query(`
-        SELECT booking_id,
-               user_id,
-               table_id,
-               time,
-               clients_nb,
-               is_client_on_place,
-               can_client_pay
-        FROM bookings
-        WHERE time >= timestamp(CURRENT_DATE)
-          AND time < ADDDATE(timestamp(CURRENT_DATE), 1)
+  	SELECT booking_id,
+    	user_id,
+      table_id,
+      time,
+      clients_nb,
+      is_client_on_place,
+      can_client_pay
+    FROM bookings
+    WHERE
+    	time >= timestamp(CURRENT_DATE)
+      AND time < ADDDATE(timestamp(CURRENT_DATE), 1)
 		ORDER BY booking_id
 	`);
 
