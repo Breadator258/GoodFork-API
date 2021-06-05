@@ -1,643 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8">
-  <title>global/Checkers.js - The Good Fork - API</title>
-  <meta name="description" content="Online documentation of the good fork api" />
-  <meta name="keywords" content="the, good, fork, api, doc, documentation" />
-  <meta name="keyword" content="the, good, fork, api, doc, documentation" />
-  <script src="scripts/prettify/prettify.js"></script>
-  <script src="scripts/prettify/lang-css.js"></script>
-  <!--[if lt IE 9]>
-  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <link type="text/css" rel="stylesheet" href="styles/prettify.css">
-  <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
-  <script src="scripts/nav.js" defer></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- </head>
- <body>
-  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-  <label for="nav-trigger" class="navicon-button x">
-   <div class="navicon"></div>
-  </label>
-  <label for="nav-trigger" class="overlay"></label>
-  <nav >
-   <input type="text" id="nav-search" placeholder="Search" />
-   <h2>
-    <a href="index.html">Home</a>
-   </h2>
-   <h2>
-    <a href="https://github.com/Breadator258/3PROJ-WEB_API" target="_blank" class="menu-item" id="github_link" >GitHub</a>
-   </h2>
-   <h2>
-    <a href="./api_routes.html" class="menu-item" id="api_routes_link" >API Routes</a>
-   </h2>
-   <h3>Classes</h3>
-   <ul>
-    <li>
-     <a href="ModelError.html">ModelError</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="ModelError.html#.code">code</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="ModelError.html#.message">message</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="ModelError.html#.fields">fields</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="ModelError.html#.json">json</a>
-      </li>
-     </ul>
-    </li>
-   </ul>
-   <h3>Modules</h3>
-   <ul>
-    <li>
-     <a href="module-middlewares.html">middlewares</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-middlewares.html#~checkParams">checkParams</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-middlewares.html#~database">database</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-middlewares.html#~toLowercase">toLowercase</a>
-      </li>
-     </ul>
-    </li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li>
-     <a href="module-models_Booking.html">models/Booking</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Booking.html#~add">add</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Booking.html#~getById">getById</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Booking.html#~getByUserId">getByUserId</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Booking.html#~getActiveByUserId">getActiveByUserId</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Booking.html#~getAll">getAll</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Booking.html#~buildBookings">buildBookings</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Booking.html#~delete">delete</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-models_Menu.html">models/Menu</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Menu.html#~add">add</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Menu.html#~addIngredient">addIngredient</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Menu.html#~getAll">getAll</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Menu.html#~getById">getById</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Menu.html#~buildMenus">buildMenus</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Menu.html#~update">update</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Menu.html#~setIllustration">setIllustration</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Menu.html#~updateIngredient">updateIngredient</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Menu.html#~delete">delete</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Menu.html#~deleteIngredient">deleteIngredient</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-models_MenuTypes.html">models/MenuTypes</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_MenuTypes.html#~getByName">getByName</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_MenuTypes.html#~getAll">getAll</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-models_Order.html">models/Order</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Order.html#~add">add</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Order.html#~getById">getById</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Order.html#~getByUserId">getByUserId</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Order.html#~getAll">getAll</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Order.html#~buildOrders">buildOrders</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Order.html#~update">update</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Order.html#~delete">delete</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-models_OrderMenus.html">models/OrderMenus</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_OrderMenus.html#~addMultiple">addMultiple</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_OrderMenus.html#~getAllByUserId">getAllByUserId</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_OrderMenus.html#~buildOrderMenus">buildOrderMenus</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-models_Role.html">models/Role</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Role.html#~getByName">getByName</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Role.html#~getAll">getAll</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-models_Stock.html">models/Stock</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Stock.html#~add">add</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Stock.html#~addOrEdit">addOrEdit</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Stock.html#~getByName">getByName</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Stock.html#~getById">getById</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Stock.html#~getIdOf">getIdOf</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Stock.html#~getAll">getAll</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Stock.html#~update">update</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Stock.html#~delete">delete</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-models_Table.html">models/Table</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Table.html#~add">add</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Table.html#~getById">getById</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Table.html#~getByTableCapacity">getByTableCapacity</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Table.html#~getAll">getAll</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Table.html#~update">update</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Table.html#~delete">delete</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-models_Token.html">models/Token</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Token.html#~add">add</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Token.html#~getNew">getNew</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Token.html#~getUserId">getUserId</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-models_Unit.html">models/Unit</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_Unit.html#~getAll">getAll</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-models_User.html">models/User</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_User.html#~add">add</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_User.html#~addStaff">addStaff</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_User.html#~login">login</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_User.html#~loginWithToken">loginWithToken</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_User.html#~getStaff">getStaff</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_User.html#~getByEmail">getByEmail</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_User.html#~getById">getById</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_User.html#~update">update</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-models_User.html#~deleteStaff">deleteStaff</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-Checkers.html">Checkers</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Checkers.html#~isDefined">isDefined</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Checkers.html#~strInRange">strInRange</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Checkers.html#~isGreaterThan">isGreaterThan</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Checkers.html#~isDateLowerThan">isDateLowerThan</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Checkers.html#~isEmail">isEmail</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Checkers.html#~isPasswordSafe">isPasswordSafe</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Checkers.html#~isString">isString</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Checkers.html#~isNumber">isNumber</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Checkers.html#~isArray">isArray</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Checkers.html#~isDate">isDate</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-Converters.html">Converters</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Converters.html#~toNumber">toNumber</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Converters.html#~toDate">toDate</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-Functions.html">Functions</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Functions.html#~getFieldsToUpdate">getFieldsToUpdate</a>
-      </li>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Functions.html#~convertValue">convertValue</a>
-      </li>
-     </ul>
-    </li>
-    <li>
-     <a href="module-Mail.html">Mail</a>
-     <ul class='methods'>
-      <li data-type='method' style='display: none;'>
-       <a href="module-Mail.html#~sendPassword">sendPassword</a>
-      </li>
-     </ul>
-    </li>
-   </ul>
-   <h3>Namespaces</h3>
-   <ul>
-    <li>
-     <a href="config.html">config</a>
-    </li>
-   </ul>
-   <h3>Global</h3>
-   <ul>
-    <li>
-     <a href="global.html#startServer">startServer</a>
-    </li>
-    <li>
-     <a href="global.html#getStartedMessage">getStartedMessage</a>
-    </li>
-   </ul>
-  </nav>
-  <div id="main">
-   <h1 class="page-title">global/Checkers.js</h1>
-   <section>
-    <article>
-                    <pre class="prettyprint source linenums">
-                      <code>/** @module Checkers */
-  import Converters from "./Converters.js";
+<head>
+    
+    <meta charset="utf-8">
+    <title>global/Checkers.js - The Good Fork - API</title>
+    
+    <meta name="description" content="Online documentation of the good fork api" />
+    
+        <meta name="keywords" content="the, good, fork, api, doc, documentation" />
+        <meta name="keyword" content="the, good, fork, api, doc, documentation" />
+    
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
 
-  /*****************************************************
-   * Checkers
-   *****************************************************/
-  /**
-   * @function isDefined
-   * @description Check if a value is not null or undefined.
-   *
-   * @param {*} value - The value to test
-   * @returns {Boolean}
-   *
-   * @example
-   * 	Checkers.isDefined("") // return true
-   *Checkers.isDefined(65) // return true
-   *Checkers.isDefined(false) // return true
-   *Checkers.isDefined(null) // return false
-   *Checkers.isDefined(undefined) // return false
-   */
-  function isDefined(value) {
-    return value !== undefined &amp;&amp; value !== null;
-  }
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-  /**
-   * @function strInRange
-   * @description Check if a value is a string and if its length is in a given range.
-   *
-   * @param {*} str - The value to test
-   * @param {Number} min - The minimum length of the string (nullable)
-   * @param {Number} max - The maximum length of the string (nullable)
-   * @param {Boolean} [includeEndpoint=true] - Include the min and max bounds in the range
-   * @param {Boolean} [canBeNull=false] - Authorize or not the string to be null or undefined
-   * @returns {Boolean}
-   *
-   * @example
-   * 	Checkers.strInRange("sanic", null, 255) // return true
-   *Checkers.strInRange("sanic", 5, 255) // return true
-   *Checkers.strInRange("sanic", 5, 255, false) // return false
-   *Checkers.strInRange(null, null, 255) // return false
-   *Checkers.strInRange(null, null, 255,  true, true) // return true
-   */
-  function strInRange(str, min, max, includeEndpoint = true, canBeNull = false) {
-    if (isArray(str)) {
-      return str.every(s => strInRange(s));
-    }
+<label for="nav-trigger" class="overlay"></label>
 
-    return isDefined(str)
-      ? isString(str)
-        ? includeEndpoint
-          ? (isDefined(min) ? str.length >= min : true) &amp;&amp; (isDefined(max) ? str.length &lt;= max : true)
-          : (isDefined(min) ? str.length > min : true) &amp;&amp; (isDefined(max) ? str.length &lt; max : true)
-        : false
-      : canBeNull;
-  }
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/Breadator258/3PROJ-WEB_API" target="_blank" class="menu-item" id="github_link" >GitHub</a></h2><h2><a href="./api_routes.html" class="menu-item" id="api_routes_link" >API Routes</a></h2><h3>Classes</h3><ul><li><a href="ModelError.html">ModelError</a><ul class='methods'><li data-type='method' style='display: none;'><a href="ModelError.html#.code">code</a></li><li data-type='method' style='display: none;'><a href="ModelError.html#.message">message</a></li><li data-type='method' style='display: none;'><a href="ModelError.html#.fields">fields</a></li><li data-type='method' style='display: none;'><a href="ModelError.html#.json">json</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-middlewares.html">middlewares</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-middlewares.html#~checkParams">checkParams</a></li><li data-type='method' style='display: none;'><a href="module-middlewares.html#~database">database</a></li><li data-type='method' style='display: none;'><a href="module-middlewares.html#~toLowercase">toLowercase</a></li></ul></li><li></li><li></li><li></li><li><a href="module-models_Booking.html">models/Booking</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getByUserId">getByUserId</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getActiveByUserId">getActiveByUserId</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getAllToday">getAllToday</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~buildBookings">buildBookings</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~delete">delete</a></li></ul></li><li><a href="module-models_Menu.html">models/Menu</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~addIngredient">addIngredient</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~buildMenus">buildMenus</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~setIllustration">setIllustration</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~updateIngredient">updateIngredient</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~delete">delete</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~deleteIngredient">deleteIngredient</a></li></ul></li><li><a href="module-models_MenuTypes.html">models/MenuTypes</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_MenuTypes.html#~getByName">getByName</a></li><li data-type='method' style='display: none;'><a href="module-models_MenuTypes.html#~getAll">getAll</a></li></ul></li><li><a href="module-models_Order.html">models/Order</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Order.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~getByUserId">getByUserId</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~buildOrders">buildOrders</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~delete">delete</a></li></ul></li><li><a href="module-models_OrderMenus.html">models/OrderMenus</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_OrderMenus.html#~addMultiple">addMultiple</a></li><li data-type='method' style='display: none;'><a href="module-models_OrderMenus.html#~getAllByUserId">getAllByUserId</a></li><li data-type='method' style='display: none;'><a href="module-models_OrderMenus.html#~buildOrderMenus">buildOrderMenus</a></li></ul></li><li><a href="module-models_Role.html">models/Role</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Role.html#~getByName">getByName</a></li><li data-type='method' style='display: none;'><a href="module-models_Role.html#~getAll">getAll</a></li></ul></li><li><a href="module-models_Stock.html">models/Stock</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~addOrEdit">addOrEdit</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~getByName">getByName</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~getIdOf">getIdOf</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~delete">delete</a></li></ul></li><li><a href="module-models_Table.html">models/Table</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Table.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~getByTableCapacity">getByTableCapacity</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~delete">delete</a></li></ul></li><li><a href="module-models_Token.html">models/Token</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Token.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Token.html#~getNew">getNew</a></li><li data-type='method' style='display: none;'><a href="module-models_Token.html#~getUserId">getUserId</a></li></ul></li><li><a href="module-models_Unit.html">models/Unit</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Unit.html#~getAll">getAll</a></li></ul></li><li><a href="module-models_User.html">models/User</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_User.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~addStaff">addStaff</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~login">login</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~loginWithToken">loginWithToken</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~getStaff">getStaff</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~getByEmail">getByEmail</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~deleteStaff">deleteStaff</a></li></ul></li><li><a href="module-Checkers.html">Checkers</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isDefined">isDefined</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~strInRange">strInRange</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isGreaterThan">isGreaterThan</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isDateLowerThan">isDateLowerThan</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isEmail">isEmail</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isPasswordSafe">isPasswordSafe</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isString">isString</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isNumber">isNumber</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isArray">isArray</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isDate">isDate</a></li></ul></li><li><a href="module-Converters.html">Converters</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Converters.html#~toNumber">toNumber</a></li><li data-type='method' style='display: none;'><a href="module-Converters.html#~toDate">toDate</a></li></ul></li><li><a href="module-Functions.html">Functions</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Functions.html#~getFieldsToUpdate">getFieldsToUpdate</a></li><li data-type='method' style='display: none;'><a href="module-Functions.html#~convertValue">convertValue</a></li></ul></li><li><a href="module-Mail.html">Mail</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Mail.html#~sendPassword">sendPassword</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="config.html">config</a></li></ul><h3>Global</h3><ul><li><a href="global.html#startServer">startServer</a></li><li><a href="global.html#getStartedMessage">getStartedMessage</a></li></ul>
+</nav>
 
-  /**
-   * @function isGreaterThan
-   * @description Check if a value is greater (or equal) than another value.
-   *
-   * @param {*} a - The first value to test
-   * @param {*} b - The second value to test
-   * @param {Boolean} [canBeEqual=false] - Authorize or not the two values to be equal
-   * @returns {Boolean}
-   *
-   * @example
-   * 	Checkers.isGreaterThan(5, 2) // return true
-   *Checkers.isGreaterThan(2, 7) // return false
-   *Checkers.isGreaterThan(4, 4) // return false
-   *Checkers.isGreaterThan(4, 4, true) // return true
-   *Checkers.isGreaterThan(null, 5) // return false
-   */
-  function isGreaterThan(a, b, canBeEqual = false) {
-    if (!isNumber(a) || !isNumber(b)) return false;
-    else return canBeEqual ? (a >= b) : (a > b);
-  }
+<div id="main">
+    
+    <h1 class="page-title">global/Checkers.js</h1>
+    
 
-  /**
-   * @function isDateLowerThan
-   * @description Check if a date A is before (or equal to) a date B.
-   *
-   * @param {*} date1 - The first date to test
-   * @param {*} date2 - The second date to test
-   * @param {Boolean} [canBeEqual=false] - Authorize or not the two dates to be equal
-   * @param {Boolean} [canBeNull=false] - Authorize or not the dates to be null or undefined
-   * @returns {Boolean}
-   *
-   * @example
-   * 	// First case
-   * const date = Date.now()
-   *
-   * Checkers.isDateLowerThan(date, date) // return false
-   * Checkers.isDateLowerThan(date, date, true) // return true
-   *
-   * // Second case
-   *Checkers.isDateLowerThan(null, date) // return false
-   *Checkers.isDateLowerThan(null, date, false, true) // return true
-   */
-  function isDateLowerThan(date1, date2, canBeEqual = false, canBeNull = false) {
-    if (canBeNull) {
-      if (!isDefined(date1) || !isDefined(date2)) {
-        return true;
-      }
-    }
+    
 
-    const convertedDate1 = Converters.toDate(date1);
-    const convertedDate2 = Converters.toDate(date2);
 
-    return isDate(convertedDate1) &amp;&amp; isDate(convertedDate2)
-      ? canBeEqual ? (convertedDate1 &lt;= convertedDate2) : (convertedDate1 &lt; convertedDate2)
-      : false;
-  }
 
-  /*****************************************************
-   * Regex checkers
-   *****************************************************/
-  /**
-   * @function isEmail
-   * @description Check if a value is a valid email address.
-   *
-   * @param {*} email - The email to test
-   * @returns {Boolean}
-   *
-   * @example
-   * 	Checkers.isEmail("bourpi@peace.com") // return true
-   *Checkers.isGreaterThan("") // return false
-   *Checkers.isGreaterThan(null) // return false
-   */
-  function isEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module Checkers */
+import Converters from "./Converters.js";
 
-  /**
-   * @function isPasswordSafe
-   * @description Check if one or more passwords are safe. A password is safe if it contains at least eight characters
-   * with one upper case letter, one lower case letter, one digit and one special character.
-   *
-   * @param {string|Array&lt;string>} password - The passwords to test
-   * @returns {Boolean}
-   *
-   * @example
-   * 	Checkers.isPasswordSafe("Supinfo123!") // return true
-   *Checkers.isGreaterThan("motdepasse") // return false
-   *Checkers.isGreaterThan(["YoLesN00bs!", "*N3verG0nnaGiv3YouUp*"]) // return true
-   */
-  function isPasswordSafe(password) {
-    if (isArray(password)) {
-      return password.every(pwd => isPasswordSafe(pwd));
-    }
+/*****************************************************
+ * Checkers
+ *****************************************************/
+/**
+ * @function isDefined
+ * @description Check if a value is not null or undefined.
+ *
+ * @param {*} value - The value to test
+ * @returns {Boolean}
+ *
+ * @example
+ * 	Checkers.isDefined("") // return true
+ *Checkers.isDefined(65) // return true
+ *Checkers.isDefined(false) // return true
+ *Checkers.isDefined(null) // return false
+ *Checkers.isDefined(undefined) // return false
+ */
+function isDefined(value) {
+	return value !== undefined &amp;&amp; value !== null;
+}
 
-    // At least 8 characters, one upper case letter, one lower case letter, one digit &amp; one special character
-    const strongPwd = new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})");
-    return strongPwd.test(password);
-  }
+/**
+ * @function strInRange
+ * @description Check if a value is a string and if its length is in a given range.
+ *
+ * @param {*} str - The value to test
+ * @param {Number} min - The minimum length of the string (nullable)
+ * @param {Number} max - The maximum length of the string (nullable)
+ * @param {Boolean} [includeEndpoint=true] - Include the min and max bounds in the range
+ * @param {Boolean} [canBeNull=false] - Authorize or not the string to be null or undefined
+ * @returns {Boolean}
+ *
+ * @example
+ * 	Checkers.strInRange("sanic", null, 255) // return true
+ *Checkers.strInRange("sanic", 5, 255) // return true
+ *Checkers.strInRange("sanic", 5, 255, false) // return false
+ *Checkers.strInRange(null, null, 255) // return false
+ *Checkers.strInRange(null, null, 255,  true, true) // return true
+ */
+function strInRange(str, min, max, includeEndpoint = true, canBeNull = false) {
+	if (isArray(str)) {
+		return str.every(s => strInRange(s));
+	}
 
-  /*****************************************************
-   * Type checkers
-   *****************************************************/
-  /**
-   * @function isString
-   * @description Check if a value is a string
-   *
-   * @param {*} value - The value to test
-   * @returns {Boolean}
-   *
-   * @example
-   * 	Checkers.isString("") // return true
-   *Checkers.isString("yo") // return true
-   *Checkers.isString(5) // return false
-   *Checkers.isString(null) // return false
-   */
-  function isString(value) {
-    return Object.prototype.toString.call(value) === "[object String]";
-  }
+	return isDefined(str)
+		? isString(str)
+			? includeEndpoint
+				? (isDefined(min) ? str.length >= min : true) &amp;&amp; (isDefined(max) ? str.length &lt;= max : true)
+				: (isDefined(min) ? str.length > min : true) &amp;&amp; (isDefined(max) ? str.length &lt; max : true)
+			: false
+		: canBeNull;
+}
 
-  /**
-   * @function isNumber
-   * @description Check if a value is a number
-   *
-   * @param {*} value - The value to test
-   * @returns {Boolean}
-   *
-   * @example
-   * 	Checkers.isNumber(5) // return true
-   *Checkers.isNumber(6.74) // return true
-   *Checkers.isNumber("7") // return false
-   *Checkers.isNumber(null) // return false
-   */
-  function isNumber(value) {
-    return typeof value === "number";
-  }
+/**
+ * @function isGreaterThan
+ * @description Check if a value is greater (or equal) than another value.
+ *
+ * @param {*} a - The first value to test
+ * @param {*} b - The second value to test
+ * @param {Boolean} [canBeEqual=false] - Authorize or not the two values to be equal
+ * @returns {Boolean}
+ *
+ * @example
+ * 	Checkers.isGreaterThan(5, 2) // return true
+ *Checkers.isGreaterThan(2, 7) // return false
+ *Checkers.isGreaterThan(4, 4) // return false
+ *Checkers.isGreaterThan(4, 4, true) // return true
+ *Checkers.isGreaterThan(null, 5) // return false
+ */
+function isGreaterThan(a, b, canBeEqual = false) {
+	if (!isNumber(a) || !isNumber(b)) return false;
+	else return canBeEqual ? (a >= b) : (a > b);
+}
 
-  /**
-   * @function isArray
-   * @description Check if a value is an array
-   *
-   * @param {*} value - The value to test
-   * @returns {Boolean}
-   *
-   * @example
-   * 	Checkers.isArray([]) // return true
-   *Checkers.isArray([5, 4, "car"]) // return true
-   *Checkers.isArray(null) // return false
-   */
-  function isArray(value) {
-    return Array.isArray(value);
-  }
+/**
+ * @function isDateLowerThan
+ * @description Check if a date A is before (or equal to) a date B.
+ *
+ * @param {*} date1 - The first date to test
+ * @param {*} date2 - The second date to test
+ * @param {Boolean} [canBeEqual=false] - Authorize or not the two dates to be equal
+ * @param {Boolean} [canBeNull=false] - Authorize or not the dates to be null or undefined
+ * @returns {Boolean}
+ *
+ * @example
+ * 	// First case
+ * const date = Date.now()
+ *
+ * Checkers.isDateLowerThan(date, date) // return false
+ * Checkers.isDateLowerThan(date, date, true) // return true
+ *
+ * // Second case
+ *Checkers.isDateLowerThan(null, date) // return false
+ *Checkers.isDateLowerThan(null, date, false, true) // return true
+ */
+function isDateLowerThan(date1, date2, canBeEqual = false, canBeNull = false) {
+	if (canBeNull) {
+		if (!isDefined(date1) || !isDefined(date2)) {
+			return true;
+		}
+	}
 
-  /**
-   * @function isDate
-   * @description Check if a value is a date and if it's a valid date
-   *
-   * @param {*} value - The value to test
-   * @returns {Boolean}
-   *
-   * @example
-   * 	Checkers.isDate(new Date()) // return true
-   *Checkers.isDate(Date.now()) // return true
-   *Checkers.isDate(null) // return false
-   */
-  function isDate(value) {
-    return Object.prototype.toString.call(value) === "[object Date]"
-      ? !!value.getDate()
-      : false;
-  }
+	const convertedDate1 = Converters.toDate(date1);
+	const convertedDate2 = Converters.toDate(date2);
 
-  /*****************************************************
-   * Export
-   *****************************************************/
-  const Checkers = {
-    isDefined, strInRange, isGreaterThan, isDateLowerThan,
-    isEmail, isPasswordSafe,
-    isString, isNumber, isArray, isDate
-  };
-  export default Checkers;</code>
-                    </pre>
-    </article>
-   </section>
-  </div>
-  <br class="clear">
-  <footer>
-   Documentation generated by
-   <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Jun 04 2021 19:03:01 GMT+0200 (heure d’été d’Europe centrale) using the
-   <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+	return isDate(convertedDate1) &amp;&amp; isDate(convertedDate2)
+		? canBeEqual ? (convertedDate1 &lt;= convertedDate2) : (convertedDate1 &lt; convertedDate2)
+		: false;
+}
 
-  </footer>
-  <script>prettyPrint();</script>
-  <script src="scripts/polyfill.js"></script>
-  <script src="scripts/linenumber.js"></script>
-  <script src="scripts/search.js" defer></script>
-  <script src="scripts/collapse.js" defer></script>
- </body>
+/*****************************************************
+ * Regex checkers
+ *****************************************************/
+/**
+ * @function isEmail
+ * @description Check if a value is a valid email address.
+ *
+ * @param {*} email - The email to test
+ * @returns {Boolean}
+ *
+ * @example
+ * 	Checkers.isEmail("bourpi@peace.com") // return true
+ *Checkers.isGreaterThan("") // return false
+ *Checkers.isGreaterThan(null) // return false
+ */
+function isEmail(email) {
+	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+/**
+ * @function isPasswordSafe
+ * @description Check if one or more passwords are safe. A password is safe if it contains at least eight characters
+ * with one upper case letter, one lower case letter, one digit and one special character.
+ *
+ * @param {string|Array&lt;string>} password - The passwords to test
+ * @returns {Boolean}
+ *
+ * @example
+ * 	Checkers.isPasswordSafe("Supinfo123!") // return true
+ *Checkers.isGreaterThan("motdepasse") // return false
+ *Checkers.isGreaterThan(["YoLesN00bs!", "*N3verG0nnaGiv3YouUp*"]) // return true
+ */
+function isPasswordSafe(password) {
+	if (isArray(password)) {
+		return password.every(pwd => isPasswordSafe(pwd));
+	}
+
+	// At least 8 characters, one upper case letter, one lower case letter, one digit &amp; one special character
+	const strongPwd = new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})");
+	return strongPwd.test(password);
+}
+
+/*****************************************************
+ * Type checkers
+ *****************************************************/
+/**
+ * @function isString
+ * @description Check if a value is a string
+ *
+ * @param {*} value - The value to test
+ * @returns {Boolean}
+ *
+ * @example
+ * 	Checkers.isString("") // return true
+ *Checkers.isString("yo") // return true
+ *Checkers.isString(5) // return false
+ *Checkers.isString(null) // return false
+ */
+function isString(value) {
+	return Object.prototype.toString.call(value) === "[object String]";
+}
+
+/**
+ * @function isNumber
+ * @description Check if a value is a number
+ *
+ * @param {*} value - The value to test
+ * @returns {Boolean}
+ *
+ * @example
+ * 	Checkers.isNumber(5) // return true
+ *Checkers.isNumber(6.74) // return true
+ *Checkers.isNumber("7") // return false
+ *Checkers.isNumber(null) // return false
+ */
+function isNumber(value) {
+	return typeof value === "number";
+}
+
+/**
+ * @function isArray
+ * @description Check if a value is an array
+ *
+ * @param {*} value - The value to test
+ * @returns {Boolean}
+ *
+ * @example
+ * 	Checkers.isArray([]) // return true
+ *Checkers.isArray([5, 4, "car"]) // return true
+ *Checkers.isArray(null) // return false
+ */
+function isArray(value) {
+	return Array.isArray(value);
+}
+
+/**
+ * @function isDate
+ * @description Check if a value is a date and if it's a valid date
+ *
+ * @param {*} value - The value to test
+ * @returns {Boolean}
+ *
+ * @example
+ * 	Checkers.isDate(new Date()) // return true
+ *Checkers.isDate(Date.now()) // return true
+ *Checkers.isDate(null) // return false
+ */
+function isDate(value) {
+	return Object.prototype.toString.call(value) === "[object Date]"
+		? !!value.getDate()
+		: false;
+}
+
+/*****************************************************
+ * Export
+ *****************************************************/
+const Checkers = {
+	isDefined, strInRange, isGreaterThan, isDateLowerThan,
+	isEmail, isPasswordSafe,
+	isString, isNumber, isArray, isDate
+};
+export default Checkers;</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sat Jun 05 2021 18:13:06 GMT+0200 (heure d’été d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
 </html>

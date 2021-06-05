@@ -1,686 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>api/models/Stock.js - The Good Fork - API</title>
-		<meta name="description" content="Online documentation of the good fork api" />
-		<meta name="keywords" content="the, good, fork, api, doc, documentation" />
-		<meta name="keyword" content="the, good, fork, api, doc, documentation" />
-		<script src="scripts/prettify/prettify.js"></script>
-		<script src="scripts/prettify/lang-css.js"></script>
-		<!--[if lt IE 9]>
-		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-		<link type="text/css" rel="stylesheet" href="styles/prettify.css">
-		<link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
-		<script src="scripts/nav.js" defer></script>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	</head>
-	<body>
-		<input type="checkbox" id="nav-trigger" class="nav-trigger" />
-		<label for="nav-trigger" class="navicon-button x">
-			<div class="navicon"></div>
-		</label>
-		<label for="nav-trigger" class="overlay"></label>
-		<nav >
-			<input type="text" id="nav-search" placeholder="Search" />
-			<h2>
-				<a href="index.html">Home</a>
-			</h2>
-			<h2>
-				<a href="https://github.com/Breadator258/3PROJ-WEB_API" target="_blank" class="menu-item" id="github_link" >GitHub</a>
-			</h2>
-			<h2>
-				<a href="./api_routes.html" class="menu-item" id="api_routes_link" >API Routes</a>
-			</h2>
-			<h3>Classes</h3>
-			<ul>
-				<li>
-					<a href="ModelError.html">ModelError</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="ModelError.html#.code">code</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="ModelError.html#.message">message</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="ModelError.html#.fields">fields</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="ModelError.html#.json">json</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<h3>Modules</h3>
-			<ul>
-				<li>
-					<a href="module-middlewares.html">middlewares</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-middlewares.html#~checkParams">checkParams</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-middlewares.html#~database">database</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-middlewares.html#~toLowercase">toLowercase</a>
-						</li>
-					</ul>
-				</li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li>
-					<a href="module-models_Booking.html">models/Booking</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Booking.html#~add">add</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Booking.html#~getById">getById</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Booking.html#~getByUserId">getByUserId</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Booking.html#~getActiveByUserId">getActiveByUserId</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Booking.html#~getAll">getAll</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Booking.html#~buildBookings">buildBookings</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Booking.html#~delete">delete</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-models_Menu.html">models/Menu</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Menu.html#~add">add</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Menu.html#~addIngredient">addIngredient</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Menu.html#~getAll">getAll</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Menu.html#~getById">getById</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Menu.html#~buildMenus">buildMenus</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Menu.html#~update">update</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Menu.html#~setIllustration">setIllustration</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Menu.html#~updateIngredient">updateIngredient</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Menu.html#~delete">delete</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Menu.html#~deleteIngredient">deleteIngredient</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-models_MenuTypes.html">models/MenuTypes</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_MenuTypes.html#~getByName">getByName</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_MenuTypes.html#~getAll">getAll</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-models_Order.html">models/Order</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Order.html#~add">add</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Order.html#~getById">getById</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Order.html#~getByUserId">getByUserId</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Order.html#~getAll">getAll</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Order.html#~buildOrders">buildOrders</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Order.html#~update">update</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Order.html#~delete">delete</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-models_OrderMenus.html">models/OrderMenus</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_OrderMenus.html#~addMultiple">addMultiple</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_OrderMenus.html#~getAllByUserId">getAllByUserId</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_OrderMenus.html#~buildOrderMenus">buildOrderMenus</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-models_Role.html">models/Role</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Role.html#~getByName">getByName</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Role.html#~getAll">getAll</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-models_Stock.html">models/Stock</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Stock.html#~add">add</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Stock.html#~addOrEdit">addOrEdit</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Stock.html#~getByName">getByName</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Stock.html#~getById">getById</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Stock.html#~getIdOf">getIdOf</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Stock.html#~getAll">getAll</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Stock.html#~update">update</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Stock.html#~delete">delete</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-models_Table.html">models/Table</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Table.html#~add">add</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Table.html#~getById">getById</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Table.html#~getByTableCapacity">getByTableCapacity</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Table.html#~getAll">getAll</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Table.html#~update">update</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Table.html#~delete">delete</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-models_Token.html">models/Token</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Token.html#~add">add</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Token.html#~getNew">getNew</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Token.html#~getUserId">getUserId</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-models_Unit.html">models/Unit</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_Unit.html#~getAll">getAll</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-models_User.html">models/User</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_User.html#~add">add</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_User.html#~addStaff">addStaff</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_User.html#~login">login</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_User.html#~loginWithToken">loginWithToken</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_User.html#~getStaff">getStaff</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_User.html#~getByEmail">getByEmail</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_User.html#~getById">getById</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_User.html#~update">update</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-models_User.html#~deleteStaff">deleteStaff</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-Checkers.html">Checkers</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Checkers.html#~isDefined">isDefined</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Checkers.html#~strInRange">strInRange</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Checkers.html#~isGreaterThan">isGreaterThan</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Checkers.html#~isDateLowerThan">isDateLowerThan</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Checkers.html#~isEmail">isEmail</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Checkers.html#~isPasswordSafe">isPasswordSafe</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Checkers.html#~isString">isString</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Checkers.html#~isNumber">isNumber</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Checkers.html#~isArray">isArray</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Checkers.html#~isDate">isDate</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-Converters.html">Converters</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Converters.html#~toNumber">toNumber</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Converters.html#~toDate">toDate</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-Functions.html">Functions</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Functions.html#~getFieldsToUpdate">getFieldsToUpdate</a>
-						</li>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Functions.html#~convertValue">convertValue</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="module-Mail.html">Mail</a>
-					<ul class='methods'>
-						<li data-type='method' style='display: none;'>
-							<a href="module-Mail.html#~sendPassword">sendPassword</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<h3>Namespaces</h3>
-			<ul>
-				<li>
-					<a href="config.html">config</a>
-				</li>
-			</ul>
-			<h3>Global</h3>
-			<ul>
-				<li>
-					<a href="global.html#startServer">startServer</a>
-				</li>
-				<li>
-					<a href="global.html#getStartedMessage">getStartedMessage</a>
-				</li>
-			</ul>
-		</nav>
-		<div id="main">
-			<h1 class="page-title">api/models/Stock.js</h1>
-			<section>
-				<article>
-											<pre class="prettyprint source linenums">
-												<code>/** @module models/Stock */
-		import { getFieldsToUpdate } from "../../global/Functions.js";
-		import ModelError from "../../global/ModelError.js";
-		import Checkers from "../../global/Checkers.js";
+<head>
+    
+    <meta charset="utf-8">
+    <title>api/models/Stock.js - The Good Fork - API</title>
+    
+    <meta name="description" content="Online documentation of the good fork api" />
+    
+        <meta name="keywords" content="the, good, fork, api, doc, documentation" />
+        <meta name="keyword" content="the, good, fork, api, doc, documentation" />
+    
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
 
-		/**
-		 * A Stock item
-		 * @typedef {Object} StockItem
-		 * @property {Number} stock_id - ID of the stock item
-		 * @property {string} name - Item name
-		 * @property {Number} units - How many/much of this item
-		 * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Unit}
-		 * @property {Number} unit_price - Price of one unit of this item
-		 * @property {Boolean} is_orderable - Can a user order it
-		 * @property {Boolean} is_cookable - Can a cook cook it
-		 * @property {Date|string} use_by_date_min - When this item will be spoiled (min. bound)
-		 * @property {Date|string} use_by_date_max - When this item will be spoiled (max. bound)
-		 */
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-		/*****************************************************
-		 * CRUD Methods
-		 *****************************************************/
+<label for="nav-trigger" class="overlay"></label>
 
-		/* ---- CREATE ---------------------------------- */
-		/**
-		 * @function add
-		 * @async
-		 * @description Add a stock item
-		 *
-		 * @param {Promise&lt;void>} db - Database connection
-		 * @param {string} name - Item name
-		 * @param {Number} units - How many/much of this item
-		 * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
-		 * @param {Number} unit_price - Price of one unit of this item
-		 * @param {Boolean} is_orderable - Can a user order it
-		 * @param {Boolean} is_cookable - Can a cook cook it
-		 * @param {Date|string} use_by_date_min - When this item will be spoiled (min. bound)
-		 * @param {Date|string} use_by_date_max - When this item will be spoiled (max. bound)
-		 * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
-		 *
-		 * @example
-		 * 	Stock.add(db, "Huile d'olive 2000% matières grasses", 50, 5, 1.30, false, true, Date.now(), null)
-		 */
-		const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
-			if (!Checkers.strInRange(name, null, 255)) {
-				return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
-			}
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/Breadator258/3PROJ-WEB_API" target="_blank" class="menu-item" id="github_link" >GitHub</a></h2><h2><a href="./api_routes.html" class="menu-item" id="api_routes_link" >API Routes</a></h2><h3>Classes</h3><ul><li><a href="ModelError.html">ModelError</a><ul class='methods'><li data-type='method' style='display: none;'><a href="ModelError.html#.code">code</a></li><li data-type='method' style='display: none;'><a href="ModelError.html#.message">message</a></li><li data-type='method' style='display: none;'><a href="ModelError.html#.fields">fields</a></li><li data-type='method' style='display: none;'><a href="ModelError.html#.json">json</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-middlewares.html">middlewares</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-middlewares.html#~checkParams">checkParams</a></li><li data-type='method' style='display: none;'><a href="module-middlewares.html#~database">database</a></li><li data-type='method' style='display: none;'><a href="module-middlewares.html#~toLowercase">toLowercase</a></li></ul></li><li></li><li></li><li></li><li><a href="module-models_Booking.html">models/Booking</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getByUserId">getByUserId</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getActiveByUserId">getActiveByUserId</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getAllToday">getAllToday</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~buildBookings">buildBookings</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~delete">delete</a></li></ul></li><li><a href="module-models_Menu.html">models/Menu</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~addIngredient">addIngredient</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~buildMenus">buildMenus</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~setIllustration">setIllustration</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~updateIngredient">updateIngredient</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~delete">delete</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~deleteIngredient">deleteIngredient</a></li></ul></li><li><a href="module-models_MenuTypes.html">models/MenuTypes</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_MenuTypes.html#~getByName">getByName</a></li><li data-type='method' style='display: none;'><a href="module-models_MenuTypes.html#~getAll">getAll</a></li></ul></li><li><a href="module-models_Order.html">models/Order</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Order.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~getByUserId">getByUserId</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~buildOrders">buildOrders</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~delete">delete</a></li></ul></li><li><a href="module-models_OrderMenus.html">models/OrderMenus</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_OrderMenus.html#~addMultiple">addMultiple</a></li><li data-type='method' style='display: none;'><a href="module-models_OrderMenus.html#~getAllByUserId">getAllByUserId</a></li><li data-type='method' style='display: none;'><a href="module-models_OrderMenus.html#~buildOrderMenus">buildOrderMenus</a></li></ul></li><li><a href="module-models_Role.html">models/Role</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Role.html#~getByName">getByName</a></li><li data-type='method' style='display: none;'><a href="module-models_Role.html#~getAll">getAll</a></li></ul></li><li><a href="module-models_Stock.html">models/Stock</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~addOrEdit">addOrEdit</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~getByName">getByName</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~getIdOf">getIdOf</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~delete">delete</a></li></ul></li><li><a href="module-models_Table.html">models/Table</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Table.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~getByTableCapacity">getByTableCapacity</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~delete">delete</a></li></ul></li><li><a href="module-models_Token.html">models/Token</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Token.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Token.html#~getNew">getNew</a></li><li data-type='method' style='display: none;'><a href="module-models_Token.html#~getUserId">getUserId</a></li></ul></li><li><a href="module-models_Unit.html">models/Unit</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Unit.html#~getAll">getAll</a></li></ul></li><li><a href="module-models_User.html">models/User</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_User.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~addStaff">addStaff</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~login">login</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~loginWithToken">loginWithToken</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~getStaff">getStaff</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~getByEmail">getByEmail</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~deleteStaff">deleteStaff</a></li></ul></li><li><a href="module-Checkers.html">Checkers</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isDefined">isDefined</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~strInRange">strInRange</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isGreaterThan">isGreaterThan</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isDateLowerThan">isDateLowerThan</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isEmail">isEmail</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isPasswordSafe">isPasswordSafe</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isString">isString</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isNumber">isNumber</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isArray">isArray</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isDate">isDate</a></li></ul></li><li><a href="module-Converters.html">Converters</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Converters.html#~toNumber">toNumber</a></li><li data-type='method' style='display: none;'><a href="module-Converters.html#~toDate">toDate</a></li></ul></li><li><a href="module-Functions.html">Functions</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Functions.html#~getFieldsToUpdate">getFieldsToUpdate</a></li><li data-type='method' style='display: none;'><a href="module-Functions.html#~convertValue">convertValue</a></li></ul></li><li><a href="module-Mail.html">Mail</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Mail.html#~sendPassword">sendPassword</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="config.html">config</a></li></ul><h3>Global</h3><ul><li><a href="global.html#startServer">startServer</a></li><li><a href="global.html#getStartedMessage">getStartedMessage</a></li></ul>
+</nav>
 
-			if (!Checkers.isDateLowerThan(use_by_date_min, use_by_date_max, true, true)) {
-				return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
-			}
+<div id="main">
+    
+    <h1 class="page-title">api/models/Stock.js</h1>
+    
 
-			if (!Checkers.isGreaterThan(units, 0, true)) {
-				return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
-			}
+    
 
-			if (!Checkers.isGreaterThan(unit_price, 0, true)) {
-				return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
-			}
 
-			return db.query(`
-				INSERT INTO stocks(name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-			`, [name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min ? use_by_date_min : null, use_by_date_max ? use_by_date_max : null]
-			);
-		};
 
-		/**
-		 * @function addOrEdit
-		 * @async
-		 * @description Add a stock item if it doesn't exist, update it otherwise
-		 *
-		 * @param {Promise&lt;void>} db - Database connection
-		 * @param {string} name - Item name
-		 * @param {Number} units - How many/much of this item
-		 * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
-		 * @param {Number} unit_price - Price of one unit of this item
-		 * @param {Boolean} is_orderable - Can a user order it
-		 * @param {Boolean} is_cookable - Can a cook cook it
-		 * @param {Date|string} use_by_date_min - When this item will be spoiled (min. bound)
-		 * @param {Date|string} use_by_date_max - When this item will be spoiled (max. bound)
-		 * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
-		 *
-		 * @example
-		 * 	Stock.addOrEdit(db, "Huile d'olive 2000% matières grasses", 50, 5, 1.30, false, true, Date.now(), null)
-		 */
-		const addOrEdit = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
-			const stock_id = await getIdOf(db, name);
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module models/Stock */
+import { getFieldsToUpdate } from "../../global/Functions.js";
+import ModelError from "../../global/ModelError.js";
+import Checkers from "../../global/Checkers.js";
 
-			if (stock_id) {
-				return update(db, stock_id, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max);
-			} else {
-				return add(db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max);
-			}
-		};
+/**
+ * A Stock item
+ * @typedef {Object} StockItem
+ * @property {Number} stock_id - ID of the stock item
+ * @property {string} name - Item name
+ * @property {Number} units - How many/much of this item
+ * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @property {Number} unit_price - Price of one unit of this item
+ * @property {Boolean} is_orderable - Can a user order it
+ * @property {Boolean} is_cookable - Can a cook cook it
+ * @property {Date|string} use_by_date_min - When this item will be spoiled (min. bound)
+ * @property {Date|string} use_by_date_max - When this item will be spoiled (max. bound)
+ */
 
-		/* ---- READ ---------------------------------- */
-		/**
-		 * @function getByName
-		 * @async
-		 * @description Get an item by its name
-		 *
-		 * @param {Promise&lt;void>} db - Database connection
-		 * @param {string} name - Item name
-		 * @returns {Promise&lt;StockItem|ModelError>} An item or a ModelError
-		 *
-		 * @example
-		 * 	Stock.getByName(db, "Huile d'olive 2000% matières grasses")
-		 */
-		const getByName = async (db, name) => {
-			const stock = await db.query(`
-				SELECT
-					stocks.stock_id,
-					stocks.name,
-					stocks.units,
-					units.unit_id AS "units_unit_id",
-					units.name AS "units_unit",
-					stocks.unit_price,
-					stocks.is_orderable,
-					stocks.is_cookable,
-					stocks.use_by_date_min,
-					stocks.use_by_date_max
-				FROM stocks
-				LEFT JOIN units ON stocks.units_unit_id = units.unit_id
-				WHERE stocks.name = ?
-			`, [name]);
+/*****************************************************
+ * CRUD Methods
+ *****************************************************/
 
-			return stock[0] ? stock[0] : new ModelError(404, "No stock item found with this name", ["name"]);
-		};
+/* ---- CREATE ---------------------------------- */
+/**
+ * @function add
+ * @async
+ * @description Add a stock item
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @param {string} name - Item name
+ * @param {Number} units - How many/much of this item
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @param {Number} unit_price - Price of one unit of this item
+ * @param {Boolean} is_orderable - Can a user order it
+ * @param {Boolean} is_cookable - Can a cook cook it
+ * @param {Date|string} use_by_date_min - When this item will be spoiled (min. bound)
+ * @param {Date|string} use_by_date_max - When this item will be spoiled (max. bound)
+ * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
+ *
+ * @example
+ * 	Stock.add(db, "Huile d'olive 2000% matières grasses", 50, 5, 1.30, false, true, Date.now(), null)
+ */
+const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+	if (!Checkers.strInRange(name, null, 255)) {
+		return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
+	}
 
-		/**
-		 * @function getById
-		 * @async
-		 * @description Get an item by its ID
-		 *
-		 * @param {Promise&lt;void>} db - Database connection
-		 * @param {Number|string} stock_id - ID of the stock item
-		 * @returns {Promise&lt;StockItem|ModelError>} An item or a ModelError
-		 *
-		 * @example
-		 * 	Stock.getByName(db, 27)
-		 */
-		const getById = async (db, stock_id) => {
-			const stock = await db.query(`
-				SELECT
-					stocks.stock_id,
-					stocks.name,
-					stocks.units,
-					units.unit_id AS "units_unit_id",
-					units.name AS "units_unit",
-					stocks.unit_price,
-					stocks.is_orderable,
-					stocks.is_cookable,
-					stocks.use_by_date_min,
-					stocks.use_by_date_max
-				FROM stocks
-				LEFT JOIN units ON stocks.units_unit_id = units.unit_id
-				WHERE stocks.stock_id = ?
-			`, [stock_id]);
+	if (!Checkers.isDateLowerThan(use_by_date_min, use_by_date_max, true, true)) {
+		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
+	}
 
-			return stock[0] ? stock[0] : new ModelError(404, "No stock item found with this id");
-		};
+	if (!Checkers.isGreaterThan(units, 0, true)) {
+		return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
+	}
 
-		/**
-		 * @function getIdOf
-		 * @async
-		 * @description Get an item ID using its name
-		 *
-		 * @param {Promise&lt;void>} db - Database connection
-		 * @param {string} name - Item name
-		 * @returns {Promise&lt;Number|null>} The item ID or null
-		 *
-		 * @example
-		 * 	Stock.getIdOf(db, "Huile d'olive 2000% matières grasses")
-		 */
-		const getIdOf = async (db, name) => {
-			const item = await db.query("SELECT stock_id FROM stocks WHERE name = ?", [name]);
+	if (!Checkers.isGreaterThan(unit_price, 0, true)) {
+		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
+	}
 
-			return item[0] ? item[0].stock_id : null;
-		};
+	return db.query(`
+		INSERT INTO stocks(name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+	`, [name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min ? use_by_date_min : null, use_by_date_max ? use_by_date_max : null]
+	);
+};
 
-		/**
-		 * @function getAll
-		 * @async
-		 * @description Get all stock items
-		 *
-		 * @param {Promise&lt;void>} db - Database connection
-		 * @returns {Promise&lt;Array&lt;StockItem>>} A list of items
-		 *
-		 * @example
-		 * 	Stock.getAll(db)
-		 */
-		const getAll = async db => {
-			return db.query(`
-				SELECT
-					stocks.stock_id,
-					stocks.name,
-					stocks.units,
-					units.unit_id AS "units_unit_id",
-					units.name AS "units_unit",
-					stocks.unit_price,
-					stocks.is_orderable,
-					stocks.is_cookable,
-					stocks.use_by_date_min,
-					stocks.use_by_date_max
-				FROM stocks
-				LEFT JOIN units ON stocks.units_unit_id = units.unit_id
-				ORDER BY stocks.stock_id
-			`);
-		};
+/**
+ * @function addOrEdit
+ * @async
+ * @description Add a stock item if it doesn't exist, update it otherwise
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @param {string} name - Item name
+ * @param {Number} units - How many/much of this item
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @param {Number} unit_price - Price of one unit of this item
+ * @param {Boolean} is_orderable - Can a user order it
+ * @param {Boolean} is_cookable - Can a cook cook it
+ * @param {Date|string} use_by_date_min - When this item will be spoiled (min. bound)
+ * @param {Date|string} use_by_date_max - When this item will be spoiled (max. bound)
+ * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
+ *
+ * @example
+ * 	Stock.addOrEdit(db, "Huile d'olive 2000% matières grasses", 50, 5, 1.30, false, true, Date.now(), null)
+ */
+const addOrEdit = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+	const stock_id = await getIdOf(db, name);
 
-		/* ---- UPDATE ---------------------------------- */
-		/**
-		 * @function update
-		 * @async
-		 * @description Update a stock item using its ID
-		 *
-		 * @param {Promise&lt;void>} db - Database connection
-		 * @param {Number} stock_id - ID of the stock item
-		 * @param {string} name - Item name
-		 * @param {Number} units - How many/much of this item
-		 * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
-		 * @param {Number} unit_price - Price of one unit of this item
-		 * @param {Boolean} is_orderable - Can a user order it
-		 * @param {Boolean} is_cookable - Can a cook cook it
-		 * @param {Date|string} use_by_date_min - When this item will be spoiled (min. bound)
-		 * @param {Date|string} use_by_date_max - When this item will be spoiled (max. bound)
-		 * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
-		 *
-		 * @example
-		 * 	Stock.update(db, 27, null, 750, null, null, null, null, null, null)
-		 */
-		const update = async (db, stock_id, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
-			if (!Checkers.strInRange(name, null, 255, true, true)) {
-				return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
-			}
+	if (stock_id) {
+		return update(db, stock_id, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max);
+	} else {
+		return add(db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max);
+	}
+};
 
-			if (!Checkers.isDateLowerThan(use_by_date_min, use_by_date_max, true, true)) {
-				return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
-			}
+/* ---- READ ---------------------------------- */
+/**
+ * @function getByName
+ * @async
+ * @description Get an item by its name
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @param {string} name - Item name
+ * @returns {Promise&lt;StockItem|ModelError>} An item or a ModelError
+ *
+ * @example
+ * 	Stock.getByName(db, "Huile d'olive 2000% matières grasses")
+ */
+const getByName = async (db, name) => {
+	const stock = await db.query(`
+		SELECT
+			stocks.stock_id,
+			stocks.name,
+			stocks.units,
+			units.unit_id AS "units_unit_id",
+			units.name AS "units_unit",
+			stocks.unit_price,
+			stocks.is_orderable,
+			stocks.is_cookable,
+			stocks.use_by_date_min,
+			stocks.use_by_date_max
+		FROM stocks
+		LEFT JOIN units ON stocks.units_unit_id = units.unit_id
+		WHERE stocks.name = ?
+	`, [name]);
 
-			if (units &amp;&amp; !Checkers.isGreaterThan(units, 0, true)) {
-				return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
-			}
+	return stock[0] ? stock[0] : new ModelError(404, "No stock item found with this name", ["name"]);
+};
 
-			if (unit_price &amp;&amp; !Checkers.isGreaterThan(unit_price, 0, true)) {
-				return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
-			}
+/**
+ * @function getById
+ * @async
+ * @description Get an item by its ID
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @param {Number|string} stock_id - ID of the stock item
+ * @returns {Promise&lt;StockItem|ModelError>} An item or a ModelError
+ *
+ * @example
+ * 	Stock.getByName(db, 27)
+ */
+const getById = async (db, stock_id) => {
+	const stock = await db.query(`
+		SELECT
+			stocks.stock_id,
+			stocks.name,
+			stocks.units,
+			units.unit_id AS "units_unit_id",
+			units.name AS "units_unit",
+			stocks.unit_price,
+			stocks.is_orderable,
+			stocks.is_cookable,
+			stocks.use_by_date_min,
+			stocks.use_by_date_max
+		FROM stocks
+		LEFT JOIN units ON stocks.units_unit_id = units.unit_id
+		WHERE stocks.stock_id = ?
+	`, [stock_id]);
 
-			const updatingFields = getFieldsToUpdate({ name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max });
-			if (!updatingFields) return new ModelError(200, "Nothing to update");
+	return stock[0] ? stock[0] : new ModelError(404, "No stock item found with this id");
+};
 
-			return db.query(`UPDATE stocks SET ${updatingFields} WHERE stock_id = ?`, [stock_id]);
-		};
+/**
+ * @function getIdOf
+ * @async
+ * @description Get an item ID using its name
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @param {string} name - Item name
+ * @returns {Promise&lt;Number|null>} The item ID or null
+ *
+ * @example
+ * 	Stock.getIdOf(db, "Huile d'olive 2000% matières grasses")
+ */
+const getIdOf = async (db, name) => {
+	const item = await db.query("SELECT stock_id FROM stocks WHERE name = ?", [name]);
 
-		/* ---- DELETE ---------------------------------- */
-		/**
-		 * @function delete
-		 * @async
-		 * @description Delete a stock item using its ID
-		 *
-		 * @param {Promise&lt;void>} db - Database connection
-		 * @param {Number} stock_id - ID of the stock item
-		 * @returns {Promise&lt;void>}
-		 *
-		 * @example
-		 * 	Stock.delete(db, 27)
-		 */
-		const del = async (db, stock_id) => {
-			return db.query("DELETE FROM stocks WHERE stock_id = ?", [stock_id]);
-		};
+	return item[0] ? item[0].stock_id : null;
+};
 
-		/*****************************************************
-		 * Export
-		 *****************************************************/
+/**
+ * @function getAll
+ * @async
+ * @description Get all stock items
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @returns {Promise&lt;Array&lt;StockItem>>} A list of items
+ *
+ * @example
+ * 	Stock.getAll(db)
+ */
+const getAll = async db => {
+	return db.query(`
+		SELECT
+			stocks.stock_id,
+			stocks.name,
+			stocks.units,
+			units.unit_id AS "units_unit_id",
+			units.name AS "units_unit",
+			stocks.unit_price,
+			stocks.is_orderable,
+			stocks.is_cookable,
+			stocks.use_by_date_min,
+			stocks.use_by_date_max
+		FROM stocks
+		LEFT JOIN units ON stocks.units_unit_id = units.unit_id
+		ORDER BY stocks.stock_id
+	`);
+};
 
-		const Stock = { add, addOrEdit, getByName, getById, getAll, update, delete: del };
-		export default Stock;</code>
-											</pre>
-				</article>
-			</section>
-		</div>
-		<br class="clear">
-		<footer>
-			Documentation generated by
-			<a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Jun 04 2021 19:03:01 GMT+0200 (heure d’été d’Europe centrale) using the
-			<a href="https://github.com/clenemt/docdash">docdash</a> theme.
+/* ---- UPDATE ---------------------------------- */
+/**
+ * @function update
+ * @async
+ * @description Update a stock item using its ID
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @param {Number} stock_id - ID of the stock item
+ * @param {string} name - Item name
+ * @param {Number} units - How many/much of this item
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @param {Number} unit_price - Price of one unit of this item
+ * @param {Boolean} is_orderable - Can a user order it
+ * @param {Boolean} is_cookable - Can a cook cook it
+ * @param {Date|string} use_by_date_min - When this item will be spoiled (min. bound)
+ * @param {Date|string} use_by_date_max - When this item will be spoiled (max. bound)
+ * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
+ *
+ * @example
+ * 	Stock.update(db, 27, null, 750, null, null, null, null, null, null)
+ */
+const update = async (db, stock_id, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
+	if (!Checkers.strInRange(name, null, 255, true, true)) {
+		return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
+	}
 
-		</footer>
-		<script>prettyPrint();</script>
-		<script src="scripts/polyfill.js"></script>
-		<script src="scripts/linenumber.js"></script>
-		<script src="scripts/search.js" defer></script>
-		<script src="scripts/collapse.js" defer></script>
-	</body>
+	if (!Checkers.isDateLowerThan(use_by_date_min, use_by_date_max, true, true)) {
+		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
+	}
+
+	if (units &amp;&amp; !Checkers.isGreaterThan(units, 0, true)) {
+		return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
+	}
+
+	if (unit_price &amp;&amp; !Checkers.isGreaterThan(unit_price, 0, true)) {
+		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
+	}
+
+	const updatingFields = getFieldsToUpdate({ name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max });
+	if (!updatingFields) return new ModelError(200, "Nothing to update");
+
+	return db.query(`UPDATE stocks SET ${updatingFields} WHERE stock_id = ?`, [stock_id]);
+};
+
+/* ---- DELETE ---------------------------------- */
+/**
+ * @function delete
+ * @async
+ * @description Delete a stock item using its ID
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @param {Number} stock_id - ID of the stock item
+ * @returns {Promise&lt;void>}
+ *
+ * @example
+ * 	Stock.delete(db, 27)
+ */
+const del = async (db, stock_id) => {
+	return db.query("DELETE FROM stocks WHERE stock_id = ?", [stock_id]);
+};
+
+/*****************************************************
+ * Export
+ *****************************************************/
+
+const Stock = { add, addOrEdit, getByName, getById, getAll, update, delete: del };
+export default Stock;</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sat Jun 05 2021 18:13:06 GMT+0200 (heure d’été d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
 </html>

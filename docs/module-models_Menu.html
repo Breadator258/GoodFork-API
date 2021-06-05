@@ -1,1847 +1,3624 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
+    
     <meta charset="utf-8">
     <title>models/Menu - The Good Fork - API</title>
+    
     <meta name="description" content="Online documentation of the good fork api" />
-    <meta name="keywords" content="the, good, fork, api, doc, documentation" />
-    <meta name="keyword" content="the, good, fork, api, doc, documentation" />
+    
+        <meta name="keywords" content="the, good, fork, api, doc, documentation" />
+        <meta name="keyword" content="the, good, fork, api, doc, documentation" />
+    
+    
+    
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
     <script src="scripts/nav.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-    <label for="nav-trigger" class="navicon-button x">
-      <div class="navicon"></div>
-    </label>
-    <label for="nav-trigger" class="overlay"></label>
-    <nav >
-      <input type="text" id="nav-search" placeholder="Search" />
-      <h2>
-        <a href="index.html">Home</a>
-      </h2>
-      <h2>
-        <a href="https://github.com/Breadator258/3PROJ-WEB_API" target="_blank" class="menu-item" id="github_link" >GitHub</a>
-      </h2>
-      <h2>
-        <a href="./api_routes.html" class="menu-item" id="api_routes_link" >API Routes</a>
-      </h2>
-      <h3>Classes</h3>
-      <ul>
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/Breadator258/3PROJ-WEB_API" target="_blank" class="menu-item" id="github_link" >GitHub</a></h2><h2><a href="./api_routes.html" class="menu-item" id="api_routes_link" >API Routes</a></h2><h3>Classes</h3><ul><li><a href="ModelError.html">ModelError</a><ul class='methods'><li data-type='method' style='display: none;'><a href="ModelError.html#.code">code</a></li><li data-type='method' style='display: none;'><a href="ModelError.html#.message">message</a></li><li data-type='method' style='display: none;'><a href="ModelError.html#.fields">fields</a></li><li data-type='method' style='display: none;'><a href="ModelError.html#.json">json</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-middlewares.html">middlewares</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-middlewares.html#~checkParams">checkParams</a></li><li data-type='method' style='display: none;'><a href="module-middlewares.html#~database">database</a></li><li data-type='method' style='display: none;'><a href="module-middlewares.html#~toLowercase">toLowercase</a></li></ul></li><li></li><li></li><li></li><li><a href="module-models_Booking.html">models/Booking</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getByUserId">getByUserId</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getActiveByUserId">getActiveByUserId</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~getAllToday">getAllToday</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~buildBookings">buildBookings</a></li><li data-type='method' style='display: none;'><a href="module-models_Booking.html#~delete">delete</a></li></ul></li><li><a href="module-models_Menu.html">models/Menu</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~addIngredient">addIngredient</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~buildMenus">buildMenus</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~setIllustration">setIllustration</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~updateIngredient">updateIngredient</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~delete">delete</a></li><li data-type='method' style='display: none;'><a href="module-models_Menu.html#~deleteIngredient">deleteIngredient</a></li></ul></li><li><a href="module-models_MenuTypes.html">models/MenuTypes</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_MenuTypes.html#~getByName">getByName</a></li><li data-type='method' style='display: none;'><a href="module-models_MenuTypes.html#~getAll">getAll</a></li></ul></li><li><a href="module-models_Order.html">models/Order</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Order.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~getByUserId">getByUserId</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~buildOrders">buildOrders</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_Order.html#~delete">delete</a></li></ul></li><li><a href="module-models_OrderMenus.html">models/OrderMenus</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_OrderMenus.html#~addMultiple">addMultiple</a></li><li data-type='method' style='display: none;'><a href="module-models_OrderMenus.html#~getAllByUserId">getAllByUserId</a></li><li data-type='method' style='display: none;'><a href="module-models_OrderMenus.html#~buildOrderMenus">buildOrderMenus</a></li></ul></li><li><a href="module-models_Role.html">models/Role</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Role.html#~getByName">getByName</a></li><li data-type='method' style='display: none;'><a href="module-models_Role.html#~getAll">getAll</a></li></ul></li><li><a href="module-models_Stock.html">models/Stock</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~addOrEdit">addOrEdit</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~getByName">getByName</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~getIdOf">getIdOf</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_Stock.html#~delete">delete</a></li></ul></li><li><a href="module-models_Table.html">models/Table</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Table.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~getByTableCapacity">getByTableCapacity</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~getAll">getAll</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_Table.html#~delete">delete</a></li></ul></li><li><a href="module-models_Token.html">models/Token</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Token.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_Token.html#~getNew">getNew</a></li><li data-type='method' style='display: none;'><a href="module-models_Token.html#~getUserId">getUserId</a></li></ul></li><li><a href="module-models_Unit.html">models/Unit</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_Unit.html#~getAll">getAll</a></li></ul></li><li><a href="module-models_User.html">models/User</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-models_User.html#~add">add</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~addStaff">addStaff</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~login">login</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~loginWithToken">loginWithToken</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~getStaff">getStaff</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~getByEmail">getByEmail</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~getById">getById</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~update">update</a></li><li data-type='method' style='display: none;'><a href="module-models_User.html#~deleteStaff">deleteStaff</a></li></ul></li><li><a href="module-Checkers.html">Checkers</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isDefined">isDefined</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~strInRange">strInRange</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isGreaterThan">isGreaterThan</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isDateLowerThan">isDateLowerThan</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isEmail">isEmail</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isPasswordSafe">isPasswordSafe</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isString">isString</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isNumber">isNumber</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isArray">isArray</a></li><li data-type='method' style='display: none;'><a href="module-Checkers.html#~isDate">isDate</a></li></ul></li><li><a href="module-Converters.html">Converters</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Converters.html#~toNumber">toNumber</a></li><li data-type='method' style='display: none;'><a href="module-Converters.html#~toDate">toDate</a></li></ul></li><li><a href="module-Functions.html">Functions</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Functions.html#~getFieldsToUpdate">getFieldsToUpdate</a></li><li data-type='method' style='display: none;'><a href="module-Functions.html#~convertValue">convertValue</a></li></ul></li><li><a href="module-Mail.html">Mail</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-Mail.html#~sendPassword">sendPassword</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="config.html">config</a></li></ul><h3>Global</h3><ul><li><a href="global.html#startServer">startServer</a></li><li><a href="global.html#getStartedMessage">getStartedMessage</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">models/Menu</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="~add"><span class="type-signature">(async, inner) </span>add<span class="signature">(db, type, name, description<span class="signature-attributes">opt</span>, price)</span><span class="type-signature"> &rarr; {Promise.&lt;({menu_id: Number}|<a href="ModelError.html">ModelError</a>)>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line60">line 60</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Add a menu</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Menu.add(db, "entrée", "Côte de porc sur son lit de ketchup", "Miam, c'est bon", 300)</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Type of the menu {@see module:models/MenuType}</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Menu name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>description</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Menu description</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>price</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Menu price</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The newly added menu ID or a ModelError</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;({menu_id: Number}|<a href="ModelError.html">ModelError</a>)></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~addIngredient"><span class="type-signature">(async, inner) </span>addIngredient<span class="signature">(db, menu_id, name, units, units_unit_id)</span><span class="type-signature"> &rarr; {Promise.&lt;({ingredient_id: Number}|<a href="ModelError.html">ModelError</a>)>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line104">line 104</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Add an ingredient in a menu</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Menu.addIngredient(db, 7, "Beurre", 4, "kg")</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>menu_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the menu</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Name of the ingredient</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>units</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>How many/much of this ingredient</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>units_unit_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the unit associated to &quot;units&quot; property {@see Unit}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The newly added ingredient ID or a ModelError</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;({ingredient_id: Number}|<a href="ModelError.html">ModelError</a>)></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~getAll"><span class="type-signature">(async, inner) </span>getAll<span class="signature">(db, orderBy<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;(Array.&lt;Menu>|<a href="ModelError.html">ModelError</a>)>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line144">line 144</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Get all menus</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Menu.getAll(db)Menu.getAll(db, "name")</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>orderBy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>One of [&quot;menu_id&quot;, &quot;name&quot;, &quot;type_id&quot;, &quot;price&quot;]</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A list of menus or a ModelError</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(Array.&lt;Menu>|<a href="ModelError.html">ModelError</a>)></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~getById"><span class="type-signature">(async, inner) </span>getById<span class="signature">(db, menu_id)</span><span class="type-signature"> &rarr; {Promise.&lt;(Menu|<a href="ModelError.html">ModelError</a>)>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line186">line 186</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Get a menu by its ID</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Menu.getById(db, 7)</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>menu_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the menu</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A menu or a ModelError</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(Menu|<a href="ModelError.html">ModelError</a>)></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~buildMenus"><span class="type-signature">(async, inner) </span>buildMenus<span class="signature">(db, menus)</span><span class="type-signature"> &rarr; {Promise.&lt;(Array.&lt;MenuFull>|MenuFull)>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line228">line 228</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Replace foreign keys by the corresponding data</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Menus.buildMenus(db, [&lt;Menu>, ...])Booking.buildMenus(db, &lt;Menu>)</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>menus</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Menu></span>
+|
+
+<span class="param-type">Menu</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>One or multiple menus</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>One or multiple full menus</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(Array.&lt;MenuFull>|MenuFull)></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~update"><span class="type-signature">(async, inner) </span>update<span class="signature">(db, menu_id, type_id<span class="signature-attributes">opt</span>, name<span class="signature-attributes">opt</span>, description<span class="signature-attributes">opt</span>, price<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;(void|<a href="ModelError.html">ModelError</a>)>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line291">line 291</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Update a menu</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Menu.update(db, 7, null, null, 15)</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>menu_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>ID of the menu</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>ID of the menu type {@see module:models/MenuType}</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Menu name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>description</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Menu description</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>price</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Menu price</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Nothing or a ModelError</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(void|<a href="ModelError.html">ModelError</a>)></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~setIllustration"><span class="type-signature">(async, inner) </span>setIllustration<span class="signature">(db, menu_id, image_path)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line326">line 326</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Update a menu illustration</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Menu.setIllustration(db, 7, "http://www.website.com/images/noob.png")</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>menu_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the menu</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>image_path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Illustration</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~updateIngredient"><span class="type-signature">(async, inner) </span>updateIngredient<span class="signature">(db, ingredient_id, name<span class="signature-attributes">opt</span>, units, units_unit_id)</span><span class="type-signature"> &rarr; {Promise.&lt;(void|<a href="ModelError.html">ModelError</a>)>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line343">line 343</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Update a menu</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Menu.updateIngredient(db, 15, null, 15, null)</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ingredient_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>ID of the ingredient</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Name of the stock element corresponding to this ingredient</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>units</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>How many/much of this ingredient</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>units_unit_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>ID of the unit associated to &quot;units&quot; property {@see Unit}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Nothing or a ModelError</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(void|<a href="ModelError.html">ModelError</a>)></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~delete"><span class="type-signature">(async, inner) </span>delete<span class="signature">(db, menu_id)</span><span class="type-signature"> &rarr; {Promise.&lt;(void|<a href="ModelError.html">ModelError</a>)>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line378">line 378</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Delete a menu</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Menu.delete(db, 7)</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>menu_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the menu</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Nothing or a ModelError</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(void|<a href="ModelError.html">ModelError</a>)></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~deleteIngredient"><span class="type-signature">(async, inner) </span>deleteIngredient<span class="signature">(db, ingredient_id)</span><span class="type-signature"> &rarr; {Promise.&lt;(void|<a href="ModelError.html">ModelError</a>)>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line394">line 394</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Delete a menu ingredient</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Menu.deleteIngredient(db, 15)</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ingredient_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the ingredient</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Nothing or a ModelError</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(void|<a href="ModelError.html">ModelError</a>)></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+<h4 class="name" id="~Menu">Menu</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line8">line 8</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>menu_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>ID of the menu</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>ID of the menu type {@see module:models/MenuType}</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Menu name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>description</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Menu description</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>price</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Menu price</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>image_path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Illustration</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>A Menu</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
         <li>
-          <a href="ModelError.html">ModelError</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="ModelError.html#.code">code</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="ModelError.html#.message">message</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="ModelError.html#.fields">fields</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="ModelError.html#.json">json</a>
-            </li>
-          </ul>
+            
+<span class="param-type">Object</span>
+
+
         </li>
-      </ul>
-      <h3>Modules</h3>
-      <ul>
+    </ul>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~MenuFull">MenuFull</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>menu_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>ID of the menu</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>ID of the menu type {@see module:models/MenuType}</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Type of the menu {@see module:models/MenuType}</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Menu name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>description</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Menu description</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>price</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Menu price</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>image_path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Illustration</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ingredients</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;MenuFullIngredient></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Ingredients</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>A Full Menu</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
         <li>
-          <a href="module-middlewares.html">middlewares</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-middlewares.html#~checkParams">checkParams</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-middlewares.html#~database">database</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-middlewares.html#~toLowercase">toLowercase</a>
-            </li>
-          </ul>
+            
+<span class="param-type">Object</span>
+
+
         </li>
-        <li></li>
-        <li></li>
-        <li></li>
+    </ul>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~MenuIngredient">MenuIngredient</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line32">line 32</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ingredient_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the ingredient</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>menu_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the menu {@see Menu}</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stock_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the stock element corresponding to this ingredient</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>units</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>How many/much of this ingredient</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>units_unit_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the unit associated to &quot;units&quot; property {@see Unit}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>A Menu ingredient</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
         <li>
-          <a href="module-models_Booking.html">models/Booking</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Booking.html#~add">add</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Booking.html#~getById">getById</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Booking.html#~getByUserId">getByUserId</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Booking.html#~getActiveByUserId">getActiveByUserId</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Booking.html#~getAll">getAll</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Booking.html#~buildBookings">buildBookings</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Booking.html#~delete">delete</a>
-            </li>
-          </ul>
+            
+<span class="param-type">Object</span>
+
+
         </li>
+    </ul>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~MenuFullIngredient">MenuFullIngredient</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Menu.js.html">api/models/Menu.js</a>, <a href="api_models_Menu.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ingredient_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the ingredient</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stock_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the stock element corresponding to this ingredient</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Name of the stock element corresponding to this ingredient</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>units</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>How many/much of this ingredient</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>units_unit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Unit associated to &quot;units&quot; property {@see Unit}</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>units_unit_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the unit associated to &quot;units&quot; property {@see Unit}</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stock_units_unit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Stock unit associated to &quot;units&quot; property {@see Unit}</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stock_units_unit_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Stock unit ID of the unit associated to &quot;units&quot; property {@see Unit}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>A Menu full ingredient</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
         <li>
-          <a href="module-models_Menu.html">models/Menu</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Menu.html#~add">add</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Menu.html#~addIngredient">addIngredient</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Menu.html#~getAll">getAll</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Menu.html#~getById">getById</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Menu.html#~buildMenus">buildMenus</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Menu.html#~update">update</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Menu.html#~setIllustration">setIllustration</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Menu.html#~updateIngredient">updateIngredient</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Menu.html#~delete">delete</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Menu.html#~deleteIngredient">deleteIngredient</a>
-            </li>
-          </ul>
+            
+<span class="param-type">Object</span>
+
+
         </li>
-        <li>
-          <a href="module-models_MenuTypes.html">models/MenuTypes</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_MenuTypes.html#~getByName">getByName</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_MenuTypes.html#~getAll">getAll</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="module-models_Order.html">models/Order</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Order.html#~add">add</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Order.html#~getById">getById</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Order.html#~getByUserId">getByUserId</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Order.html#~getAll">getAll</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Order.html#~buildOrders">buildOrders</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Order.html#~update">update</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Order.html#~delete">delete</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="module-models_OrderMenus.html">models/OrderMenus</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_OrderMenus.html#~addMultiple">addMultiple</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_OrderMenus.html#~getAllByUserId">getAllByUserId</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_OrderMenus.html#~buildOrderMenus">buildOrderMenus</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="module-models_Role.html">models/Role</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Role.html#~getByName">getByName</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Role.html#~getAll">getAll</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="module-models_Stock.html">models/Stock</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Stock.html#~add">add</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Stock.html#~addOrEdit">addOrEdit</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Stock.html#~getByName">getByName</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Stock.html#~getById">getById</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Stock.html#~getIdOf">getIdOf</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Stock.html#~getAll">getAll</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Stock.html#~update">update</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Stock.html#~delete">delete</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="module-models_Table.html">models/Table</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Table.html#~add">add</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Table.html#~getById">getById</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Table.html#~getByTableCapacity">getByTableCapacity</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Table.html#~getAll">getAll</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Table.html#~update">update</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Table.html#~delete">delete</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="module-models_Token.html">models/Token</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Token.html#~add">add</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Token.html#~getNew">getNew</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Token.html#~getUserId">getUserId</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="module-models_Unit.html">models/Unit</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_Unit.html#~getAll">getAll</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="module-models_User.html">models/User</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_User.html#~add">add</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_User.html#~addStaff">addStaff</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_User.html#~login">login</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_User.html#~loginWithToken">loginWithToken</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_User.html#~getStaff">getStaff</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_User.html#~getByEmail">getByEmail</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_User.html#~getById">getById</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_User.html#~update">update</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-models_User.html#~deleteStaff">deleteStaff</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="module-Checkers.html">Checkers</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Checkers.html#~isDefined">isDefined</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Checkers.html#~strInRange">strInRange</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Checkers.html#~isGreaterThan">isGreaterThan</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Checkers.html#~isDateLowerThan">isDateLowerThan</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Checkers.html#~isEmail">isEmail</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Checkers.html#~isPasswordSafe">isPasswordSafe</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Checkers.html#~isString">isString</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Checkers.html#~isNumber">isNumber</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Checkers.html#~isArray">isArray</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Checkers.html#~isDate">isDate</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="module-Converters.html">Converters</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Converters.html#~toNumber">toNumber</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Converters.html#~toDate">toDate</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="module-Functions.html">Functions</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Functions.html#~getFieldsToUpdate">getFieldsToUpdate</a>
-            </li>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Functions.html#~convertValue">convertValue</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="module-Mail.html">Mail</a>
-          <ul class='methods'>
-            <li data-type='method' style='display: none;'>
-              <a href="module-Mail.html#~sendPassword">sendPassword</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <h3>Namespaces</h3>
-      <ul>
-        <li>
-          <a href="config.html">config</a>
-        </li>
-      </ul>
-      <h3>Global</h3>
-      <ul>
-        <li>
-          <a href="global.html#startServer">startServer</a>
-        </li>
-        <li>
-          <a href="global.html#getStartedMessage">getStartedMessage</a>
-        </li>
-      </ul>
-    </nav>
-    <div id="main">
-      <h1 class="page-title">models/Menu</h1>
-      <section>
-        <header></header>
-        <article>
-          <div class="container-overview"></div>
-          <h3 class="subsection-title">Methods</h3>
-          <h4 class="name" id="~add">
-            <span class="type-signature">(async, inner) </span>add
-            <span class="signature">(db, type, name, description
-                          <span class="signature-attributes">opt</span>, price)
-                        </span>
-            <span class="type-signature"> &rarr; {Promise.&lt;({menu_id: Number}|
-                          <a href="ModelError.html">ModelError</a>)>}
-                        </span>
-          </h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line60">line 60</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <div class="description usertext">
-            <p>Add a menu</p>
-          </div>
-          <h5>Example</h5>
-          <pre class="prettyprint">
-                        <code>Menu.add(db, "entrée", "Côte de porc sur son lit de ketchup", "Miam, c'est bon", 300)</code>
-                      </pre>
-          <h5>Parameters:</h5>
-          <table class="params">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Attributes</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>type</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>Type of the menu {@see module:models/MenuType}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>name</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>Menu name</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>description</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes">
-
-                &lt;optional>
-                <br>
-              </td>
-              <td class="description last">
-                <p>Menu description</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>price</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>Menu price</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <h5>Returns:</h5>
-          <div class="param-desc">
-            <p>The newly added menu ID or a ModelError</p>
-          </div>
-          <dl class="param-type">
-            <dt>
-              Type
-            </dt>
-            <dd>
-                            <span class="param-type">Promise.&lt;({menu_id: Number}|
-                              <a href="ModelError.html">ModelError</a>)>
-                            </span>
-            </dd>
-          </dl>
-          <h4 class="name" id="~addIngredient">
-            <span class="type-signature">(async, inner) </span>addIngredient
-            <span class="signature">(db, menu_id, name, units, units_unit_id)</span>
-            <span class="type-signature"> &rarr; {Promise.&lt;({ingredient_id: Number}|
-                            <a href="ModelError.html">ModelError</a>)>}
-                          </span>
-          </h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line104">line 104</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <div class="description usertext">
-            <p>Add an ingredient in a menu</p>
-          </div>
-          <h5>Example</h5>
-          <pre class="prettyprint">
-                          <code>Menu.addIngredient(db, 7, "Beurre", 4, "kg")</code>
-                        </pre>
-          <h5>Parameters:</h5>
-          <table class="params">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>menu_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the menu</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>name</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="description last">
-                <p>Name of the ingredient</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>units</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>How many/much of this ingredient</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>units_unit_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-                |
+    </ul>
 
 
-                <span class="param-type">string</span>
-              </td>
-              <td class="description last">
-                <p>ID of the unit associated to &quot;units&quot; property {@see Unit}</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <h5>Returns:</h5>
-          <div class="param-desc">
-            <p>The newly added ingredient ID or a ModelError</p>
-          </div>
-          <dl class="param-type">
-            <dt>
-              Type
-            </dt>
-            <dd>
-                            <span class="param-type">Promise.&lt;({ingredient_id: Number}|
-                              <a href="ModelError.html">ModelError</a>)>
-                            </span>
-            </dd>
-          </dl>
-          <h4 class="name" id="~getAll">
-            <span class="type-signature">(async, inner) </span>getAll
-            <span class="signature">(db, orderBy
-                            <span class="signature-attributes">opt</span>)
-                          </span>
-            <span class="type-signature"> &rarr; {Promise.&lt;(Array.&lt;Menu>|
-                            <a href="ModelError.html">ModelError</a>)>}
-                          </span>
-          </h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line144">line 144</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <div class="description usertext">
-            <p>Get all menus</p>
-          </div>
-          <h5>Example</h5>
-          <pre class="prettyprint">
-                          <code>Menu.getAll(db)
-    Menu.getAll(db, "name")</code>
-                        </pre>
-          <h5>Parameters:</h5>
-          <table class="params">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Attributes</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>orderBy</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes">
-
-                &lt;optional>
-                <br>
-              </td>
-              <td class="description last">
-                <p>One of [&quot;menu_id&quot;, &quot;name&quot;, &quot;type_id&quot;, &quot;price&quot;]</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <h5>Returns:</h5>
-          <div class="param-desc">
-            <p>A list of menus or a ModelError</p>
-          </div>
-          <dl class="param-type">
-            <dt>
-              Type
-            </dt>
-            <dd>
-                              <span class="param-type">Promise.&lt;(Array.&lt;Menu>|
-                                <a href="ModelError.html">ModelError</a>)>
-                              </span>
-            </dd>
-          </dl>
-          <h4 class="name" id="~getById">
-            <span class="type-signature">(async, inner) </span>getById
-            <span class="signature">(db, menu_id)</span>
-            <span class="type-signature"> &rarr; {Promise.&lt;(Menu|
-                              <a href="ModelError.html">ModelError</a>)>}
-                            </span>
-          </h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line186">line 186</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <div class="description usertext">
-            <p>Get a menu by its ID</p>
-          </div>
-          <h5>Example</h5>
-          <pre class="prettyprint">
-                            <code>Menu.getById(db, 7)</code>
-                          </pre>
-          <h5>Parameters:</h5>
-          <table class="params">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>menu_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-                |
 
 
-                <span class="param-type">string</span>
-              </td>
-              <td class="description last">
-                <p>ID of the menu</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <h5>Returns:</h5>
-          <div class="param-desc">
-            <p>A menu or a ModelError</p>
-          </div>
-          <dl class="param-type">
-            <dt>
-              Type
-            </dt>
-            <dd>
-                              <span class="param-type">Promise.&lt;(Menu|
-                                <a href="ModelError.html">ModelError</a>)>
-                              </span>
-            </dd>
-          </dl>
-          <h4 class="name" id="~buildMenus">
-            <span class="type-signature">(async, inner) </span>buildMenus
-            <span class="signature">(db, menus)</span>
-            <span class="type-signature"> &rarr; {Promise.&lt;(Array.&lt;MenuFull>|MenuFull)>}</span>
-          </h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line228">line 228</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <div class="description usertext">
-            <p>Replace foreign keys by the corresponding data</p>
-          </div>
-          <h5>Example</h5>
-          <pre class="prettyprint">
-                            <code>Menus.buildMenus(db, [&lt;Menu>, ...])
-    Booking.buildMenus(db, &lt;Menu>)</code>
-                          </pre>
-          <h5>Parameters:</h5>
-          <table class="params">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>menus</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Array.&lt;Menu></span>
-                |
 
 
-                <span class="param-type">Menu</span>
-              </td>
-              <td class="description last">
-                <p>One or multiple menus</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <h5>Returns:</h5>
-          <div class="param-desc">
-            <p>One or multiple full menus</p>
-          </div>
-          <dl class="param-type">
-            <dt>
-              Type
-            </dt>
-            <dd>
-              <span class="param-type">Promise.&lt;(Array.&lt;MenuFull>|MenuFull)></span>
-            </dd>
-          </dl>
-          <h4 class="name" id="~update">
-            <span class="type-signature">(async, inner) </span>update
-            <span class="signature">(db, menu_id, type_id
-                              <span class="signature-attributes">opt</span>, name
-                              <span class="signature-attributes">opt</span>, description
-                              <span class="signature-attributes">opt</span>, price
-                              <span class="signature-attributes">opt</span>)
-                            </span>
-            <span class="type-signature"> &rarr; {Promise.&lt;(void|
-                              <a href="ModelError.html">ModelError</a>)>}
-                            </span>
-          </h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line291">line 291</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <div class="description usertext">
-            <p>Update a menu</p>
-          </div>
-          <h5>Example</h5>
-          <pre class="prettyprint">
-                            <code>Menu.update(db, 7, null, null, 15)</code>
-                          </pre>
-          <h5>Parameters:</h5>
-          <table class="params">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Attributes</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>menu_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-                |
+            
+    
+
+    
+</article>
+
+</section>
 
 
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>ID of the menu</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>type_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-                |
 
 
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes">
+    
+    
+</div>
 
-                &lt;optional>
-                <br>
-              </td>
-              <td class="description last">
-                <p>ID of the menu type {@see module:models/MenuType}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>name</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes">
+<br class="clear">
 
-                &lt;optional>
-                <br>
-              </td>
-              <td class="description last">
-                <p>Menu name</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>description</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes">
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sat Jun 05 2021 18:13:06 GMT+0200 (heure d’été d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
 
-                &lt;optional>
-                <br>
-              </td>
-              <td class="description last">
-                <p>Menu description</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>price</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="attributes">
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
 
-                &lt;optional>
-                <br>
-              </td>
-              <td class="description last">
-                <p>Menu price</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <h5>Returns:</h5>
-          <div class="param-desc">
-            <p>Nothing or a ModelError</p>
-          </div>
-          <dl class="param-type">
-            <dt>
-              Type
-            </dt>
-            <dd>
-                                      <span class="param-type">Promise.&lt;(void|
-                                        <a href="ModelError.html">ModelError</a>)>
-                                      </span>
-            </dd>
-          </dl>
-          <h4 class="name" id="~setIllustration">
-            <span class="type-signature">(async, inner) </span>setIllustration
-            <span class="signature">(db, menu_id, image_path)</span>
-            <span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
-          </h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line326">line 326</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <div class="description usertext">
-            <p>Update a menu illustration</p>
-          </div>
-          <h5>Example</h5>
-          <pre class="prettyprint">
-                                    <code>Menu.setIllustration(db, 7, "http://www.website.com/images/noob.png")</code>
-                                  </pre>
-          <h5>Parameters:</h5>
-          <table class="params">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>menu_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-                |
+<script src="scripts/search.js" defer></script>
 
 
-                <span class="param-type">string</span>
-              </td>
-              <td class="description last">
-                <p>ID of the menu</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>image_path</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="description last">
-                <p>Illustration</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <h5>Returns:</h5>
-          <dl class="param-type">
-            <dt>
-              Type
-            </dt>
-            <dd>
-              <span class="param-type">Promise.&lt;void></span>
-            </dd>
-          </dl>
-          <h4 class="name" id="~updateIngredient">
-            <span class="type-signature">(async, inner) </span>updateIngredient
-            <span class="signature">(db, ingredient_id, name
-                                      <span class="signature-attributes">opt</span>, units, units_unit_id)
-                                    </span>
-            <span class="type-signature"> &rarr; {Promise.&lt;(void|
-                                      <a href="ModelError.html">ModelError</a>)>}
-                                    </span>
-          </h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line343">line 343</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <div class="description usertext">
-            <p>Update a menu</p>
-          </div>
-          <h5>Example</h5>
-          <pre class="prettyprint">
-                                    <code>Menu.updateIngredient(db, 15, null, 15, null)</code>
-                                  </pre>
-          <h5>Parameters:</h5>
-          <table class="params">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Attributes</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>ingredient_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-                |
+<script src="scripts/collapse.js" defer></script>
 
 
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>ID of the ingredient</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>name</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes">
-
-                &lt;optional>
-                <br>
-              </td>
-              <td class="description last">
-                <p>Name of the stock element corresponding to this ingredient</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>units</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>How many/much of this ingredient</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>units_unit_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-                |
-
-
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>ID of the unit associated to &quot;units&quot; property {@see Unit}</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <h5>Returns:</h5>
-          <div class="param-desc">
-            <p>Nothing or a ModelError</p>
-          </div>
-          <dl class="param-type">
-            <dt>
-              Type
-            </dt>
-            <dd>
-                                        <span class="param-type">Promise.&lt;(void|
-                                          <a href="ModelError.html">ModelError</a>)>
-                                        </span>
-            </dd>
-          </dl>
-          <h4 class="name" id="~delete">
-            <span class="type-signature">(async, inner) </span>delete
-            <span class="signature">(db, menu_id)</span>
-            <span class="type-signature"> &rarr; {Promise.&lt;(void|
-                                        <a href="ModelError.html">ModelError</a>)>}
-                                      </span>
-          </h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line378">line 378</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <div class="description usertext">
-            <p>Delete a menu</p>
-          </div>
-          <h5>Example</h5>
-          <pre class="prettyprint">
-                                      <code>Menu.delete(db, 7)</code>
-                                    </pre>
-          <h5>Parameters:</h5>
-          <table class="params">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>menu_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-                |
-
-
-                <span class="param-type">string</span>
-              </td>
-              <td class="description last">
-                <p>ID of the menu</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <h5>Returns:</h5>
-          <div class="param-desc">
-            <p>Nothing or a ModelError</p>
-          </div>
-          <dl class="param-type">
-            <dt>
-              Type
-            </dt>
-            <dd>
-                                        <span class="param-type">Promise.&lt;(void|
-                                          <a href="ModelError.html">ModelError</a>)>
-                                        </span>
-            </dd>
-          </dl>
-          <h4 class="name" id="~deleteIngredient">
-            <span class="type-signature">(async, inner) </span>deleteIngredient
-            <span class="signature">(db, ingredient_id)</span>
-            <span class="type-signature"> &rarr; {Promise.&lt;(void|
-                                        <a href="ModelError.html">ModelError</a>)>}
-                                      </span>
-          </h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line394">line 394</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <div class="description usertext">
-            <p>Delete a menu ingredient</p>
-          </div>
-          <h5>Example</h5>
-          <pre class="prettyprint">
-                                      <code>Menu.deleteIngredient(db, 15)</code>
-                                    </pre>
-          <h5>Parameters:</h5>
-          <table class="params">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>db</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Promise.&lt;void></span>
-              </td>
-              <td class="description last">
-                <p>Database connection</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>ingredient_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-                |
-
-
-                <span class="param-type">string</span>
-              </td>
-              <td class="description last">
-                <p>ID of the ingredient</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <h5>Returns:</h5>
-          <div class="param-desc">
-            <p>Nothing or a ModelError</p>
-          </div>
-          <dl class="param-type">
-            <dt>
-              Type
-            </dt>
-            <dd>
-                                        <span class="param-type">Promise.&lt;(void|
-                                          <a href="ModelError.html">ModelError</a>)>
-                                        </span>
-            </dd>
-          </dl>
-          <h3 class="subsection-title">Type Definitions</h3>
-          <h4 class="name" id="~Menu">Menu</h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line8">line 8</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <h5 class="subsection-title">Properties:</h5>
-          <table class="props">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Attributes</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>menu_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>ID of the menu</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>type_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>ID of the menu type {@see module:models/MenuType}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>name</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>Menu name</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>description</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes">
-
-                &lt;optional>
-                <br>
-              </td>
-              <td class="description last">
-                <p>Menu description</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>price</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>Menu price</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>image_path</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes">
-
-                &lt;optional>
-                <br>
-              </td>
-              <td class="description last">
-                <p>Illustration</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <div class="description usertext">
-            <p>A Menu</p>
-          </div>
-          <h5>Type:</h5>
-          <ul>
-            <li>
-              <span class="param-type">Object</span>
-            </li>
-          </ul>
-          <h4 class="name" id="~MenuFull">MenuFull</h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line19">line 19</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <h5 class="subsection-title">Properties:</h5>
-          <table class="props">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Attributes</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>menu_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>ID of the menu</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>type_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>ID of the menu type {@see module:models/MenuType}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>type</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>Type of the menu {@see module:models/MenuType}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>name</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>Menu name</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>description</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes">
-
-                &lt;optional>
-                <br>
-              </td>
-              <td class="description last">
-                <p>Menu description</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>price</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>Menu price</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>image_path</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="attributes">
-
-                &lt;optional>
-                <br>
-              </td>
-              <td class="description last">
-                <p>Illustration</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>ingredients</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Array.&lt;MenuFullIngredient></span>
-              </td>
-              <td class="attributes"></td>
-              <td class="description last">
-                <p>Ingredients</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <div class="description usertext">
-            <p>A Full Menu</p>
-          </div>
-          <h5>Type:</h5>
-          <ul>
-            <li>
-              <span class="param-type">Object</span>
-            </li>
-          </ul>
-          <h4 class="name" id="~MenuIngredient">MenuIngredient</h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line32">line 32</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <h5 class="subsection-title">Properties:</h5>
-          <table class="props">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>ingredient_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the ingredient</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>menu_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the menu {@see Menu}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>stock_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the stock element corresponding to this ingredient</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>units</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>How many/much of this ingredient</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>units_unit_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the unit associated to &quot;units&quot; property {@see Unit}</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <div class="description usertext">
-            <p>A Menu ingredient</p>
-          </div>
-          <h5>Type:</h5>
-          <ul>
-            <li>
-              <span class="param-type">Object</span>
-            </li>
-          </ul>
-          <h4 class="name" id="~MenuFullIngredient">MenuFullIngredient</h4>
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="api_models_Menu.js.html">api/models/Menu.js</a>,
-                  <a href="api_models_Menu.js.html#line42">line 42</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-          <h5 class="subsection-title">Properties:</h5>
-          <table class="props">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="last">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="name">
-                <code>ingredient_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the ingredient</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>stock_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the stock element corresponding to this ingredient</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>name</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="description last">
-                <p>Name of the stock element corresponding to this ingredient</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>units</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>How many/much of this ingredient</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>units_unit</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="description last">
-                <p>Unit associated to &quot;units&quot; property {@see Unit}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>units_unit_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>ID of the unit associated to &quot;units&quot; property {@see Unit}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>stock_units_unit</code>
-              </td>
-              <td class="type">
-                <span class="param-type">string</span>
-              </td>
-              <td class="description last">
-                <p>Stock unit associated to &quot;units&quot; property {@see Unit}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">
-                <code>stock_units_unit_id</code>
-              </td>
-              <td class="type">
-                <span class="param-type">Number</span>
-              </td>
-              <td class="description last">
-                <p>Stock unit ID of the unit associated to &quot;units&quot; property {@see Unit}</p>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <div class="description usertext">
-            <p>A Menu full ingredient</p>
-          </div>
-          <h5>Type:</h5>
-          <ul>
-            <li>
-              <span class="param-type">Object</span>
-            </li>
-          </ul>
-        </article>
-      </section>
-    </div>
-    <br class="clear">
-    <footer>
-      Documentation generated by
-      <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Jun 04 2021 19:03:01 GMT+0200 (heure d’été d’Europe centrale) using the
-      <a href="https://github.com/clenemt/docdash">docdash</a> theme.
-
-    </footer>
-    <script>prettyPrint();</script>
-    <script src="scripts/polyfill.js"></script>
-    <script src="scripts/linenumber.js"></script>
-    <script src="scripts/search.js" defer></script>
-    <script src="scripts/collapse.js" defer></script>
-  </body>
+</body>
 </html>
