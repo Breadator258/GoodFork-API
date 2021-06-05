@@ -55,6 +55,27 @@ export default (router) => {
 	);
 
 	route.get(
+		"/allNotFinished",
+		middlewares.database,
+		async (request, response) => {
+			const db = await request.database;
+
+			response.set("Content-Type", "application/json");
+
+			Order.getAllNotFinished(db)
+				.then(result => {
+					if (result instanceof ModelError) {
+						response.status(result.code()).json(result.json()).end();
+					} else {
+						response.status(200).json({ code: 200, orders: result }).end();
+					}
+				})
+				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
+				.finally(() => db ? db.release() : null);
+		}
+	);
+
+	route.get(
 		"/:order_id",
 		middlewares.checkParams("order_id"),
 		middlewares.database,
