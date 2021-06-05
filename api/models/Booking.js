@@ -162,7 +162,7 @@ const getActiveByUserId = async (db, user_id) => {
 	`, [user_id]);
 
 	return booking[0]
-		? buildBookings(db, booking[0])
+		? buildBookings(db, booking)
 		: new ModelError(404, "No active booking found with this user id.");
 };
 
@@ -188,6 +188,35 @@ const getAll = async db => {
       is_client_on_place,
       can_client_pay
 		FROM bookings
+		ORDER BY booking_id
+	`);
+
+	return buildBookings(db, bookings);
+};
+
+/**
+ * @function getAllToday
+ * @async
+ * @description Get all bookings of the day
+ *
+ * @param {Promise<void>} db - Database connection
+ * @returns {Promise<Array<Booking>>} A list of bookings
+ *
+ * @example
+ * 	Booking.getAllToday(db)
+ */
+const getAllToday = async db => {
+	const bookings = await db.query(`
+        SELECT booking_id,
+               user_id,
+               table_id,
+               time,
+               clients_nb,
+               is_client_on_place,
+               can_client_pay
+        FROM bookings
+        WHERE time >= timestamp(CURRENT_DATE)
+          AND time < ADDDATE(timestamp(CURRENT_DATE), 1)
 		ORDER BY booking_id
 	`);
 
@@ -270,5 +299,5 @@ const del = async (db, booking_id) => {
  * Export
  *****************************************************/
 
-const Booking = { add, getById, getByUserId, getActiveByUserId, getAll, delete: del };
+const Booking = { add, getById, getByUserId, getActiveByUserId, getAll, getAllToday, delete: del };
 export default Booking;
