@@ -3,6 +3,7 @@ import Table from "./Table.js";
 import User from "./User.js";
 import ModelError from "../../global/ModelError.js";
 import Checkers from "../../global/Checkers.js";
+import { getFieldsToUpdate } from "../../global/Functions.js";
 
 /**
  * A booking
@@ -13,6 +14,7 @@ import Checkers from "../../global/Checkers.js";
  * @property {string|Date} time - When the booking is scheduled
  * @property {Number} clients_nb - How many clients will be present
  * @property {Boolean|Number} is_client_on_place - Is the client on place or not
+ * @property {Boolean|Number} can_client_pay - Is the client able to access payment page or not
  */
 
 /**
@@ -275,6 +277,32 @@ const buildBookings = async (db, bookings) => {
 	}
 };
 
+/* ---- UPDATE ---------------------------------- */
+/**
+ * @function changeClientOnPlaceStatus
+ * @async
+ * @description Update the client booking status
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} booking_id - ID of the booking
+ * @param {Number|string} table_id - ID of the table reserved for this booking
+ * @param {string|Date} time - When the booking is scheduled
+ * @param {Number} clients_nb - How many clients will be present
+ * @param {Number|boolean} is_client_on_place - Is the client on place or not
+ * @param {Boolean|Number} can_client_pay - Is the client able to access payment page or not
+ * @returns {Promise<void|ModelError>} Nothing or a ModelError
+ *
+ * @example
+ * 	Booking.update(db, 20, 1)
+ */
+const update = async (db, booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay) => {
+
+	const updatingFields = getFieldsToUpdate({ table_id, time, clients_nb, is_client_on_place, can_client_pay });
+	if (!updatingFields) return new ModelError(200, "Nothing to update");
+
+	return db.query(`UPDATE bookings SET ${updatingFields} WHERE booking_id = ?`, [booking_id]);
+};
+
 /* ---- DELETE ---------------------------------- */
 /**
  * @function delete
@@ -299,5 +327,5 @@ const del = async (db, booking_id) => {
  * Export
  *****************************************************/
 
-const Booking = { add, getById, getByUserId, getActiveByUserId, getAll, getAllToday, delete: del };
+const Booking = { add, getById, getByUserId, getActiveByUserId, getAll, getAllToday, update, delete: del };
 export default Booking;

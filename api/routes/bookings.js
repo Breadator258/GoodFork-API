@@ -144,6 +144,32 @@ export default (router) => {
 		}
 	);
 
+	/* ---- UPDATE ------------------------------------ */
+	route.put(
+		"/",
+		middlewares.checkParams("booking_id"),
+		middlewares.database,
+		async (request, response) => {
+			const {
+				booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay
+			} = request.body;
+			const db = await request.database;
+
+			response.set("Content-Type", "application/json");
+
+			Booking.update(db, booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay)
+				.then(result => {
+					if (result instanceof ModelError) {
+						response.status(result.code()).json(result.json()).end();
+					} else {
+						response.status(202).json({ code: 202, message: "Booking updated." }).end();
+					}
+				})
+				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
+				.finally(() => db ? db.release() : null);
+		}
+	);
+
 	/* ---- DELETE ------------------------------------ */
 	route.delete(
 		"/",
