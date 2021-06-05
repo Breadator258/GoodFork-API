@@ -280,9 +280,9 @@ const buildBookings = async (db, bookings) => {
 
 /* ---- UPDATE ---------------------------------- */
 /**
- * @function changeClientOnPlaceStatus
+ * @function update
  * @async
- * @description Update the client booking status
+ * @description Update the booking
  *
  * @param {Promise<void>} db - Database connection
  * @param {Number|string} booking_id - ID of the booking
@@ -294,7 +294,7 @@ const buildBookings = async (db, bookings) => {
  * @returns {Promise<void|ModelError>} Nothing or a ModelError
  *
  * @example
- * 	Booking.update(db, 20, 1)
+ * 	Booking.update(db, 20, 1, null, 3, false, true)
  */
 const update = async (db, booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay) => {
 
