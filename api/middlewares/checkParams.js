@@ -25,7 +25,9 @@ export default function checkParams(...paramsNames) {
 				const param = params[name];
 
 				if (!Checkers.isDefined(param)) addMissingParam(name);
-				if (!Checkers.strInRange(param, 1, null)) addMissingParam(name);
+				if (Checkers.isString(param)){
+					if (!Checkers.strInRange(param, 1, null)) addMissingParam(name);
+				}
 			} else {
 				addMissingParam(name);
 			}
