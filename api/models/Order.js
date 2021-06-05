@@ -174,6 +174,36 @@ const getAll = async db => {
 };
 
 /**
+ * @function getAllNotFinished
+ * @async
+ * @description Get an order by its associated user's ID
+ *
+ * @param {Promise<void>} db - Database connection
+ * @returns {Promise<Array<FullOrder>>} A list of full orders
+ *
+ * @example
+ * 	Order.getAllNotFinished(db)
+ */
+const getAllNotFinished = async db => {
+	const orders = await db.query(`
+		SELECT
+		order_id,
+    booking_id,
+    user_id,
+    additional_infos,
+    time,
+   	total_price,
+    is_take_away,
+    is_finished
+		FROM orders
+	WHERE is_finished = 0
+		ORDER BY order_id
+	`);
+
+	return buildOrders(db, orders);
+};
+
+/**
  * @function buildOrders
  * @async
  * @description Replace foreign keys by the corresponding data
@@ -277,5 +307,5 @@ const del = async (db, order_id) => {
  * Export
  *****************************************************/
 
-const Order = { add, getById, getByUserId, getAll, update, delete: del };
+const Order = { add, getById, getByUserId, getAll, getAllNotFinished, update, delete: del };
 export default Order;
