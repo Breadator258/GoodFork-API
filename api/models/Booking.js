@@ -195,6 +195,35 @@ const getAll = async db => {
 };
 
 /**
+ * @function getAllToday
+ * @async
+ * @description Get all bookings of the day
+ *
+ * @param {Promise<void>} db - Database connection
+ * @returns {Promise<Array<Booking>>} A list of bookings
+ *
+ * @example
+ * 	Booking.getAllToday(db)
+ */
+const getAllToday = async db => {
+	const bookings = await db.query(`
+        SELECT booking_id,
+               user_id,
+               table_id,
+               time,
+               clients_nb,
+               is_client_on_place,
+               can_client_pay
+        FROM bookings
+        WHERE time >= timestamp(CURRENT_DATE)
+          AND time < ADDDATE(timestamp(CURRENT_DATE), 1)
+		ORDER BY booking_id
+	`);
+
+	return buildBookings(db, bookings);
+};
+
+/**
  * @function buildBookings
  * @async
  * @description Replace foreign keys by the corresponding data
@@ -270,5 +299,5 @@ const del = async (db, booking_id) => {
  * Export
  *****************************************************/
 
-const Booking = { add, getById, getByUserId, getActiveByUserId, getAll, delete: del };
+const Booking = { add, getById, getByUserId, getActiveByUserId, getAll, getAllToday, delete: del };
 export default Booking;
