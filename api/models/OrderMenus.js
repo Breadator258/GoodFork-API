@@ -85,6 +85,38 @@ const getAllByUserId = async (db, user_id) => {
 };
 
 /**
+ * @function getAllByOrderId
+ * @async
+ * @description Get every menus of an order by the order id
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} order_id - ID of the order which contains a menu
+ * @returns {Promise<Array<*>|ModelError>} A list of all menus or a ModelError
+ *
+ * @example
+ * 	OrderMenus.getAllByOrderId(db, 4)
+ */
+const getAllByOrderId = async (db, order_id) => {
+	const menus = await db.query(`
+  	SELECT
+    	 orders.order_id,
+       menus.menu_id,
+       menus.name,
+       mt.type_id,
+       mt.name AS "type",
+       menus.price,
+       orders.is_finished
+    FROM orders
+		LEFT JOIN orders_menus om ON orders.order_id = om.order_id
+		LEFT JOIN menus ON om.menu_id = menus.menu_id
+		LEFT JOIN menu_types mt ON menus.type_id = mt.type_id
+    WHERE orders.order_id = ?;
+	`, [order_id]);
+
+	return buildOrderMenus(db, menus);
+};
+
+/**
  * @function buildOrderMenus
  * @async
  * @description Replace foreign keys by the corresponding data
@@ -127,5 +159,5 @@ const buildOrderMenus = async (db, menus) => {
  * Export
  *****************************************************/
 
-const OrderMenus = { addMultiple, getAllByUserId };
+const OrderMenus = { addMultiple, getAllByUserId, getAllByOrderId };
 export default OrderMenus;
