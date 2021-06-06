@@ -15,6 +15,8 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
  * @property {Number} clients_nb - How many clients will be present
  * @property {Boolean|Number} is_client_on_place - Is the client on place or not
  * @property {Boolean|Number} can_client_pay - Is the client able to access payment page or not
+ * @property {Boolean|Number} is_finished - Is the booking ended or not
+ * @property {Boolean|Number} is_finished - Is the booking ended or not
  */
 
 /**
@@ -27,6 +29,7 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
  * @property {Number} clients_nb - How many clients will be present
  * @property {Boolean|Number} is_client_on_place - Is the client on place or not
  * @property {Boolean|Number} can_client_pay - Is the client able to access payment page or not
+ * @property {Boolean|Number} is_finished - Is the booking ended or not
  */
 
 /*****************************************************
@@ -95,8 +98,9 @@ const getById = async (db, booking_id) => {
 			table_id,
 			time,
 			clients_nb,
-      is_client_on_place,
-      can_client_pay
+			is_client_on_place,
+			can_client_pay,
+		    is_finished
 		FROM bookings
 		WHERE booking_id = ?
 	`, [booking_id]);
@@ -126,8 +130,9 @@ const getByUserId = async (db, user_id) => {
 			table_id,
 			time,
 			clients_nb,
-		  is_client_on_place,
-      can_client_pay
+			is_client_on_place,
+			can_client_pay,
+		    is_finished
 		FROM bookings
 		WHERE user_id = ?
 	`, [user_id]);
@@ -157,10 +162,11 @@ const getActiveByUserId = async (db, user_id) => {
 			table_id,
 			time,
 			clients_nb,
-		  is_client_on_place,
-		  can_client_pay
+			is_client_on_place,
+			can_client_pay,
+			is_finished
 		FROM bookings
-		WHERE user_id = ? AND is_client_on_place = 1
+		WHERE user_id = ? AND is_client_on_place = 1 AND is_finished = 0
 	`, [user_id]);
 
 	return booking[0]
@@ -187,8 +193,9 @@ const getAll = async db => {
 			table_id,
 			time,
 			clients_nb,
-      is_client_on_place,
-      can_client_pay
+			is_client_on_place,
+			can_client_pay,
+		    is_finished
 		FROM bookings
 		ORDER BY booking_id
 	`);
@@ -210,12 +217,13 @@ const getAll = async db => {
 const getAllToday = async db => {
 	const bookings = await db.query(`
   	SELECT booking_id,
-    	user_id,
-      table_id,
-      time,
-      clients_nb,
-      is_client_on_place,
-      can_client_pay
+		user_id,
+		table_id,
+		time,
+		clients_nb,
+		is_client_on_place,
+		can_client_pay,
+		is_finished
     FROM bookings
     WHERE
     	time >= timestamp(CURRENT_DATE)
@@ -261,7 +269,8 @@ const buildBookings = async (db, bookings) => {
 			time: booking.time,
 			clients_nb: booking.clients_nb,
 			is_client_on_place: booking.is_client_on_place,
-			can_client_pay: booking.can_client_pay
+			can_client_pay: booking.can_client_pay,
+			is_finished: booking.is_finished
 		};
 	};
 
@@ -296,9 +305,9 @@ const buildBookings = async (db, bookings) => {
  * @example
  * 	Booking.update(db, 20, 1, null, 3, false, true)
  */
-const update = async (db, booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay) => {
+const update = async (db, booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished) => {
 
-	const updatingFields = getFieldsToUpdate({ table_id, time, clients_nb, is_client_on_place, can_client_pay });
+	const updatingFields = getFieldsToUpdate({ table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished });
 	if (!updatingFields) return new ModelError(200, "Nothing to update");
 
 	return db.query(`UPDATE bookings SET ${updatingFields} WHERE booking_id = ?`, [booking_id]);
