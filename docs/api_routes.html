@@ -794,7 +794,7 @@
 									<td class="name">Update</td>
 									<td class="type"><span class="param-type">PUT</span></td>
 									<td class="attributes">http://3.134.79.46:8080/api/bookings</td>
-									<td class="description"><code>booking_id, table_id<span class="signature-attributes dark">opt</span>, time<span class="signature-attributes dark">opt</span>, clients_nb<span class="signature-attributes dark">opt</span>, is_client_on_place<span class="signature-attributes dark">opt</span>, client_can_pay<span class="signature-attributes dark">opt</span></code></td>
+									<td class="description"><code>booking_id, table_id<span class="signature-attributes dark">opt</span>, time<span class="signature-attributes dark">opt</span>, clients_nb<span class="signature-attributes dark">opt</span>, is_client_on_place<span class="signature-attributes dark">opt</span>, client_can_pay<span class="signature-attributes dark">opt</span>, is_finished<span class="signature-attributes dark">opt</span></code></td>
 									<td class="returns last"><code>{message: string}</code></td>
 								</tr>
 								<tr>
@@ -833,6 +833,13 @@
 									<td class="name">Get all</td>
 									<td class="type"><span class="param-type">GET</span></td>
 									<td class="attributes">http://3.134.79.46:8080/api/orders/all</td>
+									<td class="description"></td>
+									<td class="returns last"><code>{orders: Array&lt;Order&gt;}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Get all of today</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/orders/today/all</td>
 									<td class="description"></td>
 									<td class="returns last"><code>{orders: Array&lt;Order&gt;}</code></td>
 								</tr>

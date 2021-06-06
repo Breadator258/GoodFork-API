@@ -147,7 +147,7 @@ const getByUserId = async (db, user_id) => {
 /**
  * @function getAll
  * @async
- * @description Get an order by its associated user's ID
+ * @description Get all orders
  *
  * @param {Promise<void>} db - Database connection
  * @returns {Promise<Array<FullOrder>>} A list of full orders
@@ -176,7 +176,7 @@ const getAll = async db => {
 /**
  * @function getAllToday
  * @async
- * @description Get an order by its associated user's ID
+ * @description Get all orders of the day
  *
  * @param {Promise<void>} db - Database connection
  * @returns {Promise<Array<FullOrder>>} A list of full orders
