@@ -55,14 +55,14 @@ export default (router) => {
 	);
 
 	route.get(
-		"/allNotFinished",
+		"/today/all",
 		middlewares.database,
 		async (request, response) => {
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Order.getAllNotFinished(db)
+			Order.getAllToday(db)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();

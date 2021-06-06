@@ -174,7 +174,7 @@ const getAll = async db => {
 };
 
 /**
- * @function getAllNotFinished
+ * @function getAllToday
  * @async
  * @description Get an order by its associated user's ID
  *
@@ -182,12 +182,12 @@ const getAll = async db => {
  * @returns {Promise<Array<FullOrder>>} A list of full orders
  *
  * @example
- * 	Order.getAllNotFinished(db)
+ * 	Order.getAllToday(db)
  */
-const getAllNotFinished = async db => {
+const getAllToday = async db => {
 	const orders = await db.query(`
-		SELECT
-		order_id,
+	SELECT
+	order_id,
     booking_id,
     user_id,
     additional_infos,
@@ -195,9 +195,11 @@ const getAllNotFinished = async db => {
    	total_price,
     is_take_away,
     is_finished
-		FROM orders
-	WHERE is_finished = 0
-		ORDER BY order_id
+	FROM orders
+	WHERE
+		time >= timestamp(CURRENT_DATE)
+	  AND time < ADDDATE(timestamp(CURRENT_DATE), 1)
+		ORDER BY time DESC
 	`);
 
 	return buildOrders(db, orders);
@@ -307,5 +309,5 @@ const del = async (db, order_id) => {
  * Export
  *****************************************************/
 
-const Order = { add, getById, getByUserId, getAll, getAllNotFinished, update, delete: del };
+const Order = { add, getById, getByUserId, getAll, getAllToday, update, delete: del };
 export default Order;
