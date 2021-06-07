@@ -305,9 +305,9 @@ const buildBookings = async (db, bookings) => {
  * @example
  * 	Booking.update(db, 20, 1, null, 3, false, true)
  */
-const update = async (db, booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished) => {
+const update = async (db, booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished, is_paid) => {
 
-	const updatingFields = getFieldsToUpdate({ table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished });
+	const updatingFields = getFieldsToUpdate({ table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished, is_paid });
 	if (!updatingFields) return new ModelError(200, "Nothing to update");
 
 	return db.query(`UPDATE bookings SET ${updatingFields} WHERE booking_id = ?`, [booking_id]);

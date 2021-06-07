@@ -98,7 +98,7 @@ const getById = async (db, order_id) => {
 			order_id,
 			booking_id,
 			user_id,
-      additional_infos,
+			additional_infos,
 			time,
 			total_price,
 			is_take_away,
