@@ -228,6 +228,7 @@ const getAllActive = async db => {
 		    is_paid
 		FROM bookings
 		WHERE is_paid = 0
+		AND is_client_on_place = 1
 		ORDER BY booking_id
 	`);
 
