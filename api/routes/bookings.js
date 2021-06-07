@@ -151,13 +151,13 @@ export default (router) => {
 		middlewares.database,
 		async (request, response) => {
 			const {
-				booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished
+				booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished, is_paid
 			} = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Booking.update(db, booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished)
+			Booking.update(db, booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished, is_paid)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
