@@ -1,6 +1,7 @@
 /**
  * @module models/Measurement
- * @description Measurement is a module that makes the junction between {@see module:models/MeasurementType} and {@see module:models/MeasurementUnit}.
+ * @description Measurement is a module that makes the junction between
+ * @see {@link module:models/MeasurementType} and {@link module:models/MeasurementUnit}.
  */
 import converters from "convert-units";
 import MeasurementUnit from "./MeasurementUnit.js";
