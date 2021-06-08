@@ -2,6 +2,7 @@
 import { getFieldsToUpdate } from "../../global/Functions.js";
 import Stock from "./Stock.js";
 import MenuTypes from "./MenuTypes.js";
+import Measurement from "./Measurement.js";
 import ModelError from "../../global/ModelError.js";
 import Checkers from "../../global/Checkers.js";
 
@@ -121,12 +122,24 @@ const addIngredient = async (db, menu_id, name, units, units_unit_id) => {
 		return new ModelError(400, "You must provide a valid quantity.", ["units"]);
 	}
 
+	// Check if the stock item already exist
 	let stockItem = await Stock.getByName(db, name);
 	let stockId = stockItem ? stockItem.stock_id : null;
 
+	// Add it otherwise
 	if (!stockId) {
 		const newItem = await Stock.add(db, name, 0, units_unit_id, 0, false, false, null, null);
+
 		stockId = newItem.insertId;
+		stockItem = await Stock.getById(db, stockId);
+	}
+
+	// Check if the ingredient unit match his parent
+	const ingredientMeasurement = await Measurement.getById(db, units_unit_id);
+	const stockMeasurement = await Measurement.getById(db, stockItem.units_unit_id);
+
+	if (ingredientMeasurement.type.name !== stockMeasurement.type.name) {
+		return new ModelError(400, `This stock item is using "${stockMeasurement.unit.name}" (${stockMeasurement.type.name}). You cannot set ingredient unit to "${ingredientMeasurement.unit.name}" (${ingredientMeasurement.type.name}).`);
 	}
 
 	const ingredient = await  db.query(`
@@ -171,11 +184,11 @@ const getAll = async (db, orderBy) => {
 			mi.ingredient_id,
 			mi.stock_id,
 			mi.units,
-			units.unit_id AS "units_unit_id",
-			units.name AS "units_unit"
+			mu.unit_id AS "units_unit_id",
+			mu.name AS "units_unit"
 		FROM menus
 		LEFT JOIN menu_ingredients mi ON menus.menu_id = mi.menu_id
-		LEFT JOIN units ON mi.units_unit_id = units.unit_id
+		LEFT JOIN measurement_units mu ON mi.units_unit_id = mu.unit_id
 		LEFT JOIN menu_types mt ON menus.type_id = mt.type_id
 		ORDER BY ${order}
 	`);
@@ -208,11 +221,11 @@ const getById = async (db, menu_id) => {
 			mi.ingredient_id,
 			mi.stock_id,
 			mi.units,
-			units.unit_id AS "units_unit_id",
-			units.name AS "units_unit"
+			mu.unit_id AS "units_unit_id",
+			mu.name AS "units_unit"
 		FROM menus
 		LEFT JOIN menu_ingredients mi ON menus.menu_id = mi.menu_id
-		LEFT JOIN units ON mi.units_unit_id = units.unit_id
+		LEFT JOIN measurement_units mu ON mi.units_unit_id = mu.unit_id
 		LEFT JOIN menu_types mt ON menus.type_id = mt.type_id
 		WHERE menus.menu_id = ?
 	`, [menu_id]);
@@ -360,12 +373,24 @@ const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) =
 		return new ModelError(400, "You must provide a valid quantity.", ["units"]);
 	}
 
-	const stockItem = Stock.getByName(db, name);
+	// Check if the stock item already exist
+	let stockItem = await Stock.getByName(db, name);
 	let stockId = stockItem ? stockItem.stock_id : null;
 
+	// Add it otherwise
 	if (!stockId) {
 		const newItem = await Stock.add(db, name, 0, units_unit_id, 0, false, false, null, null);
+
 		stockId = newItem.insertId;
+		stockItem = await Stock.getById(db, stockId);
+	}
+
+	// Check if the ingredient unit match his parent
+	const ingredientMeasurement = await Measurement.getById(db, units_unit_id);
+	const stockMeasurement = await Measurement.getById(db, stockItem.units_unit_id);
+
+	if (ingredientMeasurement.type.name !== stockMeasurement.type.name) {
+		return new ModelError(400, `This stock item is using "${stockMeasurement.unit.name}" (${stockMeasurement.type.name}). You cannot set ingredient unit to "${ingredientMeasurement.unit.name}" (${ingredientMeasurement.type.name}).`);
 	}
 
 	const updatingFields = getFieldsToUpdate({ stock_id: stockId, units, units_unit_id });

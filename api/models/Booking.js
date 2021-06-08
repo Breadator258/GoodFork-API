@@ -16,7 +16,6 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
  * @property {Boolean|Number} is_client_on_place - Is the client on place or not
  * @property {Boolean|Number} can_client_pay - Is the client able to access payment page or not
  * @property {Boolean|Number} is_finished - Is the booking ended or not
- * @property {Boolean|Number} is_finished - Is the booking ended or not
  */
 
 /**

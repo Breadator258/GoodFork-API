@@ -550,8 +550,8 @@
 						</table>
 					</div>
 
-					<!---- UNITS ------------------------------------------------------------------------------------------------>
-					<h3 class="subsection-title">Units</h3>
+					<!---- UNITS - Deprecated ----------------------------------------------------------------------------------->
+					<h3 class="subsection-title">Units - <span class="important tag-deprecated">deprecated</span></h3>
 					<div class="table-wrapper">
 						<table class="params">
 							<thead>
@@ -570,6 +570,59 @@
 									<td class="attributes">http://3.134.79.46:8080/api/units/all</td>
 									<td class="description"></td>
 									<td class="returns last"><code>{units: Array&lt;Unit&gt;}</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!---- MEASUREMENTS ----------------------------------------------------------------------------------------->
+					<h3 class="subsection-title">Measurements</h3>
+					<div class="table-wrapper">
+						<table class="params">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Method</th>
+									<th>URI</th>
+									<th>Parameters</th>
+									<th>Returns</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="name">Get all</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/measurement/all</td>
+									<td class="description"></td>
+									<td class="returns last"><code>{measurements: Array&lt;Measurement&gt;}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Get all types</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/measurement/types/all</td>
+									<td class="description"></td>
+									<td class="returns last"><code>{types: Array&lt;MeasurementType&gt;}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Get by name</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/measurement/:name</td>
+									<td class="description"><code>name</code></td>
+									<td class="returns last"><code>{measurement: Measurement}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Get a unit by its ID</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/measurement/units/:unit_id</td>
+									<td class="description"><code>unit_id</code></td>
+									<td class="returns last"><code>{unit: MeasurementUnit}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Convert</td>
+									<td class="type"><span class="param-type">POST</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/measurement/convert</td>
+									<td class="description"><code>value, from, to</code></td>
+									<td class="returns last"><code>{conversion: Number}</code></td>
 								</tr>
 							</tbody>
 						</table>

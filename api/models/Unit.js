@@ -1,11 +1,13 @@
 /**
  * @module models/Unit
  * @description Units are measurement units used for some values like quantities.
+ * @deprecated The new measurement system must be used
  */
 
 /**
  * A Unit
  * @typedef {Object} Unit
+ * @deprecated
  * @property {Number} unit_id - ID of the unit
  * @property {string} name - Unit name
  */
@@ -19,6 +21,7 @@
  * @function getAll
  * @async
  * @description Get all units
+ * @deprecated
  *
  * @param {Promise<void>} db - Database connection
  * @returns {Promise<Array<Unit>>} A list of units

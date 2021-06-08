@@ -1,5 +1,6 @@
 /** @module models/Stock */
 import { getFieldsToUpdate } from "../../global/Functions.js";
+import Measurement from "./Measurement.js";
 import ModelError from "../../global/ModelError.js";
 import Checkers from "../../global/Checkers.js";
 
@@ -58,10 +59,18 @@ const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_
 		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
 	}
 
+	// Check if the unit is valid
+	const measurement = await Measurement.getById(db, units_unit_id);
+	let usableUnitId = units_unit_id;
+
+	if (!measurement.unit.used_in_stock) {
+		usableUnitId = measurement.type.ref_unit_id;
+	}
+
 	return db.query(`
 		INSERT INTO stocks(name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max)
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-	`, [name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min ? use_by_date_min : null, use_by_date_max ? use_by_date_max : null]
+	`, [name, units, usableUnitId, unit_price, is_orderable, is_cookable, use_by_date_min ? use_by_date_min : null, use_by_date_max ? use_by_date_max : null]
 	);
 };
 
@@ -113,15 +122,15 @@ const getByName = async (db, name) => {
 			stocks.stock_id,
 			stocks.name,
 			stocks.units,
-			units.unit_id AS "units_unit_id",
-			units.name AS "units_unit",
+			mu.unit_id AS "units_unit_id",
+			mu.name AS "units_unit",
 			stocks.unit_price,
 			stocks.is_orderable,
 			stocks.is_cookable,
 			stocks.use_by_date_min,
 			stocks.use_by_date_max
 		FROM stocks
-		LEFT JOIN units ON stocks.units_unit_id = units.unit_id
+		LEFT JOIN measurement_units mu ON stocks.units_unit_id = mu.unit_id
 		WHERE stocks.name = ?
 	`, [name]);
 
@@ -146,15 +155,15 @@ const getById = async (db, stock_id) => {
 			stocks.stock_id,
 			stocks.name,
 			stocks.units,
-			units.unit_id AS "units_unit_id",
-			units.name AS "units_unit",
+			mu.unit_id AS "units_unit_id",
+			mu.name AS "units_unit",
 			stocks.unit_price,
 			stocks.is_orderable,
 			stocks.is_cookable,
 			stocks.use_by_date_min,
 			stocks.use_by_date_max
 		FROM stocks
-		LEFT JOIN units ON stocks.units_unit_id = units.unit_id
+		LEFT JOIN measurement_units mu ON stocks.units_unit_id = mu.unit_id
 		WHERE stocks.stock_id = ?
 	`, [stock_id]);
 
@@ -196,15 +205,15 @@ const getAll = async db => {
 			stocks.stock_id,
 			stocks.name,
 			stocks.units,
-			units.unit_id AS "units_unit_id",
-			units.name AS "units_unit",
+			mu.unit_id AS "units_unit_id",
+			mu.name AS "units_unit",
 			stocks.unit_price,
 			stocks.is_orderable,
 			stocks.is_cookable,
 			stocks.use_by_date_min,
 			stocks.use_by_date_max
 		FROM stocks
-		LEFT JOIN units ON stocks.units_unit_id = units.unit_id
+		LEFT JOIN measurement_units mu ON stocks.units_unit_id = mu.unit_id
 		ORDER BY stocks.stock_id
 	`);
 };

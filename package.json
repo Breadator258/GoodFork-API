@@ -1,6 +1,6 @@
 {
   "name": "goodfork_api",
-  "version": "0.6.6",
+  "version": "0.7.0",
   "description": "",
   "main": "server.js",
   "type": "module",
@@ -22,6 +22,7 @@
     "base64url": "^3.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "convert-units": "^2.3.4",
     "cors": "^2.8.5",
     "eslint-plugin-security-node": "^1.0.14",
     "express": "^4.17.1",

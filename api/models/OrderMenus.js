@@ -85,7 +85,7 @@ const getAllByUserId = async (db, user_id) => {
 };
 
 /**
- * @function getBookingAllNotFinishedByUserId
+ * @function getBookingMenusByUserId
  * @async
  * @description Get every menus of every orders in the active bookings of a user using its ID
  *
@@ -94,7 +94,7 @@ const getAllByUserId = async (db, user_id) => {
  * @returns {Promise<Array<*>|ModelError>} A list of all menus or a ModelError
  *
  * @example
- * 	OrderMenus.getAllOrdersByUserId(db, 4)
+ * 	OrderMenus.getBookingMenusByUserId(db, 4)
  */
 const getBookingMenusByUserId = async (db, user_id) => {
 	const menus = await db.query(`
@@ -117,7 +117,7 @@ const getBookingMenusByUserId = async (db, user_id) => {
 };
 
 /**
- * @function getBookingAllNotFinishedByUserId
+ * @function getBookingMenusByBookingId
  * @async
  * @description Get every menus of every orders in the active bookings of a user using its booking ID
  *
@@ -126,7 +126,7 @@ const getBookingMenusByUserId = async (db, user_id) => {
  * @returns {Promise<Array<*>|ModelError>} A list of all menus or a ModelError
  *
  * @example
- * 	OrderMenus.getAllOrdersByUserId(db, 4)
+ * 	OrderMenus.getBookingMenusByBookingId(db, 4)
  */
 const getBookingMenusByBookingId = async (db, booking_id) => {
 	const menus = await db.query(`

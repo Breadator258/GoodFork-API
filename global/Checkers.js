@@ -98,7 +98,7 @@ function isGreaterThan(a, b, canBeEqual = false) {
  */
 function isDateLowerThan(date1, date2, canBeEqual = false, canBeNull = false) {
 	if (canBeNull) {
-		if (!isDefined(date1) || !isDefined(date2)) {
+		if (!isDefined(date1) || !isDefined(date2) || isEmptyString(date1) || isEmptyString(date2)) {
 			return true;
 		}
 	}
@@ -174,6 +174,25 @@ function isString(value) {
 }
 
 /**
+ * @function isEmptyString
+ * @description Check if a value is an empty string
+ *
+ * @param {*} value - The value to test
+ * @returns {Boolean}
+ *
+ * @example
+ * 	Checkers.isEmptyString("") // return true
+ *Checkers.isString("yo") // return false
+ *Checkers.isString(5) // return false
+ *Checkers.isString(null) // return false
+ */
+function isEmptyString(value) {
+	return isString(value)
+		? value.length === 0
+		: false;
+}
+
+/**
  * @function isNumber
  * @description Check if a value is a number
  *
@@ -230,6 +249,6 @@ function isDate(value) {
 const Checkers = {
 	isDefined, strInRange, isGreaterThan, isDateLowerThan,
 	isEmail, isPasswordSafe,
-	isString, isNumber, isArray, isDate
+	isString, isEmptyString, isNumber, isArray, isDate
 };
 export default Checkers;
