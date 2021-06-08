@@ -37,8 +37,8 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function add
  * @async
+ * @function add
  * @description Add a booking
  *
  * @param {Promise<void>} db - Database connection
@@ -54,17 +54,17 @@ const add = async (db, user_id, time, clients_nb) => {
 	const bookingTime = new Date(time);
 
 	if (!Checkers.isDate(bookingTime)) {
-		return new ModelError(400, "You must provide a valid booking date.", ["time"]);
+		return new ModelError(400, "Vous devez fournir une date de réservation valide.", ["time"]);
 	}
 
 	if (!Checkers.isGreaterThan(clients_nb, 0)) {
-		return new ModelError(400, "You must provide a valid number of clients.", ["clients_nb"]);
+		return new ModelError(400, "Vous devez fournir un nombre valide de personnes.", ["clients_nb"]);
 	}
 
 	const availableTable = await Table.getByTableCapacity(db, clients_nb);
 
 	if (availableTable instanceof ModelError) {
-		return new ModelError(400, "No available table found.", ["time"]);
+		return new ModelError(400, "Aucune table n'est disponible à cette date.", ["time"]);
 	} else {
 		await Table.update(db, availableTable.table_id, null, null ,false);
 
@@ -78,8 +78,8 @@ const add = async (db, user_id, time, clients_nb) => {
 
 /* ---- READ ---------------------------------- */
 /**
- * @function getById
  * @async
+ * @function getById
  * @description Get a booking by its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -99,19 +99,19 @@ const getById = async (db, booking_id) => {
 			clients_nb,
 			is_client_on_place,
 			can_client_pay,
-		    is_finished
+		  is_finished
 		FROM bookings
 		WHERE booking_id = ?
 	`, [booking_id]);
 
 	return booking[0]
 		? buildBookings(db, booking[0])
-		: new ModelError(404, "No booking found with this id.");
+		: new ModelError(404, `Aucune réservation n'a été trouvée avec l'ID "${booking_id}".`);
 };
 
 /**
- * @function getByUserId
  * @async
+ * @function getByUserId
  * @description Get a booking by its associated user's ID
  *
  * @param {Promise<void>} db - Database connection
@@ -131,19 +131,19 @@ const getByUserId = async (db, user_id) => {
 			clients_nb,
 			is_client_on_place,
 			can_client_pay,
-		    is_finished
+		  is_finished
 		FROM bookings
 		WHERE user_id = ?
 	`, [user_id]);
 
 	return bookings[0]
 		? buildBookings(db, bookings)
-		: new ModelError(404, "No booking found with this user id.");
+		: new ModelError(404, `Aucune réservation n'a été trouvée avec l'ID utilisateur "${user_id}".`);
 };
 
 /**
- * @function getActiveByUserId
  * @async
+ * @function getActiveByUserId
  * @description Get the current active booking of a user by its associated user's ID
  *
  * @param {Promise<void>} db - Database connection
@@ -170,12 +170,12 @@ const getActiveByUserId = async (db, user_id) => {
 
 	return booking[0]
 		? buildBookings(db, booking)
-		: new ModelError(404, "No active booking found with this user id.");
+		: new ModelError(404, `Aucune réservation n'a été trouvée avec l'ID utilisateur "${user_id}".`);
 };
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all bookings of all users
  *
  * @param {Promise<void>} db - Database connection
@@ -194,7 +194,7 @@ const getAll = async db => {
 			clients_nb,
 			is_client_on_place,
 			can_client_pay,
-		    is_finished
+		  is_finished
 		FROM bookings
 		ORDER BY booking_id
 	`);
@@ -203,8 +203,8 @@ const getAll = async db => {
 };
 
 /**
- * @function getAllActive
  * @async
+ * @function getAllActive
  * @description Get all active bookings
  *
  * @param {Promise<void>} db - Database connection
@@ -223,8 +223,8 @@ const getAllActive = async db => {
 			clients_nb,
 			is_client_on_place,
 			can_client_pay,
-		    is_finished,
-		    is_paid
+		  is_finished,
+		  is_paid
 		FROM bookings
 		WHERE is_paid = 0
 		AND is_client_on_place = 1
@@ -235,8 +235,8 @@ const getAllActive = async db => {
 };
 
 /**
- * @function getAllToday
  * @async
+ * @function getAllToday
  * @description Get all bookings of the day
  *
  * @param {Promise<void>} db - Database connection
@@ -266,8 +266,8 @@ const getAllToday = async db => {
 };
 
 /**
- * @function buildBookings
  * @async
+ * @function buildBookings
  * @description Replace foreign keys by the corresponding data
  *
  * @param {Promise<void>} db - Database connection
@@ -320,8 +320,8 @@ const buildBookings = async (db, bookings) => {
 
 /* ---- UPDATE ---------------------------------- */
 /**
- * @function update
  * @async
+ * @function update
  * @description Update the booking
  *
  * @param {Promise<void>} db - Database connection
@@ -337,17 +337,16 @@ const buildBookings = async (db, bookings) => {
  * 	Booking.update(db, 20, 1, null, 3, false, true)
  */
 const update = async (db, booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished, is_paid) => {
-
 	const updatingFields = getFieldsToUpdate({ table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished, is_paid });
-	if (!updatingFields) return new ModelError(200, "Nothing to update");
+	if (!updatingFields) return new ModelError(200, "Rien à mettre à jour.");
 
 	return db.query(`UPDATE bookings SET ${updatingFields} WHERE booking_id = ?`, [booking_id]);
 };
 
 /* ---- DELETE ---------------------------------- */
 /**
- * @function delete
  * @async
+ * @function delete
  * @description Delete a booking by its ID
  *
  * @param {Promise<void>} db - Database connection

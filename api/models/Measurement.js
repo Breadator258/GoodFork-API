@@ -52,40 +52,14 @@ const conversions = {
 	"pincée": mass => converters(mass).from("kg").to("g") / 5
 };
 
-// TODO: Remove if the new method works
-/*
-const conversions = {
-	"kg": mass => mass,
-	"g": mass => mass * 1000,
-	"mg": mass => mass * 1000000,
-	"L": volume => volume,
-	"cL": volume => volume * 100,
-	"mL": volume => volume * 1000,
-	"oz": mass => mass * 35.274,
-	"lb": mass => mass * 2.205,
-	"qt": volume => volume,
-	"floz": volume => volume * 33.814,
-
-	"cuill. café": value => value * 1000,
-	"cuill. soupe": value => value * 1000,
-	"noisette": mass => mass * 1000,
-	"noix": mass => mass * 1000,
-	"stick de beurre": mass => mass * 1000,
-	"1 cup": volume => volume * 1000,
-	"1/2 cup": volume => volume * 1000,
-	"1/3 cup": volume => volume * 1000,
-	"1/4 cup": volume => volume * 1000,
-	"pincée": mass => mass * 1000
-};*/
-
 /*****************************************************
  * CRUD Methods
  *****************************************************/
 
 /* ---- READ ---------------------------------- */
 /**
- * @function getById
  * @async
+ * @function getById
  * @description Get a measurement by its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -113,12 +87,12 @@ const getById = async (db, unit_id) => {
 
 	return measurement[0]
 		? buildMeasurement(db, measurement[0])
-		: new ModelError(400, `No measurement unit found with the ID "${unit_id}"`);
+		: new ModelError(400, `Aucune unité de mesure n'a été trouvée avec l'ID "${unit_id}"`);
 };
 
 /**
- * @function getByName
  * @async
+ * @function getByName
  * @description Get a measurement by its name
  *
  * @param {Promise<void>} db - Database connection
@@ -146,12 +120,12 @@ const getByName = async (db, name) => {
 
 	return measurement[0]
 		? buildMeasurement(db, measurement[0])
-		: new ModelError(400, `No measurement unit found with the name "${name}"`);
+		: new ModelError(400, `Aucune unité de mesure n'a été trouvée avec le nom "${name}"`);
 };
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all measurement
  *
  * @param {Promise<void>} db - Database connection
@@ -182,8 +156,8 @@ const getAll = async (db, forStock) => {
 };
 
 /**
- * @function getAllByTypes
  * @async
+ * @function getAllByTypes
  * @description Get all measurement ordered by types
  *
  * @param {Promise<void>} db - Database connection
@@ -214,8 +188,8 @@ const getAllByTypes = async (db, forStock) => {
 };
 
 /**
- * @function convert
  * @async
+ * @function convert
  * @description Convert a measurement unit to another one
  *
  * @param {Promise<void>} db - Database connection
@@ -238,15 +212,15 @@ const convert = async (db, value, from, to) => {
 	if (toUnit instanceof ModelError) return toUnit;
 
 	// Return a model error if one of the unit is a part of "other" type.
-	if (fromUnit.type.name === "autre") return new ModelError(400, `The unit "${fromUnit.unit.name}" isn't convertible.`);
-	if (toUnit.type.name === "autre") return new ModelError(400, `The unit "${toUnit.unit.name}" isn't convertible.`);
+	if (fromUnit.type.name === "autre") return new ModelError(400, `L'unité "${fromUnit.unit.name}" ne peut pas être convertie.`);
+	if (toUnit.type.name === "autre") return new ModelError(400, `L'unité "${toUnit.unit.name}" ne peut pas être convertie.`);
 
 	// Convert the value to the reference unit
 	const fromRefUnit = value * fromUnit.unit.as_ref_unit;
 
 	// Tries to convert to the wanted unit
 	if (!Object.prototype.hasOwnProperty.call(conversions, toUnit.unit.name)) {
-		return new ModelError(400, `Unable to convert from "${fromUnit.unit.name}" to "${toUnit.unit.name}".`);
+		return new ModelError(400, `Impossible de convertir de "${fromUnit.unit.name}" (${fromUnit.type.name}) vers "${toUnit.unit.name}" (${fromUnit.type.name}).`);
 	}
 
 	return conversions[toUnit.unit.name](fromRefUnit);

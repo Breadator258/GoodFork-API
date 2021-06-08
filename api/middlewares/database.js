@@ -12,8 +12,8 @@ const pool = mariadb.createPool({
 });
 
 /**
- * @function database
  * @async
+ * @function database
  * @description Get a connection to the database using MariaDB Connector
  *
  * @param {Request} request - Express Request

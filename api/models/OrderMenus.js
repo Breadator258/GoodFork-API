@@ -19,8 +19,8 @@ import ModelError from "../../global/ModelError.js";
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function addMultiple
  * @async
+ * @function addMultiple
  * @description Add menus in an order
  *
  * @param {Promise<void>} db - Database connection
@@ -33,7 +33,7 @@ import ModelError from "../../global/ModelError.js";
  */
 const addMultiple = async (db, order_id, menus) => {
 	if (!Checkers.isArray(menus)) {
-		return new ModelError(400, "You must provide a valid menus list.");
+		return new ModelError(400, "Vous devez fournir une liste de menus valide.");
 	}
 
 	const valuesPlaceholders = [];
@@ -53,8 +53,8 @@ const addMultiple = async (db, order_id, menus) => {
 
 /* ---- READ ------------------------------------ */
 /**
- * @function getAllByUserId
  * @async
+ * @function getAllByUserId
  * @description Get every menus of every orders of a user using its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -85,8 +85,8 @@ const getAllByUserId = async (db, user_id) => {
 };
 
 /**
- * @function getBookingMenusByUserId
  * @async
+ * @function getBookingMenusByUserId
  * @description Get every menus of every orders in the active bookings of a user using its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -98,18 +98,19 @@ const getAllByUserId = async (db, user_id) => {
  */
 const getBookingMenusByUserId = async (db, user_id) => {
 	const menus = await db.query(`
-        SELECT orders.order_id,
-               menus.menu_id,
-               menus.name,
-               mt.type_id,
-               mt.name AS "type",
-               menus.price,
-               orders.is_finished
+        SELECT
+        	orders.order_id,
+        	menus.menu_id,
+          menus.name,
+          mt.type_id,
+          mt.name AS "type",
+          menus.price,
+          orders.is_finished
         FROM orders
-                 LEFT JOIN orders_menus om ON orders.order_id = om.order_id
-                 LEFT JOIN menus ON om.menu_id = menus.menu_id
-                 LEFT JOIN menu_types mt ON menus.type_id = mt.type_id
-                 INNER JOIN bookings bkgs ON orders.booking_id = bkgs.booking_id AND bkgs.is_paid = 0
+        LEFT JOIN orders_menus om ON orders.order_id = om.order_id
+        LEFT JOIN menus ON om.menu_id = menus.menu_id
+        LEFT JOIN menu_types mt ON menus.type_id = mt.type_id
+        INNER JOIN bookings bkgs ON orders.booking_id = bkgs.booking_id AND bkgs.is_paid = 0
         WHERE orders.user_id = ?;
 	`, [user_id]);
 
@@ -117,12 +118,12 @@ const getBookingMenusByUserId = async (db, user_id) => {
 };
 
 /**
- * @function getBookingMenusByBookingId
  * @async
+ * @function getBookingMenusByBookingId
  * @description Get every menus of every orders in the active bookings of a user using its booking ID
  *
  * @param {Promise<void>} db - Database connection
- * @param {Number|string} user_id - ID of the user
+ * @param {Number|string} booking_id - ID of the booking
  * @returns {Promise<Array<*>|ModelError>} A list of all menus or a ModelError
  *
  * @example
@@ -130,18 +131,19 @@ const getBookingMenusByUserId = async (db, user_id) => {
  */
 const getBookingMenusByBookingId = async (db, booking_id) => {
 	const menus = await db.query(`
-        SELECT orders.order_id,
-               menus.menu_id,
-               menus.name,
-               mt.type_id,
-               mt.name AS "type",
-               menus.price,
-               orders.is_finished
+        SELECT
+        	orders.order_id,
+          menus.menu_id,
+          menus.name,
+          mt.type_id,
+          mt.name AS "type",
+          menus.price,
+          orders.is_finished
         FROM orders
-                 LEFT JOIN orders_menus om ON orders.order_id = om.order_id
-                 LEFT JOIN menus ON om.menu_id = menus.menu_id
-                 LEFT JOIN menu_types mt ON menus.type_id = mt.type_id
-                 INNER JOIN bookings bkgs ON orders.booking_id = bkgs.booking_id AND bkgs.is_paid = 0
+        LEFT JOIN orders_menus om ON orders.order_id = om.order_id
+        LEFT JOIN menus ON om.menu_id = menus.menu_id
+        LEFT JOIN menu_types mt ON menus.type_id = mt.type_id
+        INNER JOIN bookings bkgs ON orders.booking_id = bkgs.booking_id AND bkgs.is_paid = 0
         WHERE orders.booking_id = ?;
 	`, [booking_id]);
 
@@ -149,8 +151,8 @@ const getBookingMenusByBookingId = async (db, booking_id) => {
 };
 
 /**
- * @function getAllByOrderId
  * @async
+ * @function getAllByOrderId
  * @description Get every menus of an order by the order id
  *
  * @param {Promise<void>} db - Database connection
@@ -163,13 +165,13 @@ const getBookingMenusByBookingId = async (db, booking_id) => {
 const getAllByOrderId = async (db, order_id) => {
 	const menus = await db.query(`
   	SELECT
-		orders.order_id,
-		menus.menu_id,
-		menus.name,
-		mt.type_id,
-		mt.name AS "type",
-		menus.price,
-		orders.is_finished
+			orders.order_id,
+			menus.menu_id,
+			menus.name,
+			mt.type_id,
+			mt.name AS "type",
+			menus.price,
+			orders.is_finished
     FROM orders
 		LEFT JOIN orders_menus om ON orders.order_id = om.order_id
 		LEFT JOIN menus ON om.menu_id = menus.menu_id
@@ -181,8 +183,8 @@ const getAllByOrderId = async (db, order_id) => {
 };
 
 /**
- * @function buildOrderMenus
  * @async
+ * @function buildOrderMenus
  * @description Replace foreign keys by the corresponding data
  *
  * @param {Promise<void>} db - Database connection

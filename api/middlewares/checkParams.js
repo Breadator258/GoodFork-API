@@ -35,9 +35,11 @@ export default function checkParams(...paramsNames) {
 
 		// End the request if something is missing
 		if (missing.length > 0) {
+			const plural = missing.length > 1 ? "s" : "";
+
 			return response.status(400).json({
 				code: 400,
-				error: `Missing parameter${missing.length > 1 ? "s" : ""}: ${missing.join(", ")}`
+				error: `Paramètre${plural} manquant${plural}: ${missing.join(", ")}`
 			}).end();
 		}
 

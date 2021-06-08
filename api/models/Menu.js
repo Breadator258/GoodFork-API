@@ -37,7 +37,7 @@ import Checkers from "../../global/Checkers.js";
  * @property {Number} menu_id - ID of the menu {@see Menu}
  * @property {Number} stock_id - ID of the stock element corresponding to this ingredient
  * @property {Number} units - How many/much of this ingredient
- * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Measurement}
  */
 
 /**
@@ -47,10 +47,10 @@ import Checkers from "../../global/Checkers.js";
  * @property {Number} stock_id - ID of the stock element corresponding to this ingredient
  * @property {string} name - Name of the stock element corresponding to this ingredient
  * @property {Number} units - How many/much of this ingredient
- * @property {string} units_unit - Unit associated to "units" property {@see Unit}
- * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Unit}
- * @property {string} stock_units_unit - Stock unit associated to "units" property {@see Unit}
- * @property {Number} stock_units_unit_id - Stock unit ID of the unit associated to "units" property {@see Unit}
+ * @property {string} units_unit - Unit associated to "units" property {@see Measurement}
+ * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Measurement}
+ * @property {string} stock_units_unit - Stock unit associated to "units" property {@see Measurement}
+ * @property {Number} stock_units_unit_id - Stock unit ID of the unit associated to "units" property {@see Measurement}
  */
 
 /*****************************************************
@@ -59,8 +59,8 @@ import Checkers from "../../global/Checkers.js";
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function add
  * @async
+ * @function add
  * @description Add a menu
  *
  * @param {Promise<void>} db - Database connection
@@ -75,16 +75,16 @@ import Checkers from "../../global/Checkers.js";
  */
 const add = async (db, type, name, description, price) => {
 	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid name.", ["name"]);
+		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["name"]);
 	}
 
 	if (!Checkers.strInRange(description, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid description.", ["description"]);
+		return new ModelError(400, "La description ne peut pas dépasser 255 caractères.", ["description"]);
 	}
 
 	if (Checkers.isDefined(price)) {
 		if (! Checkers.isGreaterThan(price, 0, true)) {
-			return new ModelError(400, "You must provide a valid price.", ["price"]);
+			return new ModelError(400, "Vous devez fournir un prix valide.", ["price"]);
 		}
 	}
 
@@ -103,15 +103,15 @@ const add = async (db, type, name, description, price) => {
 };
 
 /**
- * @function addIngredient
  * @async
+ * @function addIngredient
  * @description Add an ingredient in a menu
  *
  * @param {Promise<void>} db - Database connection
  * @param {Number} menu_id - ID of the menu
  * @param {string} name - Name of the ingredient
  * @param {Number} units - How many/much of this ingredient
- * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Measurement}
  * @returns {Promise<{ingredient_id: Number}|ModelError>} The newly added ingredient ID or a ModelError
  *
  * @example
@@ -119,7 +119,7 @@ const add = async (db, type, name, description, price) => {
  */
 const addIngredient = async (db, menu_id, name, units, units_unit_id) => {
 	if (!Checkers.isGreaterThan(units, 0, true)) {
-		return new ModelError(400, "You must provide a valid quantity.", ["units"]);
+		return new ModelError(400, "Vous devez fournir une quantité valide.", ["units"]);
 	}
 
 	// Check if the stock item already exist
@@ -139,7 +139,7 @@ const addIngredient = async (db, menu_id, name, units, units_unit_id) => {
 	const stockMeasurement = await Measurement.getById(db, stockItem.units_unit_id);
 
 	if (ingredientMeasurement.type.name !== stockMeasurement.type.name) {
-		return new ModelError(400, `This stock item is using "${stockMeasurement.unit.name}" (${stockMeasurement.type.name}). You cannot set ingredient unit to "${ingredientMeasurement.unit.name}" (${ingredientMeasurement.type.name}).`);
+		return new ModelError(400, `Cet élément du stock utilise les "${stockMeasurement.unit.name}" (${stockMeasurement.type.name}) comme unité de mesure. Vous ne pouvez pas quantifier l'ingrédient avec l'unité "${ingredientMeasurement.unit.name}" (${ingredientMeasurement.type.name}).`);
 	}
 
 	const ingredient = await  db.query(`
@@ -155,8 +155,8 @@ const addIngredient = async (db, menu_id, name, units, units_unit_id) => {
 const validOrderBy = ["menu_id", "name", "type_id", "price"];
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all menus
  *
  * @param {Promise<void>} db - Database connection
@@ -197,8 +197,8 @@ const getAll = async (db, orderBy) => {
 };
 
 /**
- * @function getById
  * @async
+ * @function getById
  * @description Get a menu by its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -231,7 +231,7 @@ const getById = async (db, menu_id) => {
 	`, [menu_id]);
 
 	if (!menu[0]) {
-		return new ModelError(404, "No menu found with this id.");
+		return new ModelError(404, `Aucun menu n'a été trouvée avec l'ID "${menu_id}".`);
 	}
 
 	const fullMenu = await buildMenus(db, menu);
@@ -239,8 +239,8 @@ const getById = async (db, menu_id) => {
 };
 
 /**
- * @function buildMenus
  * @async
+ * @function buildMenus
  * @description Replace foreign keys by the corresponding data
  *
  * @param {Promise<void>} db - Database connection
@@ -302,8 +302,8 @@ const buildMenus = async (db, menus) => {
 
 /* ---- UPDATE ---------------------------------- */
 /**
- * @function update
  * @async
+ * @function update
  * @description Update a menu
  *
  * @param {Promise<void>} db - Database connection
@@ -319,15 +319,15 @@ const buildMenus = async (db, menus) => {
  */
 const update = async (db, menu_id, type_id, name, description, price) => {
 	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid menu name (max. 255 characters).", ["name"]);
+		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["name"]);
 	}
 
 	if (!Checkers.strInRange(description, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid menu description (max. 255 characters).", ["description"]);
+		return new ModelError(400, "La description ne peut pas dépasser 255 caractères.", ["description"]);
 	}
 
 	if (price && !Checkers.isGreaterThan(price, 0, true)) {
-		return new ModelError(400, "You must provide a valid menu price.", ["price"]);
+		return new ModelError(400, "Vous devez fournir un prix valide.", ["price"]);
 	}
 
 	const updatingFields = getFieldsToUpdate({ type_id, name, description, price });
@@ -337,8 +337,8 @@ const update = async (db, menu_id, type_id, name, description, price) => {
 };
 
 /**
- * @function setIllustration
  * @async
+ * @function setIllustration
  * @description Update a menu illustration
  *
  * @param {Promise<void>} db - Database connection
@@ -347,22 +347,22 @@ const update = async (db, menu_id, type_id, name, description, price) => {
  * @returns {Promise<void>}
  *
  * @example
- * 	Menu.setIllustration(db, 7, "http://www.website.com/images/noob.png")
+ * 	Menu.setIllustration(db, 7, "https://i.imgur.com/UZR5L98.jpg")
  */
 const setIllustration = async (db, menu_id, image_path) => {
 	return db.query("UPDATE menus SET image_path = ? WHERE menu_id = ?", [image_path, menu_id]);
 };
 
 /**
- * @function updateIngredient
  * @async
+ * @function updateIngredient
  * @description Update a menu
  *
  * @param {Promise<void>} db - Database connection
  * @param {Number|string} ingredient_id - ID of the ingredient
  * @param {string} [name] - Name of the stock element corresponding to this ingredient
  * @param {Number} units - How many/much of this ingredient
- * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Measurement}
  * @returns {Promise<void|ModelError>} Nothing or a ModelError
  *
  * @example
@@ -370,7 +370,7 @@ const setIllustration = async (db, menu_id, image_path) => {
  */
 const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) => {
 	if (units && !Checkers.isGreaterThan(units, 0, true)) {
-		return new ModelError(400, "You must provide a valid quantity.", ["units"]);
+		return new ModelError(400, "Vous devez fournir une quantité valide.", ["units"]);
 	}
 
 	// Check if the stock item already exist
@@ -390,19 +390,19 @@ const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) =
 	const stockMeasurement = await Measurement.getById(db, stockItem.units_unit_id);
 
 	if (ingredientMeasurement.type.name !== stockMeasurement.type.name) {
-		return new ModelError(400, `This stock item is using "${stockMeasurement.unit.name}" (${stockMeasurement.type.name}). You cannot set ingredient unit to "${ingredientMeasurement.unit.name}" (${ingredientMeasurement.type.name}).`);
+		return new ModelError(400, `Cet élément du stock utilise les "${stockMeasurement.unit.name}" (${stockMeasurement.type.name}) comme unité de mesure. Vous ne pouvez pas quantifier l'ingrédient avec l'unité "${ingredientMeasurement.unit.name}" (${ingredientMeasurement.type.name}).`);
 	}
 
 	const updatingFields = getFieldsToUpdate({ stock_id: stockId, units, units_unit_id });
-	if (!updatingFields) return new ModelError(200, "Nothing to update");
+	if (!updatingFields) return new ModelError(200, "Rien à mettre à jour.");
 
 	return db.query(`UPDATE menu_ingredients SET ${updatingFields} WHERE ingredient_id = ?`, [ingredient_id]);
 };
 
 /* ---- DELETE ---------------------------------- */
 /**
- * @function delete
  * @async
+ * @function delete
  * @description Delete a menu
  *
  * @param {Promise<void>} db - Database connection
@@ -417,8 +417,8 @@ const del = async (db, menu_id) => {
 };
 
 /**
- * @function deleteIngredient
  * @async
+ * @function deleteIngredient
  * @description Delete a menu ingredient
  *
  * @param {Promise<void>} db - Database connection
