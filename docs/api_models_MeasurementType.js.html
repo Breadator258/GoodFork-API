@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>api/models/Table.js - The Good Fork - API</title>
+    <title>api/models/MeasurementType.js - The Good Fork - API</title>
     
     <meta name="description" content="Online documentation of the good fork api" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">api/models/Table.js</h1>
+    <h1 class="page-title">api/models/MeasurementType.js</h1>
     
 
     
@@ -50,166 +50,45 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module models/Table */
-import { getFieldsToUpdate } from "../../global/Functions.js";
-import ModelError from "../../global/ModelError.js";
-import Checkers from "../../global/Checkers.js";
+            <pre class="prettyprint source linenums"><code>/**
+ * @module models/MeasurementType
+ * @description Measurement types are categories used to separate units in distinct groups.
+ */
 
 /**
- * A Table
- * @typedef {Object} Table
- * @property {Number} table_id - ID of the table
- * @property {string} [name] - Table name
- * @property {Number} capacity - Table capacity
- * @property {Boolean|Number} is_available - Is this table available
+ * A MeasurementType
+ * @typedef {Object} MeasurementType
+ * @property {Number} type_id - ID of the type
+ * @property {Number} ref_unit_id - ID of the unit that is used as a reference in this type
+ * @property {string} name - Type name
  */
 
 /*****************************************************
  * CRUD Methods
  *****************************************************/
 
-/* ---- CREATE ---------------------------------- */
-/**
- * @function add
- * @async
- * @description Add a table
- *
- * @param {Promise&lt;void>} db - Database connection
- * @param {string} [name] - Table name
- * @param {Number} capacity - Table capacity
- * @param {Boolean|Number} [is_available=1] - Is this table available
- * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
- *
- * @example
- * 	Table.add(db, "Table n°4", 6)
- */
-const add = async (db, name, capacity, is_available = 1) => {
-	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid table name (max. 255 characters).", ["name"]);
-	}
-
-	if (!Checkers.isGreaterThan(capacity, 0, true)) {
-		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
-	}
-
-	return db.query(`
-		INSERT INTO tables(name, capacity, is_available)
-		VALUES (?, ?, ?)
-		`, [name, capacity, is_available]
-	);
-};
-
 /* ---- READ ---------------------------------- */
-/**
- * @function getById
- * @async
- * @description Get a table by its ID
- *
- * @param {Promise&lt;void>} db - Database connection
- * @param {Number} table_id - ID of the table
- * @returns {Promise&lt;Table|ModelError>} The table or a ModelError
- *
- * @example
- * 	Table.getById(db, 4)
- */
-const getById = async (db, table_id) => {
-	const table = await db.query("SELECT table_id, name, capacity, is_available FROM tables WHERE table_id = ?", [table_id]);
-	return table[0] ? table[0] : new ModelError(404, "No table found with this id.");
-};
-
-/**
- * @function getByTableCapacity
- * @async
- * @description Get the smallest available table
- *
- * @param {Promise&lt;void>} db - Database connection
- * @param {Number} capacity - Minimum capacity needed
- * @returns {Promise&lt;Table|ModelError>} The table or a ModelError
- *
- * @example
- * 	Table.getByTableCapacity(db, 6)
- */
-const getByTableCapacity = async (db, capacity) => {
-	const table = await db.query(`
-		SELECT table_id, name, capacity, is_available 
-		FROM tables 
-		WHERE capacity >= ? AND is_available = 1
-		ORDER BY capacity
-		LIMIT 1`,
-	[capacity]);
-
-	return table[0] ? table[0] : new ModelError(404, "No table found with this capacity.");
-};
-
 /**
  * @function getAll
  * @async
- * @description Get all tables
+ * @description Get all measurement types
  *
  * @param {Promise&lt;void>} db - Database connection
- * @returns {Promise&lt;Array&lt;Table>|ModelError>} A list of tables or a ModelError
+ * @returns {Promise&lt;Array&lt;MeasurementType>>} A list of measurement types
  *
  * @example
- * 	Table.getAll(db)
+ * 	MeasurementType.getAll(db)
  */
 const getAll = async db => {
-	return db.query("SELECT table_id, name, capacity, is_available FROM tables ORDER BY table_id");
-};
-
-/* ---- UPDATE ---------------------------------- */
-/**
- * @function update
- * @async
- * @description Update a table using its ID
- *
- * @param {Promise&lt;void>} db - Database connection
- * @param {Number|string} table_id - ID of the table
- * @param {string} [name] - Table name
- * @param {Number} [capacity] - Table capacity
- * @param {Boolean|Number} [is_available] - Is this table available
- * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
- *
- * @example
- * 	Table.update(db, 12, null, 4, null)
- */
-const update = async (db, table_id, name, capacity, is_available) => {
-	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid table name (max. 255 characters).", ["name"]);
-	}
-
-	if (capacity &amp;&amp; !Checkers.isGreaterThan(capacity, 0, true)) {
-		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
-	}
-
-	const updatingFields = getFieldsToUpdate({ name, capacity, is_available });
-	if (!updatingFields) return new ModelError(200, "Nothing to update");
-
-	return db.query(`UPDATE tables SET ${updatingFields} WHERE table_id = ?`, [table_id]);
-};
-
-/* ---- DELETE ---------------------------------- */
-/**
- * @function delete
- * @async
- * @description Delete a table using its ID
- *
- * @param {Promise&lt;void>} db - Database connection
- * @param {Number|string} table_id - ID of the table
- * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
- *
- * @example
- * 	Table.delete(db, 12)
- */
-const del = async (db, table_id) => {
-	return db.query("DELETE FROM tables WHERE table_id = ?", [table_id]);
+	return db.query("SELECT type_id, ref_unit_id, name FROM measurement_types ORDER BY type_id");
 };
 
 /*****************************************************
  * Export
  *****************************************************/
 
-const Table = { add, getById, getByTableCapacity, getAll, update, delete: del };
-export default Table;</code></pre>
+const MeasurementType = { getAll };
+export default MeasurementType;</code></pre>
         </article>
     </section>
 

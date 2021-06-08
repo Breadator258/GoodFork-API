@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>api/models/Table.js - The Good Fork - API</title>
+    <title>api/models/Measurement.js - The Good Fork - API</title>
     
     <meta name="description" content="Online documentation of the good fork api" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">api/models/Table.js</h1>
+    <h1 class="page-title">api/models/Measurement.js</h1>
     
 
     
@@ -50,166 +50,327 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module models/Table */
-import { getFieldsToUpdate } from "../../global/Functions.js";
-import ModelError from "../../global/ModelError.js";
+            <pre class="prettyprint source linenums"><code>/**
+ * @module models/Measurement
+ * @description Measurement is a module that makes the junction between {@see module:models/MeasurementType} and {@see module:models/MeasurementUnit}.
+ */
+import converters from "convert-units";
+import MeasurementUnit from "./MeasurementUnit.js";
 import Checkers from "../../global/Checkers.js";
+import ModelError from "../../global/ModelError.js";
 
 /**
- * A Table
- * @typedef {Object} Table
- * @property {Number} table_id - ID of the table
- * @property {string} [name] - Table name
- * @property {Number} capacity - Table capacity
- * @property {Boolean|Number} is_available - Is this table available
+ * An un-built Measurement
+ * @typedef {Object} UnbuiltMeasurement
+ * @property {Number} unit_id - ID of the unit
+ * @property {string} name - Unit name
+ * @property {Boolean|Number} used_in_stock - Is a valid measurement unit in the stock ?
+ * @property {Number} type_id - ID of the type
+ * @property {string} type_name - Type name
+ * @property {Number} as_ref_unit - How much of this unit relative to the reference unit of its type
  */
+
+/**
+ * A Measurement
+ * @typedef {Object} Measurement
+ * @property {MeasurementUnit} unit - Unit
+ * @property {MeasurementType} type - Type
+ */
+
+/*****************************************************
+ * Conversions table
+ *****************************************************/
+
+const conversions = {
+	"kg": mass => mass,
+	"g": mass => converters(mass).from("kg").to("g"),
+	"mg": mass => converters(mass).from("kg").to("mg"),
+	"L": volume => volume,
+	"cL": volume => converters(volume).from("l").to("cl"),
+	"mL": volume => converters(volume).from("l").to("ml"),
+	"oz": mass => converters(mass).from("kg").to("oz"),
+	"lb": mass => converters(mass).from("kg").to("lb"),
+	"qt": volume => volume,
+	"fl-oz": volume => converters(volume).from("l").to("fl-oz"),
+	"cuill. café": value => converters(value).from("kg").to("g") / 5,
+	"cuill. soupe": value => converters(value).from("kg").to("g") / 15,
+	"noisette": mass => converters(mass).from("kg").to("g") / 4,
+	"noix": mass => converters(mass).from("kg").to("g") / 15,
+	"stick de beurre": mass => converters(mass).from("kg").to("g") / 113,
+	"1 cup": volume => converters(volume).from("l").to("ml") / 250,
+	"1/2 cup": volume => converters(volume).from("l").to("ml") / 125,
+	"1/3 cup": volume => converters(volume).from("l").to("ml") / 80,
+	"1/4 cup": volume => converters(volume).from("l").to("ml") / 60,
+	"pincée": mass => converters(mass).from("kg").to("g") / 5
+};
+
+// TODO: Remove if the new method works
+/*
+const conversions = {
+	"kg": mass => mass,
+	"g": mass => mass * 1000,
+	"mg": mass => mass * 1000000,
+	"L": volume => volume,
+	"cL": volume => volume * 100,
+	"mL": volume => volume * 1000,
+	"oz": mass => mass * 35.274,
+	"lb": mass => mass * 2.205,
+	"qt": volume => volume,
+	"floz": volume => volume * 33.814,
+
+	"cuill. café": value => value * 1000,
+	"cuill. soupe": value => value * 1000,
+	"noisette": mass => mass * 1000,
+	"noix": mass => mass * 1000,
+	"stick de beurre": mass => mass * 1000,
+	"1 cup": volume => volume * 1000,
+	"1/2 cup": volume => volume * 1000,
+	"1/3 cup": volume => volume * 1000,
+	"1/4 cup": volume => volume * 1000,
+	"pincée": mass => mass * 1000
+};*/
 
 /*****************************************************
  * CRUD Methods
  *****************************************************/
 
-/* ---- CREATE ---------------------------------- */
-/**
- * @function add
- * @async
- * @description Add a table
- *
- * @param {Promise&lt;void>} db - Database connection
- * @param {string} [name] - Table name
- * @param {Number} capacity - Table capacity
- * @param {Boolean|Number} [is_available=1] - Is this table available
- * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
- *
- * @example
- * 	Table.add(db, "Table n°4", 6)
- */
-const add = async (db, name, capacity, is_available = 1) => {
-	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid table name (max. 255 characters).", ["name"]);
-	}
-
-	if (!Checkers.isGreaterThan(capacity, 0, true)) {
-		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
-	}
-
-	return db.query(`
-		INSERT INTO tables(name, capacity, is_available)
-		VALUES (?, ?, ?)
-		`, [name, capacity, is_available]
-	);
-};
-
 /* ---- READ ---------------------------------- */
 /**
  * @function getById
  * @async
- * @description Get a table by its ID
+ * @description Get a measurement by its ID
  *
  * @param {Promise&lt;void>} db - Database connection
- * @param {Number} table_id - ID of the table
- * @returns {Promise&lt;Table|ModelError>} The table or a ModelError
+ * @param {Number|string} unit_id - unit_id - ID of the unit
+ * @returns {Promise&lt;MeasurementUnit>} A measurement
  *
  * @example
- * 	Table.getById(db, 4)
+ * 	Measurement.getById(db, 12)
  */
-const getById = async (db, table_id) => {
-	const table = await db.query("SELECT table_id, name, capacity, is_available FROM tables WHERE table_id = ?", [table_id]);
-	return table[0] ? table[0] : new ModelError(404, "No table found with this id.");
+const getById = async (db, unit_id) => {
+	const measurement = await db.query(`
+		SELECT
+			mu.unit_id,
+			mu.name,
+			mu.used_in_stock,
+			mt.type_id,
+			mt.ref_unit_id,
+			mt.name AS "type_name",
+			mut.as_ref_unit
+		FROM measurement_units_types mut
+		INNER JOIN measurement_units mu ON mut.unit_id = mu.unit_id
+		INNER JOIN measurement_types mt ON mut.type_id = mt.type_id
+		WHERE mu.unit_id = ?
+	`, [unit_id]);
+
+	return measurement[0]
+		? buildMeasurement(db, measurement[0])
+		: new ModelError(400, `No measurement unit found with the ID "${unit_id}"`);
 };
 
 /**
- * @function getByTableCapacity
+ * @function getByName
  * @async
- * @description Get the smallest available table
+ * @description Get a measurement by its name
  *
  * @param {Promise&lt;void>} db - Database connection
- * @param {Number} capacity - Minimum capacity needed
- * @returns {Promise&lt;Table|ModelError>} The table or a ModelError
+ * @param {string} name - Unit name
+ * @returns {Promise&lt;MeasurementUnit>} A measurement
  *
  * @example
- * 	Table.getByTableCapacity(db, 6)
+ * 	Measurement.getByName(db, "kg")
  */
-const getByTableCapacity = async (db, capacity) => {
-	const table = await db.query(`
-		SELECT table_id, name, capacity, is_available 
-		FROM tables 
-		WHERE capacity >= ? AND is_available = 1
-		ORDER BY capacity
-		LIMIT 1`,
-	[capacity]);
+const getByName = async (db, name) => {
+	const measurement = await db.query(`
+		SELECT
+			mu.unit_id,
+			mu.name,
+			mu.used_in_stock,
+			mt.type_id,
+			mt.ref_unit_id,
+			mt.name AS "type_name",
+			mut.as_ref_unit
+		FROM measurement_units_types mut
+		INNER JOIN measurement_units mu ON mut.unit_id = mu.unit_id
+		INNER JOIN measurement_types mt ON mut.type_id = mt.type_id
+		WHERE mu.name = ?
+	`, [name]);
 
-	return table[0] ? table[0] : new ModelError(404, "No table found with this capacity.");
+	return measurement[0]
+		? buildMeasurement(db, measurement[0])
+		: new ModelError(400, `No measurement unit found with the name "${name}"`);
 };
 
 /**
  * @function getAll
  * @async
- * @description Get all tables
+ * @description Get all measurement
  *
  * @param {Promise&lt;void>} db - Database connection
- * @returns {Promise&lt;Array&lt;Table>|ModelError>} A list of tables or a ModelError
+ * @param {Boolean} forStock - It is needed to exclude units that should not be showed in stock
+ * @returns {Promise&lt;Array&lt;MeasurementUnit>>} A list of measurement
  *
  * @example
- * 	Table.getAll(db)
+ * 	Measurement.getAll(db)
  */
-const getAll = async db => {
-	return db.query("SELECT table_id, name, capacity, is_available FROM tables ORDER BY table_id");
+const getAll = async (db, forStock) => {
+	const measurements = await db.query(`
+		SELECT
+			mu.unit_id,
+			mu.name,
+			mu.used_in_stock,
+			mt.type_id,
+			mt.ref_unit_id,
+			mt.name AS "type_name",
+			mut.as_ref_unit
+		FROM measurement_units_types mut
+		INNER JOIN measurement_units mu ON mut.unit_id = mu.unit_id
+		INNER JOIN measurement_types mt ON mut.type_id = mt.type_id
+		${forStock ? "WHERE mu.used_in_stock = 1" : ""}
+		ORDER BY mut.mut_id
+	`);
+
+	return buildMeasurement(db, measurements);
 };
 
-/* ---- UPDATE ---------------------------------- */
 /**
- * @function update
+ * @function getAllByTypes
  * @async
- * @description Update a table using its ID
+ * @description Get all measurement ordered by types
  *
  * @param {Promise&lt;void>} db - Database connection
- * @param {Number|string} table_id - ID of the table
- * @param {string} [name] - Table name
- * @param {Number} [capacity] - Table capacity
- * @param {Boolean|Number} [is_available] - Is this table available
- * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
+ * @param {Boolean} forStock - It is needed to exclude units that should not be showed in stock
+ * @returns {Promise&lt;Object&lt;Array&lt;MeasurementUnit>>>} A list of measurement ordered by types
  *
  * @example
- * 	Table.update(db, 12, null, 4, null)
+ * 	Measurement.getAllByTypes(db)
  */
-const update = async (db, table_id, name, capacity, is_available) => {
-	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid table name (max. 255 characters).", ["name"]);
-	}
+const getAllByTypes = async (db, forStock) => {
+	const measurements = await db.query(`
+		SELECT
+			mu.unit_id,
+			mu.name,
+			mu.used_in_stock,
+			mt.type_id,
+			mt.ref_unit_id,
+			mt.name AS "type_name",
+			mut.as_ref_unit
+		FROM measurement_units_types mut
+		INNER JOIN measurement_units mu ON mut.unit_id = mu.unit_id
+		INNER JOIN measurement_types mt ON mut.type_id = mt.type_id
+		${forStock ? "WHERE mu.used_in_stock = 1" : ""}
+		ORDER BY mut.mut_id
+	`);
 
-	if (capacity &amp;&amp; !Checkers.isGreaterThan(capacity, 0, true)) {
-		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
-	}
-
-	const updatingFields = getFieldsToUpdate({ name, capacity, is_available });
-	if (!updatingFields) return new ModelError(200, "Nothing to update");
-
-	return db.query(`UPDATE tables SET ${updatingFields} WHERE table_id = ?`, [table_id]);
+	return buildMeasurement(db, measurements, true);
 };
 
-/* ---- DELETE ---------------------------------- */
 /**
- * @function delete
+ * @function convert
  * @async
- * @description Delete a table using its ID
+ * @description Convert a measurement unit to another one
  *
  * @param {Promise&lt;void>} db - Database connection
- * @param {Number|string} table_id - ID of the table
- * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
+ * @param {Number} value - The value to convert
+ * @param {string} from - Current measurement unit of the value
+ * @param {string} to - Wanted measurement unit for the value
+ * @returns {Promise&lt;Number|ModelError>} The converted value or a ModelError
  *
  * @example
- * 	Table.delete(db, 12)
+ * 	Measurement.convert(db, 1, "kg", "cuill. soupe")
  */
-const del = async (db, table_id) => {
-	return db.query("DELETE FROM tables WHERE table_id = ?", [table_id]);
+const convert = async (db, value, from, to) => {
+	if (from === to) return value;
+
+	const fromUnit = await getByName(db, from);
+	const toUnit = await getByName(db, to);
+
+	// Return a model error if one of the unit doesn't exist
+	if (fromUnit instanceof ModelError) return fromUnit;
+	if (toUnit instanceof ModelError) return toUnit;
+
+	// Return a model error if one of the unit is a part of "other" type.
+	if (fromUnit.type.name === "autre") return new ModelError(400, `The unit "${fromUnit.unit.name}" isn't convertible.`);
+	if (toUnit.type.name === "autre") return new ModelError(400, `The unit "${toUnit.unit.name}" isn't convertible.`);
+
+	// Convert the value to the reference unit
+	const fromRefUnit = value * fromUnit.unit.as_ref_unit;
+
+	// Tries to convert to the wanted unit
+	if (!Object.prototype.hasOwnProperty.call(conversions, toUnit.unit.name)) {
+		return new ModelError(400, `Unable to convert from "${fromUnit.unit.name}" to "${toUnit.unit.name}".`);
+	}
+
+	return conversions[toUnit.unit.name](fromRefUnit);
+};
+
+/**
+ * @function buildMeasurement
+ * @description Replace foreign keys by the corresponding data
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @param {Array&lt;UnbuiltMeasurement>|UnbuiltMeasurement} measurements - One or multiple measurement unit and type
+ * @param {Boolean} groupByType - Group by measurements types or not
+ * @returns {Promise&lt;Array&lt;Measurement>|Measurement>} One or multiple measurements
+ *
+ * @example
+ * 	Measurement.buildMeasurement(db, [&lt;UnbuiltMeasurement>, &lt;UnbuiltMeasurement>, ...])
+ *Measurement.buildMeasurement(db, &lt;UnbuiltMeasurement>)
+ */
+const buildMeasurement = async (db, measurements, groupByType = false) => {
+	const build = async measurement => {
+		const refUnit = await MeasurementUnit.getById(db, measurement.ref_unit_id);
+
+		return {
+			unit: {
+				unit_id: measurement.unit_id,
+				name: measurement.name,
+				used_in_stock: measurement.used_in_stock,
+				as_ref_unit: measurement.as_ref_unit
+			},
+			type: {
+				type_id: measurement.type_id,
+				ref_unit_id: measurement.ref_unit_id,
+				ref_unit: refUnit.name,
+				name: measurement.type_name
+			}
+		};
+	};
+
+	const measurementsTypes = {};
+
+	if (Checkers.isArray(measurements)) {
+		const fullMeasurements = [];
+
+		for (const measurement of measurements) {
+
+			if (groupByType) {
+				if (!Object.prototype.hasOwnProperty.call(measurementsTypes, measurement.type_name)) {
+					measurementsTypes[measurement.type_name] = [];
+				}
+
+				measurementsTypes[measurement.type_name].push(await build(measurement));
+			} else {
+				fullMeasurements.push(await build(measurement));
+			}
+		}
+
+		return groupByType ? measurementsTypes : fullMeasurements;
+	} else {
+		if (groupByType) {
+			measurementsTypes[measurements.type_name] = await build(measurements);
+		}
+
+		return groupByType ? measurementsTypes : await build(measurements);
+	}
 };
 
 /*****************************************************
  * Export
  *****************************************************/
 
-const Table = { add, getById, getByTableCapacity, getAll, update, delete: del };
-export default Table;</code></pre>
+const Measurement = { getById, getByName, getAll, getAllByTypes, convert };
+export default Measurement;</code></pre>
         </article>
     </section>
 

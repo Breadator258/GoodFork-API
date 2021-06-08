@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>models/User - The Good Fork - API</title>
+    <title>models/Measurement - The Good Fork - API</title>
     
     <meta name="description" content="Online documentation of the good fork api" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">models/User</h1>
+    <h1 class="page-title">models/Measurement</h1>
     
 
     
@@ -53,6 +53,8 @@
 <header>
     
         
+            
+        
     
 </header>
 
@@ -61,6 +63,85 @@
         <div class="container-overview">
         
             
+                <div class="description usertext"><p>Measurement is a module that makes the junction between {@see module:models/MeasurementType} and {@see module:models/MeasurementUnit}.</p></div>
+            
+
+            
+                
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Measurement.js.html">api/models/Measurement.js</a>, <a href="api_models_Measurement.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             
         
@@ -89,7 +170,7 @@
 
     
 
-    <h4 class="name" id="~add"><span class="type-signature">(async, inner) </span>add<span class="signature">(db, first_name, last_name<span class="signature-attributes">opt</span>, email, password1, password2)</span><span class="type-signature"> &rarr; {Promise.&lt;(User|<a href="ModelError.html">ModelError</a>)>}</span></h4>
+    <h4 class="name" id="~getById"><span class="type-signature">(async, inner) </span>getById<span class="signature">(db, unit_id)</span><span class="type-signature"> &rarr; {Promise.&lt;MeasurementUnit>}</span></h4>
 
     
 
@@ -101,7 +182,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_models_User.js.html">api/models/User.js</a>, <a href="api_models_User.js.html#line102">line 102</a>
+        <a href="api_models_Measurement.js.html">api/models/Measurement.js</a>, <a href="api_models_Measurement.js.html#line86">line 86</a>
     </li></ul></dd>
     
 
@@ -141,7 +222,7 @@
 
 
 <div class="description usertext">
-    <p>Add a user</p>
+    <p>Get a measurement by its ID</p>
 </div>
 
 
@@ -154,1311 +235,7 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>User.add(db, "Daft", "Punk", "daft.punk@elect.ro", "0neMor3T1me!", "0neMor3T1me!")</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>db</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Promise.&lt;void></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Database connection</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>first_name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User first name</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>last_name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User last name</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>email</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User email address</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>password1</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Password</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>password2</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Password confirmation</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>The newly added user or a ModelError</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;(User|<a href="ModelError.html">ModelError</a>)></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~addStaff"><span class="type-signature">(async, inner) </span>addStaff<span class="signature">(db, first_name, last_name<span class="signature-attributes">opt</span>, email, role)</span><span class="type-signature"> &rarr; {Promise.&lt;({code: Number, message: string}|<a href="ModelError.html">ModelError</a>)>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_models_User.js.html">api/models/User.js</a>, <a href="api_models_User.js.html#line162">line 162</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Add a staff member. His password is sent to the given email address.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>User.addStaff(db, "Daft", "Punk", "daft.punk@elect.ro", "cook")</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>db</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Promise.&lt;void></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Database connection</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>first_name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User first name</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>last_name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User last name</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>email</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User email address</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>role</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>His role name</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>A confirmation message or a ModelError</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;({code: Number, message: string}|<a href="ModelError.html">ModelError</a>)></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~login"><span class="type-signature">(async, inner) </span>login<span class="signature">(db, email, password, roleLevel<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;(User|<a href="ModelError.html">ModelError</a>)>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_models_User.js.html">api/models/User.js</a>, <a href="api_models_User.js.html#line221">line 221</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Login a user</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>User.login(db, "daft.punk@elect.ro", ""0neMor3T1me!")User.login(db, "daft.punk@elect.ro", ""0neMor3T1me!", "cook")</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>db</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Promise.&lt;void></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Database connection</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>email</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User email address</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>password</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User password</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>roleLevel</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The minimum role needed to log in</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>The logged in user or a ModelError</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;(User|<a href="ModelError.html">ModelError</a>)></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~loginWithToken"><span class="type-signature">(async, inner) </span>loginWithToken<span class="signature">(db, token, roleLevel<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;(User|<a href="ModelError.html">ModelError</a>)>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_models_User.js.html">api/models/User.js</a>, <a href="api_models_User.js.html#line268">line 268</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Login a user using its token</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>User.loginWithToken(db, "UkZaV1BaWDByTjZvUlkwWWhCdUFoajBJUWowdng3VFE1WU9uM3hxZXUvVWRoVlIybTB4R2NHSXUzWnJRVm9pVA")</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>db</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Promise.&lt;void></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Database connection</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>token</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User token</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>roleLevel</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The minimum role needed to log in</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>The logged in user or a ModelError</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;(User|<a href="ModelError.html">ModelError</a>)></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~getStaff"><span class="type-signature">(async, inner) </span>getStaff<span class="signature">(db)</span><span class="type-signature"> &rarr; {Promise.&lt;(Array.&lt;User>|<a href="ModelError.html">ModelError</a>)>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_models_User.js.html">api/models/User.js</a>, <a href="api_models_User.js.html#line306">line 306</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Get all staff members</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>User.getStaff(db)</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>db</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Promise.&lt;void></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Database connection</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>A list of users or a ModelError</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;(Array.&lt;User>|<a href="ModelError.html">ModelError</a>)></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~getByEmail"><span class="type-signature">(async, inner) </span>getByEmail<span class="signature">(db, email)</span><span class="type-signature"> &rarr; {Promise.&lt;(User|<a href="ModelError.html">ModelError</a>)>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_models_User.js.html">api/models/User.js</a>, <a href="api_models_User.js.html#line364">line 364</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-todo">To Do:</dt>
-    <dd class="tag-todo">
-        <ul>
-            <li>Keep it?</li>
-        </ul>
-    </dd>
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Get a user by its email</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>User.getByEmail(db, "daft.punk@elect.ro")</code></pre>
+    <pre class="prettyprint"><code>Measurement.getById(db, 12)</code></pre>
 
 
 
@@ -1511,193 +288,7 @@
 
         <tr>
             
-                <td class="name"><code>email</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>User email address</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>A user or a ModelError</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;(User|<a href="ModelError.html">ModelError</a>)></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~getById"><span class="type-signature">(async, inner) </span>getById<span class="signature">(db, user_id)</span><span class="type-signature"> &rarr; {Promise.&lt;(User|<a href="ModelError.html">ModelError</a>)>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_models_User.js.html">api/models/User.js</a>, <a href="api_models_User.js.html#line398">line 398</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Get a user by its ID</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>User.getById(db, 45)</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>db</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Promise.&lt;void></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Database connection</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>user_id</code></td>
+                <td class="name"><code>unit_id</code></td>
             
 
             <td class="type">
@@ -1716,7 +307,7 @@
 
             
 
-            <td class="description last"><p>User ID</p></td>
+            <td class="description last"><p>unit_id - ID of the unit</p></td>
         </tr>
 
     
@@ -1742,7 +333,7 @@
 
         
 <div class="param-desc">
-    <p>A user or a ModelError</p>
+    <p>A measurement</p>
 </div>
 
 
@@ -1753,7 +344,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;(User|<a href="ModelError.html">ModelError</a>)></span>
+<span class="param-type">Promise.&lt;MeasurementUnit></span>
 
 
     </dd>
@@ -1768,7 +359,7 @@
 
     
 
-    <h4 class="name" id="~update"><span class="type-signature">(async, inner) </span>update<span class="signature">(db, user_id, role_id<span class="signature-attributes">opt</span>, first_name<span class="signature-attributes">opt</span>, last_name<span class="signature-attributes">opt</span>, email<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;(void|<a href="ModelError.html">ModelError</a>)>}</span></h4>
+    <h4 class="name" id="~getByName"><span class="type-signature">(async, inner) </span>getByName<span class="signature">(db, name)</span><span class="type-signature"> &rarr; {Promise.&lt;MeasurementUnit>}</span></h4>
 
     
 
@@ -1780,7 +371,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_models_User.js.html">api/models/User.js</a>, <a href="api_models_User.js.html#line429">line 429</a>
+        <a href="api_models_Measurement.js.html">api/models/Measurement.js</a>, <a href="api_models_Measurement.js.html#line119">line 119</a>
     </li></ul></dd>
     
 
@@ -1820,7 +411,7 @@
 
 
 <div class="description usertext">
-    <p>Update a user using its ID</p>
+    <p>Get a measurement by its name</p>
 </div>
 
 
@@ -1833,346 +424,7 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>User.update(db, 45, null, null, "Punk!" null)</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>db</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Promise.&lt;void></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Database connection</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>user_id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-|
-
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User ID</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>role_id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>ID of its role {@see module:models/Role}</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>first_name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User first name</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>last_name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User last name</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>email</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User email address</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Nothing or a ModelError</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;(void|<a href="ModelError.html">ModelError</a>)></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~deleteStaff"><span class="type-signature">(async, inner) </span>deleteStaff<span class="signature">(db, user_id)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_models_User.js.html">api/models/User.js</a>, <a href="api_models_User.js.html#line461">line 461</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Delete a staff member using its ID</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>User.deleteStaff(db, 45)</code></pre>
+    <pre class="prettyprint"><code>Measurement.getByName(db, "kg")</code></pre>
 
 
 
@@ -2225,15 +477,12 @@
 
         <tr>
             
-                <td class="name"><code>user_id</code></td>
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
-|
-
 <span class="param-type">string</span>
 
 
@@ -2244,7 +493,7 @@
 
             
 
-            <td class="description last"><p>User ID</p></td>
+            <td class="description last"><p>Unit name</p></td>
         </tr>
 
     
@@ -2269,6 +518,10 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    <p>A measurement</p>
+</div>
+
 
 
 <dl class="param-type">
@@ -2277,7 +530,823 @@
     </dt>
     <dd>
         
+<span class="param-type">Promise.&lt;MeasurementUnit></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~getAll"><span class="type-signature">(async, inner) </span>getAll<span class="signature">(db, forStock)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;MeasurementUnit>>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Measurement.js.html">api/models/Measurement.js</a>, <a href="api_models_Measurement.js.html#line152">line 152</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Get all measurement</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Measurement.getAll(db)</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
 <span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>forStock</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>It is needed to exclude units that should not be showed in stock</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A list of measurement</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Array.&lt;MeasurementUnit>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~getAllByTypes"><span class="type-signature">(async, inner) </span>getAllByTypes<span class="signature">(db, forStock)</span><span class="type-signature"> &rarr; {Promise.&lt;Object.&lt;Array.&lt;MeasurementUnit>>>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Measurement.js.html">api/models/Measurement.js</a>, <a href="api_models_Measurement.js.html#line184">line 184</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Get all measurement ordered by types</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Measurement.getAllByTypes(db)</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>forStock</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>It is needed to exclude units that should not be showed in stock</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A list of measurement ordered by types</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Object.&lt;Array.&lt;MeasurementUnit>>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~convert"><span class="type-signature">(async, inner) </span>convert<span class="signature">(db, value, from, to)</span><span class="type-signature"> &rarr; {Promise.&lt;(Number|<a href="ModelError.html">ModelError</a>)>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Measurement.js.html">api/models/Measurement.js</a>, <a href="api_models_Measurement.js.html#line216">line 216</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Convert a measurement unit to another one</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Measurement.convert(db, 1, "kg", "cuill. soupe")</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The value to convert</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>from</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Current measurement unit of the value</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>to</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Wanted measurement unit for the value</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The converted value or a ModelError</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(Number|<a href="ModelError.html">ModelError</a>)></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~buildMeasurement"><span class="type-signature">(inner) </span>buildMeasurement<span class="signature">(db, measurements, groupByType)</span><span class="type-signature"> &rarr; {Promise.&lt;(Array.&lt;Measurement>|Measurement)>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Measurement.js.html">api/models/Measurement.js</a>, <a href="api_models_Measurement.js.html#line255">line 255</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Replace foreign keys by the corresponding data</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Measurement.buildMeasurement(db, [&lt;UnbuiltMeasurement>, &lt;UnbuiltMeasurement>, ...])Measurement.buildMeasurement(db, &lt;UnbuiltMeasurement>)</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>measurements</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;UnbuiltMeasurement></span>
+|
+
+<span class="param-type">UnbuiltMeasurement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>One or multiple measurement unit and type</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>groupByType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Group by measurements types or not</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>One or multiple measurements</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(Array.&lt;Measurement>|Measurement)></span>
 
 
     </dd>
@@ -2295,7 +1364,7 @@
 
         
                 
-<h4 class="name" id="~User">User</h4>
+<h4 class="name" id="~UnbuiltMeasurement">UnbuiltMeasurement</h4>
 
 
 
@@ -2306,7 +1375,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_models_User.js.html">api/models/User.js</a>, <a href="api_models_User.js.html#line12">line 12</a>
+        <a href="api_models_Measurement.js.html">api/models/Measurement.js</a>, <a href="api_models_Measurement.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -2357,7 +1426,248 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>unit_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the unit</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Unit name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>used_in_stock</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Is a valid measurement unit in the stock ?</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the type</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type_name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Type name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>as_ref_unit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>How much of this unit relative to the reference unit of its type</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>An un-built Measurement</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~Measurement">Measurement</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_Measurement.js.html">api/models/Measurement.js</a>, <a href="api_models_Measurement.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
         
 
         
@@ -2371,178 +1681,46 @@
 
         <tr>
             
-                <td class="name"><code>user_id</code></td>
+                <td class="name"><code>unit</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">MeasurementUnit</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>ID of the user</p></td>
+            <td class="description last"><p>Unit</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>role_id</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">MeasurementType</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>ID of its role {@see module:models/Role}</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>first_name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User first name</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>last_name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User last name</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>email</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User email address</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>password</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>User password protected by hash</p></td>
+            <td class="description last"><p>Type</p></td>
         </tr>
 
     
@@ -2555,7 +1733,7 @@
 
 
 <div class="description usertext">
-    <p>A User</p>
+    <p>A Measurement</p>
 </div>
 
 

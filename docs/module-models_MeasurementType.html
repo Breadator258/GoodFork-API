@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>api/models/Table.js - The Good Fork - API</title>
+    <title>models/MeasurementType - The Good Fork - API</title>
     
     <meta name="description" content="Online documentation of the good fork api" />
     
@@ -40,178 +40,478 @@
 
 <div id="main">
     
-    <h1 class="page-title">api/models/Table.js</h1>
+    <h1 class="page-title">models/MeasurementType</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/** @module models/Table */
-import { getFieldsToUpdate } from "../../global/Functions.js";
-import ModelError from "../../global/ModelError.js";
-import Checkers from "../../global/Checkers.js";
+        
+            
+        
+    
+</header>
 
-/**
- * A Table
- * @typedef {Object} Table
- * @property {Number} table_id - ID of the table
- * @property {string} [name] - Table name
- * @property {Number} capacity - Table capacity
- * @property {Boolean|Number} is_available - Is this table available
- */
+<article>
+    
+        <div class="container-overview">
+        
+            
+                <div class="description usertext"><p>Measurement types are categories used to separate units in distinct groups.</p></div>
+            
 
-/*****************************************************
- * CRUD Methods
- *****************************************************/
+            
+                
 
-/* ---- CREATE ---------------------------------- */
-/**
- * @function add
- * @async
- * @description Add a table
- *
- * @param {Promise&lt;void>} db - Database connection
- * @param {string} [name] - Table name
- * @param {Number} capacity - Table capacity
- * @param {Boolean|Number} [is_available=1] - Is this table available
- * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
- *
- * @example
- * 	Table.add(db, "Table n°4", 6)
- */
-const add = async (db, name, capacity, is_available = 1) => {
-	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid table name (max. 255 characters).", ["name"]);
-	}
 
-	if (!Checkers.isGreaterThan(capacity, 0, true)) {
-		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
-	}
 
-	return db.query(`
-		INSERT INTO tables(name, capacity, is_available)
-		VALUES (?, ?, ?)
-		`, [name, capacity, is_available]
-	);
-};
 
-/* ---- READ ---------------------------------- */
-/**
- * @function getById
- * @async
- * @description Get a table by its ID
- *
- * @param {Promise&lt;void>} db - Database connection
- * @param {Number} table_id - ID of the table
- * @returns {Promise&lt;Table|ModelError>} The table or a ModelError
- *
- * @example
- * 	Table.getById(db, 4)
- */
-const getById = async (db, table_id) => {
-	const table = await db.query("SELECT table_id, name, capacity, is_available FROM tables WHERE table_id = ?", [table_id]);
-	return table[0] ? table[0] : new ModelError(404, "No table found with this id.");
-};
+<dl class="details">
 
-/**
- * @function getByTableCapacity
- * @async
- * @description Get the smallest available table
- *
- * @param {Promise&lt;void>} db - Database connection
- * @param {Number} capacity - Minimum capacity needed
- * @returns {Promise&lt;Table|ModelError>} The table or a ModelError
- *
- * @example
- * 	Table.getByTableCapacity(db, 6)
- */
-const getByTableCapacity = async (db, capacity) => {
-	const table = await db.query(`
-		SELECT table_id, name, capacity, is_available 
-		FROM tables 
-		WHERE capacity >= ? AND is_available = 1
-		ORDER BY capacity
-		LIMIT 1`,
-	[capacity]);
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_MeasurementType.js.html">api/models/MeasurementType.js</a>, <a href="api_models_MeasurementType.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
 
-	return table[0] ? table[0] : new ModelError(404, "No table found with this capacity.");
-};
+    
 
-/**
- * @function getAll
- * @async
- * @description Get all tables
- *
- * @param {Promise&lt;void>} db - Database connection
- * @returns {Promise&lt;Array&lt;Table>|ModelError>} A list of tables or a ModelError
- *
- * @example
- * 	Table.getAll(db)
- */
-const getAll = async db => {
-	return db.query("SELECT table_id, name, capacity, is_available FROM tables ORDER BY table_id");
-};
+    
 
-/* ---- UPDATE ---------------------------------- */
-/**
- * @function update
- * @async
- * @description Update a table using its ID
- *
- * @param {Promise&lt;void>} db - Database connection
- * @param {Number|string} table_id - ID of the table
- * @param {string} [name] - Table name
- * @param {Number} [capacity] - Table capacity
- * @param {Boolean|Number} [is_available] - Is this table available
- * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
- *
- * @example
- * 	Table.update(db, 12, null, 4, null)
- */
-const update = async (db, table_id, name, capacity, is_available) => {
-	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid table name (max. 255 characters).", ["name"]);
-	}
+    
 
-	if (capacity &amp;&amp; !Checkers.isGreaterThan(capacity, 0, true)) {
-		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
-	}
+    
 
-	const updatingFields = getFieldsToUpdate({ name, capacity, is_available });
-	if (!updatingFields) return new ModelError(200, "Nothing to update");
+    
 
-	return db.query(`UPDATE tables SET ${updatingFields} WHERE table_id = ?`, [table_id]);
-};
+    
 
-/* ---- DELETE ---------------------------------- */
-/**
- * @function delete
- * @async
- * @description Delete a table using its ID
- *
- * @param {Promise&lt;void>} db - Database connection
- * @param {Number|string} table_id - ID of the table
- * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
- *
- * @example
- * 	Table.delete(db, 12)
- */
-const del = async (db, table_id) => {
-	return db.query("DELETE FROM tables WHERE table_id = ?", [table_id]);
-};
+    
 
-/*****************************************************
- * Export
- *****************************************************/
+    
 
-const Table = { add, getById, getByTableCapacity, getAll, update, delete: del };
-export default Table;</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="~getAll"><span class="type-signature">(async, inner) </span>getAll<span class="signature">(db)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;MeasurementType>>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_MeasurementType.js.html">api/models/MeasurementType.js</a>, <a href="api_models_MeasurementType.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Get all measurement types</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>MeasurementType.getAll(db)</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise.&lt;void></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Database connection</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A list of measurement types</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Array.&lt;MeasurementType>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+<h4 class="name" id="~MeasurementType">MeasurementType</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_models_MeasurementType.js.html">api/models/MeasurementType.js</a>, <a href="api_models_MeasurementType.js.html#line6">line 6</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the type</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ref_unit_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the unit that is used as a reference in this type</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Type name</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>A MeasurementType</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+            
+    
+
+    
+</article>
+
+</section>
 
 
 
