@@ -18,8 +18,8 @@
 
 /* ---- READ ---------------------------------- */
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all units
  * @deprecated
  *

@@ -8,6 +8,7 @@ import config from "./config/config.js";
 import routes from "./api/index.js";
 
 /**
+ * @async
  * @function startServer
  * @description Set up http and https server on port 8080 and 8433.
  *

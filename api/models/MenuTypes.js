@@ -14,8 +14,8 @@ import ModelError from "../../global/ModelError.js";
 
 /* ---- READ ------------------------------------ */
 /**
- * @function getByName
  * @async
+ * @function getByName
  * @description Get a menu type by its name
  *
  * @param {Promise<void>} db - Database connection
@@ -36,8 +36,8 @@ const getByName = async (db, name) => {
 };
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all menu types
  *
  * @param {Promise<void>} db - Database connection

@@ -18,8 +18,8 @@ import Checkers from "../../global/Checkers.js";
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function add
  * @async
+ * @function add
  * @description Add a table
  *
  * @param {Promise<void>} db - Database connection
@@ -49,8 +49,8 @@ const add = async (db, name, capacity, is_available = 1) => {
 
 /* ---- READ ---------------------------------- */
 /**
- * @function getById
  * @async
+ * @function getById
  * @description Get a table by its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -66,8 +66,8 @@ const getById = async (db, table_id) => {
 };
 
 /**
- * @function getByTableCapacity
  * @async
+ * @function getByTableCapacity
  * @description Get the smallest available table
  *
  * @param {Promise<void>} db - Database connection
@@ -90,8 +90,8 @@ const getByTableCapacity = async (db, capacity) => {
 };
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all tables
  *
  * @param {Promise<void>} db - Database connection
@@ -106,8 +106,8 @@ const getAll = async db => {
 
 /* ---- UPDATE ---------------------------------- */
 /**
- * @function update
  * @async
+ * @function update
  * @description Update a table using its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -137,8 +137,8 @@ const update = async (db, table_id, name, capacity, is_available) => {
 
 /* ---- DELETE ---------------------------------- */
 /**
- * @function delete
  * @async
+ * @function delete
  * @description Delete a table using its ID
  *
  * @param {Promise<void>} db - Database connection

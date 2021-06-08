@@ -37,8 +37,8 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function add
  * @async
+ * @function add
  * @description Add a booking
  *
  * @param {Promise<void>} db - Database connection
@@ -78,8 +78,8 @@ const add = async (db, user_id, time, clients_nb) => {
 
 /* ---- READ ---------------------------------- */
 /**
- * @function getById
  * @async
+ * @function getById
  * @description Get a booking by its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -110,8 +110,8 @@ const getById = async (db, booking_id) => {
 };
 
 /**
- * @function getByUserId
  * @async
+ * @function getByUserId
  * @description Get a booking by its associated user's ID
  *
  * @param {Promise<void>} db - Database connection
@@ -142,8 +142,8 @@ const getByUserId = async (db, user_id) => {
 };
 
 /**
- * @function getActiveByUserId
  * @async
+ * @function getActiveByUserId
  * @description Get the current active booking of a user by its associated user's ID
  *
  * @param {Promise<void>} db - Database connection
@@ -174,8 +174,8 @@ const getActiveByUserId = async (db, user_id) => {
 };
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all bookings of all users
  *
  * @param {Promise<void>} db - Database connection
@@ -203,8 +203,8 @@ const getAll = async db => {
 };
 
 /**
- * @function getAllActive
  * @async
+ * @function getAllActive
  * @description Get all active bookings
  *
  * @param {Promise<void>} db - Database connection
@@ -235,8 +235,8 @@ const getAllActive = async db => {
 };
 
 /**
- * @function getAllToday
  * @async
+ * @function getAllToday
  * @description Get all bookings of the day
  *
  * @param {Promise<void>} db - Database connection
@@ -266,8 +266,8 @@ const getAllToday = async db => {
 };
 
 /**
- * @function buildBookings
  * @async
+ * @function buildBookings
  * @description Replace foreign keys by the corresponding data
  *
  * @param {Promise<void>} db - Database connection
@@ -320,8 +320,8 @@ const buildBookings = async (db, bookings) => {
 
 /* ---- UPDATE ---------------------------------- */
 /**
- * @function update
  * @async
+ * @function update
  * @description Update the booking
  *
  * @param {Promise<void>} db - Database connection
@@ -345,8 +345,8 @@ const update = async (db, booking_id, table_id, time, clients_nb, is_client_on_p
 
 /* ---- DELETE ---------------------------------- */
 /**
- * @function delete
  * @async
+ * @function delete
  * @description Delete a booking by its ID
  *
  * @param {Promise<void>} db - Database connection

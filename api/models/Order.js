@@ -38,8 +38,8 @@ import Checkers from "../../global/Checkers.js";
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function add
  * @async
+ * @function add
  * @description Add an order
  *
  * @param {Promise<void>} db - Database connection
@@ -81,8 +81,8 @@ const add = async (db, booking_id, user_id, additional_infos, menus, is_take_awa
 
 /* ---- READ ---------------------------------- */
 /**
- * @function getById
  * @async
+ * @function getById
  * @description Get an order by its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -115,8 +115,8 @@ const getById = async (db, order_id) => {
 };
 
 /**
- * @function getByUserId
  * @async
+ * @function getByUserId
  * @description Get an order by its associated user's ID
  *
  * @param {Promise<void>} db - Database connection
@@ -145,8 +145,8 @@ const getByUserId = async (db, user_id) => {
 };
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all orders
  *
  * @param {Promise<void>} db - Database connection
@@ -174,8 +174,8 @@ const getAll = async db => {
 };
 
 /**
- * @function getAllToday
  * @async
+ * @function getAllToday
  * @description Get all orders of the day
  *
  * @param {Promise<void>} db - Database connection
@@ -206,8 +206,8 @@ const getAllToday = async db => {
 };
 
 /**
- * @function buildOrders
  * @async
+ * @function buildOrders
  * @description Replace foreign keys by the corresponding data
  *
  * @param {Promise<void>} db - Database connection
@@ -263,8 +263,8 @@ const buildOrders = async (db, orders) => {
 
 /* ---- UPDATE ---------------------------------- */
 /**
- * @function update
  * @async
+ * @function update
  * @description Update an order using its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -290,8 +290,8 @@ const update = async (db, order_id, additional_infos, total_price, is_finished) 
 
 /* ---- DELETE ---------------------------------- */
 /**
- * @function delete
  * @async
+ * @function delete
  * @description Delete an order using its ID
  *
  * @param {Promise<void>} db - Database connection

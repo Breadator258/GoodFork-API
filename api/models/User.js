@@ -26,8 +26,8 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
 
 /**
  * @ignore
- * @function isRoleIDValid
  * @async
+ * @function isRoleIDValid
  * @description Check if an ID is a valid role
  *
  * @param {Promise<void>} db - Database connection
@@ -44,8 +44,8 @@ const isRoleIDValid = async (db, role_id) => {
 
 /**
  * @ignore
- * @function isEmailAvailable
  * @async
+ * @function isEmailAvailable
  * @description Check if an email address is available
  *
  * @param {Promise<void>} db - Database connection
@@ -62,8 +62,8 @@ const isEmailAvailable = async (db, email) => {
 
 /**
  * @ignore
- * @function hashPassword
  * @async
+ * @function hashPassword
  * @description Hash a password
  *
  * @param {string} password - Password to hash
@@ -78,8 +78,8 @@ const hashPassword = async password => {
 
 /**
  * @ignore
- * @function doesPasswordMatchHash
  * @async
+ * @function doesPasswordMatchHash
  * @description Check if a password match its hashed version
  *
  * @param {string} password - Password to test
@@ -99,8 +99,8 @@ const doesPasswordMatchHash = async (password, hash) => {
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function add
  * @async
+ * @function add
  * @description Add a user
  *
  * @param {Promise<void>} db - Database connection
@@ -159,8 +159,8 @@ const add = async (db, first_name, last_name, email, password1, password2) => {
 };
 
 /**
- * @function addStaff
  * @async
+ * @function addStaff
  * @description Add a staff member. His password is sent to the given email address.
  *
  * @param {Promise<void>} db - Database connection
@@ -218,8 +218,8 @@ const addStaff = async (db, first_name, last_name, email, role_id) => {
 
 /* ---- READ ------------------------------------ */
 /**
- * @function login
  * @async
+ * @function login
  * @description Login a user
  *
  * @param {Promise<void>} db - Database connection
@@ -265,8 +265,8 @@ const login = async (db, email, password, roleLevel) => {
 };
 
 /**
- * @function loginWithToken
  * @async
+ * @function loginWithToken
  * @description Login a user using its token
  *
  * @param {Promise<void>} db - Database connection
@@ -303,8 +303,8 @@ const loginWithToken = async (db, token, roleLevel) => {
 };
 
 /**
- * @function getStaff
  * @async
+ * @function getStaff
  * @description Get all staff members
  *
  * @param {Promise<void>} db - Database connection
@@ -331,8 +331,8 @@ const getStaff = db => {
 
 /**
  * @ignore
- * @function getPwdByEmail
  * @async
+ * @function getPwdByEmail
  * @description Get a user by its email but fetch his password too. Use only for internal processing.
  *
  * @param {Promise<void>} db - Database connection
@@ -361,8 +361,8 @@ const getPwdByEmail = async (db, email) => {
 };
 
 /**
- * @function getByEmail
  * @async
+ * @function getByEmail
  * @description Get a user by its email
  * @todo Keep it?
  *
@@ -395,8 +395,8 @@ const getByEmail = async (db, email) => {
 };
 
 /**
- * @function getById
  * @async
+ * @function getById
  * @description Get a user by its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -426,8 +426,8 @@ const getById = async (db, user_id) => {
 
 /* ---- UPDATE ---------------------------------- */
 /**
- * @function update
  * @async
+ * @function update
  * @description Update a user using its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -462,8 +462,8 @@ const update = async (db, user_id, role_id, first_name, last_name, email) => {
 
 /* ---- DELETE ---------------------------------- */
 /**
- * @function deleteStaff
  * @async
+ * @function deleteStaff
  * @description Delete a staff member using its ID
  *
  * @param {Promise<void>} db - Database connection

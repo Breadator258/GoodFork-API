@@ -58,8 +58,8 @@ const conversions = {
 
 /* ---- READ ---------------------------------- */
 /**
- * @function getById
  * @async
+ * @function getById
  * @description Get a measurement by its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -91,8 +91,8 @@ const getById = async (db, unit_id) => {
 };
 
 /**
- * @function getByName
  * @async
+ * @function getByName
  * @description Get a measurement by its name
  *
  * @param {Promise<void>} db - Database connection
@@ -124,8 +124,8 @@ const getByName = async (db, name) => {
 };
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all measurement
  *
  * @param {Promise<void>} db - Database connection
@@ -156,8 +156,8 @@ const getAll = async (db, forStock) => {
 };
 
 /**
- * @function getAllByTypes
  * @async
+ * @function getAllByTypes
  * @description Get all measurement ordered by types
  *
  * @param {Promise<void>} db - Database connection
@@ -188,8 +188,8 @@ const getAllByTypes = async (db, forStock) => {
 };
 
 /**
- * @function convert
  * @async
+ * @function convert
  * @description Convert a measurement unit to another one
  *
  * @param {Promise<void>} db - Database connection

@@ -24,8 +24,8 @@ import Checkers from "../../global/Checkers.js";
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function add
  * @async
+ * @function add
  * @description Add a stock item
  *
  * @param {Promise<void>} db - Database connection
@@ -75,8 +75,8 @@ const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_
 };
 
 /**
- * @function addOrEdit
  * @async
+ * @function addOrEdit
  * @description Add a stock item if it doesn't exist, update it otherwise
  *
  * @param {Promise<void>} db - Database connection
@@ -105,8 +105,8 @@ const addOrEdit = async (db, name, units, units_unit_id, unit_price, is_orderabl
 
 /* ---- READ ---------------------------------- */
 /**
- * @function getByName
  * @async
+ * @function getByName
  * @description Get an item by its name
  *
  * @param {Promise<void>} db - Database connection
@@ -138,8 +138,8 @@ const getByName = async (db, name) => {
 };
 
 /**
- * @function getById
  * @async
+ * @function getById
  * @description Get an item by its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -171,8 +171,8 @@ const getById = async (db, stock_id) => {
 };
 
 /**
- * @function getIdOf
  * @async
+ * @function getIdOf
  * @description Get an item ID using its name
  *
  * @param {Promise<void>} db - Database connection
@@ -189,8 +189,8 @@ const getIdOf = async (db, name) => {
 };
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all stock items
  *
  * @param {Promise<void>} db - Database connection
@@ -220,8 +220,8 @@ const getAll = async db => {
 
 /* ---- UPDATE ---------------------------------- */
 /**
- * @function update
  * @async
+ * @function update
  * @description Update a stock item using its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -264,8 +264,8 @@ const update = async (db, stock_id, name, units, units_unit_id, unit_price, is_o
 
 /* ---- DELETE ---------------------------------- */
 /**
- * @function delete
  * @async
+ * @function delete
  * @description Delete a stock item using its ID
  *
  * @param {Promise<void>} db - Database connection

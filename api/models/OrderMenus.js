@@ -19,8 +19,8 @@ import ModelError from "../../global/ModelError.js";
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function addMultiple
  * @async
+ * @function addMultiple
  * @description Add menus in an order
  *
  * @param {Promise<void>} db - Database connection
@@ -53,8 +53,8 @@ const addMultiple = async (db, order_id, menus) => {
 
 /* ---- READ ------------------------------------ */
 /**
- * @function getAllByUserId
  * @async
+ * @function getAllByUserId
  * @description Get every menus of every orders of a user using its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -85,8 +85,8 @@ const getAllByUserId = async (db, user_id) => {
 };
 
 /**
- * @function getBookingMenusByUserId
  * @async
+ * @function getBookingMenusByUserId
  * @description Get every menus of every orders in the active bookings of a user using its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -118,8 +118,8 @@ const getBookingMenusByUserId = async (db, user_id) => {
 };
 
 /**
- * @function getBookingMenusByBookingId
  * @async
+ * @function getBookingMenusByBookingId
  * @description Get every menus of every orders in the active bookings of a user using its booking ID
  *
  * @param {Promise<void>} db - Database connection
@@ -151,8 +151,8 @@ const getBookingMenusByBookingId = async (db, booking_id) => {
 };
 
 /**
- * @function getAllByOrderId
  * @async
+ * @function getAllByOrderId
  * @description Get every menus of an order by the order id
  *
  * @param {Promise<void>} db - Database connection
@@ -183,8 +183,8 @@ const getAllByOrderId = async (db, order_id) => {
 };
 
 /**
- * @function buildOrderMenus
  * @async
+ * @function buildOrderMenus
  * @description Replace foreign keys by the corresponding data
  *
  * @param {Promise<void>} db - Database connection

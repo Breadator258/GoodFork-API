@@ -21,8 +21,8 @@ const randomBytesAsync = promisify(crypto.randomBytes);
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function add
  * @async
+ * @function add
  * @description Add a token
  *
  * @param {Promise<void>} db - Database connection
@@ -47,8 +47,8 @@ const add = async (db, user_id, token) => {
 
 /* ---- READ ------------------------------------ */
 /**
- * @function getNew
  * @async
+ * @function getNew
  * @description Generate a new token
  * @todo Add an expiration date to the token
  *
@@ -68,8 +68,8 @@ const getNew = async (db, user_id) => {
 };
 
 /**
- * @function getUserId
  * @async
+ * @function getUserId
  * @description Get the associated user's ID using a token
  *
  * @param {Promise<void>} db - Database connection

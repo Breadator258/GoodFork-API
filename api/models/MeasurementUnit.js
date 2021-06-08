@@ -19,8 +19,8 @@ import ModelError from "../../global/ModelError.js";
 /* ---- READ ---------------------------------- */
 
 /**
- * @function getById
  * @async
+ * @function getById
  * @description Get a measurement unit by its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -36,8 +36,8 @@ const getById = async (db, unit_id) => {
 };
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all measurement units
  *
  * @param {Promise<void>} db - Database connection

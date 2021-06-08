@@ -59,8 +59,8 @@ import Checkers from "../../global/Checkers.js";
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function add
  * @async
+ * @function add
  * @description Add a menu
  *
  * @param {Promise<void>} db - Database connection
@@ -103,8 +103,8 @@ const add = async (db, type, name, description, price) => {
 };
 
 /**
- * @function addIngredient
  * @async
+ * @function addIngredient
  * @description Add an ingredient in a menu
  *
  * @param {Promise<void>} db - Database connection
@@ -155,8 +155,8 @@ const addIngredient = async (db, menu_id, name, units, units_unit_id) => {
 const validOrderBy = ["menu_id", "name", "type_id", "price"];
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all menus
  *
  * @param {Promise<void>} db - Database connection
@@ -197,8 +197,8 @@ const getAll = async (db, orderBy) => {
 };
 
 /**
- * @function getById
  * @async
+ * @function getById
  * @description Get a menu by its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -239,8 +239,8 @@ const getById = async (db, menu_id) => {
 };
 
 /**
- * @function buildMenus
  * @async
+ * @function buildMenus
  * @description Replace foreign keys by the corresponding data
  *
  * @param {Promise<void>} db - Database connection
@@ -302,8 +302,8 @@ const buildMenus = async (db, menus) => {
 
 /* ---- UPDATE ---------------------------------- */
 /**
- * @function update
  * @async
+ * @function update
  * @description Update a menu
  *
  * @param {Promise<void>} db - Database connection
@@ -337,8 +337,8 @@ const update = async (db, menu_id, type_id, name, description, price) => {
 };
 
 /**
- * @function setIllustration
  * @async
+ * @function setIllustration
  * @description Update a menu illustration
  *
  * @param {Promise<void>} db - Database connection
@@ -347,15 +347,15 @@ const update = async (db, menu_id, type_id, name, description, price) => {
  * @returns {Promise<void>}
  *
  * @example
- * 	Menu.setIllustration(db, 7, "http://www.website.com/images/noob.png")
+ * 	Menu.setIllustration(db, 7, "https://i.imgur.com/UZR5L98.jpg")
  */
 const setIllustration = async (db, menu_id, image_path) => {
 	return db.query("UPDATE menus SET image_path = ? WHERE menu_id = ?", [image_path, menu_id]);
 };
 
 /**
- * @function updateIngredient
  * @async
+ * @function updateIngredient
  * @description Update a menu
  *
  * @param {Promise<void>} db - Database connection
@@ -401,8 +401,8 @@ const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) =
 
 /* ---- DELETE ---------------------------------- */
 /**
- * @function delete
  * @async
+ * @function delete
  * @description Delete a menu
  *
  * @param {Promise<void>} db - Database connection
@@ -417,8 +417,8 @@ const del = async (db, menu_id) => {
 };
 
 /**
- * @function deleteIngredient
  * @async
+ * @function deleteIngredient
  * @description Delete a menu ingredient
  *
  * @param {Promise<void>} db - Database connection

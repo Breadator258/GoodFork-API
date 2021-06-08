@@ -14,8 +14,8 @@ import ModelError from "../../global/ModelError.js";
 
 /* ---- READ ---------------------------------- */
 /**
- * @function getByName
  * @async
+ * @function getByName
  * @description Get a role by its name
  *
  * @param {Promise<void>} db - Database connection
@@ -31,8 +31,8 @@ const getByName = async (db, name) => {
 };
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all roles
  *
  * @param {Promise<void>} db - Database connection
