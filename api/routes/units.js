@@ -22,7 +22,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(200).json({ code: 200, units: result }).end();
+						response.status(200).json({ code: 200, units: result, message: "This route is deprecated. Please see the docs." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
