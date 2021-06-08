@@ -187,8 +187,8 @@ const getAll = async db => {
 const getAllToday = async db => {
 	const orders = await db.query(`
 	SELECT
-	order_id,
-    booking_id,
+		order_id,
+  	booking_id,
     user_id,
     additional_infos,
     time,
@@ -199,7 +199,7 @@ const getAllToday = async db => {
 	WHERE
 		time >= timestamp(CURRENT_DATE)
 	  AND time < ADDDATE(timestamp(CURRENT_DATE), 1)
-		ORDER BY time DESC
+	ORDER BY time DESC
 	`);
 
 	return buildOrders(db, orders);

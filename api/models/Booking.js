@@ -99,7 +99,7 @@ const getById = async (db, booking_id) => {
 			clients_nb,
 			is_client_on_place,
 			can_client_pay,
-		    is_finished
+		  is_finished
 		FROM bookings
 		WHERE booking_id = ?
 	`, [booking_id]);
@@ -131,7 +131,7 @@ const getByUserId = async (db, user_id) => {
 			clients_nb,
 			is_client_on_place,
 			can_client_pay,
-		    is_finished
+		  is_finished
 		FROM bookings
 		WHERE user_id = ?
 	`, [user_id]);
@@ -194,7 +194,7 @@ const getAll = async db => {
 			clients_nb,
 			is_client_on_place,
 			can_client_pay,
-		    is_finished
+		  is_finished
 		FROM bookings
 		ORDER BY booking_id
 	`);
@@ -223,8 +223,8 @@ const getAllActive = async db => {
 			clients_nb,
 			is_client_on_place,
 			can_client_pay,
-		    is_finished,
-		    is_paid
+		  is_finished,
+		  is_paid
 		FROM bookings
 		WHERE is_paid = 0
 		AND is_client_on_place = 1

@@ -52,32 +52,6 @@ const conversions = {
 	"pincée": mass => converters(mass).from("kg").to("g") / 5
 };
 
-// TODO: Remove if the new method works
-/*
-const conversions = {
-	"kg": mass => mass,
-	"g": mass => mass * 1000,
-	"mg": mass => mass * 1000000,
-	"L": volume => volume,
-	"cL": volume => volume * 100,
-	"mL": volume => volume * 1000,
-	"oz": mass => mass * 35.274,
-	"lb": mass => mass * 2.205,
-	"qt": volume => volume,
-	"floz": volume => volume * 33.814,
-
-	"cuill. café": value => value * 1000,
-	"cuill. soupe": value => value * 1000,
-	"noisette": mass => mass * 1000,
-	"noix": mass => mass * 1000,
-	"stick de beurre": mass => mass * 1000,
-	"1 cup": volume => volume * 1000,
-	"1/2 cup": volume => volume * 1000,
-	"1/3 cup": volume => volume * 1000,
-	"1/4 cup": volume => volume * 1000,
-	"pincée": mass => mass * 1000
-};*/
-
 /*****************************************************
  * CRUD Methods
  *****************************************************/

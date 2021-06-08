@@ -27,8 +27,7 @@ import ModelError from "../../global/ModelError.js";
  */
 const getByName = async (db, name) => {
 	const type = await db.query(`
-		SELECT
-			type_id, name
+		SELECT type_id, name
 		FROM menu_types
 		WHERE name = ?
 	`, [name]);
@@ -49,8 +48,7 @@ const getByName = async (db, name) => {
  */
 const getAll = async db => {
 	return db.query(`
-		SELECT
-			type_id, name
+		SELECT type_id, name
 		FROM menu_types
 		ORDER BY type_id
 	`);

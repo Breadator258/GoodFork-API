@@ -37,7 +37,7 @@ import Checkers from "../../global/Checkers.js";
  * @property {Number} menu_id - ID of the menu {@see Menu}
  * @property {Number} stock_id - ID of the stock element corresponding to this ingredient
  * @property {Number} units - How many/much of this ingredient
- * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Measurement}
  */
 
 /**
@@ -47,10 +47,10 @@ import Checkers from "../../global/Checkers.js";
  * @property {Number} stock_id - ID of the stock element corresponding to this ingredient
  * @property {string} name - Name of the stock element corresponding to this ingredient
  * @property {Number} units - How many/much of this ingredient
- * @property {string} units_unit - Unit associated to "units" property {@see Unit}
- * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Unit}
- * @property {string} stock_units_unit - Stock unit associated to "units" property {@see Unit}
- * @property {Number} stock_units_unit_id - Stock unit ID of the unit associated to "units" property {@see Unit}
+ * @property {string} units_unit - Unit associated to "units" property {@see Measurement}
+ * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Measurement}
+ * @property {string} stock_units_unit - Stock unit associated to "units" property {@see Measurement}
+ * @property {Number} stock_units_unit_id - Stock unit ID of the unit associated to "units" property {@see Measurement}
  */
 
 /*****************************************************
@@ -111,7 +111,7 @@ const add = async (db, type, name, description, price) => {
  * @param {Number} menu_id - ID of the menu
  * @param {string} name - Name of the ingredient
  * @param {Number} units - How many/much of this ingredient
- * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Measurement}
  * @returns {Promise<{ingredient_id: Number}|ModelError>} The newly added ingredient ID or a ModelError
  *
  * @example
@@ -362,7 +362,7 @@ const setIllustration = async (db, menu_id, image_path) => {
  * @param {Number|string} ingredient_id - ID of the ingredient
  * @param {string} [name] - Name of the stock element corresponding to this ingredient
  * @param {Number} units - How many/much of this ingredient
- * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Measurement}
  * @returns {Promise<void|ModelError>} Nothing or a ModelError
  *
  * @example

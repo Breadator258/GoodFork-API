@@ -156,7 +156,7 @@ const add = async (db, first_name, last_name, email, password1, password2) => {
     `, [first_name, last_name ? last_name : null, email, hashedPwd]
 	);
 
-	return getById(user.insertId);
+	return getById(db, user.insertId);
 };
 
 /**
