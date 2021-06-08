@@ -9,7 +9,7 @@ import Checkers from "../../global/Checkers.js";
 /**
  * A Menu
  * @typedef {Object} Menu
- * @see {@link module:models/MenuType}
+ * @see {@link module:models/MenuTypes}
  *
  * @property {Number} menu_id - ID of the menu
  * @property {Number} type_id - ID of the menu type
@@ -22,7 +22,7 @@ import Checkers from "../../global/Checkers.js";
 /**
  * A Full Menu
  * @typedef {Object} MenuFull
- * @see {@link module:models/MenuType}
+ * @see {@link module:models/MenuTypes}
  *
  * @property {Number} menu_id - ID of the menu
  * @property {Number} type_id - ID of the menu type
@@ -71,7 +71,7 @@ import Checkers from "../../global/Checkers.js";
  * @async
  * @function add
  * @description Add a menu
- * @see {@link module:models/MenuType}
+ * @see {@link module:models/MenuTypes}
  *
  * @param {Promise<void>} db - Database connection
  * @param {string} type - Type of the menu
@@ -316,7 +316,7 @@ const buildMenus = async (db, menus) => {
  * @async
  * @function update
  * @description Update a menu
- * @see {@link module:models/MenuType}
+ * @see {@link module:models/MenuTypes}
  *
  * @param {Promise<void>} db - Database connection
  * @param {Number|string} menu_id - ID of the menu
