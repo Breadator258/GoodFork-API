@@ -42,7 +42,7 @@ class ModelError {
 	 * @return {string}
 	 */
 	message() {
-		return this._message || "Unknown error";
+		return this._message || "Erreur inconnue";
 	}
 
 	/**

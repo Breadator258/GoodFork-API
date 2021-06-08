@@ -24,7 +24,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Booking created." }).end();
+						response.status(202).json({ code: 202, message: "Réservation ajoutée." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -183,7 +183,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Booking updated." }).end();
+						response.status(202).json({ code: 202, message: "Réservation mise à jour." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -207,7 +207,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Booking deleted." }).end();
+						response.status(202).json({ code: 202, message: "Réservation supprimée." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())

@@ -75,16 +75,16 @@ import Checkers from "../../global/Checkers.js";
  */
 const add = async (db, type, name, description, price) => {
 	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid name.", ["name"]);
+		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["name"]);
 	}
 
 	if (!Checkers.strInRange(description, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid description.", ["description"]);
+		return new ModelError(400, "La description ne peut pas dépasser 255 caractères.", ["description"]);
 	}
 
 	if (Checkers.isDefined(price)) {
 		if (! Checkers.isGreaterThan(price, 0, true)) {
-			return new ModelError(400, "You must provide a valid price.", ["price"]);
+			return new ModelError(400, "Vous devez fournir un prix valide.", ["price"]);
 		}
 	}
 
@@ -119,7 +119,7 @@ const add = async (db, type, name, description, price) => {
  */
 const addIngredient = async (db, menu_id, name, units, units_unit_id) => {
 	if (!Checkers.isGreaterThan(units, 0, true)) {
-		return new ModelError(400, "You must provide a valid quantity.", ["units"]);
+		return new ModelError(400, "Vous devez fournir une quantité valide.", ["units"]);
 	}
 
 	// Check if the stock item already exist
@@ -139,7 +139,7 @@ const addIngredient = async (db, menu_id, name, units, units_unit_id) => {
 	const stockMeasurement = await Measurement.getById(db, stockItem.units_unit_id);
 
 	if (ingredientMeasurement.type.name !== stockMeasurement.type.name) {
-		return new ModelError(400, `This stock item is using "${stockMeasurement.unit.name}" (${stockMeasurement.type.name}). You cannot set ingredient unit to "${ingredientMeasurement.unit.name}" (${ingredientMeasurement.type.name}).`);
+		return new ModelError(400, `Cet élément du stock utilise les "${stockMeasurement.unit.name}" (${stockMeasurement.type.name}) comme unité de mesure. Vous ne pouvez pas quantifier l'ingrédient avec l'unité "${ingredientMeasurement.unit.name}" (${ingredientMeasurement.type.name}).`);
 	}
 
 	const ingredient = await  db.query(`
@@ -231,7 +231,7 @@ const getById = async (db, menu_id) => {
 	`, [menu_id]);
 
 	if (!menu[0]) {
-		return new ModelError(404, "No menu found with this id.");
+		return new ModelError(404, `Aucun menu n'a été trouvée avec l'ID "${menu_id}".`);
 	}
 
 	const fullMenu = await buildMenus(db, menu);
@@ -319,15 +319,15 @@ const buildMenus = async (db, menus) => {
  */
 const update = async (db, menu_id, type_id, name, description, price) => {
 	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid menu name (max. 255 characters).", ["name"]);
+		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["name"]);
 	}
 
 	if (!Checkers.strInRange(description, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid menu description (max. 255 characters).", ["description"]);
+		return new ModelError(400, "La description ne peut pas dépasser 255 caractères.", ["description"]);
 	}
 
 	if (price && !Checkers.isGreaterThan(price, 0, true)) {
-		return new ModelError(400, "You must provide a valid menu price.", ["price"]);
+		return new ModelError(400, "Vous devez fournir un prix valide.", ["price"]);
 	}
 
 	const updatingFields = getFieldsToUpdate({ type_id, name, description, price });
@@ -370,7 +370,7 @@ const setIllustration = async (db, menu_id, image_path) => {
  */
 const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) => {
 	if (units && !Checkers.isGreaterThan(units, 0, true)) {
-		return new ModelError(400, "You must provide a valid quantity.", ["units"]);
+		return new ModelError(400, "Vous devez fournir une quantité valide.", ["units"]);
 	}
 
 	// Check if the stock item already exist
@@ -390,11 +390,11 @@ const updateIngredient = async (db, ingredient_id, name, units, units_unit_id) =
 	const stockMeasurement = await Measurement.getById(db, stockItem.units_unit_id);
 
 	if (ingredientMeasurement.type.name !== stockMeasurement.type.name) {
-		return new ModelError(400, `This stock item is using "${stockMeasurement.unit.name}" (${stockMeasurement.type.name}). You cannot set ingredient unit to "${ingredientMeasurement.unit.name}" (${ingredientMeasurement.type.name}).`);
+		return new ModelError(400, `Cet élément du stock utilise les "${stockMeasurement.unit.name}" (${stockMeasurement.type.name}) comme unité de mesure. Vous ne pouvez pas quantifier l'ingrédient avec l'unité "${ingredientMeasurement.unit.name}" (${ingredientMeasurement.type.name}).`);
 	}
 
 	const updatingFields = getFieldsToUpdate({ stock_id: stockId, units, units_unit_id });
-	if (!updatingFields) return new ModelError(200, "Nothing to update");
+	if (!updatingFields) return new ModelError(200, "Rien à mettre à jour.");
 
 	return db.query(`UPDATE menu_ingredients SET ${updatingFields} WHERE ingredient_id = ?`, [ingredient_id]);
 };

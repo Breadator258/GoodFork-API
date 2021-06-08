@@ -33,11 +33,11 @@ import Checkers from "../../global/Checkers.js";
  */
 const add = async (db, name, capacity, is_available = 1) => {
 	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid table name (max. 255 characters).", ["name"]);
+		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["name"]);
 	}
 
 	if (!Checkers.isGreaterThan(capacity, 0, true)) {
-		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
+		return new ModelError(400, "Vous devez fournir une capacité valide.", ["capacity"]);
 	}
 
 	return db.query(`
@@ -62,7 +62,7 @@ const add = async (db, name, capacity, is_available = 1) => {
  */
 const getById = async (db, table_id) => {
 	const table = await db.query("SELECT table_id, name, capacity, is_available FROM tables WHERE table_id = ?", [table_id]);
-	return table[0] ? table[0] : new ModelError(404, "No table found with this id.");
+	return table[0] ? table[0] : new ModelError(404, `Aucune table n'a été trouvée avec l'ID "${table_id}".`);
 };
 
 /**
@@ -86,7 +86,7 @@ const getByTableCapacity = async (db, capacity) => {
 		LIMIT 1`,
 	[capacity]);
 
-	return table[0] ? table[0] : new ModelError(404, "No table found with this capacity.");
+	return table[0] ? table[0] : new ModelError(404, `Aucune table n'a été trouvée avec une capacité d'au moins ${capacity} personnes.`);
 };
 
 /**
@@ -122,15 +122,15 @@ const getAll = async db => {
  */
 const update = async (db, table_id, name, capacity, is_available) => {
 	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid table name (max. 255 characters).", ["name"]);
+		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["name"]);
 	}
 
 	if (capacity && !Checkers.isGreaterThan(capacity, 0, true)) {
-		return new ModelError(400, "You must provide a valid capacity.", ["capacity"]);
+		return new ModelError(400, "Vous devez fournir une capacité valide.", ["capacity"]);
 	}
 
 	const updatingFields = getFieldsToUpdate({ name, capacity, is_available });
-	if (!updatingFields) return new ModelError(200, "Nothing to update");
+	if (!updatingFields) return new ModelError(200, "Rien à mettre à jour.");
 
 	return db.query(`UPDATE tables SET ${updatingFields} WHERE table_id = ?`, [table_id]);
 };

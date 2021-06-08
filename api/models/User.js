@@ -26,20 +26,19 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
 
 /**
  * @ignore
- * @function isRoleValid
+ * @function isRoleIDValid
  * @async
- * @description Check if a role is valid
+ * @description Check if an ID is a valid role
  *
  * @param {Promise<void>} db - Database connection
- * @param {string} role - Role name
+ * @param {Number|string} role_id - ID of the role
  * @returns {Promise<Boolean>}
  *
  * @example
- * 	isRoleValid(db, "owner") // return true
- *isRoleValid(db, "plouf") // return false
+ * 	isRoleIDValid(db, 1)
  */
-const isRoleValid = async (db, role) => {
-	const roleFound = await db.query("SELECT role_id FROM roles WHERE role_id = ?", [role]);
+const isRoleIDValid = async (db, role_id) => {
+	const roleFound = await db.query("SELECT role_id FROM roles WHERE role_id = ?", [role_id]);
 	return roleFound.length > 0;
 };
 
@@ -118,32 +117,32 @@ const doesPasswordMatchHash = async (password, hash) => {
 const add = async (db, first_name, last_name, email, password1, password2) => {
 	// Check if something is invalid
 	if (!Checkers.strInRange(first_name, null, 255)) {
-		return new ModelError(400, "You must provide a valid first name (max. 255 characters).", ["first_name"]);
+		return new ModelError(400, "Vous devez fournir un prénom valide. (max. 255 caractères).", ["first_name"]);
 	}
 
 	if (!Checkers.strInRange(last_name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid last name (max. 255 characters).", ["last_name"]);
+		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["last_name"]);
 	}
 
 	if (!Checkers.isEmail(email)) {
-		return new ModelError(400, "You must provide a valid email address.", ["email"]);
+		return new ModelError(400, "Vous devez fournir une adresse e-mail valide.", ["email"]);
 	}
 
 	if (!Checkers.strInRange([password1, password2], 8, null)) {
-		return new ModelError(400, "The password must be at least 8 characters long.", ["password"]);
+		return new ModelError(400, "Le mot de passe doit contenir au moins 8 caractères.", ["password"]);
 	}
 
 	if (!Checkers.isPasswordSafe([password1, password2])) {
-		return new ModelError(400, "The password must be at least 8 characters long, including an upper case letter, a lower case letter, a number and a special character.", ["password"]);
+		return new ModelError(400, "Le mot de passe doit contenir au moins 8 caractères avec une majuscule, une minuscule, un nombre et un caractère spécial.", ["password"]);
 	}
 
 	if (password1 !== password2) {
-		return new ModelError(400, "The passwords don't match.", ["password"]);
+		return new ModelError(400, "Les mots de passe ne correspondent pas.", ["password"]);
 	}
 
 	// Check if something is not available
 	if (!await isEmailAvailable(db, email)) {
-		return new ModelError(400, "This email address is already taken.", ["email"]);
+		return new ModelError(400, "Cette adresse e-mail est déjà utilisée.", ["email"]);
 	}
 
 	// Hash password
@@ -168,33 +167,33 @@ const add = async (db, first_name, last_name, email, password1, password2) => {
  * @param {string} first_name - User first name
  * @param {string} [last_name] - User last name
  * @param {string} email - User email address
- * @param {string} role - His role name
+ * @param {Number|string} role_id - His role ID
  * @returns {Promise<{code: Number, message: string}|ModelError>} A confirmation message or a ModelError
  *
  * @example
  * 	User.addStaff(db, "Daft", "Punk", "daft.punk@elect.ro", "cook")
  */
-const addStaff = async (db, first_name, last_name, email, role) => {
+const addStaff = async (db, first_name, last_name, email, role_id) => {
 	// Check if something is invalid
 	if (!Checkers.strInRange(first_name, null, 255)) {
-		return new ModelError(400, "You must provide a valid first name (max. 255 characters).", ["first_name"]);
+		return new ModelError(400, "Vous devez fournir un prénom valide. (max. 255 caractères).", ["first_name"]);
 	}
 
 	if (!Checkers.strInRange(last_name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid last name (max. 255 characters).", ["last_name"]);
+		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["last_name"]);
 	}
 
 	if (!Checkers.isEmail(email)) {
-		return new ModelError(400, "You must provide a valid email address.", ["email"]);
+		return new ModelError(400, "Vous devez fournir une adresse e-mail valide.", ["email"]);
 	}
 
 	// Check if something is not available
 	if (!await isEmailAvailable(db, email)) {
-		return new ModelError(400, "This email address is already taken.", ["email"]);
+		return new ModelError(400, "Cette adresse e-mail est déjà utilisée.", ["email"]);
 	}
 
-	if (!await isRoleValid(db, role)) {
-		return new ModelError(400, "The selected role doesn't exist.", ["role"]);
+	if (!await isRoleIDValid(db, role_id)) {
+		return new ModelError(400, "Le rôle sélectionné n'existe pas.", ["role"]);
 	}
 
 	// Create password
@@ -205,7 +204,7 @@ const addStaff = async (db, first_name, last_name, email, role) => {
 	await db.query(`
     INSERT INTO users(role_id, first_name, last_name, email, password)
     VALUES (?, ?, ?, ?, ?)
-    `, [role, first_name, last_name ? last_name : null, email, hashedPwd]
+    `, [role_id, first_name, last_name ? last_name : null, email, hashedPwd]
 	);
 
 	// Return the password
@@ -213,7 +212,7 @@ const addStaff = async (db, first_name, last_name, email, role) => {
 		await Mail.sendPassword(email, password);
 		return { code: 202, message: "Staff added." };
 	} catch (err) {
-		return new ModelError(500, "Could not send password to the new staff member's email address.");
+		return new ModelError(500, "Impossible d'envoyer le mot de passe à l'adresse e-mail du nouvel employé.");
 	}
 };
 
@@ -235,11 +234,11 @@ const addStaff = async (db, first_name, last_name, email, role) => {
  */
 const login = async (db, email, password, roleLevel) => {
 	if (!Checkers.isEmail(email)) {
-		return new ModelError(400, "You must provide a valid email address.", ["email"]);
+		return new ModelError(400, "Vous devez fournir une adresse e-mail valide.", ["email"]);
 	}
 
 	if (!Checkers.strInRange(password, 8, null)) {
-		return new ModelError(400, "The password must be at least 8 characters long.", ["password"]);
+		return new ModelError(400, "Le mot de passe doit contenir au moins 8 caractères.", ["password"]);
 	}
 
 	let user = await getPwdByEmail(db, email);
@@ -251,14 +250,14 @@ const login = async (db, email, password, roleLevel) => {
 		if (role instanceof ModelError) return role;
 
 		if (user.role !== roleLevel) {
-			return new ModelError(401, "You haven't the required privileges to log in here.");
+			return new ModelError(401, "Vous n'avez pas les droits nécessaires pour accéder à cette page.");
 		}
 	}
 
 	const canConnect = user ? await doesPasswordMatchHash(password, user.password) : false;
 
 	if (!canConnect) {
-		return new ModelError(400, "No users were found with this email and password combination.", ["email", "password"]);
+		return new ModelError(400, "Aucun utilisateur n'a été trouvé avec cette adresse e-mail et ce mot de passe.", ["email", "password"]);
 	} else {
 		delete user.password;
 		return user;
@@ -280,7 +279,7 @@ const login = async (db, email, password, roleLevel) => {
  */
 const loginWithToken = async (db, token, roleLevel) => {
 	if (!Checkers.strInRange(token, null, 255)) {
-		return new ModelError(400, "You must provide a valid token", ["token"]);
+		return new ModelError(400, "Vous devez fournir un token valide.", ["token"]);
 	}
 
 	// Get user
@@ -296,7 +295,7 @@ const loginWithToken = async (db, token, roleLevel) => {
 		if (role instanceof ModelError) return role;
 
 		if (user.role !== roleLevel) {
-			return new ModelError(401, "You haven't the required privileges to log in here.");
+			return new ModelError(401, "Vous n'avez pas les droits nécessaires pour accéder à cette page.");
 		}
 	}
 
@@ -358,7 +357,7 @@ const getPwdByEmail = async (db, email) => {
     WHERE users.email = ?
   `, [email]);
 
-	return user[0] ? user[0] : new ModelError(404, "No user found with this email address.");
+	return user[0] ? user[0] : new ModelError(404, `Aucun utilisateur n'a été trouvé avec l'adresse e-mail "${email}"`);
 };
 
 /**
@@ -376,7 +375,7 @@ const getPwdByEmail = async (db, email) => {
  */
 const getByEmail = async (db, email) => {
 	if (!Checkers.isEmail(email)) {
-		return new ModelError(400, "You must provide a valid email address.", ["email"]);
+		return new ModelError(400, "Vous devez fournir une adresse e-mail valide.", ["email"]);
 	}
 
 	const user =  db.query(`
@@ -392,7 +391,7 @@ const getByEmail = async (db, email) => {
     WHERE users.email = ?
   `, [email]);
 
-	return user[0] ? user[0] : new ModelError(404, "No user found with this email address.");
+	return user[0] ? user[0] : new ModelError(404, `Aucun utilisateur n'a été trouvé avec l'adresse e-mail "${email}"`);
 };
 
 /**
@@ -422,7 +421,7 @@ const getById = async (db, user_id) => {
     LIMIT 1
   `, [user_id]);
 
-	return user[0] ? user[0] : new ModelError(404, "No user found with this user id.");
+	return user[0] ? user[0] : new ModelError(404, `Aucun utilisateur n'a été trouvé avec l'ID utilisateur "${user_id}"`);
 };
 
 /* ---- UPDATE ---------------------------------- */
@@ -444,11 +443,15 @@ const getById = async (db, user_id) => {
  */
 const update = async (db, user_id, role_id, first_name, last_name, email) => {
 	if (!Checkers.strInRange(first_name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid first name (max. 255 characters).", ["first_name"]);
+		return new ModelError(400, "Vous devez fournir un prénom valide. (max. 255 caractères).", ["first_name"]);
 	}
 
 	if (!Checkers.strInRange(last_name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid last name (max. 255 characters).", ["last_name"]);
+		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["last_name"]);
+	}
+
+	if (!await isRoleIDValid(db, role_id)) {
+		return new ModelError(400, "Le rôle sélectionné n'existe pas.", ["role"]);
 	}
 
 	const updatingFields = getFieldsToUpdate({ role_id, first_name, last_name, email });

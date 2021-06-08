@@ -32,7 +32,7 @@ const getByName = async (db, name) => {
 		WHERE name = ?
 	`, [name]);
 
-	return type[0] ? type[0] : new ModelError(404, "No type found with this name.");
+	return type[0] ? type[0] : new ModelError(404, `Aucun type n'a été trouvé avec le nom "${name}"`);
 };
 
 /**

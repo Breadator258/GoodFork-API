@@ -24,6 +24,7 @@ import ModelError from "../../global/ModelError.js";
  * @description Get a measurement unit by its ID
  *
  * @param {Promise<void>} db - Database connection
+ * @param {Number|string} unit_id - ID of the unit
  * @returns {Promise<MeasurementUnit>} A measurement unit
  *
  * @example
@@ -31,7 +32,7 @@ import ModelError from "../../global/ModelError.js";
  */
 const getById = async (db, unit_id) => {
 	const unit = await db.query("SELECT unit_id, name, used_in_stock FROM measurement_units WHERE unit_id = ?", [unit_id]);
-	return unit[0] ? unit[0] : new ModelError(400, `No measurement unit was found with the id "${unit_id}"`);
+	return unit[0] ? unit[0] : new ModelError(400, `Aucune unité de mesure n'a été trouvée avec l'ID "${unit_id}"`);
 };
 
 /**

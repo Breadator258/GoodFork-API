@@ -55,14 +55,14 @@ import Checkers from "../../global/Checkers.js";
  */
 const add = async (db, booking_id, user_id, additional_infos, menus, is_take_away) => {
 	if (!Checkers.strInRange(additional_infos, null, 1000, true, true)) {
-		return new ModelError(400, "You must provide a valid additional infos text.", ["additional_infos"]);
+		return new ModelError(400, "Les informations complémentaires ne peuvent pas dépasser 255 caractères.", ["additional_infos"]);
 	}
 
 	// Check the user
 	const user = await User.getById(db, user_id);
 
 	if (!user) {
-		return new ModelError(400, "The given user id is not a user");
+		return new ModelError(400, `L'ID utilisateur "${user_id} ne correspond à personne."`);
 	}
 
 	// Get the price
@@ -108,7 +108,7 @@ const getById = async (db, order_id) => {
 	`, [order_id]);
 
 	if (!order[0]) {
-		return new ModelError(404, "No order found with this id.");
+		return new ModelError(404, `Aucune commande n'a été trouvée avec l'ID "${order_id}".`);
 	}
 
 	return await buildOrders(db, order[0]);
@@ -279,11 +279,11 @@ const buildOrders = async (db, orders) => {
  */
 const update = async (db, order_id, additional_infos, total_price, is_finished) => {
 	if (!Checkers.strInRange(additional_infos, null, 1000, true, true)) {
-		return new ModelError(400, "You must provide a valid additional infos text.", ["additional_infos"]);
+		return new ModelError(400, "Les informations complémentaires ne peuvent pas dépasser 255 caractères.", ["additional_infos"]);
 	}
 
 	const updatingFields = getFieldsToUpdate({ additional_infos, total_price, is_finished });
-	if (!updatingFields) return new ModelError(200, "Nothing to update");
+	if (!updatingFields) return new ModelError(200, "Rien à mettre à jour.");
 
 	return db.query(`UPDATE orders SET ${updatingFields} WHERE order_id = ?`, [order_id]);
 };

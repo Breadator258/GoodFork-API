@@ -33,7 +33,7 @@ import ModelError from "../../global/ModelError.js";
  */
 const addMultiple = async (db, order_id, menus) => {
 	if (!Checkers.isArray(menus)) {
-		return new ModelError(400, "You must provide a valid menus list.");
+		return new ModelError(400, "Vous devez fournir une liste de menus valide.");
 	}
 
 	const valuesPlaceholders = [];

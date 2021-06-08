@@ -44,19 +44,19 @@ import Checkers from "../../global/Checkers.js";
  */
 const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
 	if (!Checkers.strInRange(name, null, 255)) {
-		return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
+		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["name"]);
 	}
 
 	if (!Checkers.isDateLowerThan(use_by_date_min, use_by_date_max, true, true)) {
-		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
+		return new ModelError(400, "Vous devez fournir une date d'expiration valide.", ["use_by_date_min", "use_by_date_max"]);
 	}
 
 	if (!Checkers.isGreaterThan(units, 0, true)) {
-		return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
+		return new ModelError(400, "Vous devez fournir une quantité valide.", ["units"]);
 	}
 
 	if (!Checkers.isGreaterThan(unit_price, 0, true)) {
-		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
+		return new ModelError(400, "Vous devez fournir un prix unitaire valide.", ["unit_price"]);
 	}
 
 	// Check if the unit is valid
@@ -134,7 +134,7 @@ const getByName = async (db, name) => {
 		WHERE stocks.name = ?
 	`, [name]);
 
-	return stock[0] ? stock[0] : new ModelError(404, "No stock item found with this name", ["name"]);
+	return stock[0] ? stock[0] : new ModelError(404, `Aucun élément n'a été trouvé avec le nom "${name}".`, ["name"]);
 };
 
 /**
@@ -167,7 +167,7 @@ const getById = async (db, stock_id) => {
 		WHERE stocks.stock_id = ?
 	`, [stock_id]);
 
-	return stock[0] ? stock[0] : new ModelError(404, "No stock item found with this id");
+	return stock[0] ? stock[0] : new ModelError(404, `Aucun élément n'a été trouvé avec l'ID "${stock_id}".`);
 };
 
 /**
@@ -241,23 +241,23 @@ const getAll = async db => {
  */
 const update = async (db, stock_id, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
 	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
+		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["name"]);
 	}
 
 	if (!Checkers.isDateLowerThan(use_by_date_min, use_by_date_max, true, true)) {
-		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
+		return new ModelError(400, "Vous devez fournir une date d'expiration valide.", ["use_by_date_min", "use_by_date_max"]);
 	}
 
 	if (units && !Checkers.isGreaterThan(units, 0, true)) {
-		return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
+		return new ModelError(400, "Vous devez fournir une quantité valide.", ["units"]);
 	}
 
 	if (unit_price && !Checkers.isGreaterThan(unit_price, 0, true)) {
-		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
+		return new ModelError(400, "Vous devez fournir un prix unitaire valide.", ["unit_price"]);
 	}
 
 	const updatingFields = getFieldsToUpdate({ name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max });
-	if (!updatingFields) return new ModelError(200, "Nothing to update");
+	if (!updatingFields) return new ModelError(200, "Rien à mettre à jour.");
 
 	return db.query(`UPDATE stocks SET ${updatingFields} WHERE stock_id = ?`, [stock_id]);
 };

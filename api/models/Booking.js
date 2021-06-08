@@ -54,17 +54,17 @@ const add = async (db, user_id, time, clients_nb) => {
 	const bookingTime = new Date(time);
 
 	if (!Checkers.isDate(bookingTime)) {
-		return new ModelError(400, "You must provide a valid booking date.", ["time"]);
+		return new ModelError(400, "Vous devez fournir une date de réservation valide.", ["time"]);
 	}
 
 	if (!Checkers.isGreaterThan(clients_nb, 0)) {
-		return new ModelError(400, "You must provide a valid number of clients.", ["clients_nb"]);
+		return new ModelError(400, "Vous devez fournir un nombre valide de personnes.", ["clients_nb"]);
 	}
 
 	const availableTable = await Table.getByTableCapacity(db, clients_nb);
 
 	if (availableTable instanceof ModelError) {
-		return new ModelError(400, "No available table found.", ["time"]);
+		return new ModelError(400, "Aucune table n'est disponible à cette date.", ["time"]);
 	} else {
 		await Table.update(db, availableTable.table_id, null, null ,false);
 
@@ -106,7 +106,7 @@ const getById = async (db, booking_id) => {
 
 	return booking[0]
 		? buildBookings(db, booking[0])
-		: new ModelError(404, "No booking found with this id.");
+		: new ModelError(404, `Aucune réservation n'a été trouvée avec l'ID "${booking_id}".`);
 };
 
 /**
@@ -138,7 +138,7 @@ const getByUserId = async (db, user_id) => {
 
 	return bookings[0]
 		? buildBookings(db, bookings)
-		: new ModelError(404, "No booking found with this user id.");
+		: new ModelError(404, `Aucune réservation n'a été trouvée avec l'ID utilisateur "${user_id}".`);
 };
 
 /**
@@ -170,7 +170,7 @@ const getActiveByUserId = async (db, user_id) => {
 
 	return booking[0]
 		? buildBookings(db, booking)
-		: new ModelError(404, "No active booking found with this user id.");
+		: new ModelError(404, `Aucune réservation n'a été trouvée avec l'ID utilisateur "${user_id}".`);
 };
 
 /**
@@ -337,9 +337,8 @@ const buildBookings = async (db, bookings) => {
  * 	Booking.update(db, 20, 1, null, 3, false, true)
  */
 const update = async (db, booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished, is_paid) => {
-
 	const updatingFields = getFieldsToUpdate({ table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished, is_paid });
-	if (!updatingFields) return new ModelError(200, "Nothing to update");
+	if (!updatingFields) return new ModelError(200, "Rien à mettre à jour.");
 
 	return db.query(`UPDATE bookings SET ${updatingFields} WHERE booking_id = ?`, [booking_id]);
 };

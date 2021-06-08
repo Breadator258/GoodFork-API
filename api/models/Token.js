@@ -35,7 +35,7 @@ const randomBytesAsync = promisify(crypto.randomBytes);
  */
 const add = async (db, user_id, token) => {
 	if (!Checkers.strInRange(token, null, 255)) {
-		return new ModelError(400, "Token is invalid (undefined or wrong length).");
+		return new ModelError(500, "Le token est invalide.");
 	}
 
 	return db.query(`
@@ -81,7 +81,7 @@ const getNew = async (db, user_id) => {
  */
 const getUserId = async (db, token) => {
 	const user_id = await db.query("SELECT user_id FROM tokens WHERE token = ? LIMIT 1", [token]);
-	return user_id[0] ? user_id[0].user_id : new ModelError(400, "No user found associated with this token");
+	return user_id[0] ? user_id[0].user_id : new ModelError(400, "Aucun utilisateur n'est associé à ce token.");
 };
 
 /*****************************************************

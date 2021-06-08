@@ -27,7 +27,7 @@ import ModelError from "../../global/ModelError.js";
  */
 const getByName = async (db, name) => {
 	const role = await db.query("SELECT role_id, name FROM roles WHERE name = ? LIMIT 1", [name]);
-	return role[0] ? role[0] : new ModelError(404, "No role found with this name.");
+	return role[0] ? role[0] : new ModelError(404, `Aucun rôle n'a été trouvé avec le nom "${name}".`);
 };
 
 /**
