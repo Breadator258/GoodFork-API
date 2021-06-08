@@ -12,8 +12,10 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
 /**
  * A User
  * @typedef {Object} User
+ * @see {@link module:models/Role}
+ *
  * @property {Number} user_id - ID of the user
- * @property {Number} role_id - ID of its role {@see module:models/Role}
+ * @property {Number} role_id - ID of its role
  * @property {string} first_name - User first name
  * @property {string} [last_name] - User last name
  * @property {string} email - User email address
@@ -429,10 +431,11 @@ const getById = async (db, user_id) => {
  * @async
  * @function update
  * @description Update a user using its ID
+ * @see {@link module:models/Role}
  *
  * @param {Promise<void>} db - Database connection
  * @param {Number|string} user_id - User ID
- * @param {Number} [role_id] - ID of its role {@see module:models/Role}
+ * @param {Number} [role_id] - ID of its role
  * @param {string} [first_name] - User first name
  * @param {string} [last_name] - User last name
  * @param {string} [email] - User email address

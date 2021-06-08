@@ -7,10 +7,12 @@ import Checkers from "../../global/Checkers.js";
 /**
  * A Stock item
  * @typedef {Object} StockItem
+ * @see {@link module:models/Measurement}
+ *
  * @property {Number} stock_id - ID of the stock item
  * @property {string} name - Item name
  * @property {Number} units - How many/much of this item
- * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @property {Number} units_unit_id - ID of the unit associated to "units" property
  * @property {Number} unit_price - Price of one unit of this item
  * @property {Boolean} is_orderable - Can a user order it
  * @property {Boolean} is_cookable - Can a cook cook it
@@ -27,11 +29,12 @@ import Checkers from "../../global/Checkers.js";
  * @async
  * @function add
  * @description Add a stock item
+ * @see {@link module:models/Measurement}
  *
  * @param {Promise<void>} db - Database connection
  * @param {string} name - Item name
  * @param {Number} units - How many/much of this item
- * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property
  * @param {Number} unit_price - Price of one unit of this item
  * @param {Boolean} is_orderable - Can a user order it
  * @param {Boolean} is_cookable - Can a cook cook it
@@ -78,11 +81,12 @@ const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_
  * @async
  * @function addOrEdit
  * @description Add a stock item if it doesn't exist, update it otherwise
+ * @see {@link module:models/Measurement}
  *
  * @param {Promise<void>} db - Database connection
  * @param {string} name - Item name
  * @param {Number} units - How many/much of this item
- * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property
  * @param {Number} unit_price - Price of one unit of this item
  * @param {Boolean} is_orderable - Can a user order it
  * @param {Boolean} is_cookable - Can a cook cook it
@@ -223,12 +227,13 @@ const getAll = async db => {
  * @async
  * @function update
  * @description Update a stock item using its ID
+ * @see {@link module:models/Measurement}
  *
  * @param {Promise<void>} db - Database connection
  * @param {Number} stock_id - ID of the stock item
  * @param {string} name - Item name
  * @param {Number} units - How many/much of this item
- * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property
  * @param {Number} unit_price - Price of one unit of this item
  * @param {Boolean} is_orderable - Can a user order it
  * @param {Boolean} is_cookable - Can a cook cook it

@@ -9,8 +9,10 @@ import Checkers from "../../global/Checkers.js";
 /**
  * A Menu
  * @typedef {Object} Menu
+ * @see {@link module:models/MenuType}
+ *
  * @property {Number} menu_id - ID of the menu
- * @property {Number} type_id - ID of the menu type {@see module:models/MenuType}
+ * @property {Number} type_id - ID of the menu type
  * @property {string} name - Menu name
  * @property {string} [description] - Menu description
  * @property {Number} price - Menu price
@@ -20,9 +22,11 @@ import Checkers from "../../global/Checkers.js";
 /**
  * A Full Menu
  * @typedef {Object} MenuFull
+ * @see {@link module:models/MenuType}
+ *
  * @property {Number} menu_id - ID of the menu
- * @property {Number} type_id - ID of the menu type {@see module:models/MenuType}
- * @property {string} type - Type of the menu {@see module:models/MenuType}
+ * @property {Number} type_id - ID of the menu type
+ * @property {string} type - Type of the menu
  * @property {string} name - Menu name
  * @property {string} [description] - Menu description
  * @property {Number} price - Menu price
@@ -33,24 +37,29 @@ import Checkers from "../../global/Checkers.js";
 /**
  * A Menu ingredient
  * @typedef {Object} MenuIngredient
+ * @see {@link module:models/Menu}
+ * @see {@link module:models/Measurement}
+ *
  * @property {Number} ingredient_id - ID of the ingredient
- * @property {Number} menu_id - ID of the menu {@see Menu}
+ * @property {Number} menu_id - ID of the menu
  * @property {Number} stock_id - ID of the stock element corresponding to this ingredient
  * @property {Number} units - How many/much of this ingredient
- * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Measurement}
+ * @property {Number} units_unit_id - ID of the unit associated to "units" property
  */
 
 /**
  * A Menu full ingredient
  * @typedef {Object} MenuFullIngredient
+ * @see {@link module:models/Measurement}
+ *
  * @property {Number} ingredient_id - ID of the ingredient
  * @property {Number} stock_id - ID of the stock element corresponding to this ingredient
  * @property {string} name - Name of the stock element corresponding to this ingredient
  * @property {Number} units - How many/much of this ingredient
- * @property {string} units_unit - Unit associated to "units" property {@see Measurement}
- * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Measurement}
- * @property {string} stock_units_unit - Stock unit associated to "units" property {@see Measurement}
- * @property {Number} stock_units_unit_id - Stock unit ID of the unit associated to "units" property {@see Measurement}
+ * @property {string} units_unit - Unit associated to "units" property
+ * @property {Number} units_unit_id - ID of the unit associated to "units" property
+ * @property {string} stock_units_unit - Stock unit associated to "units" property
+ * @property {Number} stock_units_unit_id - Stock unit ID of the unit associated to "units" property
  */
 
 /*****************************************************
@@ -62,9 +71,10 @@ import Checkers from "../../global/Checkers.js";
  * @async
  * @function add
  * @description Add a menu
+ * @see {@link module:models/MenuType}
  *
  * @param {Promise<void>} db - Database connection
- * @param {string} type - Type of the menu {@see module:models/MenuType}
+ * @param {string} type - Type of the menu
  * @param {string} name - Menu name
  * @param {string} [description] - Menu description
  * @param {Number} price - Menu price
@@ -106,12 +116,13 @@ const add = async (db, type, name, description, price) => {
  * @async
  * @function addIngredient
  * @description Add an ingredient in a menu
+ * @see {@link module:models/Measurement}
  *
  * @param {Promise<void>} db - Database connection
  * @param {Number} menu_id - ID of the menu
  * @param {string} name - Name of the ingredient
  * @param {Number} units - How many/much of this ingredient
- * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Measurement}
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property
  * @returns {Promise<{ingredient_id: Number}|ModelError>} The newly added ingredient ID or a ModelError
  *
  * @example
@@ -305,10 +316,11 @@ const buildMenus = async (db, menus) => {
  * @async
  * @function update
  * @description Update a menu
+ * @see {@link module:models/MenuType}
  *
  * @param {Promise<void>} db - Database connection
  * @param {Number|string} menu_id - ID of the menu
- * @param {Number|string} [type_id] - ID of the menu type {@see module:models/MenuType}
+ * @param {Number|string} [type_id] - ID of the menu type
  * @param {string} [name] - Menu name
  * @param {string} [description] - Menu description
  * @param {Number} [price] - Menu price
@@ -357,12 +369,13 @@ const setIllustration = async (db, menu_id, image_path) => {
  * @async
  * @function updateIngredient
  * @description Update a menu
+ * @see {@link module:models/Measurement}
  *
  * @param {Promise<void>} db - Database connection
  * @param {Number|string} ingredient_id - ID of the ingredient
  * @param {string} [name] - Name of the stock element corresponding to this ingredient
  * @param {Number} units - How many/much of this ingredient
- * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Measurement}
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property
  * @returns {Promise<void|ModelError>} Nothing or a ModelError
  *
  * @example
