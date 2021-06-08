@@ -770,6 +770,13 @@
 									<td class="returns last"><code>{bookings: Array&lt;Booking&gt;}</code></td>
 								</tr>
 								<tr>
+									<td class="name">Get all active</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/bookings/active/all</td>
+									<td class="description"></td>
+									<td class="returns last"><code>{bookings: Array&lt;Booking&gt;}</code></td>
+								</tr>
+								<tr>
 									<td class="name">Get by ID</td>
 									<td class="type"><span class="param-type">GET</span></td>
 									<td class="attributes">http://3.134.79.46:8080/api/bookings/:booking_id</td>
@@ -901,6 +908,20 @@
 									<td class="type"><span class="param-type">GET</span></td>
 									<td class="attributes">http://3.134.79.46:8080/api/orders/menus/order_id/:order_id</td>
 									<td class="description"><code>order_id</code></td>
+									<td class="returns last"><code>{menus: Array&lt;OrderMenu&gt;}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Get from active bookings by user ID</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/orders/menus/bookings/user_id/:user_id</td>
+									<td class="description"><code>user_id</code></td>
+									<td class="returns last"><code>{menus: Array&lt;OrderMenu&gt;}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Get from booking by booking ID</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/orders/menus/bookings/user_id/:user_id</td>
+									<td class="description"><code>user_id</code></td>
 									<td class="returns last"><code>{menus: Array&lt;OrderMenu&gt;}</code></td>
 								</tr>
 							</tbody>

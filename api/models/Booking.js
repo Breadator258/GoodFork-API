@@ -203,6 +203,38 @@ const getAll = async db => {
 };
 
 /**
+ * @function getAllActive
+ * @async
+ * @description Get all active bookings
+ *
+ * @param {Promise<void>} db - Database connection
+ * @returns {Promise<Array<Booking>>} A list of bookings
+ *
+ * @example
+ * 	Booking.getAll(db)
+ */
+const getAllActive = async db => {
+	const bookings = await db.query(`
+		SELECT
+			booking_id,
+			user_id,
+			table_id,
+			time,
+			clients_nb,
+			is_client_on_place,
+			can_client_pay,
+		    is_finished,
+		    is_paid
+		FROM bookings
+		WHERE is_paid = 0
+		AND is_client_on_place = 1
+		ORDER BY booking_id
+	`);
+
+	return buildBookings(db, bookings);
+};
+
+/**
  * @function getAllToday
  * @async
  * @description Get all bookings of the day
@@ -304,9 +336,9 @@ const buildBookings = async (db, bookings) => {
  * @example
  * 	Booking.update(db, 20, 1, null, 3, false, true)
  */
-const update = async (db, booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished) => {
+const update = async (db, booking_id, table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished, is_paid) => {
 
-	const updatingFields = getFieldsToUpdate({ table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished });
+	const updatingFields = getFieldsToUpdate({ table_id, time, clients_nb, is_client_on_place, can_client_pay, is_finished, is_paid });
 	if (!updatingFields) return new ModelError(200, "Nothing to update");
 
 	return db.query(`UPDATE bookings SET ${updatingFields} WHERE booking_id = ?`, [booking_id]);
@@ -336,5 +368,5 @@ const del = async (db, booking_id) => {
  * Export
  *****************************************************/
 
-const Booking = { add, getById, getByUserId, getActiveByUserId, getAll, getAllToday, update, delete: del };
+const Booking = { add, getById, getByUserId, getActiveByUserId, getAll, getAllActive, getAllToday, update, delete: del };
 export default Booking;
