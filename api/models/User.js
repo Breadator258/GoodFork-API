@@ -321,6 +321,7 @@ const getStaff = db => {
       users.user_id,
       roles.role_id,
       roles.name AS "role",
+      roles.display_name AS "display_role",
       users.first_name,
       users.last_name,
       users.email
@@ -350,6 +351,7 @@ const getPwdByEmail = async (db, email) => {
       users.user_id,
       roles.role_id,
       roles.name AS "role",
+      roles.display_name AS "display_role",
       users.first_name,
       users.last_name,
       users.email,
@@ -385,6 +387,7 @@ const getByEmail = async (db, email) => {
       users.user_id,
       roles.role_id,
       roles.name AS "role",
+      roles.display_name AS "display_role",
       users.first_name,
       users.last_name,
       users.email
@@ -414,6 +417,7 @@ const getById = async (db, user_id) => {
       users.user_id,
       roles.role_id,
       roles.name AS "role",
+      roles.display_name AS "display_role",
       users.first_name,
       users.last_name,
       users.email
