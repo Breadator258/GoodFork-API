@@ -1013,8 +1013,8 @@
 						</table>
 					</div>
 
-					<!---- STATISTICS ------------------------------------------------------------------------------------------->
-					<h3 class="subsection-title">Statistics</h3>
+					<!---- SALES STATISTICS ------------------------------------------------------------------------------------->
+					<h3 class="subsection-title">Sales statistics</h3>
 					<div class="table-wrapper">
 						<table class="params">
 							<thead>
@@ -1030,22 +1030,61 @@
 								<tr>
 									<td class="name">Get today statistic</td>
 									<td class="type"><span class="param-type">GET</span></td>
-									<td class="attributes">http://3.134.79.46:8080/api/stats/today</td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/sales/today</td>
 									<td class="description"></td>
 									<td class="returns last"><code>{stat: SaleStatistic}</code></td>
 								</tr>
 								<tr>
 									<td class="name">Get weekly statistics</td>
 									<td class="type"><span class="param-type">GET</span></td>
-									<td class="attributes">http://3.134.79.46:8080/api/stats/week</td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/sales/week</td>
 									<td class="description"></td>
 									<td class="returns last"><code>{stats: Array&lt;SaleStatistic&gt;}</code></td>
 								</tr>
 								<tr>
 									<td class="name">Add benefits for today</td>
 									<td class="type"><span class="param-type">POST</span></td>
-									<td class="attributes">http://3.134.79.46:8080/api/stats/benefits</td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/sales/benefits</td>
 									<td class="description"><code>benefits</code></td>
+									<td class="returns last"><code>{message: string}</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!---- STOCK STATISTICS ------------------------------------------------------------------------------------->
+					<h3 class="subsection-title">Stock statistics</h3>
+					<div class="table-wrapper">
+						<table class="params">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Method</th>
+									<th>URI</th>
+									<th>Parameters</th>
+									<th>Returns</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="name">Get today statistic</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/stock/today</td>
+									<td class="description"></td>
+									<td class="returns last"><code>{stats: Array&lt;StockStatistic&gt;}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Get weekly statistics</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/stock/week</td>
+									<td class="description"></td>
+									<td class="returns last"><code>{stats: Array&lt;StockStatistic&gt;}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Add a stock item</td>
+									<td class="type"><span class="param-type">POST</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/stock</td>
+									<td class="description"><code>stock_id, units</code></td>
 									<td class="returns last"><code>{message: string}</code></td>
 								</tr>
 							</tbody>

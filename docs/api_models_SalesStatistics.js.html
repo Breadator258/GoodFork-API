@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>api/middlewares/index.js - The Good Fork - API</title>
+    <title>api/models/SalesStatistics.js - The Good Fork - API</title>
     
     <meta name="description" content="Online documentation of the good fork api" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">api/middlewares/index.js</h1>
+    <h1 class="page-title">api/models/SalesStatistics.js</h1>
     
 
     
@@ -50,12 +50,148 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module middlewares */
-import checkParams from "./checkParams.js";
-import database from "./database.js";
-import toLowercase from "./toLowercase.js";
+            <pre class="prettyprint source linenums"><code>/** @module models/SalesStatistics */
+import Checkers from "../../global/Checkers.js";
+import ModelError from "../../global/ModelError.js";
 
-export default { checkParams, database, toLowercase };</code></pre>
+/**
+ * A sale statistic
+ * @typedef {Object} SaleStatistic
+ * @property {Number} stat_id - ID of the statistic
+ * @property {Date} day - Which day is corresponding to that statistic
+ * @property {Number} benefits - How much this day bring in
+ */
+
+/*****************************************************
+ * CRUD Methods
+ *****************************************************/
+
+/* ---- CREATE ---------------------------------- */
+/**
+ * @ignore
+ * @async
+ * @function addTodayStat
+ * @description Add a row for today in the table
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @returns {Promise&lt;Number>} The id of the newly inserted row
+ *
+ * @example
+ * 	SalesStatistics.addTodayStat(db)
+ */
+const addTodayStat = async (db) => {
+	const stat = await db.query("INSERT INTO sales_statistics VALUES ()");
+	return stat.insertId;
+};
+
+/**
+ * @async
+ * @function addBenefits
+ * @description Add benefits the the current day statistics
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @param {Number} benefits - How much you add to the current benefits
+ * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
+ *
+ * @example
+ * 	SalesStatistics.addBenefits(db, 13.90)
+ */
+const addBenefits = async (db, benefits) => {
+	if (!Checkers.isNumber(benefits)) {
+		return new ModelError(400, "Vous devez fournir un bénéfice valide.");
+	}
+
+	const todayStat = await getCurrDayId(db);
+
+	return db.query(`
+		UPDATE sales_statistics
+		SET benefits = benefits + ?
+		WHERE stat_id = ?
+	`, [ benefits, todayStat ]);
+};
+
+/* ---- READ ------------------------------------ */
+/**
+ * @async
+ * @function getToday
+ * @description Get the statistic for this day
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @returns {Promise&lt;SaleStatistic|ModelError>} The today stat or a ModelError
+ *
+ * @example
+ * 	SalesStatistics.getToday(db)
+ */
+const getToday = async (db) => {
+	const stat = await db.query(`
+		SELECT
+			stat_id,
+			day,
+			benefits
+		FROM sales_statistics
+		WHERE day = CURDATE()
+		LIMIT 1
+	`);
+
+	return stat[0] ? stat[0] : new ModelError(404, "Aucune statistiques de ventes n'est disponible pour aujourd'hui.");
+};
+
+/**
+ * @async
+ * @function getWeek
+ * @description Get the statistic for this week
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @returns {Promise&lt;Array&lt;SaleStatistic>>} A list of SaleStatistic
+ *
+ * @example
+ * 	SalesStatistics.getWeek(db)
+ */
+const getWeek = async (db) => {
+	return await db.query(`
+		SELECT
+			stat_id,
+			day,
+			benefits
+		FROM sales_statistics
+		WHERE
+			day >= DATE(NOW()) + INTERVAL -6 DAY
+			AND day &lt; NOW() + INTERVAL 0 DAY
+	`);
+};
+
+/**
+ * @ignore
+ * @async
+ * @function getCurrDayId
+ * @description Get the stat ID for today
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @returns {Promise&lt;Number>} Today stat ID
+ *
+ * @example
+ * 	SalesStatistics.getCurrDayId(db)
+ */
+const getCurrDayId = async (db) => {
+	const stat = await db.query(`
+		SELECT
+			stat_id,
+			day,
+			benefits
+		FROM sales_statistics
+		WHERE day = CURDATE()
+		LIMIT 1
+	`);
+
+	return stat[0] ? stat[0].stat_id : await addTodayStat(db);
+};
+
+/*****************************************************
+ * Export
+ *****************************************************/
+
+const SalesStatistics = { addBenefits, getToday, getWeek };
+export default SalesStatistics;</code></pre>
         </article>
     </section>
 
