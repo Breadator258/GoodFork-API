@@ -1,12 +1,12 @@
 import { Router } from "express";
 import middlewares from "../middlewares/index.js";
-import Statistics from "../models/Statistics.js";
+import SalesStatistics from "../models/SalesStatistics.js";
 import ModelError from "../../global/ModelError.js";
 
 const route = Router();
 
 export default (router) => {
-	router.use("/stats", route);
+	router.use("/stats/sales", route);
 
 	/* ---- CREATE ---------------------------------- */
 	route.post(
@@ -19,7 +19,7 @@ export default (router) => {
 
 			response.set("Content-Type", "application/json");
 
-			Statistics.addBenefits(db, benefits)
+			SalesStatistics.addBenefits(db, benefits)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -41,7 +41,7 @@ export default (router) => {
 
 			response.set("Content-Type", "application/json");
 
-			Statistics.getToday(db)
+			SalesStatistics.getToday(db)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -62,7 +62,7 @@ export default (router) => {
 
 			response.set("Content-Type", "application/json");
 
-			Statistics.getWeek(db)
+			SalesStatistics.getWeek(db)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
