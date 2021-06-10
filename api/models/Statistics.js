@@ -51,6 +51,8 @@ const addBenefits = async (db, benefits) => {
 
 	const todayStat = await getCurrDayId(db);
 
+	console.log(todayStat);
+
 	return db.query(`
 		UPDATE sales_statistics
 		SET benefits = benefits + ?
@@ -131,7 +133,7 @@ const getCurrDayId = async (db) => {
 		LIMIT 1
 	`);
 
-	return stat[0] ? stat[0] : await addTodayStat(db);
+	return stat[0] ? stat[0].stat_id : await addTodayStat(db);
 };
 
 /*****************************************************
