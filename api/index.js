@@ -10,6 +10,8 @@ import tables from "./routes/tables.js";
 import bookings from "./routes/bookings.js";
 import orders from "./routes/orders.js";
 import orderMenus from "./routes/orderMenus.js";
+import payment from "./routes/payment.js";
+import statistics from "./routes/statistics.js";
 
 export default () => {
 	const router = Router();
@@ -25,6 +27,8 @@ export default () => {
 	bookings(router);
 	orders(router);
 	orderMenus(router);
+	payment(router);
+	statistics(router);
 
 	return router;
 };
