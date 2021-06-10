@@ -38,8 +38,8 @@ import Checkers from "../../global/Checkers.js";
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function add
  * @async
+ * @function add
  * @description Add an order
  *
  * @param {Promise<void>} db - Database connection
@@ -55,14 +55,14 @@ import Checkers from "../../global/Checkers.js";
  */
 const add = async (db, booking_id, user_id, additional_infos, menus, is_take_away) => {
 	if (!Checkers.strInRange(additional_infos, null, 1000, true, true)) {
-		return new ModelError(400, "You must provide a valid additional infos text.", ["additional_infos"]);
+		return new ModelError(400, "Les informations complémentaires ne peuvent pas dépasser 255 caractères.", ["additional_infos"]);
 	}
 
 	// Check the user
 	const user = await User.getById(db, user_id);
 
 	if (!user) {
-		return new ModelError(400, "The given user id is not a user");
+		return new ModelError(400, `L'ID utilisateur "${user_id} ne correspond à personne."`);
 	}
 
 	// Get the price
@@ -81,8 +81,8 @@ const add = async (db, booking_id, user_id, additional_infos, menus, is_take_awa
 
 /* ---- READ ---------------------------------- */
 /**
- * @function getById
  * @async
+ * @function getById
  * @description Get an order by its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -108,15 +108,15 @@ const getById = async (db, order_id) => {
 	`, [order_id]);
 
 	if (!order[0]) {
-		return new ModelError(404, "No order found with this id.");
+		return new ModelError(404, `Aucune commande n'a été trouvée avec l'ID "${order_id}".`);
 	}
 
 	return await buildOrders(db, order[0]);
 };
 
 /**
- * @function getByUserId
  * @async
+ * @function getByUserId
  * @description Get an order by its associated user's ID
  *
  * @param {Promise<void>} db - Database connection
@@ -145,8 +145,38 @@ const getByUserId = async (db, user_id) => {
 };
 
 /**
- * @function getAll
  * @async
+ * @function getByBookingId
+ * @description Get all orders of a booking by its ID
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} booking_id - ID of the booking
+ * @returns {Promise<Array<FullOrder>|ModelError>} A list of full orders or a ModelError
+ *
+ * @example
+ * 	Order.getByBookingId(db, 4)
+ */
+const getByBookingId = async (db, booking_id) => {
+	const orders = await db.query(`
+		SELECT
+  		order_id,
+  		booking_id,
+    	user_id,
+    	additional_infos,
+    	time,
+    	total_price,
+    	is_take_away,
+    	is_finished
+		FROM orders
+		WHERE booking_id = ?
+	`, [booking_id]);
+
+	return buildOrders(db, orders);
+};
+
+/**
+ * @async
+ * @function getAll
  * @description Get all orders
  *
  * @param {Promise<void>} db - Database connection
@@ -174,8 +204,8 @@ const getAll = async db => {
 };
 
 /**
- * @function getAllToday
  * @async
+ * @function getAllToday
  * @description Get all orders of the day
  *
  * @param {Promise<void>} db - Database connection
@@ -187,8 +217,8 @@ const getAll = async db => {
 const getAllToday = async db => {
 	const orders = await db.query(`
 	SELECT
-	order_id,
-    booking_id,
+		order_id,
+  	booking_id,
     user_id,
     additional_infos,
     time,
@@ -199,15 +229,15 @@ const getAllToday = async db => {
 	WHERE
 		time >= timestamp(CURRENT_DATE)
 	  AND time < ADDDATE(timestamp(CURRENT_DATE), 1)
-		ORDER BY time DESC
+	ORDER BY time DESC
 	`);
 
 	return buildOrders(db, orders);
 };
 
 /**
- * @function buildOrders
  * @async
+ * @function buildOrders
  * @description Replace foreign keys by the corresponding data
  *
  * @param {Promise<void>} db - Database connection
@@ -263,8 +293,8 @@ const buildOrders = async (db, orders) => {
 
 /* ---- UPDATE ---------------------------------- */
 /**
- * @function update
  * @async
+ * @function update
  * @description Update an order using its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -279,19 +309,19 @@ const buildOrders = async (db, orders) => {
  */
 const update = async (db, order_id, additional_infos, total_price, is_finished) => {
 	if (!Checkers.strInRange(additional_infos, null, 1000, true, true)) {
-		return new ModelError(400, "You must provide a valid additional infos text.", ["additional_infos"]);
+		return new ModelError(400, "Les informations complémentaires ne peuvent pas dépasser 255 caractères.", ["additional_infos"]);
 	}
 
 	const updatingFields = getFieldsToUpdate({ additional_infos, total_price, is_finished });
-	if (!updatingFields) return new ModelError(200, "Nothing to update");
+	if (!updatingFields) return new ModelError(200, "Rien à mettre à jour.");
 
 	return db.query(`UPDATE orders SET ${updatingFields} WHERE order_id = ?`, [order_id]);
 };
 
 /* ---- DELETE ---------------------------------- */
 /**
- * @function delete
  * @async
+ * @function delete
  * @description Delete an order using its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -309,5 +339,5 @@ const del = async (db, order_id) => {
  * Export
  *****************************************************/
 
-const Order = { add, getById, getByUserId, getAll, getAllToday, update, delete: del };
+const Order = { add, getById, getByUserId, getByBookingId, getAll, getAllToday, update, delete: del };
 export default Order;

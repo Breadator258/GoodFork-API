@@ -24,7 +24,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Stock created." }).end();
+						response.status(202).json({ code: 202, message: "Élément ajouté." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -96,7 +96,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Stock updated." }).end();
+						response.status(202).json({ code: 202, message: "Élément mis à jour." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -120,7 +120,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Stock deleted." }).end();
+						response.status(202).json({ code: 202, message: "Élément supprimé." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())

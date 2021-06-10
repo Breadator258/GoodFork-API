@@ -17,8 +17,8 @@
 
 /* ---- READ ---------------------------------- */
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all measurement types
  *
  * @param {Promise<void>} db - Database connection

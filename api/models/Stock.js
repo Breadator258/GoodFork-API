@@ -7,10 +7,12 @@ import Checkers from "../../global/Checkers.js";
 /**
  * A Stock item
  * @typedef {Object} StockItem
+ * @see {@link module:models/Measurement}
+ *
  * @property {Number} stock_id - ID of the stock item
  * @property {string} name - Item name
  * @property {Number} units - How many/much of this item
- * @property {Number} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @property {Number} units_unit_id - ID of the unit associated to "units" property
  * @property {Number} unit_price - Price of one unit of this item
  * @property {Boolean} is_orderable - Can a user order it
  * @property {Boolean} is_cookable - Can a cook cook it
@@ -24,14 +26,15 @@ import Checkers from "../../global/Checkers.js";
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function add
  * @async
+ * @function add
  * @description Add a stock item
+ * @see {@link module:models/Measurement}
  *
  * @param {Promise<void>} db - Database connection
  * @param {string} name - Item name
  * @param {Number} units - How many/much of this item
- * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property
  * @param {Number} unit_price - Price of one unit of this item
  * @param {Boolean} is_orderable - Can a user order it
  * @param {Boolean} is_cookable - Can a cook cook it
@@ -44,19 +47,19 @@ import Checkers from "../../global/Checkers.js";
  */
 const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
 	if (!Checkers.strInRange(name, null, 255)) {
-		return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
+		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["name"]);
 	}
 
 	if (!Checkers.isDateLowerThan(use_by_date_min, use_by_date_max, true, true)) {
-		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
+		return new ModelError(400, "Vous devez fournir une date d'expiration valide.", ["use_by_date_min", "use_by_date_max"]);
 	}
 
 	if (!Checkers.isGreaterThan(units, 0, true)) {
-		return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
+		return new ModelError(400, "Vous devez fournir une quantité valide.", ["units"]);
 	}
 
 	if (!Checkers.isGreaterThan(unit_price, 0, true)) {
-		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
+		return new ModelError(400, "Vous devez fournir un prix unitaire valide.", ["unit_price"]);
 	}
 
 	// Check if the unit is valid
@@ -75,14 +78,15 @@ const add = async (db, name, units, units_unit_id, unit_price, is_orderable, is_
 };
 
 /**
- * @function addOrEdit
  * @async
+ * @function addOrEdit
  * @description Add a stock item if it doesn't exist, update it otherwise
+ * @see {@link module:models/Measurement}
  *
  * @param {Promise<void>} db - Database connection
  * @param {string} name - Item name
  * @param {Number} units - How many/much of this item
- * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property
  * @param {Number} unit_price - Price of one unit of this item
  * @param {Boolean} is_orderable - Can a user order it
  * @param {Boolean} is_cookable - Can a cook cook it
@@ -105,8 +109,8 @@ const addOrEdit = async (db, name, units, units_unit_id, unit_price, is_orderabl
 
 /* ---- READ ---------------------------------- */
 /**
- * @function getByName
  * @async
+ * @function getByName
  * @description Get an item by its name
  *
  * @param {Promise<void>} db - Database connection
@@ -134,12 +138,12 @@ const getByName = async (db, name) => {
 		WHERE stocks.name = ?
 	`, [name]);
 
-	return stock[0] ? stock[0] : new ModelError(404, "No stock item found with this name", ["name"]);
+	return stock[0] ? stock[0] : new ModelError(404, `Aucun élément n'a été trouvé avec le nom "${name}".`, ["name"]);
 };
 
 /**
- * @function getById
  * @async
+ * @function getById
  * @description Get an item by its ID
  *
  * @param {Promise<void>} db - Database connection
@@ -167,12 +171,12 @@ const getById = async (db, stock_id) => {
 		WHERE stocks.stock_id = ?
 	`, [stock_id]);
 
-	return stock[0] ? stock[0] : new ModelError(404, "No stock item found with this id");
+	return stock[0] ? stock[0] : new ModelError(404, `Aucun élément n'a été trouvé avec l'ID "${stock_id}".`);
 };
 
 /**
- * @function getIdOf
  * @async
+ * @function getIdOf
  * @description Get an item ID using its name
  *
  * @param {Promise<void>} db - Database connection
@@ -189,8 +193,8 @@ const getIdOf = async (db, name) => {
 };
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all stock items
  *
  * @param {Promise<void>} db - Database connection
@@ -220,15 +224,16 @@ const getAll = async db => {
 
 /* ---- UPDATE ---------------------------------- */
 /**
- * @function update
  * @async
+ * @function update
  * @description Update a stock item using its ID
+ * @see {@link module:models/Measurement}
  *
  * @param {Promise<void>} db - Database connection
  * @param {Number} stock_id - ID of the stock item
  * @param {string} name - Item name
  * @param {Number} units - How many/much of this item
- * @param {Number|string} units_unit_id - ID of the unit associated to "units" property {@see Unit}
+ * @param {Number|string} units_unit_id - ID of the unit associated to "units" property
  * @param {Number} unit_price - Price of one unit of this item
  * @param {Boolean} is_orderable - Can a user order it
  * @param {Boolean} is_cookable - Can a cook cook it
@@ -241,31 +246,31 @@ const getAll = async db => {
  */
 const update = async (db, stock_id, name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max) => {
 	if (!Checkers.strInRange(name, null, 255, true, true)) {
-		return new ModelError(400, "You must provide a valid stock name (max. 255 characters).", ["name"]);
+		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["name"]);
 	}
 
 	if (!Checkers.isDateLowerThan(use_by_date_min, use_by_date_max, true, true)) {
-		return new ModelError(400, "You must provide a valid \"use by date\".", ["use_by_date_min", "use_by_date_max"]);
+		return new ModelError(400, "Vous devez fournir une date d'expiration valide.", ["use_by_date_min", "use_by_date_max"]);
 	}
 
 	if (units && !Checkers.isGreaterThan(units, 0, true)) {
-		return new ModelError(400, "You must provide a valid stock quantity.", ["units"]);
+		return new ModelError(400, "Vous devez fournir une quantité valide.", ["units"]);
 	}
 
 	if (unit_price && !Checkers.isGreaterThan(unit_price, 0, true)) {
-		return new ModelError(400, "You must provide a valid unit price.", ["unit_price"]);
+		return new ModelError(400, "Vous devez fournir un prix unitaire valide.", ["unit_price"]);
 	}
 
 	const updatingFields = getFieldsToUpdate({ name, units, units_unit_id, unit_price, is_orderable, is_cookable, use_by_date_min, use_by_date_max });
-	if (!updatingFields) return new ModelError(200, "Nothing to update");
+	if (!updatingFields) return new ModelError(200, "Rien à mettre à jour.");
 
 	return db.query(`UPDATE stocks SET ${updatingFields} WHERE stock_id = ?`, [stock_id]);
 };
 
 /* ---- DELETE ---------------------------------- */
 /**
- * @function delete
  * @async
+ * @function delete
  * @description Delete a stock item using its ID
  *
  * @param {Promise<void>} db - Database connection

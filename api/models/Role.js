@@ -6,6 +6,7 @@ import ModelError from "../../global/ModelError.js";
  * @typedef {Object} Role
  * @property {Number} role_id - ID of the role
  * @property {string} name - Role name
+ * @property {string} display_name - A translated role name used for display purpose only
  */
 
 /*****************************************************
@@ -14,8 +15,8 @@ import ModelError from "../../global/ModelError.js";
 
 /* ---- READ ---------------------------------- */
 /**
- * @function getByName
  * @async
+ * @function getByName
  * @description Get a role by its name
  *
  * @param {Promise<void>} db - Database connection
@@ -26,13 +27,13 @@ import ModelError from "../../global/ModelError.js";
  * 	Role.getByName(db, "owner")
  */
 const getByName = async (db, name) => {
-	const role = await db.query("SELECT role_id, name FROM roles WHERE name = ? LIMIT 1", [name]);
-	return role[0] ? role[0] : new ModelError(404, "No role found with this name.");
+	const role = await db.query("SELECT role_id, name, display_name FROM roles WHERE name = ? LIMIT 1", [name]);
+	return role[0] ? role[0] : new ModelError(404, `Aucun rôle n'a été trouvé avec le nom "${name}".`);
 };
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all roles
  *
  * @param {Promise<void>} db - Database connection
@@ -42,7 +43,7 @@ const getByName = async (db, name) => {
  * 	Role.getAll(db)
  */
 const getAll = async db => {
-	return db.query("SELECT role_id, name FROM roles ORDER BY role_id");
+	return db.query("SELECT role_id, name, display_name FROM roles ORDER BY role_id");
 };
 
 /*****************************************************

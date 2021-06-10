@@ -21,8 +21,8 @@ const randomBytesAsync = promisify(crypto.randomBytes);
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @function add
  * @async
+ * @function add
  * @description Add a token
  *
  * @param {Promise<void>} db - Database connection
@@ -35,7 +35,7 @@ const randomBytesAsync = promisify(crypto.randomBytes);
  */
 const add = async (db, user_id, token) => {
 	if (!Checkers.strInRange(token, null, 255)) {
-		return new ModelError(400, "Token is invalid (undefined or wrong length).");
+		return new ModelError(500, "Le token est invalide.");
 	}
 
 	return db.query(`
@@ -47,8 +47,8 @@ const add = async (db, user_id, token) => {
 
 /* ---- READ ------------------------------------ */
 /**
- * @function getNew
  * @async
+ * @function getNew
  * @description Generate a new token
  * @todo Add an expiration date to the token
  *
@@ -68,8 +68,8 @@ const getNew = async (db, user_id) => {
 };
 
 /**
- * @function getUserId
  * @async
+ * @function getUserId
  * @description Get the associated user's ID using a token
  *
  * @param {Promise<void>} db - Database connection
@@ -81,7 +81,7 @@ const getNew = async (db, user_id) => {
  */
 const getUserId = async (db, token) => {
 	const user_id = await db.query("SELECT user_id FROM tokens WHERE token = ? LIMIT 1", [token]);
-	return user_id[0] ? user_id[0].user_id : new ModelError(400, "No user found associated with this token");
+	return user_id[0] ? user_id[0].user_id : new ModelError(400, "Aucun utilisateur n'est associé à ce token.");
 };
 
 /*****************************************************

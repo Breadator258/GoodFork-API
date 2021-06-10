@@ -41,7 +41,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Menu added.", menu_id: result.menu_id }).end();
+						response.status(202).json({ code: 202, message: "Menu ajouté.", menu_id: result.menu_id }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -72,7 +72,7 @@ export default (router) => {
 							if (result instanceof ModelError) {
 								response.status(result.code()).json(result.json()).end();
 							} else {
-								response.status(200).json({ code: 200, message: "Illustration set." }).end();
+								response.status(200).json({ code: 200, message: "Illustration du menu ajoutée." }).end();
 							}
 						})
 						.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -97,7 +97,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Ingredient added to the menu." }).end();
+						response.status(202).json({ code: 202, message: "L'ingrédient a été ajouté." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -165,7 +165,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Menu updated." }).end();
+						response.status(202).json({ code: 202, message: "Menu mis à jour." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -188,7 +188,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Ingredient updated." }).end();
+						response.status(202).json({ code: 202, message: "Ingrédient mis à jour." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -212,7 +212,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Menu deleted." }).end();
+						response.status(202).json({ code: 202, message: "Menu supprimé." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
@@ -235,7 +235,7 @@ export default (router) => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
 					} else {
-						response.status(202).json({ code: 202, message: "Ingredient removed from the menu." }).end();
+						response.status(202).json({ code: 202, message: "Ingrédient retiré du menu." }).end();
 					}
 				})
 				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())

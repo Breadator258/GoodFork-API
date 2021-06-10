@@ -14,8 +14,8 @@ import ModelError from "../../global/ModelError.js";
 
 /* ---- READ ------------------------------------ */
 /**
- * @function getByName
  * @async
+ * @function getByName
  * @description Get a menu type by its name
  *
  * @param {Promise<void>} db - Database connection
@@ -27,18 +27,17 @@ import ModelError from "../../global/ModelError.js";
  */
 const getByName = async (db, name) => {
 	const type = await db.query(`
-		SELECT
-			type_id, name
+		SELECT type_id, name
 		FROM menu_types
 		WHERE name = ?
 	`, [name]);
 
-	return type[0] ? type[0] : new ModelError(404, "No type found with this name.");
+	return type[0] ? type[0] : new ModelError(404, `Aucun type n'a été trouvé avec le nom "${name}"`);
 };
 
 /**
- * @function getAll
  * @async
+ * @function getAll
  * @description Get all menu types
  *
  * @param {Promise<void>} db - Database connection
@@ -49,8 +48,7 @@ const getByName = async (db, name) => {
  */
 const getAll = async db => {
 	return db.query(`
-		SELECT
-			type_id, name
+		SELECT type_id, name
 		FROM menu_types
 		ORDER BY type_id
 	`);
