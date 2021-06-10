@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>api/middlewares/database.js - The Good Fork - API</title>
+    <title>api/models/Payment.js - The Good Fork - API</title>
     
     <meta name="description" content="Online documentation of the good fork api" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">api/middlewares/database.js</h1>
+    <h1 class="page-title">api/models/Payment.js</h1>
     
 
     
@@ -50,45 +50,92 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module middlewares */
-import mariadb from "mariadb";
-import config from "../../config/config.js";
+            <pre class="prettyprint source linenums"><code>/** @module models/Payment */
+import ModelError from "../../global/ModelError.js";
+import Statistics from "./Statistics.js";
+import Booking from "./Booking.js";
+import Order from "./Order.js";
 
-const pool = mariadb.createPool({
-	host: config.db.host,
-	port: config.db.port,
-	database: config.db.dbname,
-	user: config.db.user,
-	password: config.db.password,
-	connectionLimit: config.db.connectionLimit
-});
+/*****************************************************
+ * CRUD Methods
+ *****************************************************/
+
+/* ---- UPDATE ---------------------------------- */
+/**
+ * @async
+ * @function payTakeAway
+ * @description Pay a take away order
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @param {Number|string} user_id - The user who made this order
+ * @param {string} [additional_infos] - Additional information provided by the user
+ * @param {Array&lt;Menu>} menus - The menus of this order
+ * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
+ *
+ * @example
+ * 	Payment.payTakeAway(db, 7, null, [&lt;Menu>, &lt;Menu>, ...])
+ */
+const payTakeAway = async (db, user_id, additional_infos, menus) => {
+	// Create the order
+	const order = await Order.add(db, null, user_id, additional_infos, menus, true);
+
+	if (order instanceof ModelError) {
+		return new ModelError(400, `Erreur lors du paiement : ${order.message()}`);
+	}
+
+	const benefits = menus.reduce(((previousValue, currentValue) => {
+		return previousValue + currentValue.price;
+	}));
+
+	// Update today stats
+	const stats = await Statistics.addBenefits(db, benefits);
+
+	if (stats instanceof ModelError) {
+		return new ModelError(400, `Erreur lors du paiement : ${stats.message()}`);
+	}
+};
 
 /**
  * @async
- * @function database
- * @description Get a connection to the database using MariaDB Connector
+ * @function payBooking
+ * @description Pay a booking
  *
- * @param {Request} request - Express Request
- * @param {Response} response -  Express Response
- * @param {function} next - Express next()
- * @returns {Promise&lt;void>}
+ * @param {Promise&lt;void>} db - Database connection
+ * @param {Number|string} booking_id - ID of the booking
+ * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
  *
  * @example
- * 	route.post("/", middlewares.database, (request, response) => {
- *		...
- * 	});
+ * 	Payment.payBooking(db, 42)
  */
-const database = async (request, response, next) => {
-	request.database = new Promise((resolve, reject) => {
-		pool.getConnection()
-			.then(conn => resolve(conn))
-			.catch(err => reject(err));
-	});
+const payBooking = async (db, booking_id) => {
+	// Update the booking
+	const booking = await Booking.update(
+		db, booking_id, null, null, null, false, false, true, true
+	);
 
-	next();
+	if (booking instanceof ModelError) {
+		return new ModelError(400, `Erreur lors du paiement : ${booking.message()}`);
+	}
+
+	const orders = await Order.getByBookingId(db, booking_id);
+	const benefits = orders.reduce(((previousValue, currentValue) => {
+		return previousValue + currentValue.total_price;
+	}));
+
+	// Update today stats
+	const stats = await Statistics.addBenefits(db, benefits);
+
+	if (stats instanceof ModelError) {
+		return new ModelError(400, `Erreur lors du paiement : ${stats.message()}`);
+	}
 };
 
-export default database;</code></pre>
+/*****************************************************
+ * Export
+ *****************************************************/
+
+const Payment = { payTakeAway, payBooking };
+export default Payment;</code></pre>
         </article>
     </section>
 

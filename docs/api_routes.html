@@ -980,6 +980,77 @@
 							</tbody>
 						</table>
 					</div>
+
+					<!---- PAYMENTS --------------------------------------------------------------------------------------------->
+					<h3 class="subsection-title">Payments</h3>
+					<div class="table-wrapper">
+						<table class="params">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Method</th>
+									<th>URI</th>
+									<th>Parameters</th>
+									<th>Returns</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="name">Pay a take away order</td>
+									<td class="type"><span class="param-type">POST</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/payment/takeaway</td>
+									<td class="description"><code>user_id, additional_infos<span class="signature-attributes dark">opt</span>, menus</code></td>
+									<td class="returns last"><code>{message: string}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Pay a booking</td>
+									<td class="type"><span class="param-type">POST</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/payment/booking</td>
+									<td class="description"><code>booking_id</code></td>
+									<td class="returns last"><code>{message: string}</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!---- STATISTICS ------------------------------------------------------------------------------------------->
+					<h3 class="subsection-title">Statistics</h3>
+					<div class="table-wrapper">
+						<table class="params">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Method</th>
+									<th>URI</th>
+									<th>Parameters</th>
+									<th>Returns</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="name">Get today statistic</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/today</td>
+									<td class="description"></td>
+									<td class="returns last"><code>{stat: SaleStatistic}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Get weekly statistics</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/week</td>
+									<td class="description"></td>
+									<td class="returns last"><code>{stats: Array&lt;SaleStatistic&gt;}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Add benefits for today</td>
+									<td class="type"><span class="param-type">POST</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/benefits</td>
+									<td class="description"><code>benefits</code></td>
+									<td class="returns last"><code>{message: string}</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</article>
 			</section>
 		</div>

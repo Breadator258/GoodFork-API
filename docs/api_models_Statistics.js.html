@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>api/middlewares/database.js - The Good Fork - API</title>
+    <title>api/models/Statistics.js - The Good Fork - API</title>
     
     <meta name="description" content="Online documentation of the good fork api" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">api/middlewares/database.js</h1>
+    <h1 class="page-title">api/models/Statistics.js</h1>
     
 
     
@@ -50,45 +50,148 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module middlewares */
-import mariadb from "mariadb";
-import config from "../../config/config.js";
+            <pre class="prettyprint source linenums"><code>/** @module models/Statistics */
+import Checkers from "../../global/Checkers.js";
+import ModelError from "../../global/ModelError.js";
 
-const pool = mariadb.createPool({
-	host: config.db.host,
-	port: config.db.port,
-	database: config.db.dbname,
-	user: config.db.user,
-	password: config.db.password,
-	connectionLimit: config.db.connectionLimit
-});
+/**
+ * A sale statistic
+ * @typedef {Object} SaleStatistic
+ * @property {Number} stat_id - ID of the statistic
+ * @property {Date} day - Which day is corresponding to that statistic
+ * @property {Number} benefits - How much this day bring in
+ */
+
+/*****************************************************
+ * CRUD Methods
+ *****************************************************/
+
+/* ---- CREATE ---------------------------------- */
+/**
+ * @ignore
+ * @async
+ * @function addTodayStat
+ * @description Add a row for today in the table
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @returns {Promise&lt;Number>} The id of the newly inserted row
+ *
+ * @example
+ * 	Statistics.addTodayStat(db)
+ */
+const addTodayStat = async (db) => {
+	const stat = await db.query("INSERT INTO sales_statistics VALUES ()");
+	return stat.insertId;
+};
 
 /**
  * @async
- * @function database
- * @description Get a connection to the database using MariaDB Connector
+ * @function addBenefits
+ * @description Add benefits the the current day statistics
  *
- * @param {Request} request - Express Request
- * @param {Response} response -  Express Response
- * @param {function} next - Express next()
- * @returns {Promise&lt;void>}
+ * @param {Promise&lt;void>} db - Database connection
+ * @param {Number} benefits - How much you add to the current benefits
+ * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
  *
  * @example
- * 	route.post("/", middlewares.database, (request, response) => {
- *		...
- * 	});
+ * 	Statistics.addBenefits(db, 13.90)
  */
-const database = async (request, response, next) => {
-	request.database = new Promise((resolve, reject) => {
-		pool.getConnection()
-			.then(conn => resolve(conn))
-			.catch(err => reject(err));
-	});
+const addBenefits = async (db, benefits) => {
+	if (!Checkers.isNumber(benefits)) {
+		return new ModelError(400, "Vous devez fournir un bénéfice valide.");
+	}
 
-	next();
+	const todayStat = await getCurrDayId(db);
+
+	return db.query(`
+		UPDATE sales_statistics
+		SET benefits = benefits + ?
+		WHERE stat_id = ?
+	`, [ benefits, todayStat ]);
 };
 
-export default database;</code></pre>
+/* ---- READ ------------------------------------ */
+/**
+ * @async
+ * @function getToday
+ * @description Get the statistic for this day
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @returns {Promise&lt;SaleStatistic|ModelError>} The today stat or a ModelError
+ *
+ * @example
+ * 	Statistics.getToday(db)
+ */
+const getToday = async (db) => {
+	const stat = await db.query(`
+		SELECT
+			stat_id,
+			day,
+			benefits
+		FROM sales_statistics
+		WHERE day = CURDATE()
+		LIMIT 1
+	`);
+
+	return stat[0] ? stat[0] : new ModelError(404, "Aucune statistiques de ventes n'est disponible pour aujourd'hui.");
+};
+
+/**
+ * @async
+ * @function getWeek
+ * @description Get the statistic for this week
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @returns {Promise&lt;Array&lt;SaleStatistic>|ModelError>} A list of SaleStatistic or a ModelError
+ *
+ * @example
+ * 	Statistics.getWeek(db)
+ */
+const getWeek = async (db) => {
+	return await db.query(`
+		SELECT
+			stat_id,
+			day,
+			benefits
+		FROM sales_statistics
+		WHERE
+			day >= DATE(NOW()) + INTERVAL -6 DAY
+			AND day &lt; NOW() + INTERVAL 0 DAY
+	`);
+};
+
+/**
+ * @ignore
+ * @async
+ * @function getCurrDayId
+ * @description Get the stat ID for today
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @returns {Promise&lt;Number>} Today stat ID
+ *
+ * @example
+ * 	Statistics.getCurrDayId(db)
+ */
+const getCurrDayId = async (db) => {
+	const stat = await db.query(`
+		SELECT
+			stat_id,
+			day,
+			benefits
+		FROM sales_statistics
+		WHERE day = CURDATE()
+		LIMIT 1
+	`);
+
+	return stat[0] ? stat[0] : await addTodayStat(db);
+};
+
+/*****************************************************
+ * Export
+ *****************************************************/
+
+const Statistics = { addBenefits, getToday, getWeek };
+export default Statistics;</code></pre>
         </article>
     </section>
 

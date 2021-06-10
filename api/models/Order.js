@@ -146,6 +146,36 @@ const getByUserId = async (db, user_id) => {
 
 /**
  * @async
+ * @function getByBookingId
+ * @description Get all orders of a booking by its ID
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} booking_id - ID of the booking
+ * @returns {Promise<Array<FullOrder>|ModelError>} A list of full orders or a ModelError
+ *
+ * @example
+ * 	Order.getByBookingId(db, 4)
+ */
+const getByBookingId = async (db, booking_id) => {
+	const orders = await db.query(`
+		SELECT
+  		order_id,
+  		booking_id,
+    	user_id,
+    	additional_infos,
+    	time,
+    	total_price,
+    	is_take_away,
+    	is_finished
+		FROM orders
+		WHERE booking_id = ?
+	`, [booking_id]);
+
+	return buildOrders(db, orders);
+};
+
+/**
+ * @async
  * @function getAll
  * @description Get all orders
  *
@@ -309,5 +339,5 @@ const del = async (db, order_id) => {
  * Export
  *****************************************************/
 
-const Order = { add, getById, getByUserId, getAll, getAllToday, update, delete: del };
+const Order = { add, getById, getByUserId, getByBookingId, getAll, getAllToday, update, delete: del };
 export default Order;
