@@ -1,4 +1,4 @@
-/** @module models/Statistics */
+/** @module models/SalesStatistics */
 import Checkers from "../../global/Checkers.js";
 import ModelError from "../../global/ModelError.js";
 
@@ -25,7 +25,7 @@ import ModelError from "../../global/ModelError.js";
  * @returns {Promise<Number>} The id of the newly inserted row
  *
  * @example
- * 	Statistics.addTodayStat(db)
+ * 	SalesStatistics.addTodayStat(db)
  */
 const addTodayStat = async (db) => {
 	const stat = await db.query("INSERT INTO sales_statistics VALUES ()");
@@ -42,7 +42,7 @@ const addTodayStat = async (db) => {
  * @returns {Promise<void|ModelError>} Nothing or a ModelError
  *
  * @example
- * 	Statistics.addBenefits(db, 13.90)
+ * 	SalesStatistics.addBenefits(db, 13.90)
  */
 const addBenefits = async (db, benefits) => {
 	if (!Checkers.isNumber(benefits)) {
@@ -50,8 +50,6 @@ const addBenefits = async (db, benefits) => {
 	}
 
 	const todayStat = await getCurrDayId(db);
-
-	console.log(todayStat);
 
 	return db.query(`
 		UPDATE sales_statistics
@@ -70,7 +68,7 @@ const addBenefits = async (db, benefits) => {
  * @returns {Promise<SaleStatistic|ModelError>} The today stat or a ModelError
  *
  * @example
- * 	Statistics.getToday(db)
+ * 	SalesStatistics.getToday(db)
  */
 const getToday = async (db) => {
 	const stat = await db.query(`
@@ -92,10 +90,10 @@ const getToday = async (db) => {
  * @description Get the statistic for this week
  *
  * @param {Promise<void>} db - Database connection
- * @returns {Promise<Array<SaleStatistic>|ModelError>} A list of SaleStatistic or a ModelError
+ * @returns {Promise<Array<SaleStatistic>>} A list of SaleStatistic
  *
  * @example
- * 	Statistics.getWeek(db)
+ * 	SalesStatistics.getWeek(db)
  */
 const getWeek = async (db) => {
 	return await db.query(`
@@ -120,7 +118,7 @@ const getWeek = async (db) => {
  * @returns {Promise<Number>} Today stat ID
  *
  * @example
- * 	Statistics.getCurrDayId(db)
+ * 	SalesStatistics.getCurrDayId(db)
  */
 const getCurrDayId = async (db) => {
 	const stat = await db.query(`
@@ -140,5 +138,5 @@ const getCurrDayId = async (db) => {
  * Export
  *****************************************************/
 
-const Statistics = { addBenefits, getToday, getWeek };
-export default Statistics;
+const SalesStatistics = { addBenefits, getToday, getWeek };
+export default SalesStatistics;

@@ -1,6 +1,6 @@
 /** @module models/Payment */
 import ModelError from "../../global/ModelError.js";
-import Statistics from "./Statistics.js";
+import SalesStatistics from "./SalesStatistics.js";
 import Booking from "./Booking.js";
 import Order from "./Order.js";
 
@@ -36,7 +36,7 @@ const payTakeAway = async (db, user_id, additional_infos, menus) => {
 	}, 0);
 
 	// Update today stats
-	const stats = await Statistics.addBenefits(db, benefits);
+	const stats = await SalesStatistics.addBenefits(db, benefits);
 
 	if (stats instanceof ModelError) {
 		return new ModelError(400, `Erreur lors du paiement : ${stats.message()}`);
@@ -82,7 +82,7 @@ const payBooking = async (db, booking_id) => {
 	}, 0);
 
 	// Update today stats
-	const stats = await Statistics.addBenefits(db, benefits);
+	const stats = await SalesStatistics.addBenefits(db, benefits);
 
 	if (stats instanceof ModelError) {
 		return new ModelError(400, `Erreur lors du paiement : ${stats.message()}`);
