@@ -31,9 +31,9 @@ const payTakeAway = async (db, user_id, additional_infos, menus) => {
 		return new ModelError(400, `Erreur lors du paiement : ${order.message()}`);
 	}
 
-	const benefits = menus.reduce(((previousValue, currentValue) => {
+	const benefits = menus.reduce((previousValue, currentValue) => {
 		return previousValue + currentValue.price;
-	}));
+	}, 0);
 
 	// Update today stats
 	const stats = await Statistics.addBenefits(db, benefits);
@@ -56,19 +56,30 @@ const payTakeAway = async (db, user_id, additional_infos, menus) => {
  * 	Payment.payBooking(db, 42)
  */
 const payBooking = async (db, booking_id) => {
-	// Update the booking
-	const booking = await Booking.update(
-		db, booking_id, null, null, null, false, false, true, true
-	);
+	// Get the booking
+	const booking = await Booking.getById(db, booking_id);
 
 	if (booking instanceof ModelError) {
 		return new ModelError(400, `Erreur lors du paiement : ${booking.message()}`);
 	}
 
+	if (booking.is_finished) {
+		return new ModelError(400, `Erreur lors du paiement : La réservation a déjà été payée.`);
+	}
+
+	// Update the booking
+	const bookingUpdate = await Booking.update(
+		db, booking_id, null, null, null, false, false, true, true
+	);
+
+	if (bookingUpdate instanceof ModelError) {
+		return new ModelError(400, `Erreur lors du paiement : ${bookingUpdate.message()}`);
+	}
+
 	const orders = await Order.getByBookingId(db, booking_id);
-	const benefits = orders.reduce(((previousValue, currentValue) => {
+	const benefits = orders.reduce((previousValue, currentValue) => {
 		return previousValue + currentValue.total_price;
-	}));
+	}, 0);
 
 	// Update today stats
 	const stats = await Statistics.addBenefits(db, benefits);

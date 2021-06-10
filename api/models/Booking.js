@@ -16,6 +16,7 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
  * @property {Boolean|Number} is_client_on_place - Is the client on place or not
  * @property {Boolean|Number} can_client_pay - Is the client able to access payment page or not
  * @property {Boolean|Number} is_finished - Is the booking ended or not
+ * @property {Boolean|Number} is_paid - Is the booking paid
  */
 
 /**
@@ -29,6 +30,7 @@ import { getFieldsToUpdate } from "../../global/Functions.js";
  * @property {Boolean|Number} is_client_on_place - Is the client on place or not
  * @property {Boolean|Number} can_client_pay - Is the client able to access payment page or not
  * @property {Boolean|Number} is_finished - Is the booking ended or not
+ * @property {Boolean|Number} is_paid - Is the booking paid
  */
 
 /*****************************************************
@@ -99,7 +101,8 @@ const getById = async (db, booking_id) => {
 			clients_nb,
 			is_client_on_place,
 			can_client_pay,
-		  is_finished
+		  is_finished,
+		  is_paid
 		FROM bookings
 		WHERE booking_id = ?
 	`, [booking_id]);
@@ -131,7 +134,8 @@ const getByUserId = async (db, user_id) => {
 			clients_nb,
 			is_client_on_place,
 			can_client_pay,
-		  is_finished
+		  is_finished,
+		  is_paid
 		FROM bookings
 		WHERE user_id = ?
 	`, [user_id]);
@@ -163,7 +167,8 @@ const getActiveByUserId = async (db, user_id) => {
 			clients_nb,
 			is_client_on_place,
 			can_client_pay,
-			is_finished
+			is_finished,
+			is_paid
 		FROM bookings
 		WHERE user_id = ? AND is_client_on_place = 1 AND is_finished = 0
 	`, [user_id]);
@@ -194,7 +199,8 @@ const getAll = async db => {
 			clients_nb,
 			is_client_on_place,
 			can_client_pay,
-		  is_finished
+		  is_finished,
+		  is_paid
 		FROM bookings
 		ORDER BY booking_id
 	`);
@@ -254,7 +260,8 @@ const getAllToday = async db => {
 		clients_nb,
 		is_client_on_place,
 		can_client_pay,
-		is_finished
+		is_finished,
+		is_paid
     FROM bookings
     WHERE
     	time >= timestamp(CURRENT_DATE)
