@@ -276,11 +276,19 @@ const buildMenus = async (db, menus) => {
 				description: menu.description,
 				price: menu.price,
 				image_path: menu.image_path,
-				ingredients: []
+				ingredients: [],
+				how_much: null
 			};
 
 		if (menu.stock_id) {
 			const stock = await Stock.getById(db, menu.stock_id);
+			const quantityConversion = await Measurement.convert(db, menu.units, menu.units_unit, stock.units_unit);
+			const howMuch = stock.units / quantityConversion;
+
+			if (!fullMenu.how_much) fullMenu.how_much = howMuch;
+			else if (howMuch < fullMenu.how_much) {
+				fullMenu.how_much = Math.floor(howMuch);
+			}
 
 			fullMenu.ingredients.push({
 				ingredient_id: menu.ingredient_id,

@@ -4,6 +4,7 @@
  */
 import Checkers from "../../global/Checkers.js";
 import ModelError from "../../global/ModelError.js";
+import Stock from "./Stock.js";
 
 /**
  * An OrderMenu
@@ -36,6 +37,7 @@ const addMultiple = async (db, order_id, menus) => {
 		return new ModelError(400, "Vous devez fournir une liste de menus valide.");
 	}
 
+	// Add menus
 	const valuesPlaceholders = [];
 	const values = [];
 
@@ -44,11 +46,14 @@ const addMultiple = async (db, order_id, menus) => {
 		values.push(order_id, menu.menu_id);
 	});
 
-	return db.query(`
+	await db.query(`
 		INSERT INTO orders_menus(order_id, menu_id)
 		VALUES ${valuesPlaceholders.join(", ")}
 		`, values
 	);
+
+	// Reduce stock
+	return await Stock.reduce(db, menus);
 };
 
 /* ---- READ ------------------------------------ */
