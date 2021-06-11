@@ -96,4 +96,25 @@ export default (router) => {
 				.finally(() => db ? db.release() : null);
 		}
 	);
+
+	route.get(
+		"/waiting",
+		middlewares.database,
+		async (request, response) => {
+			const db = await request.database;
+
+			response.set("Content-Type", "application/json");
+
+			OrderMenus.getAllWaiting(db)
+				.then(result => {
+					if (result instanceof ModelError) {
+						response.status(result.code()).json(result.json()).end();
+					} else {
+						response.status(200).json({ code: 200, menus: result }).end();
+					}
+				})
+				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
+				.finally(() => db ? db.release() : null);
+		}
+	);
 };
