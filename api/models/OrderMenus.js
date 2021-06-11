@@ -85,8 +85,8 @@ const getAllByUserId = async (db, user_id) => {
 };
 
 /**
- * @function getAllWaiting
  * @async
+ * @function getAllWaiting
  * @description Get every waiting menus (with count) and his order id
  *
  * @param {Promise<void>} db - Database connection
@@ -98,16 +98,16 @@ const getAllByUserId = async (db, user_id) => {
 const getAllWaiting = async (db) => {
 	return await db.query(`
   	SELECT
-		COUNT(orders_menus.menu_id) AS menu_count,
-		orders_menus.menu_id,
-		orders_menus.order_id,
-		orders_menus.asking_time,
-		menu_types.name AS type,
-		menus.type_id
+			COUNT(orders_menus.menu_id) AS menu_count,
+			orders_menus.menu_id,
+			orders_menus.order_id,
+			orders_menus.asking_time,
+			menu_types.name AS type,
+			menus.type_id
 	FROM orders_menus, menus, menu_types
 	WHERE orders_menus.is_waiting = TRUE
-	AND menus.menu_id = orders_menus.menu_id
-	AND menu_types.type_id = menus.type_id
+		AND menus.menu_id = orders_menus.menu_id
+		AND menu_types.type_id = menus.type_id
 	GROUP BY orders_menus.menu_id`);
 };
 
