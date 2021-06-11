@@ -60,11 +60,13 @@ const add = async (db, stock_id, units) => {
 const getToday = async (db) => {
 	return await db.query(`
 		SELECT
-			stat_id,
-			stock_id,
-			day,
-			units
-		FROM stock_statistics
+			ss.stat_id,
+			ss.stock_id,
+			stocks.name AS "name",
+			ss.day,
+			ss.units
+		FROM stock_statistics ss
+		INNER JOIN stocks ON ss.stock_id = stocks.stock_id
 		WHERE day = CURDATE()
 	`);
 };
@@ -84,12 +86,14 @@ const getToday = async (db) => {
 const getTodayByStockId = async (db, stock_id) => {
 	const stat = await db.query(`
 		SELECT
-			stat_id,
-			stock_id,
-			day,
-			units
-		FROM stock_statistics
-		WHERE day = CURDATE() AND stock_id = ?
+			ss.stat_id,
+			ss.stock_id,
+			stocks.name AS "name",
+			ss.day,
+			ss.units
+		FROM stock_statistics ss
+		INNER JOIN stocks ON ss.stock_id = stocks.stock_id
+		WHERE ss.day = CURDATE() AND ss.stock_id = ?
 		LIMIT 1
 	`, [stock_id]);
 
@@ -110,14 +114,16 @@ const getTodayByStockId = async (db, stock_id) => {
 const getWeek = async (db) => {
 	return await db.query(`
 		SELECT
-			stat_id,
-			stock_id,
-			day,
-			units
-		FROM stock_statistics
+			ss.stat_id,
+			ss.stock_id,
+			stocks.name AS "name",
+			ss.day,
+			ss.units
+		FROM stock_statistics ss
+		INNER JOIN stocks ON ss.stock_id = stocks.stock_id
 		WHERE
-			day >= DATE(NOW()) + INTERVAL -6 DAY
-			AND day < NOW() + INTERVAL 0 DAY
+			ss.day >= DATE(NOW()) + INTERVAL -6 DAY
+			AND ss.day < NOW() + INTERVAL 0 DAY
 	`);
 };
 
