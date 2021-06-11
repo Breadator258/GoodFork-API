@@ -267,6 +267,28 @@ const update = async (db, stock_id, name, units, units_unit_id, unit_price, is_o
 	return db.query(`UPDATE stocks SET ${updatingFields} WHERE stock_id = ?`, [stock_id]);
 };
 
+/**
+ * @async
+ * @function reduce
+ * @description Reduce every stock item quantity using a list of ordered menus
+ * @see {@link module:models/Measurement}
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Array<Menu>} menus - A list of menus
+ * @returns {Promise<void>}
+ *
+ * @example
+ * 	Stock.reduce(db, [<Menu>, <Menu>, <Menu>])
+ */
+const reduce = async (db, menus) => {
+	for (const menu of menus) {
+		for (const ingredient of menu.ingredients) {
+			const quantityConversion = await Measurement.convert(db, ingredient.units, ingredient.units_unit, ingredient.stock_units_unit);
+			await db.query("UPDATE stocks SET units = units - ? WHERE stock_id = ?", [quantityConversion, ingredient.stock_id]);
+		}
+	}
+};
+
 /* ---- DELETE ---------------------------------- */
 /**
  * @async
@@ -288,5 +310,5 @@ const del = async (db, stock_id) => {
  * Export
  *****************************************************/
 
-const Stock = { add, addOrEdit, getByName, getById, getAll, update, delete: del };
+const Stock = { add, addOrEdit, getByName, getById, getAll, update, reduce, delete: del };
 export default Stock;

@@ -4,6 +4,7 @@
  */
 import Checkers from "../../global/Checkers.js";
 import ModelError from "../../global/ModelError.js";
+import Stock from "./Stock.js";
 
 /**
  * An OrderMenu
@@ -36,6 +37,7 @@ const addMultiple = async (db, order_id, menus) => {
 		return new ModelError(400, "Vous devez fournir une liste de menus valide.");
 	}
 
+	// Add menus
 	const valuesPlaceholders = [];
 	const values = [];
 
@@ -44,11 +46,14 @@ const addMultiple = async (db, order_id, menus) => {
 		values.push(order_id, menu.menu_id);
 	});
 
-	return db.query(`
+	await db.query(`
 		INSERT INTO orders_menus(order_id, menu_id)
 		VALUES ${valuesPlaceholders.join(", ")}
 		`, values
 	);
+
+	// Reduce stock
+	return await Stock.reduce(db, menus);
 };
 
 /* ---- READ ------------------------------------ */
@@ -82,6 +87,33 @@ const getAllByUserId = async (db, user_id) => {
 	`, [user_id]);
 
 	return buildOrderMenus(db, menus);
+};
+
+/**
+ * @async
+ * @function getAllWaiting
+ * @description Get every waiting menus (with count) and his order id
+ *
+ * @param {Promise<void>} db - Database connection
+ * @returns {Promise<Array<*>|ModelError>} A list of all menus or a ModelError
+ *
+ * @example
+ * 	OrderMenus.getAllWaiting(db)
+ */
+const getAllWaiting = async (db) => {
+	return await db.query(`
+  	SELECT
+			COUNT(orders_menus.menu_id) AS menu_count,
+			orders_menus.menu_id,
+			orders_menus.order_id,
+			orders_menus.asking_time,
+			menu_types.name AS type,
+			menus.type_id
+	FROM orders_menus, menus, menu_types
+	WHERE orders_menus.is_waiting = TRUE
+		AND menus.menu_id = orders_menus.menu_id
+		AND menu_types.type_id = menus.type_id
+	GROUP BY orders_menus.menu_id`);
 };
 
 /**
@@ -225,5 +257,5 @@ const buildOrderMenus = async (db, menus) => {
  * Export
  *****************************************************/
 
-const OrderMenus = { addMultiple, getAllByUserId, getBookingMenusByUserId, getBookingMenusByBookingId, getAllByOrderId };
+const OrderMenus = { addMultiple, getAllByUserId, getAllWaiting, getBookingMenusByUserId, getBookingMenusByBookingId, getAllByOrderId };
 export default OrderMenus;
