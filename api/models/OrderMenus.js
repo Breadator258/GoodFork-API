@@ -108,7 +108,8 @@ const getAllWaiting = async (db) => {
 			orders_menus.order_id,
 			orders_menus.asking_time,
 			menu_types.name AS type,
-			menus.type_id
+			menus.type_id,
+  	       	menus.name
 	FROM orders_menus, menus, menu_types
 	WHERE orders_menus.is_waiting = TRUE
 		AND menus.menu_id = orders_menus.menu_id
