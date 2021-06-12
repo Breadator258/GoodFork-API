@@ -114,7 +114,7 @@ const getAllWaiting = async (db) => {
 	WHERE orders_menus.is_waiting = TRUE
 		AND menus.menu_id = orders_menus.menu_id
 		AND menu_types.type_id = menus.type_id
-	GROUP BY orders_menus.menu_id`);
+	GROUP BY orders_menus.menu_id, orders_menus.order_id`);
 };
 
 /**
