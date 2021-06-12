@@ -72,13 +72,16 @@ const addMultiple = async (db, order_id, menus) => {
 const getAllByUserId = async (db, user_id) => {
 	const menus = await db.query(`
   	SELECT
-    	 orders.order_id,
-       menus.menu_id,
-       menus.name,
-       mt.type_id,
-       mt.name AS "type",
-       menus.price,
-       orders.is_finished
+		orders.order_id,
+		menus.menu_id,
+		menus.name,
+		mt.type_id,
+		mt.name AS "type",
+		menus.price,
+		orders.is_finished,
+		om.is_waiting AS is_menu_waiting,
+		om.asking_time AS menu_asking_time,
+		om.is_finished AS is_menu_finished
     FROM orders
 		LEFT JOIN orders_menus om ON orders.order_id = om.order_id
 		LEFT JOIN menus ON om.menu_id = menus.menu_id
@@ -107,6 +110,7 @@ const getAllWaiting = async (db) => {
 			orders_menus.menu_id,
 			orders_menus.order_id,
 			orders_menus.asking_time,
+  	        orders_menus.is_finished AS "is_menu_finished",
 			menu_types.name AS type,
 			menus.type_id,
   	       	menus.name
@@ -134,11 +138,14 @@ const getBookingMenusByUserId = async (db, user_id) => {
         SELECT
         	orders.order_id,
         	menus.menu_id,
-          menus.name,
-          mt.type_id,
-          mt.name AS "type",
-          menus.price,
-          orders.is_finished
+			menus.name,
+			mt.type_id,
+			mt.name AS "type",
+			menus.price,
+			orders.is_finished,
+			om.is_waiting AS "is_menu_waiting",
+			om.asking_time AS "menu_asking_time",
+			om.is_finished AS "is_menu_finished"
         FROM orders
         LEFT JOIN orders_menus om ON orders.order_id = om.order_id
         LEFT JOIN menus ON om.menu_id = menus.menu_id
@@ -165,13 +172,16 @@ const getBookingMenusByUserId = async (db, user_id) => {
 const getBookingMenusByBookingId = async (db, booking_id) => {
 	const menus = await db.query(`
         SELECT
-        	orders.order_id,
-          menus.menu_id,
-          menus.name,
-          mt.type_id,
-          mt.name AS "type",
-          menus.price,
-          orders.is_finished
+			orders.order_id,
+			menus.menu_id,
+			menus.name,
+			mt.type_id,
+			mt.name AS "type",
+			menus.price,
+			orders.is_finished,
+			om.is_waiting,
+			om.asking_time,
+			om.is_finished
         FROM orders
         LEFT JOIN orders_menus om ON orders.order_id = om.order_id
         LEFT JOIN menus ON om.menu_id = menus.menu_id
