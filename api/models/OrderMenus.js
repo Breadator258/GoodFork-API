@@ -179,9 +179,9 @@ const getBookingMenusByBookingId = async (db, booking_id) => {
 			mt.name AS "type",
 			menus.price,
 			orders.is_finished,
-			om.is_waiting,
-			om.asking_time,
-			om.is_finished
+            om.is_waiting AS "is_menu_waiting",
+            om.asking_time AS "menu_asking_time",
+            om.is_finished AS "is_menu_finished"
         FROM orders
         LEFT JOIN orders_menus om ON orders.order_id = om.order_id
         LEFT JOIN menus ON om.menu_id = menus.menu_id
@@ -214,7 +214,10 @@ const getAllByOrderId = async (db, order_id) => {
 			mt.type_id,
 			mt.name AS "type",
 			menus.price,
-			orders.is_finished
+			orders.is_finished,
+            om.is_waiting AS "is_menu_waiting",
+            om.asking_time AS "menu_asking_time",
+            om.is_finished AS "is_menu_finished"
     FROM orders
 		LEFT JOIN orders_menus om ON orders.order_id = om.order_id
 		LEFT JOIN menus ON om.menu_id = menus.menu_id
@@ -247,7 +250,10 @@ const buildOrderMenus = async (db, menus) => {
 			type: menu.type,
 			type_id: menu.type_id,
 			price: menu.price,
-			is_finished: menu.is_finished
+			is_finished: menu.is_finished,
+			is_waiting: menu.is_waiting,
+			asking_time: menu.asking_time,
+			is_menu_finished: menu.is_menu_finished
 		};
 	};
 
