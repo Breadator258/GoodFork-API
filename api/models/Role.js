@@ -27,7 +27,19 @@ import ModelError from "../../global/ModelError.js";
  * 	Role.getByName(db, "owner")
  */
 const getByName = async (db, name) => {
-	const role = await db.query("SELECT role_id, name, display_name FROM roles WHERE name = ? LIMIT 1", [name]);
+	const role = await db.query(`
+		SELECT
+			role_id,
+			name,
+			CASE
+				WHEN display_name IS NULL THEN name
+				ELSE display_name
+			END AS "display_name"
+		FROM roles
+		WHERE name = ?
+		LIMIT 1`
+	, [name]);
+	
 	return role[0] ? role[0] : new ModelError(404, `Aucun rôle n'a été trouvé avec le nom "${name}".`);
 };
 
@@ -43,7 +55,17 @@ const getByName = async (db, name) => {
  * 	Role.getAll(db)
  */
 const getAll = async db => {
-	return db.query("SELECT role_id, name, display_name FROM roles ORDER BY role_id");
+	return db.query(`
+		SELECT
+			role_id,
+			name,
+			CASE
+				WHEN display_name IS NULL THEN name
+				ELSE display_name
+			END AS "display_name"
+		FROM roles
+		ORDER BY role_id
+	`);
 };
 
 /*****************************************************
