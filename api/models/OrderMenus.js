@@ -270,9 +270,50 @@ const buildOrderMenus = async (db, menus) => {
 	}
 };
 
+/**
+ * @async
+ * @function updateWaitingMenusByOrder
+ * @description Update every menus of a type by the order
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} order_id - ID of the order which contains a menu
+ * @returns {Promise<Array<*>|ModelError>} A list of all menus or a ModelError
+ *
+ * @example
+ * 	OrderMenus.updateWaitingMenusByOrder(db, 175)
+ */
+const updateMenusToReadyByOrder = async (db, order_id) => {
+	return db.query(`
+        UPDATE orders_menus
+        SET is_finished = TRUE, is_waiting = false
+        WHERE order_id = ? AND is_waiting = true;
+	`, [order_id]);
+};
+
+/**
+ * @async
+ * @function updateMenuToWaitingByOrder
+ * @description Update every menus of a type by the order
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} order_id - ID of the order which contains a menu
+ * @param {Number} menu_id - ID of the menu in the order
+ * @returns {Promise<Array<*>|ModelError>} A list of all menus or a ModelError
+ *
+ * @example
+ * 	OrderMenus.updateMenuToWaitingByOrder(db, 175, 1)
+ */
+const updateMenuToWaitingByOrder = async (db, order_id, menu_id) => {
+	return db.query(`
+        UPDATE orders_menus
+        SET is_waiting = true
+        WHERE order_id = ? AND menu_id = ?;
+	`, [order_id, menu_id]);
+};
+
 /*****************************************************
  * Export
  *****************************************************/
 
-const OrderMenus = { addMultiple, getAllByUserId, getAllWaiting, getBookingMenusByUserId, getBookingMenusByBookingId, getAllByOrderId };
+const OrderMenus = { addMultiple, getAllByUserId, getAllWaiting, getBookingMenusByUserId, getBookingMenusByBookingId, getAllByOrderId, updateMenusToReadyByOrder, updateMenuToWaitingByOrder };
 export default OrderMenus;
