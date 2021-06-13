@@ -984,6 +984,20 @@
 									<td class="description"><code>user_id</code></td>
 									<td class="returns last"><code>{menus: Array&lt;OrderMenu&gt;}</code></td>
 								</tr>
+								<tr>
+									<td class="name">Update waiting menus to ready by order</td>
+									<td class="type"><span class="param-type">PUT</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/orders/menus/waitingToReady</td>
+									<td class="description"><code>order_id</code></td>
+									<td class="returns last"><code>{menus: Array&lt;OrderMenu&gt;}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Update menus to waiting by order</td>
+									<td class="type"><span class="param-type">PUT</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/orders/menus/toWaiting</td>
+									<td class="description"><code>order_id</code><code>menu_id</code></td>
+									<td class="returns last"><code>{menus: Array&lt;OrderMenu&gt;}</code></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>

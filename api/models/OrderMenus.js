@@ -72,13 +72,16 @@ const addMultiple = async (db, order_id, menus) => {
 const getAllByUserId = async (db, user_id) => {
 	const menus = await db.query(`
   	SELECT
-    	 orders.order_id,
-       menus.menu_id,
-       menus.name,
-       mt.type_id,
-       mt.name AS "type",
-       menus.price,
-       orders.is_finished
+		orders.order_id,
+		menus.menu_id,
+		menus.name,
+		mt.type_id,
+		mt.name AS "type",
+		menus.price,
+		orders.is_finished,
+		om.is_waiting AS is_menu_waiting,
+		om.asking_time AS menu_asking_time,
+		om.is_finished AS is_menu_finished
     FROM orders
 		LEFT JOIN orders_menus om ON orders.order_id = om.order_id
 		LEFT JOIN menus ON om.menu_id = menus.menu_id
@@ -107,13 +110,15 @@ const getAllWaiting = async (db) => {
 			orders_menus.menu_id,
 			orders_menus.order_id,
 			orders_menus.asking_time,
+  	        orders_menus.is_finished AS "is_menu_finished",
 			menu_types.name AS type,
-			menus.type_id
+			menus.type_id,
+  	       	menus.name
 	FROM orders_menus, menus, menu_types
 	WHERE orders_menus.is_waiting = TRUE
 		AND menus.menu_id = orders_menus.menu_id
 		AND menu_types.type_id = menus.type_id
-	GROUP BY orders_menus.menu_id`);
+	GROUP BY orders_menus.menu_id, orders_menus.order_id`);
 };
 
 /**
@@ -133,11 +138,14 @@ const getBookingMenusByUserId = async (db, user_id) => {
         SELECT
         	orders.order_id,
         	menus.menu_id,
-          menus.name,
-          mt.type_id,
-          mt.name AS "type",
-          menus.price,
-          orders.is_finished
+			menus.name,
+			mt.type_id,
+			mt.name AS "type",
+			menus.price,
+			orders.is_finished,
+			om.is_waiting AS "is_menu_waiting",
+			om.asking_time AS "menu_asking_time",
+			om.is_finished AS "is_menu_finished"
         FROM orders
         LEFT JOIN orders_menus om ON orders.order_id = om.order_id
         LEFT JOIN menus ON om.menu_id = menus.menu_id
@@ -164,13 +172,16 @@ const getBookingMenusByUserId = async (db, user_id) => {
 const getBookingMenusByBookingId = async (db, booking_id) => {
 	const menus = await db.query(`
         SELECT
-        	orders.order_id,
-          menus.menu_id,
-          menus.name,
-          mt.type_id,
-          mt.name AS "type",
-          menus.price,
-          orders.is_finished
+			orders.order_id,
+			menus.menu_id,
+			menus.name,
+			mt.type_id,
+			mt.name AS "type",
+			menus.price,
+			orders.is_finished,
+            om.is_waiting AS "is_menu_waiting",
+            om.asking_time AS "menu_asking_time",
+            om.is_finished AS "is_menu_finished"
         FROM orders
         LEFT JOIN orders_menus om ON orders.order_id = om.order_id
         LEFT JOIN menus ON om.menu_id = menus.menu_id
@@ -203,7 +214,10 @@ const getAllByOrderId = async (db, order_id) => {
 			mt.type_id,
 			mt.name AS "type",
 			menus.price,
-			orders.is_finished
+			orders.is_finished,
+            om.is_waiting AS "is_menu_waiting",
+            om.asking_time AS "menu_asking_time",
+            om.is_finished AS "is_menu_finished"
     FROM orders
 		LEFT JOIN orders_menus om ON orders.order_id = om.order_id
 		LEFT JOIN menus ON om.menu_id = menus.menu_id
@@ -236,7 +250,10 @@ const buildOrderMenus = async (db, menus) => {
 			type: menu.type,
 			type_id: menu.type_id,
 			price: menu.price,
-			is_finished: menu.is_finished
+			is_finished: menu.is_finished,
+			is_waiting: menu.is_waiting,
+			asking_time: menu.asking_time,
+			is_menu_finished: menu.is_menu_finished
 		};
 	};
 
@@ -253,9 +270,50 @@ const buildOrderMenus = async (db, menus) => {
 	}
 };
 
+/**
+ * @async
+ * @function updateWaitingMenusByOrder
+ * @description Update every menus of a type by the order
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} order_id - ID of the order which contains a menu
+ * @returns {Promise<Array<*>|ModelError>} A list of all menus or a ModelError
+ *
+ * @example
+ * 	OrderMenus.updateWaitingMenusByOrder(db, 175)
+ */
+const updateMenusToReadyByOrder = async (db, order_id) => {
+	return db.query(`
+        UPDATE orders_menus
+        SET is_finished = TRUE, is_waiting = false
+        WHERE order_id = ? AND is_waiting = true;
+	`, [order_id]);
+};
+
+/**
+ * @async
+ * @function updateMenuToWaitingByOrder
+ * @description Update every menus of a type by the order
+ *
+ * @param {Promise<void>} db - Database connection
+ * @param {Number|string} order_id - ID of the order which contains a menu
+ * @param {Number} menu_id - ID of the menu in the order
+ * @returns {Promise<Array<*>|ModelError>} A list of all menus or a ModelError
+ *
+ * @example
+ * 	OrderMenus.updateMenuToWaitingByOrder(db, 175, 1)
+ */
+const updateMenuToWaitingByOrder = async (db, order_id, menu_id) => {
+	return db.query(`
+        UPDATE orders_menus
+        SET is_waiting = true
+        WHERE order_id = ? AND menu_id = ?;
+	`, [order_id, menu_id]);
+};
+
 /*****************************************************
  * Export
  *****************************************************/
 
-const OrderMenus = { addMultiple, getAllByUserId, getAllWaiting, getBookingMenusByUserId, getBookingMenusByBookingId, getAllByOrderId };
+const OrderMenus = { addMultiple, getAllByUserId, getAllWaiting, getBookingMenusByUserId, getBookingMenusByBookingId, getAllByOrderId, updateMenusToReadyByOrder, updateMenuToWaitingByOrder };
 export default OrderMenus;
