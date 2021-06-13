@@ -251,8 +251,8 @@ const buildOrderMenus = async (db, menus) => {
 			type_id: menu.type_id,
 			price: menu.price,
 			is_finished: menu.is_finished,
-			is_waiting: menu.is_waiting,
-			asking_time: menu.asking_time,
+			is_menu_waiting: menu.is_menu_waiting,
+			menu_asking_time: menu.menu_asking_time,
 			is_menu_finished: menu.is_menu_finished
 		};
 	};
