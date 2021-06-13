@@ -3,6 +3,7 @@ import ModelError from "../../global/ModelError.js";
 import SalesStatistics from "./SalesStatistics.js";
 import Booking from "./Booking.js";
 import Order from "./Order.js";
+import Table from "./Table.js";
 
 /*****************************************************
  * CRUD Methods
@@ -64,7 +65,7 @@ const payBooking = async (db, booking_id) => {
 	}
 
 	if (booking.is_finished) {
-		return new ModelError(400, `Erreur lors du paiement : La réservation a déjà été payée.`);
+		return new ModelError(400, "Erreur lors du paiement : La réservation a déjà été payée.");
 	}
 
 	// Update the booking
@@ -74,6 +75,13 @@ const payBooking = async (db, booking_id) => {
 
 	if (bookingUpdate instanceof ModelError) {
 		return new ModelError(400, `Erreur lors du paiement : ${bookingUpdate.message()}`);
+	}
+
+	// Free the table
+	const tableUpdate = await Table.update(db, booking.table_id, null, null, true, null);
+
+	if (tableUpdate instanceof ModelError) {
+		return new ModelError(400, `Erreur lors du paiement : ${tableUpdate.message()}`);
 	}
 
 	const orders = await Order.getByBookingId(db, booking_id);
