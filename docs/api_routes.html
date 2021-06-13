@@ -671,6 +671,13 @@
 									<td class="returns last"><code>{menus: Array&lt;Menu&gt;}</code></td>
 								</tr>
 								<tr>
+									<td class="name">Get all names</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/menus/names/all</td>
+									<td class="description"></td>
+									<td class="returns last"><code>{menus: Array&lt;string&gt;}</code></td>
+								</tr>
+								<tr>
 									<td class="name">Get by ID</td>
 									<td class="type"><span class="param-type">GET</span></td>
 									<td class="attributes">http://3.134.79.46:8080/api/menus/:menu_id</td>
@@ -1049,6 +1056,13 @@
 							</thead>
 							<tbody>
 								<tr>
+									<td class="name">Add benefits for today</td>
+									<td class="type"><span class="param-type">POST</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/sales/benefits</td>
+									<td class="description"><code>benefits</code></td>
+									<td class="returns last"><code>{message: string}</code></td>
+								</tr>
+								<tr>
 									<td class="name">Get today statistic</td>
 									<td class="type"><span class="param-type">GET</span></td>
 									<td class="attributes">http://3.134.79.46:8080/api/stats/sales/today</td>
@@ -1061,13 +1075,6 @@
 									<td class="attributes">http://3.134.79.46:8080/api/stats/sales/week</td>
 									<td class="description"></td>
 									<td class="returns last"><code>{stats: Array&lt;SaleStatistic&gt;}</code></td>
-								</tr>
-								<tr>
-									<td class="name">Add benefits for today</td>
-									<td class="type"><span class="param-type">POST</span></td>
-									<td class="attributes">http://3.134.79.46:8080/api/stats/sales/benefits</td>
-									<td class="description"><code>benefits</code></td>
-									<td class="returns last"><code>{message: string}</code></td>
 								</tr>
 							</tbody>
 						</table>
@@ -1088,6 +1095,13 @@
 							</thead>
 							<tbody>
 								<tr>
+									<td class="name">Add a stock item</td>
+									<td class="type"><span class="param-type">POST</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/stock</td>
+									<td class="description"><code>stock_id, units<span class="signature-attributes dark">opt</span></code></td>
+									<td class="returns last"><code>{message: string}</code></td>
+								</tr>
+								<tr>
 									<td class="name">Get today statistic</td>
 									<td class="type"><span class="param-type">GET</span></td>
 									<td class="attributes">http://3.134.79.46:8080/api/stats/stock/today</td>
@@ -1100,13 +1114,6 @@
 									<td class="attributes">http://3.134.79.46:8080/api/stats/stock/week</td>
 									<td class="description"></td>
 									<td class="returns last"><code>{stats: Array&lt;StockStatistic&gt;}</code></td>
-								</tr>
-								<tr>
-									<td class="name">Add a stock item</td>
-									<td class="type"><span class="param-type">POST</span></td>
-									<td class="attributes">http://3.134.79.46:8080/api/stats/stock</td>
-									<td class="description"><code>stock_id, units<span class="signature-attributes dark">opt</span></code></td>
-									<td class="returns last"><code>{message: string}</code></td>
 								</tr>
 							</tbody>
 						</table>
@@ -1127,6 +1134,13 @@
 							</thead>
 							<tbody>
 								<tr>
+									<td class="name">Add a menu</td>
+									<td class="type"><span class="param-type">POST</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/menus</td>
+									<td class="description"><code>menu_id, count</code></td>
+									<td class="returns last"><code>{message: string}</code></td>
+								</tr>
+								<tr>
 									<td class="name">Get today statistic</td>
 									<td class="type"><span class="param-type">GET</span></td>
 									<td class="attributes">http://3.134.79.46:8080/api/stats/menus/today</td>
@@ -1139,13 +1153,6 @@
 									<td class="attributes">http://3.134.79.46:8080/api/stats/menus/week</td>
 									<td class="description"></td>
 									<td class="returns last"><code>{stats: Array&lt;MenuStatistic&gt;}</code></td>
-								</tr>
-								<tr>
-									<td class="name">Add a menu</td>
-									<td class="type"><span class="param-type">POST</span></td>
-									<td class="attributes">http://3.134.79.46:8080/api/stats/menus</td>
-									<td class="description"><code>menu_id, count</code></td>
-									<td class="returns last"><code>{message: string}</code></td>
 								</tr>
 							</tbody>
 						</table>

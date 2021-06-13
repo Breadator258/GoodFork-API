@@ -172,7 +172,7 @@ const validOrderBy = ["menu_id", "name", "type_id", "price"];
  *
  * @param {Promise<void>} db - Database connection
  * @param {string} [orderBy] - One of ["menu_id", "name", "type_id", "price"]
- * @returns {Promise<Array<Menu>|ModelError>} A list of menus or a ModelError
+ * @returns {Promise<Array<Menu>>} A list of menus or a ModelError
  *
  * @example
  * 	Menu.getAll(db)
@@ -205,6 +205,21 @@ const getAll = async (db, orderBy) => {
 	`);
 
 	return buildMenus(db, menus);
+};
+
+/**
+ * @async
+ * @function getAllNames
+ * @description Get all menus names
+ *
+ * @param {Promise<void>} db - Database connection
+ * @returns {Promise<Array<string>>} A list of menus names
+ *
+ * @example
+ * 	Menu.getAllNames(db)
+ */
+const getAllNames = async (db) => {
+	return await db.query("SELECT name FROM menus ORDER BY menu_id");
 };
 
 /**
@@ -462,6 +477,7 @@ const Menu = {
 	addIngredient,
 	getById,
 	getAll,
+	getAllNames,
 	update,
 	setIllustration,
 	updateIngredient,
