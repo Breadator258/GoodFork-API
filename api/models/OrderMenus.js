@@ -278,16 +278,17 @@ const buildOrderMenus = async (db, menus) => {
  *
  * @param {Promise<void>} db - Database connection
  * @param {Number|string} order_id - ID of the order which contains a menu
+ * @param {Array<number>} menus_ids - IDs of the menus
  * @returns {Promise<void>}
  *
  * @example
  * 	OrderMenus.updateMenusToReadyByOrder(db, 175)
  */
-const updateMenusToReadyByOrder = async (db, order_id) => {
+const updateMenusToReadyByOrder = async (db, order_id, menus_ids) => {
 	return db.query(`
   	UPDATE orders_menus
     SET is_finished = TRUE, is_waiting = false
-    WHERE order_id = ? AND is_waiting = true;
+    WHERE order_id = ? AND is_waiting = true AND menu_id IN(${menus_ids.join(", ")})
 	`, [order_id]);
 };
 
