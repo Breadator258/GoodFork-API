@@ -37,10 +37,10 @@ const add = async (db, menu_id, count = 0) => {
 	const todayStat = await getTodayByMenuId(db, menu_id);
 
 	if (todayStat instanceof ModelError) {
-		const stat = await db.query("INSERT INTO menus_statistics(menu_id, count) VALUES (?, ?)", [menu_id, count]);
+		const stat = await db.query("INSERT INTO menus_statistics(menu_id, count) VALUES (?, ?)", [menu_id, count ? count : 0]);
 		return stat.insertId;
 	} else {
-		await db.query("UPDATE menus_statistics SET count = count + ? WHERE menu_id = ?", [count, menu_id]);
+		await db.query("UPDATE menus_statistics SET count = count + ? WHERE menu_id = ?", [count ? count : 0, menu_id]);
 		return menu_id;
 	}
 };
