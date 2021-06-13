@@ -118,18 +118,17 @@ export default (router) => {
 		}
 	);
 
-	/* ---- UPDATE ------------------------------------ */
-	route.put(
+	route.post(
 		"/waitingToReady",
-		middlewares.checkParams("order_id"),
+		middlewares.checkParams("order_id", "menus_ids"),
 		middlewares.database,
 		async (request, response) => {
-			const { order_id } = request.body;
+			const { order_id, menus_ids } = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			OrderMenus.updateMenusToReadyByOrder(db, order_id)
+			OrderMenus.updateMenusToReadyByOrder(db, order_id, menus_ids)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -142,6 +141,7 @@ export default (router) => {
 		}
 	);
 
+	/* ---- UPDATE ------------------------------------ */
 	route.put(
 		"/toWaiting",
 		middlewares.checkParams("order_id", "menu_id"),
