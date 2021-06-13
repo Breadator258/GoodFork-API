@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>api/models/SalesStatistics.js - The Good Fork - API</title>
+    <title>api/models/MenusStatistics.js - The Good Fork - API</title>
     
     <meta name="description" content="Online documentation of the good fork api" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">api/models/SalesStatistics.js</h1>
+    <h1 class="page-title">api/models/MenusStatistics.js</h1>
     
 
     
@@ -50,16 +50,17 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module models/SalesStatistics */
+            <pre class="prettyprint source linenums"><code>/** @module models/MenusStatistics */
 import Checkers from "../../global/Checkers.js";
 import ModelError from "../../global/ModelError.js";
 
 /**
- * A sale statistic
- * @typedef {Object} SaleStatistic
+ * A menus statistic
+ * @typedef {Object} MenuStatistic
  * @property {Number} stat_id - ID of the statistic
+ * @property {Number} menu_id - ID of the corresponding menu
  * @property {Date} day - Which day is corresponding to that statistic
- * @property {Number} benefits - How much this day bring in
+ * @property {Number} count - How much of this menu has been ordered
  */
 
 /*****************************************************
@@ -68,46 +69,32 @@ import ModelError from "../../global/ModelError.js";
 
 /* ---- CREATE ---------------------------------- */
 /**
- * @ignore
  * @async
- * @function addTodayStat
+ * @function add
  * @description Add a row for today in the table
  *
  * @param {Promise&lt;void>} db - Database connection
- * @returns {Promise&lt;Number>} The id of the newly inserted row
+ * @param {Number} menu_id - ID of the corresponding menu
+ * @param {Number} count - How much of this menu has been ordered
+ * @returns {Promise&lt;Number|ModelError>} The id of the newly inserted row or a ModelError
  *
  * @example
- * 	SalesStatistics.addTodayStat(db)
+ * 	MenusStatistics.add(db, 12)
  */
-const addTodayStat = async (db) => {
-	const stat = await db.query("INSERT INTO sales_statistics VALUES ()");
-	return stat.insertId;
-};
-
-/**
- * @async
- * @function addBenefits
- * @description Add benefits the the current day statistics
- *
- * @param {Promise&lt;void>} db - Database connection
- * @param {Number} benefits - How much you add to the current benefits
- * @returns {Promise&lt;void|ModelError>} Nothing or a ModelError
- *
- * @example
- * 	SalesStatistics.addBenefits(db, 13.90)
- */
-const addBenefits = async (db, benefits) => {
-	if (!Checkers.isNumber(benefits)) {
-		return new ModelError(400, "Vous devez fournir un bénéfice valide.");
+const add = async (db, menu_id, count = 0) => {
+	if (!Checkers.isNumber(count)) {
+		return new ModelError(400, "Vous devez fournir une quantité valide.");
 	}
 
-	const todayStat = await getCurrDayId(db);
+	const todayStat = await getTodayByMenuId(db, menu_id);
 
-	return db.query(`
-		UPDATE sales_statistics
-		SET benefits = benefits + ?
-		WHERE stat_id = ?
-	`, [ benefits, todayStat ]);
+	if (todayStat instanceof ModelError) {
+		const stat = await db.query("INSERT INTO menus_statistics(menu_id, count) VALUES (?, ?)", [menu_id, count]);
+		return stat.insertId;
+	} else {
+		await db.query("UPDATE menus_statistics SET count = count + ? WHERE menu_id = ?", [count, menu_id]);
+		return menu_id;
+	}
 };
 
 /* ---- READ ------------------------------------ */
@@ -117,23 +104,52 @@ const addBenefits = async (db, benefits) => {
  * @description Get the statistic for this day
  *
  * @param {Promise&lt;void>} db - Database connection
- * @returns {Promise&lt;SaleStatistic|ModelError>} The today stat or a ModelError
+ * @returns {Promise&lt;Array&lt;MenuStatistic>>} A list of stats
  *
  * @example
- * 	SalesStatistics.getToday(db)
+ * 	MenusStatistics.getToday(db)
  */
 const getToday = async (db) => {
+	return await db.query(`
+		SELECT
+			ms.stat_id,
+			ms.menu_id,
+			menus.name AS "name",
+			ms.day,
+			ms.count
+		FROM menus_statistics ms
+		INNER JOIN menus ON ms.menu_id = menus.menu_id
+		WHERE day = CURDATE()
+	`);
+};
+
+/**
+ * @async
+ * @function getTodayByMenuId
+ * @description Get the statistic for this day with a specific menu ID
+ *
+ * @param {Promise&lt;void>} db - Database connection
+ * @param {Number} menu_id - ID of the corresponding menu
+ * @returns {Promise&lt;MenuStatistic|ModelError>} A list of stats
+ *
+ * @example
+ * 	MenusStatistics.getTodayByMenuId(db, 7)
+ */
+const getTodayByMenuId = async (db, menu_id) => {
 	const stat = await db.query(`
 		SELECT
-			stat_id,
-			day,
-			benefits
-		FROM sales_statistics
-		WHERE day = CURDATE()
+			ms.stat_id,
+			ms.menu_id,
+			menus.name AS "name",
+			ms.day,
+			ms.count
+		FROM menus_statistics ms
+		INNER JOIN menus ON ms.menu_id = menus.menu_id
+		WHERE ms.day = CURDATE() AND ms.menu_id = ?
 		LIMIT 1
-	`);
+	`, [menu_id]);
 
-	return stat[0] ? stat[0] : new ModelError(404, "Aucune statistiques de ventes n'est disponible pour aujourd'hui.");
+	return stat[0] ? stat[0] : new ModelError(`Aucune statistique n'a été trouvée aujourd'hui pour le menu "${menu_id}"`);
 };
 
 /**
@@ -142,56 +158,33 @@ const getToday = async (db) => {
  * @description Get the statistic for this week
  *
  * @param {Promise&lt;void>} db - Database connection
- * @returns {Promise&lt;Array&lt;SaleStatistic>>} A list of SaleStatistic
+ * @returns {Promise&lt;Array&lt;MenuStatistic>>} A list of stats
  *
  * @example
- * 	SalesStatistics.getWeek(db)
+ * 	MenusStatistics.getWeek(db)
  */
 const getWeek = async (db) => {
 	return await db.query(`
 		SELECT
-			stat_id,
-			day,
-			benefits
-		FROM sales_statistics
+			ms.stat_id,
+			ms.menu_id,
+			menus.name AS "name",
+			ms.day,
+			ms.count
+		FROM menus_statistics ms
+		INNER JOIN menus ON ms.menu_id = menus.menu_id
 		WHERE
-			day >= DATE(NOW()) + INTERVAL -6 DAY
-			AND day &lt; NOW() + INTERVAL 0 DAY
+			ms.day >= DATE(NOW()) + INTERVAL -6 DAY
+			AND ms.day &lt; NOW() + INTERVAL 0 DAY
 	`);
-};
-
-/**
- * @ignore
- * @async
- * @function getCurrDayId
- * @description Get the stat ID for today
- *
- * @param {Promise&lt;void>} db - Database connection
- * @returns {Promise&lt;Number>} Today stat ID
- *
- * @example
- * 	SalesStatistics.getCurrDayId(db)
- */
-const getCurrDayId = async (db) => {
-	const stat = await db.query(`
-		SELECT
-			stat_id,
-			day,
-			benefits
-		FROM sales_statistics
-		WHERE day = CURDATE()
-		LIMIT 1
-	`);
-
-	return stat[0] ? stat[0].stat_id : await addTodayStat(db);
 };
 
 /*****************************************************
  * Export
  *****************************************************/
 
-const SalesStatistics = { addBenefits, getToday, getWeek };
-export default SalesStatistics;</code></pre>
+const MenusStatistics = { add, getToday, getTodayByMenuId, getWeek };
+export default MenusStatistics;</code></pre>
         </article>
     </section>
 

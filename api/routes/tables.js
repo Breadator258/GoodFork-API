@@ -14,12 +14,12 @@ export default (router) => {
 		middlewares.checkParams("capacity"),
 		middlewares.database,
 		async (request, response) => {
-			const { name, capacity, is_available } = request.body;
+			const { name, capacity, is_available, can_be_used } = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Table.add(db, name, capacity, is_available)
+			Table.add(db, name, capacity, is_available, can_be_used)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();
@@ -82,12 +82,12 @@ export default (router) => {
 		middlewares.checkParams("table_id"),
 		middlewares.database,
 		async (request, response) => {
-			const { table_id, name, capacity, is_available } = request.body;
+			const { table_id, name, capacity, is_available, can_be_used } = request.body;
 			const db = await request.database;
 
 			response.set("Content-Type", "application/json");
 
-			Table.update(db, table_id, name, capacity, is_available)
+			Table.update(db, table_id, name, capacity, is_available, can_be_used)
 				.then(result => {
 					if (result instanceof ModelError) {
 						response.status(result.code()).json(result.json()).end();

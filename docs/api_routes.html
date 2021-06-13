@@ -1105,7 +1105,46 @@
 									<td class="name">Add a stock item</td>
 									<td class="type"><span class="param-type">POST</span></td>
 									<td class="attributes">http://3.134.79.46:8080/api/stats/stock</td>
-									<td class="description"><code>stock_id, units</code></td>
+									<td class="description"><code>stock_id, units<span class="signature-attributes dark">opt</span></code></td>
+									<td class="returns last"><code>{message: string}</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!---- MENUS STATISTICS ------------------------------------------------------------------------------------->
+					<h3 class="subsection-title">Menus statistics</h3>
+					<div class="table-wrapper">
+						<table class="params">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Method</th>
+									<th>URI</th>
+									<th>Parameters</th>
+									<th>Returns</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="name">Get today statistic</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/menus/today</td>
+									<td class="description"></td>
+									<td class="returns last"><code>{stats: Array&lt;MenuStatistic&gt;}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Get weekly statistics</td>
+									<td class="type"><span class="param-type">GET</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/menus/week</td>
+									<td class="description"></td>
+									<td class="returns last"><code>{stats: Array&lt;MenuStatistic&gt;}</code></td>
+								</tr>
+								<tr>
+									<td class="name">Add a menu</td>
+									<td class="type"><span class="param-type">POST</span></td>
+									<td class="attributes">http://3.134.79.46:8080/api/stats/menus</td>
+									<td class="description"><code>menu_id, count</code></td>
 									<td class="returns last"><code>{message: string}</code></td>
 								</tr>
 							</tbody>

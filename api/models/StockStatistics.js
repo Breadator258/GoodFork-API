@@ -78,7 +78,7 @@ const getToday = async (db) => {
  *
  * @param {Promise<void>} db - Database connection
  * @param {Number} stock_id - ID of the corresponding stock item
- * @returns {Promise<StockStatistic>} A list of stats
+ * @returns {Promise<StockStatistic|ModelError>} A list of stats
  *
  * @example
  * 	StockStatistics.getTodayByStockId(db, 7)
