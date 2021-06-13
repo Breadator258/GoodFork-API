@@ -10,6 +10,7 @@ import Checkers from "../../global/Checkers.js";
  * @property {string} [name] - Table name
  * @property {Number} capacity - Table capacity
  * @property {Boolean|Number} is_available - Is this table available
+ * @property {Boolean|Number} can_be_used - It is possible to place booking on it
  */
 
 /*****************************************************
@@ -26,12 +27,13 @@ import Checkers from "../../global/Checkers.js";
  * @param {string} [name] - Table name
  * @param {Number} capacity - Table capacity
  * @param {Boolean|Number} [is_available=1] - Is this table available
+ * @param {Boolean|Number} [can_be_used=1] - It is possible to place booking on it
  * @returns {Promise<void|ModelError>} Nothing or a ModelError
  *
  * @example
  * 	Table.add(db, "Table n°4", 6)
  */
-const add = async (db, name, capacity, is_available = 1) => {
+const add = async (db, name, capacity, is_available = 1, can_be_used = 1) => {
 	if (!Checkers.strInRange(name, null, 255, true, true)) {
 		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["name"]);
 	}
@@ -41,9 +43,9 @@ const add = async (db, name, capacity, is_available = 1) => {
 	}
 
 	return db.query(`
-		INSERT INTO tables(name, capacity, is_available)
-		VALUES (?, ?, ?)
-		`, [name, capacity, is_available]
+		INSERT INTO tables(name, capacity, is_available, can_be_used)
+		VALUES (?, ?, ?, ?)
+		`, [name, capacity, is_available, can_be_used]
 	);
 };
 
@@ -61,7 +63,7 @@ const add = async (db, name, capacity, is_available = 1) => {
  * 	Table.getById(db, 4)
  */
 const getById = async (db, table_id) => {
-	const table = await db.query("SELECT table_id, name, capacity, is_available FROM tables WHERE table_id = ?", [table_id]);
+	const table = await db.query("SELECT table_id, name, capacity, is_available, can_be_used FROM tables WHERE table_id = ?", [table_id]);
 	return table[0] ? table[0] : new ModelError(404, `Aucune table n'a été trouvée avec l'ID "${table_id}".`);
 };
 
@@ -79,7 +81,7 @@ const getById = async (db, table_id) => {
  */
 const getByTableCapacity = async (db, capacity) => {
 	const table = await db.query(`
-		SELECT table_id, name, capacity, is_available 
+		SELECT table_id, name, capacity, is_available, can_be_used
 		FROM tables 
 		WHERE capacity >= ? AND is_available = 1
 		ORDER BY capacity
@@ -101,7 +103,7 @@ const getByTableCapacity = async (db, capacity) => {
  * 	Table.getAll(db)
  */
 const getAll = async db => {
-	return db.query("SELECT table_id, name, capacity, is_available FROM tables ORDER BY table_id");
+	return db.query("SELECT table_id, name, capacity, is_available, can_be_used FROM tables ORDER BY table_id");
 };
 
 /* ---- UPDATE ---------------------------------- */
@@ -115,12 +117,13 @@ const getAll = async db => {
  * @param {string} [name] - Table name
  * @param {Number} [capacity] - Table capacity
  * @param {Boolean|Number} [is_available] - Is this table available
+ * @param {Boolean|Number} [can_be_used] - It is possible to place booking on it
  * @returns {Promise<void|ModelError>} Nothing or a ModelError
  *
  * @example
  * 	Table.update(db, 12, null, 4, null)
  */
-const update = async (db, table_id, name, capacity, is_available) => {
+const update = async (db, table_id, name, capacity, is_available, can_be_used) => {
 	if (!Checkers.strInRange(name, null, 255, true, true)) {
 		return new ModelError(400, "Vous devez fournir un nom valide. (max. 255 caractères).", ["name"]);
 	}
@@ -129,7 +132,7 @@ const update = async (db, table_id, name, capacity, is_available) => {
 		return new ModelError(400, "Vous devez fournir une capacité valide.", ["capacity"]);
 	}
 
-	const updatingFields = getFieldsToUpdate({ name, capacity, is_available });
+	const updatingFields = getFieldsToUpdate({ name, capacity, is_available, can_be_used });
 	if (!updatingFields) return new ModelError(200, "Rien à mettre à jour.");
 
 	return db.query(`UPDATE tables SET ${updatingFields} WHERE table_id = ?`, [table_id]);
