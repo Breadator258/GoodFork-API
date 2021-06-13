@@ -172,7 +172,7 @@ const validOrderBy = ["menu_id", "name", "type_id", "price"];
  *
  * @param {Promise<void>} db - Database connection
  * @param {string} [orderBy] - One of ["menu_id", "name", "type_id", "price"]
- * @returns {Promise<Array<Menu>|ModelError>} A list of menus or a ModelError
+ * @returns {Promise<Array<Menu>>} A list of menus or a ModelError
  *
  * @example
  * 	Menu.getAll(db)
@@ -205,6 +205,21 @@ const getAll = async (db, orderBy) => {
 	`);
 
 	return buildMenus(db, menus);
+};
+
+/**
+ * @async
+ * @function getAllNames
+ * @description Get all menus names
+ *
+ * @param {Promise<void>} db - Database connection
+ * @returns {Promise<Array<string>>} A list of menus names
+ *
+ * @example
+ * 	Menu.getAllNames(db)
+ */
+const getAllNames = async (db) => {
+	return buildMenusNames(await db.query("SELECT name FROM menus ORDER BY menu_id"));
 };
 
 /**
@@ -260,7 +275,7 @@ const getById = async (db, menu_id) => {
  *
  * @example
  * 	Menus.buildMenus(db, [<Menu>, ...])
- *Booking.buildMenus(db, <Menu>)
+ *Menus.buildMenus(db, <Menu>)
  */
 const buildMenus = async (db, menus) => {
 	const fullMenus = new Map();
@@ -316,6 +331,32 @@ const buildMenus = async (db, menus) => {
 		await build(menus);
 
 		return fullMenus.values().next().value;
+	}
+};
+
+/**
+ * @async
+ * @function buildMenusNames
+ * @description Keep only names
+ *
+ * @param {Array<Menu>|Menu} menus - One or multiple menus
+ * @returns {Array<string>|string} - A list or a single menu(s) name(s)
+ *
+ * @example
+ * 	Menus.buildMenusNames(db, [<Menu>, ...])
+ *Menus.buildMenusNames(db, <Menu>)
+ */
+const buildMenusNames = menus => {
+	if (Checkers.isArray(menus)) {
+		const menusNames = [];
+
+		for (const menu of menus) {
+			menusNames.push(menu.name);
+		}
+
+		return menusNames;
+	} else {
+		return menus.name;
 	}
 };
 
@@ -462,6 +503,7 @@ const Menu = {
 	addIngredient,
 	getById,
 	getAll,
+	getAllNames,
 	update,
 	setIllustration,
 	updateIngredient,

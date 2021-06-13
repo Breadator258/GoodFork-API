@@ -129,6 +129,27 @@ export default (router) => {
 	);
 
 	route.get(
+		"/names/all",
+		middlewares.database,
+		async (request, response) => {
+			const db = await request.database;
+
+			response.set("Content-Type", "application/json");
+
+			Menu.getAllNames(db)
+				.then(result => {
+					if (result instanceof ModelError) {
+						response.status(result.code()).json(result.json()).end();
+					} else {
+						response.status(200).json({ code: 200, menus: result }).end();
+					}
+				})
+				.catch(err => response.status(500).json(new ModelError(500, err.message).json()).end())
+				.finally(() => db ? db.release() : null);
+		}
+	);
+
+	route.get(
 		"/:menu_id",
 		middlewares.database,
 		async (request, response) => {
