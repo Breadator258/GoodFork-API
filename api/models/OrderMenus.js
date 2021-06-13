@@ -307,7 +307,7 @@ const updateMenusToReadyByOrder = async (db, order_id) => {
 const updateMenuToWaitingByOrder = async (db, order_id, menu_id) => {
 	return db.query(`
   	UPDATE orders_menus
-    SET is_waiting = true
+    SET is_waiting = true, asking_time = CURRENT_TIMESTAMP()
     WHERE order_id = ? AND menu_id = ?;
 	`, [order_id, menu_id]);
 };
