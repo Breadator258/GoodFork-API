@@ -132,6 +132,8 @@ const update = async (db, table_id, name, capacity, is_available, can_be_used) =
 		return new ModelError(400, "Vous devez fournir une capacité valide.", ["capacity"]);
 	}
 
+	console.log(name, capacity, is_available, can_be_used);
+
 	const updatingFields = getFieldsToUpdate({ name, capacity, is_available, can_be_used });
 	if (!updatingFields) return new ModelError(200, "Rien à mettre à jour.");
 
