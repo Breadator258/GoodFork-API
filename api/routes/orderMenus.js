@@ -2,7 +2,6 @@ import { Router } from "express";
 import middlewares from "../middlewares/index.js";
 import OrderMenus from "../models/OrderMenus.js";
 import ModelError from "../../global/ModelError.js";
-import Table from "../models/Table";
 
 const route = Router();
 
