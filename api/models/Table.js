@@ -83,7 +83,7 @@ const getByTableCapacity = async (db, capacity) => {
 	const table = await db.query(`
 		SELECT table_id, name, capacity, is_available, can_be_used
 		FROM tables 
-		WHERE capacity >= ? AND is_available = 1
+		WHERE capacity >= ? AND is_available = 1 AND can_be_used = 1
 		ORDER BY capacity
 		LIMIT 1`,
 	[capacity]);
