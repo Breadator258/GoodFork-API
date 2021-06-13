@@ -13,6 +13,7 @@ import orderMenus from "./routes/orderMenus.js";
 import payment from "./routes/payment.js";
 import salesStatistics from "./routes/salesStatistics.js";
 import stockStatistics from "./routes/stockStatistics.js";
+import menusStatistics from "./routes/menusStatistics.js";
 
 export default () => {
 	const router = Router();
@@ -31,6 +32,7 @@ export default () => {
 	payment(router);
 	salesStatistics(router);
 	stockStatistics(router);
+	menusStatistics(router);
 
 	return router;
 };
