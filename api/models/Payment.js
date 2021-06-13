@@ -78,7 +78,7 @@ const payBooking = async (db, booking_id) => {
 	}
 
 	// Free the table
-	const tableUpdate = await Table.update(db, booking.table_id, null, null, true, null);
+	const tableUpdate = await Table.update(db, booking.table.table_id, null, null, true, null);
 
 	if (tableUpdate instanceof ModelError) {
 		return new ModelError(400, `Erreur lors du paiement : ${tableUpdate.message()}`);
